@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games | Motion Picture Mafia Studio</title>
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6KK47Q2PLX');
+</script> 
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff4757">
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header>
+    <h1>Motion Picture Mafia Studio</h1>
+    <p>Games Articles & Reviews</p>
+  </header>
+
+  <!-- ===== Navigation ===== -->
+  <nav>
+    <a href="https://motionpicturemafia.netlify.app/">Home</a>
+    <a href="https://motionpicturemafia.netlify.app/movies/movies">Movies</a>
+    <a href="https://motionpicturemafia.netlify.app/tv%20series/tv%20series">TV Series</a>
+    <a href="https://motionpicturemafia.netlify.app/anime/anime">Anime</a>
+    <a href="games.html" class="active">Games</a>
+    <a href="https://motionpicturemafia.netlify.app/updates/updates">Updates</a>
+    
+  </nav>
+
+  <!-- ===== Search Box ===== -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search articles...">
+  </div>
+
+  <!-- ===== Main Container ===== -->
+  <div class="container">
+    <!-- ===== Articles Section ===== -->
+    <div class="articles" id="articleList">
+
+      <!-- Article 1 -->
+      <div class="card">
+        <img src="https://xboxwire.thesourcemediaassets.com/sites/2/2024/05/Hero-8c18da7c19a1a8811ddb.jpg" alt="Minecraft">
+        <h2>Minecraft නිර්මාණකරු Markus Persson aka: Notch' Minecraft දෙවන game එකක් නිර්මාණය කරන බවට ඉගි පල කරයි.</h2>
+        <p class="author">By Kane</p>
+        <p>Notch මෙසේ ප්‍රකාශ කරන්නේ fan poll එකක result වලට පසුවය. එහි නම 'Minecraft 2'...</p>
+        <a href="minecraft 2.html" class="read-more">Read More</a>
+      </div>
+
+      <!-- Article 2 -->
+      <div class="card">
+        <img src="https://www.nvidia.com/content/dam/en-zz/Solutions/geforce/graphic-cards/50-series/rtx-5090/geforce-rtx-5090-learn-more-og-1200x630.jpg" alt="Rtx50">
+        <h2>New NVIDIA RTX 50 Series</h2>
+        <p class="author">By SANA</p>
+        <p>ලෝකේ අංක එකේ Multinational technology Company එකක් වන Nvidia විසින් ඔවුන්ගේ මීලග GPU Series එක වන RTX 50 Series...</p>
+        <a href="rtx50.html" class="read-more">Read More</a>
+      </div>
+
+      <!-- You can keep adding more cards here -->
+
+    </div>
+
+    <!-- ===== Sidebar Section ===== -->
+    <aside class="sidebar">
+      <h2>Updates</h2>
+      <ul>
+        <li><a href="https://motionpicturemafia.netlify.app/updates/update%20game%20list" class="read-more">Uploaded Game List</a></li>
+        <p><li><a href="https://motionpicturemafia.netlify.app/free%20games/" class="read-more">Check out the latest free game deals!</a></li><p>
+      </ul>
+    </aside>
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p>&copy; 2025 Motion Picture Mafia Studio | Designed By SANA</p>
+    <p>Follow us on 
+      <a href="https://web.facebook.com/groups/721197248262091">Facebook</a>, 
+      <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i">WhatsApp</a>
+    </p>
+  </footer>
+
+  <!-- ===== Back to Top Button ===== -->
+  <button id="backToTop">↑</button>
+
+  <!-- ===== Scripts ===== -->
+  <script>
+    // Back to Top button
+    const backToTop = document.getElementById("backToTop");
+    window.onscroll = function () {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTop.style.display = "block";
+      } else {
+        backToTop.style.display = "none";
+      }
+    };
+    backToTop.onclick = function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    // Search Filter
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keyup", function () {
+      const filter = searchInput.value.toLowerCase();
+      const cards = document.querySelectorAll(".card");
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(filter) ? "" : "none";
+      });
+    });
+  </script>
+</body>
+</html>
