@@ -137,3 +137,56 @@ async function voteRequest(id, change) {
   if (snap.exists()) await updateDoc(ref, { votes: (snap.data().votes || 0) + change });
   localStorage.setItem(voteKey, "true");
 }
+
+// IMDB popup
+
+async function fetchIMDbDetails(title) {
+  const apiKey = "edaff8bc"; // Replace with your OMDb key
+  const url = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=${apiKey}`;
+  const res = await fetch(url);
+  return res.json();
+}
+
+onSnapshot(requestsQuery, snapshot => {
+  requestList.innerHTML = "";
+  snapshot.forEach(async docSnap => {
+    const req = docSnap.data();
+    const li = document.createElement("li");
+    li.classList.add("request-item");
+    li.innerHTML = `
+      <span class="req-text">${req.text}</span>
+      <span class="vote-buttons">
+        <button class="upvote">👍</button>
+        <button class="downvote">👎</button>
+        <span>${req.votes}</span>
+      </span>
+      <div class="imdb-popup hidden"></div>
+    `;
+    
+    // IMDb fetch
+    const imdbBox = li.querySelector(".imdb-popup");
+    const details = await fetchIMDbDetails(req.text);
+    if (details && details.Response !== "False") {
+      imdbBox.innerHTML = `
+        <img src="${details.Poster}" alt="${details.Title}" />
+        <div>
+          <strong>${details.Title} (${details.Year})</strong><br>
+          ⭐ ${details.imdbRating} / 10<br>
+          <small>${details.Plot.slice(0,100)}...</small><br>
+          <a href="https://www.imdb.com/title/${details.imdbID}/" target="_blank">View on IMDb</a>
+        </div>
+      `;
+    }
+
+    // Show popup on hover/tap
+    li.addEventListener("mouseenter", () => imdbBox.classList.remove("hidden"));
+    li.addEventListener("mouseleave", () => imdbBox.classList.add("hidden"));
+    li.addEventListener("click", () => imdbBox.classList.toggle("hidden"));
+
+    // Voting
+    li.querySelector(".upvote").addEventListener("click", () => voteRequest(docSnap.id, 1));
+    li.querySelector(".downvote").addEventListener("click", () => voteRequest(docSnap.id, -1));
+
+    requestList.appendChild(li);
+  });
+});
