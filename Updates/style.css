@@ -196,3 +196,23 @@ footer {
     font-size: 14px;
   }
 }
+
+.whatsapp {
+  color: hwb(123 4% 3%);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.whatsapp:hover {
+  text-decoration: underline;
+}
+
+.facebook {
+  color: oklab(50.827% 0.00712 -0.27622);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.facebook:hover {
+  text-decoration: underline;
+}
