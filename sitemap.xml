@@ -1,117 +1,114 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
+<?xml version="1.0" encoding="UTF-8"?> 
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
 <url>
   <loc>https://motionpicturemafia.netlify.app/</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>1.00</priority>
 </url>
 <url>
   <loc>https://motionpicturemafia.netlify.app/movies/movies</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/tv%20series/tv%20series</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
+  <loc>https://motionpicturemafia.netlify.app/Tv Series/tv series.html</loc>
 </url>
 <url>
   <loc>https://motionpicturemafia.netlify.app/anime/anime</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://motionpicturemafia.netlify.app/games/games</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://motionpicturemafia.netlify.app/updates/updates</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/movies/godzilla%20franchise</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
+  <loc>https://motionpicturemafia.netlify.app/Tv Series/Young Sheldon.html</loc>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/anime/rick%20and%20morty</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
+  <loc>https://motionpicturemafia.netlify.app/Tv Series/Black Mirror.html</loc>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/movies/james%20bond%20new%20movie</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
+  <loc>https://motionpicturemafia.netlify.app/Movies/Godzilla Franchise.html</loc>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/tv%20series/ring%20of%20power%205th</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
+  <loc>https://motionpicturemafia.netlify.app/Anime/rick and morty.html</loc>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/movies/knight%20rider%20reboot</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
+  <loc>https://motionpicturemafia.netlify.app/Movies/James bond new movie.html</loc>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/games/minecraft%202</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
+  <loc>https://motionpicturemafia.netlify.app/Tv Series/Ring of power 5th.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/Movies/Knight Rider Reboot.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/Games/minecraft 2.html</loc>
 </url>
 <url>
   <loc>https://motionpicturemafia.netlify.app/games/rtx50</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/tv%20series/fringe</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
+  <loc>https://motionpicturemafia.netlify.app/Tv Series/fringe.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/Updates/update game list.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/Free games/index.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/Updates/poll and req/poll and req.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/tv%20series/tv%20series</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/Godzilla Franchise.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/James bond new movie.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/Knight Rider Reboot.html</loc>
 </url>
 <url>
   <loc>https://motionpicturemafia.netlify.app/updates/update%20game%20list</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://motionpicturemafia.netlify.app/free%20games/</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/tv%20series/tv%20series.html</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.64</priority>
+  <loc></loc>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/anime/anime.html</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.64</priority>
+  <loc>https://motionpicturemafia.netlify.app/rick and morty.html</loc>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/anime/rick%20and%20morty.html</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.64</priority>
+  <loc>https://motionpicturemafia.netlify.app/minecraft 2.html</loc>
 </url>
 <url>
-  <loc>https://motionpicturemafia.netlify.app/games/minecraft%202.html</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.64</priority>
+  <loc>https://motionpicturemafia.netlify.app/update game list.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/poll and req/poll and req.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/tv series.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/Young Sheldon.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/Black Mirror.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/Ring of power 5th.html</loc>
+</url>
+<url>
+  <loc>https://motionpicturemafia.netlify.app/tv%20series/fringe</loc>
 </url>
 <url>
   <loc>https://motionpicturemafia.netlify.app/updates/update%20game%20list.html</loc>
-  <lastmod>2025-09-06T06:01:22+00:00</lastmod>
-  <priority>0.64</priority>
 </url>
-
-
+<url>
+  <loc>https://motionpicturemafia.netlify.app/tv%20series/ring%20of%20power%205th</loc>
+</url>
 </urlset>
