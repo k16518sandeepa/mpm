@@ -467,15 +467,15 @@
       }
     });
   });
-//RAWG function
-  async function fetchGameDetails(title) {
+// 🔎 RAWG API fetch
+async function fetchGameDetails(title) {
   const url = `https://api.rawg.io/api/games?key=0b78dbe2acc543f291ed3bf1a6062404&search=${encodeURIComponent(title)}`;
   const res = await fetch(url);
   const data = await res.json();
   return data.results && data.results.length > 0 ? data.results[0] : null;
 }
-// pop up
 
+// Apply popups
 document.querySelectorAll("#gameList li").forEach(async li => {
   const popup = document.createElement("div");
   popup.classList.add("popup", "hidden");
@@ -484,20 +484,37 @@ document.querySelectorAll("#gameList li").forEach(async li => {
   const game = await fetchGameDetails(li.textContent);
   if (game) {
     popup.innerHTML = `
-      <img src="${game.background_image}" alt="${game.name}" style="width:100%; border-radius:6px; margin-bottom:5px;">
+      <img src="${game.background_image}" alt="${game.name}">
       <strong>${game.name}</strong><br>
       ⭐ ${game.metacritic || "N/A"} / 100<br>
       📅 ${game.released || "Unknown"}<br>
-      <small>${game.genres.map(g=>g.name).join(", ")}</small>
+      <small>${game.genres.map(g => g.name).join(", ")}</small>
     `;
   } else {
     popup.innerHTML = `<em>No details found</em>`;
   }
 
-  // Hover & click behavior
-  li.addEventListener("mouseenter", () => popup.classList.remove("hidden"));
-  li.addEventListener("mouseleave", () => popup.classList.add("hidden"));
-  li.addEventListener("click", () => popup.classList.toggle("hidden")); // mobile
+  // Desktop hover
+  li.addEventListener("mouseenter", () => {
+    if (window.innerWidth > 768) popup.classList.remove("hidden");
+  });
+  li.addEventListener("mouseleave", () => {
+    if (window.innerWidth > 768) popup.classList.add("hidden");
+  });
+
+  // Mobile tap toggle
+  li.addEventListener("click", () => {
+    // Close all other popups first
+    document.querySelectorAll(".popup").forEach(p => p.classList.add("hidden"));
+    popup.classList.toggle("hidden");
+  });
+});
+
+// Close popup if clicking outside (mobile safe)
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("#gameList li")) {
+    document.querySelectorAll(".popup").forEach(p => p.classList.add("hidden"));
+  }
 });
 </script>
 
