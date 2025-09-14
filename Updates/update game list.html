@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://motionpicturemafia.netlify.app/updates/update%20game%20list.html">
 <meta property="og:type" content="article">
  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
+<script async src="https://www.googletamanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -57,7 +57,16 @@
     <input type="text" id="searchBox" placeholder="🔍 Search games...">
 
     <h2>2025</h2>
-<ol>
+<ol id="gameList">
+<li>2025.09.13:- Hollow Knight: Silksong [Fitgirl Repack]</li>
+<li>2025.09.13:- Hollow Knight [Fitgirl Repack]</li>
+<li>2025.09.09:- Call of Duty: Modern Warfare III [Fitgirl Repack]</li>
+<li>2025.09.05:- Need for Speed Most Wanted 2012 [Dodi Repack]</li>
+<li>2025.09.05:- Need for Speed Most Wanted 2005 [Dodi Repack]</li>
+<li>2025.09.04:- Granny Remake</li>
+<li>2025.08.10:- Call of Duty: Black Ops 6 [Fitgirl Repack]</li>
+<li>2025.08.04:- Spelunky 2</li>
+<li>2025.06.07:- Command & Conquer 3 - Dilogy</li>
 <li>2025.05.31:- Call of Duty: Modern Warfare 2 Campaign (Reboot) [Portable]</li>
 <li>2025.05.31:- Need for Speed Payback [Fitgirl Repack]</li>
 <li>2025.05.31:- Watch Dogs [Fitgirl Repack]</li>
@@ -458,6 +467,38 @@
       }
     });
   });
+//RAWG function
+  async function fetchGameDetails(title) {
+  const url = `https://api.rawg.io/api/games?key=0b78dbe2acc543f291ed3bf1a6062404&search=${encodeURIComponent(title)}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.results && data.results.length > 0 ? data.results[0] : null;
+}
+// pop up
+
+document.querySelectorAll("#gameList li").forEach(async li => {
+  const popup = document.createElement("div");
+  popup.classList.add("popup", "hidden");
+  li.appendChild(popup);
+
+  const game = await fetchGameDetails(li.textContent);
+  if (game) {
+    popup.innerHTML = `
+      <img src="${game.background_image}" alt="${game.name}" style="width:100%; border-radius:6px; margin-bottom:5px;">
+      <strong>${game.name}</strong><br>
+      ⭐ ${game.metacritic || "N/A"} / 100<br>
+      📅 ${game.released || "Unknown"}<br>
+      <small>${game.genres.map(g=>g.name).join(", ")}</small>
+    `;
+  } else {
+    popup.innerHTML = `<em>No details found</em>`;
+  }
+
+  // Hover & click behavior
+  li.addEventListener("mouseenter", () => popup.classList.remove("hidden"));
+  li.addEventListener("mouseleave", () => popup.classList.add("hidden"));
+  li.addEventListener("click", () => popup.classList.toggle("hidden")); // mobile
+});
 </script>
 
 </body>

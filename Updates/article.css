@@ -249,3 +249,18 @@ body.light-theme footer {
     font-size: 15px;
   }
 }
+
+/* popup */
+.popup {
+  position: absolute;
+  background: #222;
+  color: #fff;
+  border: 1px solid #ff4757;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 250px;
+  z-index: 100;
+}
+.hidden { display: none; }
+#gameList li { position: relative; cursor: pointer; }
