@@ -216,3 +216,13 @@ footer {
 .facebook:hover {
   text-decoration: underline;
 }
+
+.info {
+  color: oklch(65.716% 0.23032 19.593);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.info:hover {
+  text-decoration: underline;
+}
