@@ -255,3 +255,27 @@ footer {
 .hidden {
   display: none;
 }
+.info {
+  color: oklch(65.716% 0.23032 19.593);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.info:hover {
+  text-decoration: underline;
+}
+
+.social-icons a {
+    margin: 0 8px;
+    display: inline-block;
+  }
+  .social-icons img {
+    width: 28px;
+    height: 28px;
+    
+    transition: 0.3s;
+  }
+  .social-icons img:hover {
+    filter: none; /* show original colors on hover */
+    transform: scale(1.1);
+  }
