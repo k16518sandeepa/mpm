@@ -31,7 +31,7 @@
     <a href="https://motionpicturemafia.netlify.app/">Home</a>
     <a href="https://motionpicturemafia.netlify.app/movies/movies">Movies</a>
     <a href="https://motionpicturemafia.netlify.app/tv%20series/tv%20series">TV Series</a>
-    <a href="anime.html" class="active">Anime</a>
+    <a href="anime.html" class="activee">Anime</a>
     <a href="https://motionpicturemafia.netlify.app/games/games">Games</a>
     <a href="https://motionpicturemafia.netlify.app/updates/updates">Updates</a>
     
@@ -69,6 +69,82 @@
         <p><li><a href="https://motionpicturemafia.netlify.app/free%20games/" class="read-more">Check out the latest free game deals!</a></li><p>
         <p><li><a href="https://motionpicturemafia.netlify.app/updates/poll%20and%20req/poll%20and%20req" class="read-more">Polls and Requests Zone</a></li></p>
       </ul>
+      <div class="awards-section">
+  <h2 class="section-title">🏆 Cruncyroll Anime Awards 2025</h2>
+  <div class="slideshow-container">
+
+    <!-- Slides -->
+    <div class="mySlides fade">
+      <img src="https://i.imgur.com/oJlySAo.jpeg" alt="Must protect" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://i.imgur.com/IaA4nfq.jpeg" alt="new series" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://i.imgur.com/plzr2fM.jpeg" alt="bg art" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/xPLc2B9.jpeg" alt="character design" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/kI8gJYp.jpeg" alt="action" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/DtubUM0.jpeg" alt="sup cha" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/f2q5qgb.jpeg" alt="drama" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/blRfpy0.jpeg" alt="main cha" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/2rwWbp9.jpeg" alt="voice" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/dZSqyOS.jpeg" alt="romance" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/qUp88bv.jpeg" alt="comedy" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/7A2wwDx.jpeg" alt="animation" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/xRyscLV.jpeg" alt="Isekai" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/kKaZBKV.jpeg" alt="conti" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/JlUR883.jpeg" alt="original" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/ANDca0A.jpeg" alt="sliceoflife" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/zVlp4uz.jpeg" alt="director" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/fDiR3kC.jpeg" alt="film" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/ra7YQR4.jpeg" alt="anime" />
+    </div>
+   
+
+    <!-- Controls -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+
+  <!-- Dots -->
+  <div class="dots-container">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+  </div>
+</div>
     </aside>
   </div>
 
@@ -128,6 +204,44 @@
         card.style.display = text.includes(filter) ? "" : "none";
       });
     });
+
+    //awards
+
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].classList.remove("active");
+  }
+
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].classList.add("active");
+}
+
+// Auto slideshow
+setInterval(() => {
+  plusSlides(1);
+}, 5000);
+
   </script>
 </body>
 </html>

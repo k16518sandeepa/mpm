@@ -29,7 +29,7 @@
   <!-- ===== Navigation ===== -->
   <nav>
     <a href="https://motionpicturemafia.netlify.app/">Home</a>
-    <a href="movies.html" class="active">Movies</a>
+    <a href="movies.html" class="activee">Movies</a>
     <a href="https://motionpicturemafia.netlify.app/tv%20series/tv%20series">TV Series</a>
     <a href="https://motionpicturemafia.netlify.app/anime/anime">Anime</a>
     <a href="https://motionpicturemafia.netlify.app/games/games">Games</a>
@@ -89,6 +89,86 @@
         <p><li><a href="https://motionpicturemafia.netlify.app/free%20games/" class="read-more">Check out the latest free game deals!</a></li><p>
           <p><li><a href="https://motionpicturemafia.netlify.app/updates/poll%20and%20req/poll%20and%20req" class="read-more">Polls and Requests Zone</a></li></p>
       </ul>
+      <div class="awards-section">
+  <h2 class="section-title">🏆 Oscars 2025</h2>
+  <div class="slideshow-container">
+
+    <!-- Slides -->
+     <div class="mySlides fade">
+      <img src="https://imgur.com/WbLnCFi.jpeg" alt="oscars25" />
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/ZAd78aO.jpeg" alt="leading role" />
+      <div class="caption">Adrien Brody</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/LGhjvHn.jpeg" alt="actress" />
+      <div class="caption">Mikey Madison</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/QwgH9hu.jpeg" alt="shrt film" />
+      <div class="caption">In the Shadow of the Cypress</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/y1ZvJ9U.jpeg" alt="animated film" />
+      <div class="caption">Flow</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/YsmZtAV.jpeg" alt="picture" />
+      <div class="caption">Anora</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/J4AJsLB.jpeg" alt="sound" />
+      <div class="caption">Dune: Part 2</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/XuheRCk.jpeg" alt="cinematography" />
+      <div class="caption">The Brutalist</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/QCjbGj1.jpeg" alt="costume" />
+      <div class="caption">Wicked</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/JiedrXF.jpeg" alt="director" />
+      <div class="caption">Sean Baker | Anora</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/FFFTyEE.jpeg" alt="editing" />
+      <div class="caption">Anora</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/I7zpvAj.jpeg" alt="live shrt film" />
+      <div class="caption">I'm Not a Robot</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/Cf7jZge.jpeg" alt="prd design" />
+      <div class="caption">Wicked</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/h6UUArI.jpeg" alt="sup role" />
+      <div class="caption">Kieran Culkin | A Real Pain</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/GoMCARa.jpeg" alt="sup rolef" />
+      <div class="caption">Zoe Saldana | Emilia Perez</div>
+    </div>
+    <div class="mySlides fade">
+      <img src="https://imgur.com/kLxAKjx.jpeg" alt="visual" />
+      <div class="caption">Dune: Part 2</div>
+    </div>    
+    <!-- Controls -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+
+  <!-- Dots -->
+  <div class="dots-container">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+  </div>
+</div>
     </aside>
   </div>
 
@@ -147,6 +227,43 @@
         card.style.display = text.includes(filter) ? "" : "none";
       });
     });
+
+    //awards
+
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].classList.remove("active");
+  }
+
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].classList.add("active");
+}
+
+// Auto slideshow
+setInterval(() => {
+  plusSlides(1);
+}, 5000);
   </script>
 </body>
 </html>

@@ -33,7 +33,7 @@ nav a {
 nav a:hover {
   color: hsl(290, 100%, 64%);
 }
-nav a.active {
+nav a.activee {
   color: #ff4757;
   border-bottom: 2px solid #ff4757;
 }
@@ -270,3 +270,86 @@ footer {
     filter: none; /* show original colors on hover */
     transform: scale(1.1);
   }
+
+   /*awards*/
+
+.awards-section {
+  margin: 40px auto;
+  max-width: 1080px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.slideshow-container {
+  position: relative;
+  max-width: 100%;
+  margin: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.mySlides {
+  display: none;
+}
+
+.mySlides img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.caption {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 12px;
+  font-size: 1rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  transition: 0.3s;
+  user-select: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.4);
+}
+
+.next { right: 10px; }
+.prev { left: 10px; }
+
+.prev:hover, .next:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+/* Dots */
+.dots-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.active, .dot:hover {
+  background-color: #f44336; /* red theme */
+}
