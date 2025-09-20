@@ -50,7 +50,10 @@
       <!-- Article 1 -->
         <div class="card">
         <img src="https://www.mobiletopup.co.uk/_next/image?url=https%3A%2F%2Fstatic.rapido.com%2Fcms%2Fsites%2F23%2F2024%2F07%2F22133922%2FSteam-LL.png&w=3840&q=100" alt="Steam">
+        <div class="article-card" data-time="2025-09-19T22:00:00Z">
         <h2>Steam Dropping Support for Windows 10 32-Bit</h2>
+        <p class="time"></p>
+        </div>
         <p class="author">By SANA</p>
         <p>Valve විසින් ඊයේ(සැප්තැම්බර් 18) දින Steam platform එක support කරන අවසාන 32bit OS එක වන Windows 10 32bit...</p>
         <a href="steam-windows-32-bit-stop.html" class="read-more">Read More</a>
@@ -58,7 +61,10 @@
 
       <div class="card">
         <img src="https://xboxwire.thesourcemediaassets.com/sites/2/2024/05/Hero-8c18da7c19a1a8811ddb.jpg" alt="Minecraft">
+        <div class="article-card" data-time="2025-09-01T22:00:00Z">
         <h2>Minecraft නිර්මාණකරු Markus Persson aka: Notch' Minecraft දෙවන game එකක් නිර්මාණය කරන බවට ඉගි පල කරයි.</h2>
+        <p class="time"></p>
+        </div>
         <p class="author">By Kane</p>
         <p>Notch මෙසේ ප්‍රකාශ කරන්නේ fan poll එකක result වලට පසුවය. එහි නම 'Minecraft 2'...</p>
         <a href="minecraft 2.html" class="read-more">Read More</a>
@@ -66,7 +72,10 @@
       <!-- Article 2 -->
       <div class="card">
         <img src="https://www.nvidia.com/content/dam/en-zz/Solutions/geforce/graphic-cards/50-series/rtx-5090/geforce-rtx-5090-learn-more-og-1200x630.jpg" alt="Rtx50">
+        <div class="article-card" data-time="2025-09-01T22:00:00Z">
         <h2>New NVIDIA RTX 50 Series</h2>
+        <p class="time"></p>
+        </div>
         <p class="author">By SANA</p>
         <p>ලෝකේ අංක එකේ Multinational technology Company එකක් වන Nvidia විසින් ඔවුන්ගේ මීලග GPU Series එක වන RTX 50 Series...</p>
         <a href="rtx50.html" class="read-more">Read More</a>
@@ -304,6 +313,34 @@ setInterval(() => {
   plusSlides(1);
 }, 5000);
 
+//article publish time
+function timeAgo(date) {
+  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+
+  let interval = Math.floor(seconds / 31536000);
+  if (interval >= 1) return interval + " year" + (interval > 1 ? "s" : "") + " ago";
+
+  interval = Math.floor(seconds / 2592000);
+  if (interval >= 1) return interval + " month" + (interval > 1 ? "s" : "") + " ago";
+
+  interval = Math.floor(seconds / 86400);
+  if (interval >= 1) return interval + " day" + (interval > 1 ? "s" : "") + " ago";
+
+  interval = Math.floor(seconds / 3600);
+  if (interval >= 1) return interval + " hour" + (interval > 1 ? "s" : "") + " ago";
+
+  interval = Math.floor(seconds / 60);
+  if (interval >= 1) return interval + " minute" + (interval > 1 ? "s" : "") + " ago";
+
+  return "just now";
+}
+
+// Apply to all articles
+document.querySelectorAll(".article-card").forEach(card => {
+  const timeEl = card.querySelector(".time");
+  const date = card.dataset.time;
+  if (date) timeEl.textContent = timeAgo(date);
+});
   </script>
 </body>
 </html>

@@ -50,7 +50,10 @@
       <!-- Article 1 -->
       <div class="card">
         <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5dd3ffa7-d6d9-47f5-894d-a7b19db5eb1b/delyljh-749db370-146d-44c5-ab0b-b46eff5de8c7.jpg/v1/fill/w_1280,h_941,q_75,strp/godzilla___franchise_by_lagrie_delyljh-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTQxIiwicGF0aCI6IlwvZlwvNWRkM2ZmYTctZDZkOS00N2Y1LTg5NGQtYTdiMTlkYjVlYjFiXC9kZWx5bGpoLTc0OWRiMzcwLTE0NmQtNDRjNS1hYjBiLWI0NmVmZjVkZThjNy5qcGciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.L2HDgb1RcrLQoOZnWsrjWWoQjqv8uGnzKMnCiUnZeJg" alt="Godzilla">
+        <div class="article-card" data-time="2025-09-01T22:00:00Z">
         <h2>Godzilla Franchise</h2>
+         <p class="time"></p>
+        </div>
         <p class="author">By H.F. Tharindu</p>
         <p>ගොඩ්සිලා ෆිල්ම් එක පටන් ගන්නේ 1954 දී. මේ ෆිල්ම් සීරීස් එක ජපන් සීරීස් එකක්....</p>
         <a href="Godzilla Franchise.html" class="read-more">Read More</a>
@@ -60,7 +63,10 @@
        
       <div class="card">
         <img src="https://static0.colliderimages.com/wordpress/wp-content/uploads/2024/04/the-10-best-peaky-blinders-episodes-ranked.jpg" alt="Lames Bond new movie">
+        <div class="article-card" data-time="2025-09-01T22:00:00Z">
         <h2>📃 | The creator of ‘PEAKY BLINDERS,’ is officially set to write the script for Denis Villeneuve’s James Bond Movie.</h2>
+        <p class="time"></p>
+        </div>
         <p class="author">By Mpmᴺˢ</p>
         <p>Denis Villeneuve විසින් අධ්‍යක්ෂණ කිරීම⁣ට නියමිත නවතම James Bond චිත්‍රපටයේ...</p>
         <a href="James bond new movie.html" class="read-more">Read More</a>
@@ -69,7 +75,10 @@
       <!-- Article 3 -->
       <div class="card">
         <img src="https://cdn.flickeringmyth.com/wp-content/uploads/2020/08/knight-rider-retro-sci-fi-tv.jpg" alt="Knight rider reboot">
+        <div class="article-card" data-time="2025-09-01T22:00:00Z">
         <h2>🚘 | New ‘KNIGHT RIDER’ Movie in the Works From ‘Cobra Kai’ Creators.</h2>
+        <p class="time"></p>
+        </div>
         <p class="author">By Mpmᴺˢ</p>
         <p>1982 වසරේ නිකුත් වුණු අතිශය ජනප්‍රිය Knight Rider කතා මාලාව ඇසුරින් නවතම (Reboot) චිත්‍රපටයක්...</p>
         <a href="Knight Rider Reboot.html" class="read-more">Read More</a>
@@ -264,6 +273,35 @@ function showSlides(n) {
 setInterval(() => {
   plusSlides(1);
 }, 5000);
+
+ //article publish time
+function timeAgo(date) {
+  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+
+  let interval = Math.floor(seconds / 31536000);
+  if (interval >= 1) return interval + " year" + (interval > 1 ? "s" : "") + " ago";
+
+  interval = Math.floor(seconds / 2592000);
+  if (interval >= 1) return interval + " month" + (interval > 1 ? "s" : "") + " ago";
+
+  interval = Math.floor(seconds / 86400);
+  if (interval >= 1) return interval + " day" + (interval > 1 ? "s" : "") + " ago";
+
+  interval = Math.floor(seconds / 3600);
+  if (interval >= 1) return interval + " hour" + (interval > 1 ? "s" : "") + " ago";
+
+  interval = Math.floor(seconds / 60);
+  if (interval >= 1) return interval + " minute" + (interval > 1 ? "s" : "") + " ago";
+
+  return "just now";
+}
+
+// Apply to all articles
+document.querySelectorAll(".article-card").forEach(card => {
+  const timeEl = card.querySelector(".time");
+  const date = card.dataset.time;
+  if (date) timeEl.textContent = timeAgo(date);
+});
   </script>
 </body>
 </html>
