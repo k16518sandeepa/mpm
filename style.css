@@ -394,3 +394,24 @@ footer {
     filter: none; /* show original colors on hover */
     transform: scale(1.1);
   }
+
+ /*Hashtags*/
+ .categories {
+  margin-top: 12px;
+}
+
+.hashtag {
+  background: #f4f4f4;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 12px;
+  margin-right: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.hashtag:hover {
+  background: #ff4b4b;
+  color: #fff;
+}
