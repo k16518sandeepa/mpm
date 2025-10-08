@@ -30,27 +30,6 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff4757">
 
-<!-- Firebase -->
-<script type="module">
-  // Import Firebase SDK (version 9+ modular)
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getFirestore, collection, addDoc, query, where, orderBy, getDocs, serverTimestamp } 
-    from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-
-  // Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9fDC9MswOZn_HHyR4mUcnaT66dTpHEUU",
-    authDomain: "mpm-webdb.firebaseapp.com",
-    projectId: "mpm-webdb",
-    storageBucket: "mpm-webdb.appspot.com",
-    messagingSenderId: "505825453901",
-    appId: "1:505825453901:web:9588e60f9702192473f904"
-  };
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script>
 
 </head>
 <body>
@@ -96,17 +75,6 @@
 
 <button onclick="topFunction()" class="back-to-top" title="Go to top">↑ Top</button>
 
-<!-- Comment Section -->
-<section class="comments-section">
-  <h2>💬 Comments</h2>
-  <form id="commentForm">
-    <input type="text" id="username" placeholder="Your name" required>
-    <textarea id="comment" placeholder="Write a comment..." required></textarea>
-    <button type="submit">Post Comment</button>
-  </form>
-
-  <div id="commentsList"></div>
-</section>
 
 <footer>
   <p>© 2025 Motion Picture Mafia Studio | Designed by SANA</p>
