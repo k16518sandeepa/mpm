@@ -29,6 +29,27 @@
 </script> 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff4757">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-firestore-compat.js"></script>
+
+<script>
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9fDC9MswOZn_HHyR4mUcnaT66dTpHEUU",
+    authDomain: "mpm-webdb.firebaseapp.com",
+    projectId: "mpm-webdb",
+    storageBucket: "mpm-webdb.appspot.com",
+    messagingSenderId: "505825453901",
+    appId: "1:505825453901:web:9588e60f9702192473f904"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
 </head>
 <body>
 
@@ -70,6 +91,18 @@
     <p class="author">By <strong>SANA</strong></p>
   </div>
 </div>
+ <!-- Comments -->
+<div class="comments-section">
+  <h2>Comments</h2>
+  <div class="comment-form">
+    <input type="text" id="username" placeholder="Your Name" required>
+    <textarea id="comment" placeholder="Write a comment..." rows="3" required></textarea>
+    <button id="postComment">Post Comment</button>
+  </div>
+  <div id="commentsList">
+  </div>
+</div>
+
 
 <button onclick="topFunction()" class="back-to-top" title="Go to top">↑ Top</button>
 

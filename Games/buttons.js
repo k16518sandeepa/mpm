@@ -90,3 +90,44 @@ document.querySelectorAll(".article-card").forEach(card => {
 });
 
 // Commets section
+const postCommentBtn = document.getElementById('postComment');
+const commentsList = document.getElementById('commentsList');
+
+const articleId = window.location.pathname; // Use URL as unique identifier
+
+// Post comment
+postCommentBtn.addEventListener('click', async () => {
+  const username = document.getElementById('username').value.trim();
+  const commentText = document.getElementById('comment').value.trim();
+  if (!username || !commentText) return alert("Please enter name & comment");
+
+  await db.collection('comments').add({
+    articleId,
+    username,
+    comment: commentText,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  });
+
+  document.getElementById('username').value = '';
+  document.getElementById('comment').value = '';
+});
+
+// Listen for new comments
+db.collection('comments')
+  .where('articleId', '==', articleId)
+  .orderBy('timestamp', 'desc')
+  .onSnapshot(snapshot => {
+    commentsList.innerHTML = '';
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const time = data.timestamp ? timeAgo(data.timestamp.toDate()) : 'Just now';
+      const commentEl = document.createElement('div');
+      commentEl.classList.add('comment');
+      commentEl.innerHTML = `
+        <div class="name">${data.username}</div>
+        <div class="time">${time}</div>
+        <div class="text">${data.comment}</div>
+      `;
+      commentsList.appendChild(commentEl);
+    });
+  });
