@@ -89,45 +89,66 @@ document.querySelectorAll(".article-card").forEach(card => {
   if (date) timeEl.textContent = timeAgo(date);
 });
 
-// Commets section
-const postCommentBtn = document.getElementById('postComment');
-const commentsList = document.getElementById('commentsList');
+  // === Helper: Generate Random Avatar ===
+  function getRandomAvatar(name) {
+    const seed = encodeURIComponent(name + Math.floor(Math.random() * 1000));
+    return `https://api.dicebear.com/9.x/identicon/svg?seed=${seed}`;
+  }
 
-const articleId = window.location.pathname; // Use URL as unique identifier
+  // === Handle Comment Submission ===
+  document.getElementById("postComment").addEventListener("click", async () => {
+    const username = document.getElementById("username").value.trim();
+    const comment = document.getElementById("comment").value.trim();
+    const articleId = window.location.pathname; // current page path as article ID
 
-// Post comment
-postCommentBtn.addEventListener('click', async () => {
-  const username = document.getElementById('username').value.trim();
-  const commentText = document.getElementById('comment').value.trim();
-  if (!username || !commentText) return alert("Please enter name & comment");
+    if (!username || !comment) {
+      alert("Please enter your name and a comment!");
+      return;
+    }
 
-  await db.collection('comments').add({
-    articleId,
-    username,
-    comment: commentText,
-    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    const avatar = getRandomAvatar(username);
+
+    try {
+      await db.collection("comments").add({
+        articleId,
+        username,
+        comment,
+        avatar,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+
+      document.getElementById("comment").value = "";
+      loadComments(); // refresh list
+    } catch (err) {
+      console.error("Error adding comment:", err);
+      alert("Failed to post comment. Check console for details.");
+    }
   });
 
-  document.getElementById('username').value = '';
-  document.getElementById('comment').value = '';
-});
+  // === Load Comments in Real-Time ===
+  function loadComments() {
+    const articleId = window.location.pathname;
+    db.collection("comments")
+      .where("articleId", "==", articleId)
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        const commentsList = document.getElementById("commentsList");
+        commentsList.innerHTML = "";
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          const commentHTML = `
+            <div style="display:flex;align-items:flex-start;margin-bottom:15px;padding:10px;border-radius:8px;background:#1e1e1e;">
+              <img src="${data.avatar || getRandomAvatar(data.username)}" alt="avatar" style="width:40px;height:40px;border-radius:50%;margin-right:10px;">
+              <div>
+                <strong style="color:#ff0055;">${data.username}</strong><br>
+                <p style="margin:5px 0;">${data.comment}</p>
+                <small style="color:#aaa;">${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : ""}</small>
+              </div>
+            </div>`;
+          commentsList.innerHTML += commentHTML;
+        });
+      });
+  }
 
-// Listen for new comments
-db.collection('comments')
-  .where('articleId', '==', articleId)
-  .orderBy('timestamp', 'desc')
-  .onSnapshot(snapshot => {
-    commentsList.innerHTML = '';
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      const time = data.timestamp ? timeAgo(data.timestamp.toDate()) : 'Just now';
-      const commentEl = document.createElement('div');
-      commentEl.classList.add('comment');
-      commentEl.innerHTML = `
-        <div class="name">${data.username}</div>
-        <div class="time">${time}</div>
-        <div class="text">${data.comment}</div>
-      `;
-      commentsList.appendChild(commentEl);
-    });
-  });
+  // Initial load
+  loadComments();
