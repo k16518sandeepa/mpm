@@ -101,9 +101,18 @@ document.querySelectorAll('.popup-word').forEach(word => {
     document.head.appendChild(style);
   }
 
-  // Mobile: toggle popup on tap
-  word.addEventListener('click', () => {
-    word.classList.toggle('show');
+  // For mobile: tap to toggle popup
+  word.addEventListener('click', e => {
+    e.stopPropagation();
+    document.querySelectorAll('.popup-word.active').forEach(el => {
+      if (el !== word) el.classList.remove('active');
+    });
+    word.classList.toggle('active');
   });
+});
+
+// Close popup when tapping outside
+document.addEventListener('click', () => {
+  document.querySelectorAll('.popup-word.active').forEach(el => el.classList.remove('active'));
 });
 

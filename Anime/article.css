@@ -263,26 +263,28 @@ body.light-theme footer {
 
 /* popup img */
 
+/* ==== Popup Word with Image Effect ==== */
+
 .popup-word {
   position: relative;
   color: #ff3c3c;
   font-weight: bold;
   cursor: pointer;
   transition: color 0.3s ease;
+  -webkit-tap-highlight-color: transparent; /* disable blue tap flash */
 }
 
-/* Hover color change */
 .popup-word:hover {
   color: #ff7b7b;
 }
 
-/* Hidden image bubble */
+/* Hidden popup image */
 .popup-word::after {
   content: "";
   position: absolute;
-  top: -160px; /* adjust popup height above word */
+  top: -180px;
   left: 50%;
-  transform: translateX(-50%) scale(0);
+  transform: translateX(-50%) scale(0.8);
   width: 160px;
   height: 160px;
   background-size: cover;
@@ -292,28 +294,23 @@ body.light-theme footer {
   opacity: 0;
   transition: all 0.3s ease;
   pointer-events: none;
-  z-index: 20;
+  z-index: 999;
 }
 
-/* Show on hover */
-.popup-word:hover::after {
+/* Hover/Active Show */
+.popup-word:hover::after,
+.popup-word.active::after {
   transform: translateX(-50%) scale(1);
   opacity: 1;
 }
 
-/* Mobile support: when .show is toggled (via JS) */
-.popup-word.show::after {
-  transform: translateX(-50%) scale(1);
-  opacity: 1;
-}
-
-/* Optional caption below the popup image */
+/* Caption */
 .popup-word::before {
   content: attr(data-caption);
   position: absolute;
   bottom: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%) scale(0);
+  transform: translateX(-50%) scale(0.8);
   background: rgba(0, 0, 0, 0.75);
   color: #fff;
   padding: 4px 8px;
@@ -323,11 +320,22 @@ body.light-theme footer {
   transition: all 0.3s ease;
   white-space: nowrap;
   pointer-events: none;
+  z-index: 1000;
 }
 
 .popup-word:hover::before,
-.popup-word.show::before {
+.popup-word.active::before {
   transform: translateX(-50%) scale(1);
   opacity: 1;
 }
+
+/* 🔹 Mobile optimization */
+@media (max-width: 768px) {
+  .popup-word::after {
+    top: -140px;
+    width: 140px;
+    height: 140px;
+  }
+}
+
 
