@@ -119,6 +119,7 @@ nav a.active {
 .article img:hover {
   transform: scale(1.05);
 }
+
 .article h1 {
   color: #ff4757;
   margin-bottom: 10px;
@@ -259,3 +260,74 @@ body.light-theme footer {
 .link:hover {
   text-decoration: underline;
 }
+
+/* popup img */
+
+.popup-word {
+  position: relative;
+  color: #ff3c3c;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* Hover color change */
+.popup-word:hover {
+  color: #ff7b7b;
+}
+
+/* Hidden image bubble */
+.popup-word::after {
+  content: "";
+  position: absolute;
+  top: -160px; /* adjust popup height above word */
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 160px;
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Show on hover */
+.popup-word:hover::after {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* Mobile support: when .show is toggled (via JS) */
+.popup-word.show::after {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* Optional caption below the popup image */
+.popup-word::before {
+  content: attr(data-caption);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.popup-word:hover::before,
+.popup-word.show::before {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+

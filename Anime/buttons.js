@@ -88,3 +88,22 @@ document.querySelectorAll(".article-card").forEach(card => {
   const date = card.dataset.time;
   if (date) timeEl.textContent = timeAgo(date);
 });
+//img popup
+document.querySelectorAll('.popup-word').forEach(word => {
+  const imgUrl = word.getAttribute('data-img');
+  if (imgUrl) {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .popup-word[data-img="${imgUrl}"]::after {
+        background-image: url(${imgUrl});
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Mobile: toggle popup on tap
+  word.addEventListener('click', () => {
+    word.classList.toggle('show');
+  });
+});
+
