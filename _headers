@@ -2,5 +2,3 @@
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
-/* 
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://platform.twitter.com https://syndication.twitter.com; frame-src https://platform.twitter.com https://syndication.twitter.com; connect-src 'self' https://platform.twitter.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://pbs.twimg.com data:;
