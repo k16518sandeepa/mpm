@@ -229,3 +229,16 @@ footer {
     filter: none; /* show original colors on hover */
     transform: scale(1.1);
   }
+
+  /*ads*/
+  .adsterra-native-banner {
+  margin: 30px 0;
+  padding: 10px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+  border-radius: 10px;
+}
+.adsterra-native-banner img {
+  max-width: 100%;
+  border-radius: 8px;
+}
