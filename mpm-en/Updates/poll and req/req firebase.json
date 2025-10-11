@@ -1,0 +1,23 @@
+{
+  "polls": {
+    "animePoll": {
+      "Demon Slayer": 0,
+      "One Piece": 0,
+      "Jujutsu Kaisen": 0
+    }
+  },
+  "requests": {
+    "req1": {
+      "text": "Add Naruto poll",
+      "votes": 0
+    },
+    "req2": {
+      "text": "Add One Piece discussion article",
+      "votes": 0
+    },
+    "req3": {
+      "text": "Add Attack on Titan anime review",
+      "votes": 0
+    }
+  }
+}
