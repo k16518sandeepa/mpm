@@ -451,3 +451,37 @@ footer {
     font-size: 14px;
   }
 }
+
+/*lang switch to en*/
+.lang-top-btn {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  background: linear-gradient(90deg, #ff3b3b, #ff7a7a);
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 0 12px rgba(255, 60, 60, 0.6);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.lang-top-btn:hover {
+  background: #fff;
+  color: #ff3b3b;
+  box-shadow: 0 0 20px rgba(255, 60, 60, 0.9);
+  transform: translateY(-2px);
+}
+
+/* Optional: make smaller on mobile */
+@media (max-width: 600px) {
+  .lang-top-btn {
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
