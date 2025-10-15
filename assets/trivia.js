@@ -85,3 +85,41 @@ window.onload = () => {
   loadQuestion();
   loadLeaderboard();
 };
+
+// Import Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// 🔥 Replace with your own config
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "mpm-trivia.firebaseapp.com",
+  projectId: "mpm-trivia",
+  storageBucket: "mpm-trivia.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcdef123456"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// 🧠 Load trivia questions
+async function loadQuestions() {
+  const querySnapshot = await getDocs(collection(db, "triviaQuestions"));
+  const questions = [];
+  querySnapshot.forEach((doc) => {
+    questions.push(doc.data());
+  });
+  console.log("Questions loaded:", questions);
+  // TODO: Display them on page
+}
+
+// 🏆 Save leaderboard entry
+async function saveScore(username, score) {
+  await addDoc(collection(db, "leaderboard"), { username, score });
+  alert("Your score has been saved!");
+}
+
+// Start loading
+loadQuestions();
