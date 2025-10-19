@@ -29,6 +29,7 @@ header h1 {
   margin: 0;
 }
 
+
 /* Navigation */
 nav {
   background: #2b2b2b;
@@ -123,6 +124,9 @@ nav a.active {
 .article h1 {
   color: #ff4757;
   margin-bottom: 10px;
+}
+.article h3 {
+  color: lab(59.74% 56.65 65.07);
 }
 body.light-theme .article h1 {
   color: #d91e18;
