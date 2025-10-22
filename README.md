@@ -1,6 +1,6 @@
 # 🎬 Motion Picture Mafia Studio (MPM)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/1b6491e6-cf5a-47eb-a45b-5984bb7cc62e/deploy-status)](https://app.netlify.com/sites/motionpicturemafia/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1b6491e6-cf5a-47eb-a45b-5984bb7cc62e/deploy-status)](https://app.netlify.com/projects/motionpicturemafia/deploys)
 ![GitHub repo size](https://img.shields.io/github/repo-size/k16518sandeepa/mpm)
 ![GitHub last commit](https://img.shields.io/github/last-commit/k16518sandeepa/mpm)
 ![GitHub issues](https://img.shields.io/github/issues/k16518sandeepa/mpm)
