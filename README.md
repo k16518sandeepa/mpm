@@ -32,3 +32,30 @@ Welcome to **Motion Picture Mafia Studio**, an open-source media platform that b
 - **Comments:** Giscus (GitHub Discussions)  
 - **Analytics:** Google Analytics  
 - **Ads Integration:** Adsterra / AdSense (pending)
+
+---
+
+## 💡 Future Plans
+- Add AI-based recommendation for related articles  
+- Introduce user login system (via Firebase Auth)  
+- Add image compression and CDN support  
+- Add Sinhala ↔ English auto-redirect for language detection  
+
+---
+
+## ☕ Support the Project
+If you like MPM and want to support its growth ❤️  
+you can help by donating or advertising through our support page:
+
+👉 [Support Us](https://motionpicturemafia.com/support-us)
+
+---
+
+## 📬 Contact
+📧 Email: [admin@motionpicturemafia.com](mailto:admin@motionpicturemafia.com)  
+🐙 GitHub: [@k16518sandeepa](https://github.com/k16518sandeepa)
+
+---
+
+### © 2025 Motion Picture Mafia Studio
+*Created with ❤️ by SANA (Sandeepa Thennakoon)*
