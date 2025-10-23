@@ -116,29 +116,14 @@ document.addEventListener('click', () => {
   document.querySelectorAll('.popup-word.active').forEach(el => el.classList.remove('active'));
 });
 // quick nav
-document.addEventListener("DOMContentLoaded", () => {
-  const tocToggle = document.getElementById("toc-toggle");
-  const tocContent = document.getElementById("toc-content");
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('toggle-nav');
+  const quickNav = document.getElementById('quick-nav');
 
-  tocToggle.addEventListener("click", () => {
-    const visible = tocContent.style.display === "block";
-    tocContent.style.display = visible ? "none" : "block";
-    tocToggle.textContent = visible ? "☰ Navigation" : "✖ Close";
-  });
-
-  // Smooth scroll to sections
-  document.querySelectorAll("#toc-content a").forEach(link => {
-    link.addEventListener("click", e => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute("href"));
-      if (target) {
-        window.scrollTo({
-          top: target.offsetTop - 60,
-          behavior: "smooth"
-        });
-      }
-      tocContent.style.display = "none"; // close after click (mobile friendly)
-      tocToggle.textContent = "☰ Navigation";
-    });
+  toggleBtn.addEventListener('click', () => {
+    quickNav.classList.toggle('active');
+    toggleBtn.textContent = quickNav.classList.contains('active')
+      ? '❌ Close Navigation'
+      : '🔽 Show Navigation';
   });
 });
