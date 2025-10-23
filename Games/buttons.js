@@ -88,3 +88,4 @@ document.querySelectorAll(".article-card").forEach(card => {
   const date = card.dataset.time;
   if (date) timeEl.textContent = timeAgo(date);
 });
+ 

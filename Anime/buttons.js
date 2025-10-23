@@ -128,3 +128,30 @@ document.addEventListener('DOMContentLoaded', () => {
       : '🔽 Show Navigation';
   });
 });
+// glow effect for links
+document.addEventListener("DOMContentLoaded", () => {
+  // Detect clicks on navigation links
+  document.querySelectorAll("#quick-nav a").forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const targetId = link.getAttribute("href").replace("#", "");
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      // Smooth scroll to the target section
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      // Remove old highlights first
+      document.querySelectorAll(".glow-highlight").forEach(el => {
+        el.classList.remove("glow-highlight");
+      });
+
+      // Wait for scroll to finish, then add glow
+      setTimeout(() => {
+        target.classList.add("glow-highlight");
+        setTimeout(() => target.classList.remove("glow-highlight"), 2000);
+      }, 600);
+    });
+  });
+});
