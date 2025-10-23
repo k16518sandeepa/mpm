@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         quickNav.classList.remove("active");
         toggleBtn.textContent = '🔽 Show Navigation';
-      }, 1000);
+      }, 0000);
     });
   });
 
