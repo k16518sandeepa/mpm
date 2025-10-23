@@ -125,6 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
     quickNav.classList.toggle('active');
     toggleBtn.textContent = quickNav.classList.contains('active')
       ? '❌ Close Navigation'
-      : '📜 Show Navigation';
+      : '🔽 Show Navigation';
   });
 });

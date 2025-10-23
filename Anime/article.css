@@ -343,37 +343,38 @@ body.light-theme footer {
 }
 
 /* quick navigation */
-/* Floating container on the left side */
+/* Navigation button container */
 #quick-nav-container {
-  position: fixed;
-  bottom: 500px;
-  left: 20px;
-  z-index: 100;
+  position: sticky; /* keeps it near the top of article scroll area */
+  top: 10px;
+  display: flex;
+  justify-content: flex-start;
+  z-index: 50; /* stays above content but not over popups */
+  margin-bottom: 12px;
 }
 
-/* The toggle button */
+/* The toggle button itself */
 #toggle-nav {
   background: #ff4757;
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 10px 16px;
+  padding: 8px 14px;
   cursor: pointer;
   font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  transition: background 0.3s ease, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: background 0.3s ease;
 }
 #toggle-nav:hover {
   background: #ff6b81;
-  transform: scale(1.05);
 }
 
-/* The floating quick navigation panel */
+/* The navigation list */
 #quick-nav {
   position: fixed;
-  bottom: 350px; /* just above the button */
-  left: 20px;
-  width: 220px;
+  top: 80px;  /* not very top, just below header */
+  left: 15px;
+  width: 200px;
   max-height: 60vh;
   overflow-y: auto;
   background: rgba(0, 0, 0, 0.95);
@@ -381,8 +382,7 @@ body.light-theme footer {
   border-radius: 10px;
   padding: 10px;
   display: none;
-  z-index: 99;
-  backdrop-filter: blur(5px);
+  z-index: 100;
 }
 
 /* Show nav when toggled */
@@ -398,21 +398,21 @@ body.light-theme footer {
   padding: 6px;
   border-radius: 5px;
   font-size: 14px;
-  transition: background 0.3s ease;
 }
 #quick-nav a:hover {
   background: #ff4757;
 }
 
-/* Mobile responsive adjustments */
+/* Mobile responsive */
 @media (max-width: 768px) {
   #quick-nav {
-    width: 180px;
-    left: 10px;
-    bottom: 65px;
+    right: 10px;
+    width: 160px;
+    top: 70px;
+    font-size: 13px;
   }
   #toggle-nav {
-    padding: 8px 12px;
+    padding: 6px 10px;
     font-size: 14px;
   }
 }
