@@ -116,20 +116,19 @@ document.addEventListener('click', () => {
   document.querySelectorAll('.popup-word.active').forEach(el => el.classList.remove('active'));
 });
 
-// quick nav
+// Quick navigation toggle
 document.addEventListener('DOMContentLoaded', () => {
   const toggleBtn = document.getElementById('toggle-nav');
   const quickNav = document.getElementById('quick-nav');
 
+  // Toggle show/hide when button clicked
   toggleBtn.addEventListener('click', () => {
     quickNav.classList.toggle('active');
     toggleBtn.textContent = quickNav.classList.contains('active')
       ? '❌ Close Navigation'
       : '🔽 Show Navigation';
   });
-});
-// glow effect for links
-document.addEventListener("DOMContentLoaded", () => {
+
   // Detect clicks on navigation links
   document.querySelectorAll("#quick-nav a").forEach(link => {
     link.addEventListener("click", (e) => {
@@ -152,6 +151,28 @@ document.addEventListener("DOMContentLoaded", () => {
         target.classList.add("glow-highlight");
         setTimeout(() => target.classList.remove("glow-highlight"), 2000);
       }, 600);
+
+      // Auto-hide navigation after 1 second
+      setTimeout(() => {
+        quickNav.classList.remove("active");
+        toggleBtn.textContent = '🔽 Show Navigation';
+      }, 1000);
     });
+  });
+
+  // Hide navigation if user clicks outside of it
+  document.addEventListener('click', (e) => {
+    if (!quickNav.contains(e.target) && !toggleBtn.contains(e.target)) {
+      quickNav.classList.remove('active');
+      toggleBtn.textContent = '🔽 Show Navigation';
+    }
+  });
+
+  // Hide on touch (for mobile)
+  document.addEventListener('touchstart', (e) => {
+    if (!quickNav.contains(e.target) && !toggleBtn.contains(e.target)) {
+      quickNav.classList.remove('active');
+      toggleBtn.textContent = '🔽 Show Navigation';
+    }
   });
 });
