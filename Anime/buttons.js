@@ -115,6 +115,7 @@ document.querySelectorAll('.popup-word').forEach(word => {
 document.addEventListener('click', () => {
   document.querySelectorAll('.popup-word.active').forEach(el => el.classList.remove('active'));
 });
+
 // quick nav
 document.addEventListener('DOMContentLoaded', () => {
   const toggleBtn = document.getElementById('toggle-nav');
@@ -124,6 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
     quickNav.classList.toggle('active');
     toggleBtn.textContent = quickNav.classList.contains('active')
       ? '❌ Close Navigation'
-      : '🔽 Show Navigation';
+      : '📜 Show Navigation';
   });
 });
