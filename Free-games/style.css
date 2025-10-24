@@ -1,3 +1,113 @@
+body {
+  background: #0d0d0d;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 40px 20px;
+}
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.tabs a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+.tabs a.active {
+  background: linear-gradient(90deg, #ff4655, #ff8c00);
+  box-shadow: 0 0 12px rgba(255, 70, 85, 0.6);
+}
+.tabs a:hover {
+  transform: scale(1.1);
+}
+
+/* Game grid */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+  padding: 20px 40px;
+  justify-items: center;
+}
+
+/* Game card */
+.game-card {
+  background: #181818;
+  border-radius: 15px;
+  padding: 20px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  text-align: center;
+  transition: 0.4s;
+}
+.game-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(255,70,85,0.3);
+}
+.game-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+/* Countdown */
+.countdown {
+  margin-top: 6px;
+  background: rgba(255,70,85,0.2);
+  color: #ff8c00;
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: inline-block;
+  font-weight: 600;
+  min-width: 120px;
+}
+
+/* Claim button */
+.claim-btn {
+  display: inline-block;
+  margin-top: 10px;
+  background: linear-gradient(90deg, #ff4655, #ff8c00);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.claim-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255,70,85,0.6);
+}
+
+/* Animations */
+.fade-in { animation: fadeIn 0.6s ease forwards; }
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.page-exit { animation: fadeOut 0.4s ease forwards; }
+@keyframes fadeOut {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-30px); }
+}
+
+
+
+/* genral main temp */
 /* General Reset */
 * {
   margin: 0;
