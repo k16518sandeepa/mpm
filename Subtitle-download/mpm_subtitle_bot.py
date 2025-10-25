@@ -1,20 +1,26 @@
+import asyncio
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 
-BOT_TOKEN = "8445154646:AAEQwboeVjAH0Lpd7NXPIhlCMQA0ePaw658"
+# Your bot token
+import os
+BOT_TOKEN = os.environ.get("BOT_TOKEN")  # safer than hardcoding
 
-# Map subtitle codes to your uploaded file_ids (single or ZIP)
+# Map subtitle codes to Telegram file_ids (single files or ZIPs)
 SUB_FILES = {
-    "Battle_game_in_5_seconds": "BQACAgUAAxkBAAMXaPxtGaSP4QtdSNqWotWhyTPeRX0AAgoYAAJ6r-lXEf-9qIz-How2BA",
+    "Battle_game_in_5_seconds_Ep1": "BQACAgUAAxkBAAMDaPxa7J3gTcHBR42yGGSzcNrf50QAAu8XAAJ6r-lXF7b8-4VJ_0k2BA",
+    "Battle_game_in_5_seconds_Ep2": "BQACAgUAAxkBAAMMaPxnM8VNfKV5N3MdMW5EmgvUelQAAxgAAnqv6Vei2E_9wMTKzjYE",
+    "onepiece_01": "BQACAgQAAxkBAAICgWYt8uMh6kgF5YGVYQ7fDEwZKoxgAAKCAgACr6LJUzKkO-9x5EsDMwQ",
+    "Onepiece_pack": "BQACAgUAAxkBAAO4aPxqQabc123xyzZIPFileID"  # example ZIP
 }
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = update.message
     text = message.text
 
-    # Check if /start has a parameter
-    if text.startswith("/start "):
-        code = text.split(" ")[1]  # Get the subtitle code
+    # Check if /start has a parameter (from website link)
+    if text.startswith("/start ") and len(text.split()) > 1:
+        code = text.split()[1]
         if code in SUB_FILES:
             await context.bot.send_document(
                 chat_id=update.effective_chat.id,
@@ -24,6 +30,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         else:
             await message.reply_text("❌ Subtitle not found.")
     else:
+        # Normal /start without parameters
         await message.reply_text(
             "👋 Welcome to MPM Subtitle Bot!\n"
             "Click the download button on our website to get subtitles."
