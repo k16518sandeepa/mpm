@@ -1,0 +1,81 @@
+body {
+  background: #000;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+}
+
+#searchBox {
+  width: 60%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #222;
+  color: white;
+  font-size: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.4);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card h3 {
+  margin: 10px 0 5px;
+}
+
+.card p {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.btn {
+  display: inline-block;
+  background: #ff4757;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #ff6b81;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #111;
+  font-size: 14px;
+}

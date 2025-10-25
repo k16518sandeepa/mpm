@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPM Sinhala Subtitles</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <h1>🎬 Sinhala Subtitles</h1>
+    <input type="text" id="searchBox" placeholder="Search Anime or Movie...">
+  </header>
+
+  <main id="subtitleContainer" class="grid"></main>
+
+  <footer>
+    <p>© 2025 Motion Picture Mafia | <a href="mailto:admin@motionpicturemafia.com">Contact Us</a></p>
+  </footer>
+
+  <script>
+    const subtitles = [
+      {
+        id: "naruto_01",
+        title: "Naruto Episode 01",
+        plot: "The story of a young ninja with a dream to become Hokage.",
+        img: "https://i.imgur.com/KR8TXmL.jpg"
+      },
+      {
+        id: "onepiece_01",
+        title: "One Piece Episode 01",
+        plot: "Luffy begins his adventure to become the Pirate King.",
+        img: "https://i.imgur.com/mGkQ8JW.jpg"
+      }
+    ];
+
+    const container = document.getElementById("subtitleContainer");
+    const searchBox = document.getElementById("searchBox");
+
+    function displaySubs(list) {
+      container.innerHTML = list.map(sub => 
+        <div class="card">
+          <img src="${sub.img}" alt="${sub.title}">
+          <h3>${sub.title}</h3>
+          <p>${sub.plot}</p>
+          <a class="btn" href="https://t.me/MPMSubtitleBot?start=${sub.id}" target="_blank">📥 Download via Telegram</a>
+        </div>
+      ).join("");
+    }
+
+    displaySubs(subtitles);
+
+    searchBox.addEventListener("input", e => {
+      const val = e.target.value.toLowerCase();
+      const filtered = subtitles.filter(s => s.title.toLowerCase().includes(val));
+      displaySubs(filtered);
+    });
+  </script>
+</body>
+</html>
