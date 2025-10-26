@@ -15,7 +15,7 @@ SUB_FILES = {
     "Haikyuu": "BQACAgUAAxkBAAM-aPy4cNMo-oiyVPW2Thw6NZSf8_oAAqIYAAJ6r-lXu3pFXwKmWr02BA",
     "Haikyuu_Dumpster_Battle": "BQACAgUAAxkBAAM_aPy5ImJmCYHVVtbUXPMbgLkEkr4AAqUYAAJ6r-lXxekf_vGGZ4o2BA",
     "Heavenly_Delusion": "BQACAgUAAxkBAANAaPy6D74KQsPsPhlh3gyPsMHEyAMAAqcYAAJ6r-lXuT7FcIZV_m02BA",
-    "Hell's_Paradise": "BQACAgUAAxkBAANBaPy6-660vZZHG_A82ep6Exu9P84AAqsYAAJ6r-lXIQ2hJp5DtpU2BA",
+    "Hells_Paradise": "BQACAgUAAxkBAANBaPy6-660vZZHG_A82ep6Exu9P84AAqsYAAJ6r-lXIQ2hJp5DtpU2BA",
     "K-On": "BQACAgUAAxkBAANCaPy8Ge97O0mzs3HHzX__B5B-BZkAAq0YAAJ6r-lXBmzVrOnUo602BA",
     "Kengan_Ashura": "BQACAgUAAxkBAANDaPy-JFE9oUkuVMwO9Ph3BJSvmCcAArEYAAJ6r-lXbOJXcSMguHo2BA",
     "Kono_Suba": "BQACAgUAAxkBAANEaPzARidvHvTfc-lBBnDuf9s3SeIAArUYAAJ6r-lXnuSuwdiwSb02BA",
@@ -50,6 +50,5 @@ def main():
 
     print("🤖 MPM Subtitle Bot is running...")
     app.run_polling()
-
 if __name__ == "__main__":
     main()

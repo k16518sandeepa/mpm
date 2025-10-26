@@ -445,3 +445,25 @@ body.light-theme footer {
 html{
   scroll-behavior: smooth;
 }
+/* Bot status*/
+#bot-status {
+  background-color: #ff4d4d;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  display: none;
+}
+
+#bot-status.active {
+  display: block;
+}
+
+.bot-offline {
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0.6; }
+}
+

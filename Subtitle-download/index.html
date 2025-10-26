@@ -42,6 +42,10 @@
   <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
   <a href="index.html" class="active">Subtitles</a>
 </nav>
+<div id="bot-status" class="bot-offline">
+  ⚠️ Our subtitle download bot is currently offline for updates. Please try again later.
+</div>
+
    <!--ads-->
 <script async="async" data-cfasync="false" src="//pl27826692.effectivegatecpm.com/7a2a154083827637e3f699badd2ac703/invoke.js"></script>
 <div id="container-7a2a154083827637e3f699badd2ac703"></div>
@@ -122,10 +126,10 @@
         id: "Heavenly_Delusion",
         title: "Heavenly Delusion",
         plot: "In a post-apocalyptic world, a group of survivors navigates the ruins of civilization while uncovering dark secrets about their existence.",
-        img: "https://cdns.klimg.com/kapanlagi.com/p/002heavenlydelusionsfgrthy456789.jpg"
+        img: "https://cdn.wallpapersafari.com/92/65/PmKzZE.jpg"
       },
       {
-        id: "Hell's_Paradise",
+        id: "Hells_Paradise",
         title: "Hell's Paradise",
         plot: "In a world where death is not the end, a group of criminals is sent to a mysterious island to find a legendary elixir.",
         img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/4d79ae401c93ecfef612a5f0bb0928f3.jpg"
@@ -180,6 +184,8 @@
       const filtered = subtitles.filter(s => s.title.toLowerCase().includes(val));
       displaySubs(filtered);
     });
+
+    document.getElementById("bot-status").classList.add("");
   </script>
 </body>
 </html>
