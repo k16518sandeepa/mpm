@@ -40,6 +40,18 @@ SUB_FILES = {
     "Your_lie_in_April": "BQACAgUAAxkBAAIBD2j_EueQjCwhw10eIDJ8fS8_GrqvAAIvGAACj734V1PAsgfWoEwtNgQ",
     "Test123454323": "BQACAgQAAxkBAAIBVGj_o7iniVb2UXz1cs9FaKOIcgFTAAKKHAACOOWRUwRJhTfW7YCLNgQ",
     "Nichijou": "BQACAgUAAxkBAAIICGkAAcPNQgABN0WsQuu4Ne-d0a65FloAAm8XAAIK9whUdRvmWtWnpFw2BA",
+    "FMA": "BQACAgUAAxkBAAIIM2kAAdd8V-s2UnLOXG1fXDGCa13SYgACoxcAAgr3CFRrYD50snwgGTYE",
+    "Horimiya": "BQACAgUAAxkBAAIINGkAAdkR3imUAqS1l6Lu04scXd41yAACqBcAAgr3CFTZhOfwOA5XSzYE",
+    "ReZero": "BQACAgUAAxkBAAIINWkAAdsSbyRBGbls-L98Bc_f8vou-gACqhcAAgr3CFTAObWxvIHCxjYE",
+    "Mission_Yozakura_Family": "BQACAgUAAxkBAAIINmkAAdu3oYxM_YNgJWoBObANZHk2XQACqxcAAgr3CFRPXNGtWdI_jDYE",
+    "Noragami": "BQACAgUAAxkBAAIIN2kAAdyffeuxWX5rcxSznZ5ztqCPCQACrRcAAgr3CFQN25gaUUh4gTYE",
+    "Akebi_Chan_no_Sailor_Fuku": "BQACAgUAAxkBAAIIOGkAAd0a61hbUR9uJ11-6U6TOujwMQACrhcAAgr3CFRj5OMyef5-lTYE",
+    "Clean_Freak_Ayoama_Kun": "BQACAgUAAxkBAAIIOWkAAd2YivZ2Zg1ReXraUWX384tnigAC2xcAAgr3CFTKhceAmKLCaDYE",
+    "Apothecary_Diaries": "BQACAgUAAxkBAAIIO2kAAd6XoXVC1Jf95yiCUt_pVftxzAACCRgAAgr3CFQIQszwVIWzNDYE",
+    "Dr_Stone": "BQACAgUAAxkBAAIIPGkAAeCzTlGUXCTpeWGKwaemSlj8swACGhgAAgr3CFR9EAo7PVZ9-TYE",
+    "Frieren": "BQACAgUAAxkBAAIIPWkAAeKreeRzfF_ydTS3tPBr1Dv9vgACUBgAAgr3CFR056qpOaMLXjYE",
+    "Gleipnir": "BQACAgUAAxkBAAIIPmkAAePovNNaahqEQndoanIKvS6VEgACYRgAAgr3CFR_qugfL9-9JTYE",
+    "The_Fruite_of_Grisaia": "BQACAgUAAxkBAAIIP2kAAeXbqjumGvpuVA7H0vEpCUfYbwACahgAAgr3CFSP7k9i0KpBZjYE",
 }
 
 # --- Helper Functions ---
