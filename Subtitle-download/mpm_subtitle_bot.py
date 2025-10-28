@@ -38,7 +38,8 @@ SUB_FILES = {
     "Tower_of_God": "BQACAgUAAxkBAAIBDWj_EJYAAYvfmwr9w8S-7oS-8Vll3wACGxgAAo-9-Fel72BhodX5mzYE",
     "Violet_Evergarden": "BQACAgUAAxkBAAIBDmj_EZ2dEOURwJ26S19Yz3nmav3aAAIcGAACj734V08USwXER6_hNgQ",
     "Your_lie_in_April": "BQACAgUAAxkBAAIBD2j_EueQjCwhw10eIDJ8fS8_GrqvAAIvGAACj734V1PAsgfWoEwtNgQ",
-    "Walampuri": "BQACAgQAAxkBAAIBVGj_o7iniVb2UXz1cs9FaKOIcgFTAAKKHAACOOWRUwRJhTfW7YCLNgQ",
+    "Test123454323": "BQACAgQAAxkBAAIBVGj_o7iniVb2UXz1cs9FaKOIcgFTAAKKHAACOOWRUwRJhTfW7YCLNgQ",
+    "Nichijou": "BQACAgUAAxkBAAIICGkAAcPNQgABN0WsQuu4Ne-d0a65FloAAm8XAAIK9whUdRvmWtWnpFw2BA",
 }
 
 # --- Helper Functions ---
