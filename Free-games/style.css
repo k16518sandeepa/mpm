@@ -303,6 +303,9 @@ nav a.active {
 .badge.indiegala{
   background: #e50914;
 }
+.badge.gog {
+  background: hwb(293 2% 33%); /* GOG */
+}
 
 /* Make card relative so badge stays inside */
 .game-card {
@@ -419,4 +422,22 @@ footer {
     padding: 6px 12px;
     font-size: 12px;
   }
+}
+
+/* Ad Slot Styling */
+.ad-slot {
+  text-align: center;
+  margin: 15px auto;
+  display: block;
+}
+
+.ad-slot img {
+  width: 100%;
+  max-width: 728px; /* Adjust per size */
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.ad-slot img:hover {
+  transform: scale(1.03);
 }
