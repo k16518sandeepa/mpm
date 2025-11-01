@@ -88,3 +88,23 @@ document.querySelectorAll(".article-card").forEach(card => {
   const date = card.dataset.time;
   if (date) timeEl.textContent = timeAgo(date);
 });
+
+//ads sideshow
+const ads = [
+  { img: "https://i.imgur.com/oa0eAKM.jpeg", link: "https://wa.me/p/32088611110753641/94766963036" },
+  { img: "https://i.imgur.com/pr2H7hf.jpeg", link: "https://wa.me/p/32088611110753641/94766963036" }
+];
+
+let current = 0;
+const adImg = document.querySelector('#ad-rotator img');
+const adLink = document.querySelector('#ad-rotator a');
+
+setInterval(() => {
+  current = (current + 1) % ads.length;
+  adImg.style.opacity = 0;
+  setTimeout(() => {
+    adImg.src = ads[current].img;
+    adLink.href = ads[current].link;
+    adImg.style.opacity = 1;
+  }, 1000);
+}, 5000);

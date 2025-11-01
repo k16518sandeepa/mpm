@@ -296,3 +296,27 @@ footer {
     font-size: 12px;
   }
 }
+
+/* Ad Slot Styling */
+.ad-slot {
+  text-align: center;
+  margin: 15px auto;
+  display: block;
+}
+
+.ad-slot img {
+  width: 100%;
+  max-width: 728px; /* Adjust per size */
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.ad-slot img:hover {
+  transform: scale(1.03);
+}
+#ad-rotator img {
+  width: 100%;
+  max-width: 728px;
+  border-radius: 8px;
+  transition: opacity 1s ease-in-out;
+}
