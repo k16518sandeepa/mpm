@@ -306,6 +306,9 @@ nav a.active {
 .badge.gog {
   background: hwb(293 2% 33%); /* GOG */
 }
+.badge.itch {
+  background: #e71621; /* itch */
+}
 
 /* Make card relative so badge stays inside */
 .game-card {
