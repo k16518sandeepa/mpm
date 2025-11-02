@@ -1,5 +1,95 @@
  const subtitles = [
       {
+        id: "Too_Many_Lossing_Heroines",
+        title: "Too Many Losing Heroines S1",
+        plot: "The story follows a high school student who finds himself surrounded by multiple heroines, each with their own unique challenges and romantic interests.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/31e7f32a6972fd5d458ed7d6c6eec581.jpg"
+      },
+      {
+        id: "My_dressup_Darling",
+        title: "My Dress-Up Darling S1,S2",
+        plot: "High school student Wakana Gojo, who dreams of becoming a hina doll craftsman, teams up with popular classmate Marin Kitagawa to create cosplay outfits.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=cover,format=auto,quality=85,width=1920/keyart/GQWH0M9N8-backdrop_wide"
+      },
+      {
+        id: "Days_with_my_Stepsister",
+        title: "Days with my Stepsister S1",
+        plot: "After their parents' remarriage, high school student Yuu Haruna finds himself living with his new stepsister, Kaede. As they navigate their new family dynamic, they develop a close bond.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/d8f26328f3d6c1610ade06331f7cd471.jpg"
+      },
+      {
+        id: "Darling_in_the_Franxx",
+        title: "Darling in the Franxx S1",
+        plot: "In a dystopian future, children are raised to pilot giant mechs called Franxx to protect humanity from mysterious creatures known as Klaxosaurs.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/626b30dc8203a0e263bba0a191a8f7be.jpg"
+      },
+      {
+        id: "Alya_sometimes_Hides_her_Feelings_in_Russians",
+        title: "Alya Sometimes Hides Her Feelings in Russians",
+        plot: "Alya, a high school girl, struggles to express her feelings for her classmate while navigating the complexities of friendship and adolescence.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/b0bdcf73a7e00f9bc75131088970288d.jpg"
+      },
+      {
+        id: "Zom_100",
+        title: "Zom 100: Bucket List of the Dead S1",
+        plot: "Akira Tendo, a disillusioned office worker, finds new purpose in a zombie apocalypse by creating a bucket list of things to do before he dies.",
+        img: "https://a.storyblok.com/f/178900/1920x1080/bbf60565bd/zom-100-bucket-list-of-the-dead-key-visual.jpg"
+      },
+      {
+        id: "Laid_back_Camp",
+        title: "Laid-Back Camp S1-S2",
+        plot: "A group of high school friends embark on a camping trip, exploring the great outdoors and deepening their bonds.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/0e9e77c12a0cf3d56663e9ac1e9de114.jpg"
+      },
+      {
+        id: "Tomodachi_Game",
+        title: "Tomodachi Game",
+        plot: "Yuuichi Katagiri, a high school student, is forced to participate in a psychological game where friendships are tested through deception and manipulation.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/ee16aaf0a4d9d594ba88fc7be655d670.jpe"
+      },
+      {
+        id: "The_God_of_High_School",
+        title: "The God of High School S1",
+        plot: "Jin Mori, a martial artist, is invited to participate in 'The God of High School' tournament, where fighters from all over Korea compete for the title and a wish granted by the organizer.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/de5d6dc6c238b7c0d09c6c0d6d78b86c1a302cd4580ea0154d45596f6eddf2bc.jpg"
+      },
+      {
+        id: "Super_Cube",
+        title: "Super Cube S1",
+        plot: "Koguma, a high school girl with no family or friends, discovers a sense of freedom and adventure after acquiring a Honda Super Cub motorcycle.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/dddcdac2a87ef94a160d84ac113cb8e1a3811441b2122f77e056e25f433c42e1.jpg"
+      },
+      {
+        id: "Scissor_Seven",
+        plot: "A hairdresser with amnesia becomes an assassin-for-hire, taking on various jobs while trying to uncover his past.",
+        title: "Scissor Seven S1-S4",
+        img: "https://static.wikia.nocookie.net/vsbattles/images/9/9e/Scissor_Seven_Poster.jpg/revision/latest?cb=20200305012346"
+      },
+      {
+        id: "Place_to_place",
+        title: "Place to Place S1",
+        plot: "The daily lives of four high school girls are depicted in this slice-of-life series.",
+        img: "https://images7.alphacoders.com/725/thumb-1920-725113.jpg"
+      },
+      {
+        id: "Parasyte_the_maxim",
+        title: "Parasyte -the maxim- S1",
+        plot: "When alien parasites invade Earth and take over human bodies, high school student Shinichi Izumi must coexist with one that failed to control his right hand.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/35f2366b27dfe36aa10d212b7b2258d05284545135891bcde46403627151506a.jpg"
+      },
+      {
+        id: "Miss_Kobayashis_Dragon_Maid",
+        title: "Miss Kobayashi's Dragon Maid S1",
+        plot: "After a chance encounter with a dragon, office worker Kobayashi finds herself living with Tohru, a dragon who can transform into a human maid.",
+        img: "https://static0.cbrimages.com/wordpress/wp-content/uploads/2020/04/Miss-Kobayashi---s-Dragon-Maid-1.jpg"
+      },
+      {
+        id: "Mashle",
+        title: "Mashle: Magic and Muscles S1,S2",
+        plot: "In a world where magic is everything, Mash Burnedead is born without any magical ability. To survive, he relies on his extraordinary physical strength to navigate a magical academy.",
+        img: "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/11/mashle-magic-and-muscles-season-2.jpg?w=1600&h=900&fit=crop"
+      },
+      {
         id: "The_Fruite_of_Grisaia",
         title: "The Fruite of Grisaia",
         plot: "Mihama Academy is a prison-like school. It is home to five female students who each have their own reasons. One day, Yuuji the institute's first male student..",
@@ -272,7 +362,7 @@
       displaySubs(filtered);
     });
 
-    document.getElementById("bot-status").classList.add("active");
+    document.getElementById("bot-status").classList.add("");
 
 //ads sideshow
 const ads = [
