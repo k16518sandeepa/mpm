@@ -1,0 +1,308 @@
+ const subtitles = [
+      {
+        id: "The_Fruite_of_Grisaia",
+        title: "The Fruite of Grisaia",
+        plot: "Mihama Academy is a prison-like school. It is home to five female students who each have their own reasons. One day, Yuuji the institute's first male student..",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/2d997db0807abb2b1928c1e8bcd46b36.jpe"
+      },
+      {
+        id: "Gleipnir",
+        title: "Gleipnir S1",
+        plot: "Shuichi Kagaya has the ability to transform into a monstrous mascot costume. He teams up with a mysterious girl to find her missing sister while navigating dangerous situations.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/894c048b98559a1e37ac478f4ade776a.jpg"
+      },
+      {
+        id: "Frieren",
+        title: "Frieren: Beyond Journey's End S1",
+        plot: "After defeating the Demon King, the hero and his party part ways. However, the elf mage Frieren embarks on a journey to understand humanity and her own existence.", 
+        img: "https://m.media-amazon.com/images/S/pv-target-images/0eaaca5d01575caf2fda5fcad6a09e8c5a35bdcf8f4a2850741e262458273837.jpg"
+      },
+      {
+        id: "Dr_Stone",
+        title: "Dr. Stone S1-S3",
+        plot: "After a mysterious event turns all of humanity to stone, genius teenager Senku Ishigami awakens thousands of years later in a world where civilization has collapsed.",
+        img: "https://m.media-amazon.com/images/M/MV5BZDRmMTZkZDUtM2VmOC00MWMxLWIzYWQtZmIyYTJkNTY1YjA3XkEyXkFqcGc@._V1_.jpg"
+      },
+      {
+        id: "Apothecary_Diaries",
+        title: "Apothecary Diaries S1",
+        plot: "Maomao, a young apothecary, gets entangled in palace intrigues and mysteries while serving as a lady-in-waiting in the imperial court.",
+        img: "https://static0.srcdn.com/wordpress/wp-content/uploads/2025/01/maomao-and-jinshi-in-the-apothecary-diaries-season-2-with-a-starry-sky-background.jpg?w=1600&h=900&fit=crop"
+      },
+      {
+        id: "Clean_Freak_Ayoama_Kun",
+        title: "Clean Freak! Aoyama-kun S1",
+        plot: "Aoyama is a soccer prodigy with an obsessive-compulsive disorder that compels him to maintain extreme cleanliness.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/3c6982489d0e1fec64f49503df6db150.jpg"
+      },
+      {
+        id: "Akebi_Chan_no_Sailor_Fuku",
+        title: "Akebi-chan no Sailor-fuku S1",
+        plot: "Komichi Akebi has always dreamed of wearing a sailor uniform to school. When she finally gets the chance to attend Roubai Academy, her dream comes true.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/2f3d1f2e7681c2aee339568064eb3348.jpg"
+      },
+      {
+        id: "Noragami",
+        title: "Noragami S1,S2",
+        plot: "Yato, a minor deity without a shrine, aims to gain widespread recognition by accepting odd jobs for 5 yen apiece.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/b5dc286fb64f7bdc8eaa47e36f079c74.jpg"
+      },
+      {
+        id: "Mission_Yozakura_Family",
+        title: "Mission: Yozakura Family S1",
+        plot: "Taiyo Asano, a high school student, is recruited into the Yozakura family of spies after marrying into it.",
+        img: "https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/0386aead-b451-455b-b4b4-db1d67f53954/compose?aspectRatio=1.78&format=webp&width=1200"
+      },
+      {
+        id: "ReZero",
+        title: "Re:Zero - Starting Life in Another World S1-S3+ OVAs",
+        plot: "Subaru Natsuki is suddenly transported to another world on his way home from the convenience store. He discovers he has the ability to return from death, but at a cost.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/5525651c53b49243de6835134651192c.jpg"
+      },
+      {
+        id: "Horimiya",
+        title: "Horimiya S1,S2",
+        plot: "The story revolves around the seemingly perfect Hori and the gloomy Miyamura, who discover each other's hidden sides outside of school.",
+        img: "https://play-lh.googleusercontent.com/hpEpP_KcVgdrROl_9n0D4RmnT5teXM6PFQRjDHhwyzhPgi9cB-Y_wOawlKROEVSYSrF64lscVoX5=w1296-h2160-rw",
+      },
+      {
+        id: "FMA",
+        title: "Fullmetal Alchemist S1",
+        plot: "When a failed alchemical ritual leaves brothers Edward and Alphonse Elric with severely damaged bodies, they begin searching for the one thing that can save..",
+        img: "https://external-preview.redd.it/the-fullmetal-alchemist-2003-anime-is-a-masterpiece-of-v0-Nkr-MkapsAxQOaqPruZSyZ_VdWEdKWzd4TGQRHNfRic.jpg?auto=webp&s=349d70a6148567479e7249bef99d3daa5606f8a7"
+      },
+      {
+        id: "Nichijou",
+        title: "Nichijou",
+        plot: "A group of students lead normal lives and cope with normal predicaments, but all too often find themselves in abnormal situations.",
+        img: "https://m.media-amazon.com/images/M/MV5BNjljN2EyZTUtN2FkZi00Zjg4LWFkMGQtNzFhOThlYTAyYjhhXkEyXkFqcGc@._V1_.jpg"
+      },
+      {
+        id: "Your_lie_in_April",
+        title: "Your Lie in April",
+        plot: "A piano prodigy who lost his ability to hear the piano after his mother's death meets a spirited violinist who changes his life.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/bb7cca056cf9fcf38c122d2b83badda1ee674c8b241657cf3873844d933a1410.jpg"
+      },
+      {
+        id: "Violet_Evergarden",
+        title: "Violet Evergarden S1",
+        plot: "Violet Evergarden, a young female ex-soldier, gets a job at a writers' agency and goes on assignments to create letters that can connect people.",
+        img: "https://i.ytimg.com/vi/pSZO3TbkKBU/maxresdefault.jpg"
+      },
+      {
+        id: "Tower_of_God",
+        title: "Tower of God S1",
+        plot: "Reach the top, and everything will be yours. At the top of the tower exists everything in this world, and all of it can be yours.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/17d5c4c897b235b8c887a17c43816091.jpg"
+      },
+      {
+        id: "Summertime_Rendering",
+        title: "Summertime Rendering S1",
+        plot: "Shinpei Ajiro returns to his hometown for a friend's funeral, only to uncover dark secrets and supernatural occurrences.",
+        img: "https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/069fbe1a-a848-42e4-bbf9-45eec528ff64/compose?aspectRatio=1.78&format=webp&width=1200"
+      },
+      {
+        id: "Sound_Euphonium",
+        title: "Sound! Euphonium S1-S2",
+        plot: "The story follows Kumiko Oumae, a high school student who joins her school's concert band and aspires to lead it to national success.",
+        img: "https://i.ytimg.com/vi/KxowSlinlb0/maxresdefault.jpg"
+      },
+      {
+        id: "Sword_Art_Online",
+        title: "Sword Art Online S1-S4",
+        plot: "In the near future, players of a virtual reality MMORPG find themselves trapped in the game, where dying in the game means dying in real life.",
+        img: "https://www.blackgate.com/wp-content/uploads/2014/08/sword_art_online.jpg"
+      },
+      {
+        id: "Rent_a_Girlfriend",
+        title: "Rent-A-Girlfriend S1,S2",
+        plot: "Kazuya Kinoshita, a college student, rents a girlfriend named Chizuru Mizuhara after a painful breakup, leading to a series of comedic and romantic events.",
+        img: "https://static0.cbrimages.com/wordpress/wp-content/uploads/2023/06/rent-a-girlfriend-season-3-visual.jpg"
+      },
+      {
+        id: "ReLife",
+        title: "ReLIFE",
+        plot: "Arata Kaizaki, a 27-year-old unemployed man, is given a chance to relive his high school years and make different choices.",
+        img: "https://images.squarespace-cdn.com/content/v1/5ccabcf60b77bdbb3acaf70a/1584257990637-RAMS1KGRN9Z3ZLA7G310/maxresdefault.jpg"
+      },
+      {
+        id: "Record_of_Ragnarok",
+        title: "Record of Ragnarok S1,S2",
+        plot: "Every 1000 years, the gods convene to decide the fate of humanity. This time, they have decided to eradicate mankind.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/3c6cc2f1d8c6196d0694ee0a6ac3e64c6fb1e4777c9fbe27d9d3f04a7f8f7641.jpg"
+      },
+      {
+        id: "Pseudo_Harem",
+        title: "Pseudo Harem",
+        plot: "A first year high school girl likes a second year boy in her drama club. She acts out various character archetypes that you would find in a typical manga harem.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/0e3b03c17fd2214fbb11d0319bfe1447.jpg"
+      },
+      {
+        id: "Pantheon",
+        title: "Pantheon",
+        plot: "In a world where technology and mythology collide, a group of heroes must navigate their powers and responsibilities.",
+        img: "https://deadline.com/wp-content/uploads/2023/01/p22353412_b_h8_ab.jpeg"
+      },
+      {
+        id: "God_Eater",
+        title: "God Eater",
+        plot: "In a post-apocalyptic world, humanity fights for survival against monstrous creatures known as Aragami using powerful weapons called God Arcs.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/f010320b53174461dcfcb8e735227821ce04fa3951202d748404c1da075b8ff3.jpg"
+      },
+      {
+        id: "Naruto_Classic",
+        title: "Naruto Classic",
+        plot: "Naruto Uzumaki, a young ninja with a sealed demon fox spirit within him, strives to become the strongest ninja and gain recognition from his village.",
+        img: "https://iblos3om.com/wp-content/uploads/2009/11/naruto_everyone_wallpaper.jpg"
+      },
+      {
+        id: "Battle_game_in_5_seconds",
+        title: "Battle Game In 5 Seconds",
+        plot: "Akira Shiroyanagi, lover of games and candy, faces a mysterious girl named Mion one morning. She drags him into a strange game where the players gain special ...",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/1e993859cb0b3553a6174287e1a3dd7c.jpg"
+      },
+      {
+        id: "Assassination_classroom",
+        title: "Assassination Classroom S1,S2",
+        plot: "A powerful creature claims that within a year, Earth will be destroyed by him, but he offers mankind a chance by becoming a homeroom teacher.",
+        img: "https://beam-images.warnermediacdn.com/BEAM_LWM_DELIVERABLES/3d78c2fb-5af7-4d62-ac94-20b288726847/0ab93fce-85a7-11ef-b2e7-0afff0282a37?host=wbd-images.prod-vod.h264.io&partner=beamcom"
+      },
+      {
+        id: "Blue_Box",
+        title: "Blue Box",
+        plot: "In the world of sports, two young athletes find themselves in a love triangle that could affect their game.",
+        img: "https://images7.alphacoders.com/138/thumb-1920-1380691.jpg"
+      },
+      {
+        id: "Bocchi_the_Rock",
+        title: "Bocchi the Rock!",
+        plot: "The story follows Hitori Gotou, a high school girl who wants to be a rock star but struggles with social anxiety.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/88fbe563405097ee6eeeccd9d46195e2.jpg"
+      },
+      {
+        id: "Call_of_the_Night",
+        title: "Call of the Night S1,S2",
+        plot: "A young boy discovers the thrill of the night and the mysteries it holds.",
+        img: "https://occ-0-8407-2218.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABSu_mVftGhttwyUHdjj3jPTkYaJ1Rb2cK2w_Xw7fErSKayXjwvuiV8HTyZyOMwrS7NRKsUKwqCVk-eOU_bwlrE_NX7n8dtN_ngWK.jpg?r=9e8"
+      },
+      {
+        id: "Chainsaw_Man",
+        title: "Chainsaw Man",
+        plot: "Denji is a young man with a debt to pay. He becomes a devil hunter to pay it off, but his life takes a turn when he merges with his pet devil, Pochita.",
+        img: "https://www.glitched.online/wp-content/uploads/2022/08/ChainsawMan.jpg"
+      },
+      {
+        id: "Erased",
+        title: "Erased",
+        plot: "Satoru Fujinuma possesses an ability that sends him back in time moments before a life-threatening incident...",
+        img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhoN3fk6H7TASonhCnkuB9sdDvWtXexYm0We27lWiVq3ndYIPn9aKus6k-csbV0aGrF6dMJoGZibwkdeyY2s71x9UlA1kF41t7N7xMdC3Kx8WKQLwcO2qacl_slti8CldvZBogWOuelmwzf/s1600/sweet+baby+children.jpg"
+      },
+      {
+        id: "Haikyuu",
+        title: "Haikyuu!! S1-S4",
+        plot: "Shoyo Hinata, inspired by a small-statured volleyball ace known as 'The Little Giant,' dreams of becoming a great volleyball player despite his short height.",
+        img: "https://miro.medium.com/1*2kA5cLxeTWH5XVlXm7FVFA.jpeg"
+      },
+      {
+        id: "Haikyuu_Dumpster_Battle",
+        title: "Haikyuu!!: Dumpster Battle",
+        plot: "The story follows the Karasuno High School volleyball team as they face off against their rivals in a high-stakes match.",
+        img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEslltxZZiRDw1xuLh6bc206IZN_qmrFdiq_4Sf5Q9qpcgJBPbNHOmtb7wCvTZ-QJk65JeOpBb0Bja8iwgsag_jagXrj6UiGfS6Z8Ea_e3kgXbSnOoAJoFiqbwxYSzbXDhMh_aitTOvH40V21m5VBBNoRNB5-l9Sy8Hsqr6HlMbj-Sijlp2QT4BBkS-54p/s1280/crunchyroll-acquires-haikyu-blue-lock-and-overlord-films-rev_e5m8.1280.webp"
+      },
+      {
+        id: "Heavenly_Delusion",
+        title: "Heavenly Delusion",
+        plot: "In a post-apocalyptic world, a group of survivors navigates the ruins of civilization while uncovering dark secrets about their existence.",
+        img: "https://cdn.wallpapersafari.com/92/65/PmKzZE.jpg"
+      },
+      {
+        id: "Hells_Paradise",
+        title: "Hell's Paradise",
+        plot: "In a world where death is not the end, a group of criminals is sent to a mysterious island to find a legendary elixir.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/4d79ae401c93ecfef612a5f0bb0928f3.jpg"
+      },
+      {
+        id: "K-On",
+        title: "K-On! S1,S2",
+        plot: "Follow the daily lives of a group of high school girls who join the light music club.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/883536eda8047de4b8fc412dc0561f4efacf5693e49c283f1198af7cbe38e1fb.jpg"
+      },
+      {
+        id: "Kengan_Ashura",
+        title: "Kengan Ashura S1,S2",
+        plot: "In a world where gladiator arenas are used to settle business disputes, a young fighter named Ohma Tokita rises through the ranks.",
+        img: "https://images5.alphacoders.com/132/thumb-1920-1324776.jpeg"
+      },
+      {
+        id: "Kono_Suba",
+        title: "Kono Subarashii Sekai ni Shukufuku wo!",
+        plot: "Kazuma Satou, a NEET, is transported to a fantasy world after his death. He teams up with a dysfunctional party to defeat the Demon King.",
+        img: "https://images6.alphacoders.com/136/thumb-1920-1360425.png"
+      },
+      {
+        id: "Kuroko_no_Basket",
+        title: "Kuroko no Basket S1-S3",
+        plot: "The story follows a high school basketball team striving to become the best in Japan, led by the enigmatic Kuroko Tetsuya.",
+        img: "https://oocentral.ca/wp-content/uploads/2019/06/ost-kuroko-no-basket-3rd-season.jpg"
+      },
+      
+    ];
+
+    const container = document.getElementById("subtitleContainer");
+    const searchBox = document.getElementById("searchBox");
+
+    function displaySubs(list) {
+      container.innerHTML = list.map(sub => `
+        <div class="card">
+          <img src="${sub.img}" alt="${sub.title}">
+          <div class="card-content">
+            <h3>${sub.title}</h3>
+            <p>${sub.plot}</p>
+            <a class="btn" href="https://t.me/mpmsubtitlesbot?start=${sub.id}" target="_blank">📥 Download via Telegram</a>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    displaySubs(subtitles);
+
+    searchBox.addEventListener("input", e => {
+      const val = e.target.value.toLowerCase();
+      const filtered = subtitles.filter(s => s.title.toLowerCase().includes(val));
+      displaySubs(filtered);
+    });
+
+    document.getElementById("bot-status").classList.add("active");
+
+//ads sideshow
+const ads = [
+  { img: "https://i.imgur.com/oa0eAKM.jpeg", link: "https://wa.me/p/32088611110753641/94766963036" },
+  { img: "https://i.imgur.com/pr2H7hf.jpeg", link: "https://wa.me/p/32088611110753641/94766963036" }
+];
+
+let current = 0;
+const adImg = document.querySelector('#ad-rotator img');
+const adLink = document.querySelector('#ad-rotator a');
+
+setInterval(() => {
+  current = (current + 1) % ads.length;
+  adImg.style.opacity = 0;
+  setTimeout(() => {
+    adImg.src = ads[current].img;
+    adLink.href = ads[current].link;
+    adImg.style.opacity = 1;
+  }, 1000);
+}, 5000);
+
+// Back to top button
+  const backToTopButton = document.querySelector(".back-to-top");
+  window.onscroll = function() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      backToTopButton.style.display = "block";
+    } else {
+      backToTopButton.style.display = "none";
+    }
+  };
+  function topFunction() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
