@@ -63,7 +63,7 @@
         id: "Scissor_Seven",
         plot: "A hairdresser with amnesia becomes an assassin-for-hire, taking on various jobs while trying to uncover his past.",
         title: "Scissor Seven S1-S4",
-        img: "https://static.wikia.nocookie.net/vsbattles/images/9/9e/Scissor_Seven_Poster.jpg/revision/latest?cb=20200305012346"
+        img: "https://i.kickstarter.com/assets/039/055/644/9eedc06f159f4bd926304df57cd860f8_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1666925451&width=1552&sig=ZZEnPgOynHlC6eATMNY1ZvGzDslAUv64W%2FRmHbV0N2c%3D"
       },
       {
         id: "Place_to_place",
