@@ -444,3 +444,9 @@ footer {
 .ad-slot img:hover {
   transform: scale(1.03);
 }
+#ad-rotator img {
+  width: 100%;
+  max-width: 728px;
+  border-radius: 8px;
+  transition: opacity 1s ease-in-out;
+}
