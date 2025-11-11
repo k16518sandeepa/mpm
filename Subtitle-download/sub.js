@@ -1,5 +1,65 @@
  const subtitles = [
       {
+        id: "Death_Parade",
+        title: "Death Parade",
+        plot: "After death, humans go to either heaven or hell. But for some, at the instant of their death, they arrive at the Quindecim, a bar attended by the mysterious...",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/989d5abf2f9e664a84def918db260644.jpg"
+      },
+      {
+        id:"Buddy_Daddies",
+        title: "Buddy Daddies",
+        plot: "The show Buddy Daddies centers on two same-sex assassins, Kazuki Kurusu and Rei Suwa, who are skilled in both execution and intelligence gathering.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/ea8065d2d3d6669111f2e7055ffacd4b.jpg"
+      },
+      {
+        id: "Blood_of_Zeus",
+        title: "Blood of Zeus S1,S2,S3",
+        plot: "Chronicles the illegitimate son of Zeus, a young man tasked with saving heaven and earth despite the interference of a vengeful goddess and her monstrous forces.",
+        img: "https://images3.alphacoders.com/118/1185385.jpg"
+      },
+      {
+        id: "Black_Clover",
+        title: "Black Clover",
+        plot: "Black Clover: With Dallas Reid, Gakuto Kajiwara, Jill Harris, Kana Yûki. Asta and Yuno were abandoned together at the same church and have been inseparable ...",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSEXas9feI7qc12-so5NRw9jucI7cndVaH7g&s"
+      },
+      {
+        id: "Berserk_Golden_Age_Arcs",
+        title: "Berserk Golden Age Arcs 1,2,3",
+        plot: "Berserk: The Golden Age Arc is a Japanese anime film trilogy, which adapts Kentaro Miura's Berserk manga series's Golden Age arc.",
+        img: "https://occ-0-8407-2218.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABQodmeojgag-Zy7qOHXJOjqyyS4eWROBtTMFy2BkS155qOQ-Yq1FBOAzNk70rOy1gShUzg14GQO6CfTcHQ8ZAt6DXVf0JHdngG6r.jpg?r=c7b"
+      },
+      {
+        id: "Berserk_2016",
+        title: "Berserk 2016 S1,S2",
+        plot: "This series is a direct continuation of the Golden Arc trilogy of 'Berserk' films. These films are a condensed version of the 1997 series that was based on the",
+        img: "https://m.media-amazon.com/images/M/MV5BNjQzZTg3ZDQtYjZjYS00NWI2LTg4YWYtZjBkYjgwYmQ1NzVlXkEyXkFqcGdeQVRoaXJkUGFydHlJbmdlc3Rpb25Xb3JrZmxvdw@@._V1_.jpg"
+      },
+      {
+        id: "Berserk_1997",
+        title: "Berserk 1997",
+        plot: "Guts, a wandering mercenary, joins the Band of the Hawk after being defeated in a duel by Griffith, the group's leader and founder.",
+        img: "https://www.dexerto.com/cdn-image/wp-content/uploads/2024/01/16/Berserk-1997-casca-griffith-guts-golden-age.jpg"
+      },
+      {
+        id: "Asobi_Asobase",
+        title: "Asobi Asobase",
+        plot: "A story about three cute and innocent middle school students whose personalities complement each other.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/3da7727af995c752ddd0d65f4a283fa4.jpg"
+      },
+      {
+        id: "Aoashi",
+        title: "Aoashi",
+        plot: "Aoi Ashito is a third year middle school student from Ehime; behind his raw game hides his immense talent but Ashito suffers a huge setback because...",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/083344f633a256e8cf9db44aaa2a8ac56b96fb83d3290e4bace81c9a35b05832.png"
+      },
+      {
+        id: "2.5_Dimensional_Seduction",
+        title: "2.5 Dimensional Seduction",
+        plot: "2.5 Dimensional Seduction is a captivating series that blends romance, harem, school life, comedy, and cosplay into a unique narrative.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/c309d3624724f4b8ab8d506dd649880b29a8d3ce34263e2461232a255ac27b25.jpg"
+      },
+      {
         id: "Too_Many_Lossing_Heroines",
         title: "Too Many Losing Heroines S1",
         plot: "The story follows a high school student who finds himself surrounded by multiple heroines, each with their own unique challenges and romantic interests.",
