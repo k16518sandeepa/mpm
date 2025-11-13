@@ -299,6 +299,9 @@ nav a.active {
 .badge.steam {
   background: #0078f2; /* Steam dark */
 }
+.badge.ubi {
+  background: #ffffff; /* Steam dark */
+}
 
 .badge.indiegala{
   background: #e50914;
