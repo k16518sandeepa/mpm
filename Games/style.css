@@ -372,7 +372,7 @@ footer {
   z-index: 9999;
   opacity: 0.85;
 }
-
+ 
 .floating-support-btn:hover {
   background: #ff6b7d;
   transform: scale(1.07);

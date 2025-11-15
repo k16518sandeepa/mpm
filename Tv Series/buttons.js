@@ -80,7 +80,7 @@ function timeAgo(date) {
   if (interval >= 1) return interval + " minute" + (interval > 1 ? "s" : "") + " ago";
 
   return "just now";
-}
+} 
 
 // Apply to all articles
 document.querySelectorAll(".article-card").forEach(card => {
