@@ -1,5 +1,71 @@
  const subtitles = [
       {
+        id: "Vinland_Saga",
+        title: "Vinland Saga",
+        plot: "Following a tragedy, Thorfinn embarks on a journey with the man responsible for it to take his life in a duel as a true and honorable warrior to pay homage.",
+        img: "https://static0.cbrimages.com/wordpress/wp-content/uploads/2019/11/Vinland-Saga-Featured-and-Social-Media-Image-1.jpg-1.jpg"
+      },
+      {
+        id: "Tokyo_Revengers",
+        title: "Tokyo Revengers",
+        plot: "Hanagaki Takemichi lives an unsatisfying life right up until his death. Waking up 12 years in the past, he reckons with the eventual fate of his friends.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/7923a0407dbdba324c56acec9f096c13.jpg"
+      },
+      {
+        id: "Tokyo_Ghoul",
+        title: "Tokyo Ghoul S1,S2,S3",
+        plot: "A Tokyo college student is attacked by a ghoul, a superpowered human who feeds on human flesh. He survives, but has become part ghoul and becomes a fugitive on ...",
+        img: "https://i.ytimg.com/vi/I0-yFnbPdj0/maxresdefault.jpg"
+      },
+      {
+        id: "To_Your_Eternity",
+        title: "To Your Eternity S1,S2",
+        plot: "A lonely boy wandering the Arctic regions of North America meets a wolf, and the two become fast friends, depending on each other to survive the harsh ...",
+        img: "https://occ-0-8407-2218.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABULbFVaoJc20Jeq63nWwT-sQ0SEvu3LS52UKIvNfioqsrVvmP0SyoOx7TpDQzQ9-LtTtXMwZpUu0LFcXtr2ZxlTWF3d_g2WmwR-k.jpg?r=aa1"
+      },
+      {
+        id: "Terror_in_Resonance",
+        title: "Terror in Resonance",
+        plot: "Terror in Resonance: Created by Shin'ichirô Watanabe. With Kaito Ishikawa, Sôma Saitô, Atsumi Tanezaki, Shunsuke Sakuya. Tokyo has been decimated by a ...",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/bdd14c0c405adeefab6e3477287849d33a48edd780adad1654c671134a6c12b6.jpg"
+      },
+      {
+        id: "The_Shiunji_Family_Children",
+        title: "The Shiunji Family Children",
+        plot: "The life of the Shiunji family gets romantically complicated when the children, two brothers and five sisters, learn they are not blood siblings.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/82a04b6aeff8ce1d2033fe5ebd8c0fe6.jpg"
+      },
+      {
+        id: "Nier:_Automata_Ver1.1a",
+        title: "Nier: Automata Ver1.1a",
+        plot: "Animated adaptation of NieR: Automata (2017), where a long-running war on post-apocalyptic Earth between androids and machines soon unveils the truth of the ...",
+        img: "https://www.tvtime.com/_next/image?url=https%3A%2F%2Fartworks.thetvdb.com%2Fbanners%2Fv4%2Fseries%2F416998%2Fbackgrounds%2F6500491932385.jpg&w=3840&q=75"
+      },
+      {
+        id: "Monster",
+        title: "Monster",
+        plot: "Monster: Created by Naoki Urasawa. With Hidenobu Kiuchi, Liam O'Brien, Eiji Hanawa, Mamiko Noto. Tenma, a brilliant neurosurgeon with a promising future, ...",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTZ-B7v6P0WG6f1XCDq9L_vj8YB3F_CuoVZQ&s"
+      },
+      {
+        id: "Lookism",
+        title: "Lookism",
+        plot: "In a society that favors good looks, a high school outcast leads a double life switching between his two bodies that are polar opposites in appearance.",
+        img: "https://occ-0-8407-2219.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABQ78iNMxGS9lj-ELeaaXtenNAUzV6tStnvZp8lKAyXyRhWiglqZLVfe84mP4_zgG6V2AmYLVNHy5_iLANkiFkZBOzT6yxHFNaR5u.jpg?r=07d"
+      },
+      {
+        id: "Kakegurui",
+        title: "Kakegurui S1,S2",
+        plot: "Kakegurui is a Japanese anime series that premiered in July 2017 and is based on the manga of the same name by Homura Kawamoto. The setting is a private school ...",
+        img: "https://assets.sentaifilmworks.com/titles/KKG/KKG_kakegurui_KEY_2048x768.jpg"
+      },
+      {
+        id: "Failure_Frame",
+        title: "Failure Frame",
+        plot: "A student summoned to another world is deemed a failure by the goddess. However, his low-rank skills prove useful, and he seeks revenge, revealing his true ...",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/d545596a4709d117bdee723f820626af.jpg"
+      },
+      {
         id: "Death_Parade",
         title: "Death Parade",
         plot: "After death, humans go to either heaven or hell. But for some, at the instant of their death, they arrive at the Quindecim, a bar attended by the mysterious...",
@@ -422,7 +488,7 @@
       displaySubs(filtered);
     });
 
-    document.getElementById("bot-status").classList.add("active");
+    document.getElementById("bot-status").classList.add("");
 
 //ads sideshow
 const ads = [
