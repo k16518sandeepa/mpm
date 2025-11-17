@@ -36,7 +36,7 @@
         img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/82a04b6aeff8ce1d2033fe5ebd8c0fe6.jpg"
       },
       {
-        id: "Nier:_Automata_Ver1.1a",
+        id: "Nier_Automata_Ver1.1a",
         title: "Nier: Automata Ver1.1a",
         plot: "Animated adaptation of NieR: Automata (2017), where a long-running war on post-apocalyptic Earth between androids and machines soon unveils the truth of the ...",
         img: "https://www.tvtime.com/_next/image?url=https%3A%2F%2Fartworks.thetvdb.com%2Fbanners%2Fv4%2Fseries%2F416998%2Fbackgrounds%2F6500491932385.jpg&w=3840&q=75"
