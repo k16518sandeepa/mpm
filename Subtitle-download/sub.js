@@ -1,5 +1,65 @@
  const subtitles = [
       {
+        id: "Cultural_Exchange_with_a_Game_Centre_Girl",
+        title: "Cultural Exchange with a Game Centre Girl",
+        plot: "Lily Baker is a thirteen year old girl from the UK who has recently moved to Japan. She likes to spend her time at a local game arcade even though she isn't ...",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/c4baa20125732cc1f7c99b21eba0214e.jpg"
+      },
+      {
+        id: "Yuru_Camp",
+        title: "Yuru Camp",
+        plot: "Nadeshiko, a high school student who has moved from Shizuoka to Yamanashi, decides to see the famous Mount Fuji.",
+        img: "https://thechuunicorner.com/wp-content/uploads/2019/09/lt1wfa0.png"
+      },
+      {
+        id: "O_Maidens_in_Your_Savage_Season",
+        title: "O Maidens in Your Savage Season",
+        plot: "When they were little kids laughing and playing together, Izumi Norimoto and Kazusa Onodera were like siblings. But as their bodies matured into middle school, ...",
+        img: "https://i0.wp.com/spacewhales.home.blog/wp-content/uploads/2019/09/header.jpg?fit=1200%2C698&ssl=1"
+      },
+      {
+        id: "More_Than_a_Married_Couple,_But_Not_Lovers",
+        title: "More Than a Married Couple, But Not Lovers",
+        plot: "This anime series is centred on two high school students; Jiro Yakuin and Akari Watanabe. He is a shy and retiring boy who has feelings for Shiori Sakurazaka; ...",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=cover,format=auto,quality=85,width=1920/keyart/GJ0H7Q5N3-backdrop_wide"
+      },
+      {
+        id: "Lycoris_Recoil",
+        title: "Lycoris Recoil",
+        plot: "Lycoris Recoil tells a reasonably clever story surrounding the Lycoris agents Takina and Chisato. Takina is the quintessential no-nonsense professional that has ...",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=cover,format=auto,quality=85,width=1920/keyart/G1XHJV2X9-backdrop_wide"
+      },
+      {
+        id: "Goblin_Slayer",
+        title: "Goblin Slayer",
+        plot: "In a fantasy world, a lone hero makes his living by exterminating all goblins he encounters. But one day he meets a friend, and his life begins to become more ...",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=cover,format=auto,quality=85,width=1920/keyart/G6VDMN306-backdrop_wide"
+      },
+      {
+        id: "The_Misfit_of_Demon_King_Academy",
+        title: "The Misfit of Demon King Academy",
+        plot: "The story revolves around Anos Voldigoad, a demon king who reincarnates after a thousand years to find that the world has changed drastically. The plot offers ...",
+        img: "https://images7.alphacoders.com/135/1359034.png"
+      },
+      {
+        id: "Rascal_Does_Not_Dream_Bunny_Girl_Senpai",
+        title: "Rascal Does Not Dream Of Bunny Girl Senpai",
+        plot: "After experiencing puberty syndrome himself, high school pariah Sakuta keeps meeting girls suffering from it, including his sister and actor Mai.",
+        img: "https://miro.medium.com/1*zAj1vcyPg6iWlj5iSBvcsA.png"
+      },
+      {
+        id: "Terminator_Zero",
+        title: "Terminator: Zero",
+        plot: "In Japan, Malcom Lee has been developing another AI system that is intended to compete with SkyNet. As Judgement Day approaches in 1997, Lee finds himself and his three children pursued by an unknown robot assassin.",
+        img: "https://cdn.mos.cms.futurecdn.net/qELDGRmcXkQqJq3NKSMstE-1200-80.jpg"
+      },
+      {
+        id: "Takt_Op._Destiny",
+        title: "Takt Op. Destiny",
+        plot: "In a world where aliens have invaded Earth and banned music, a group of fighter musicians use music as a weapon to maintain a resistance.",
+        img: "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1200,height=675/catalog/crunchyroll/327d37892001e1c3ba02b1ecdedd8489.jpe"
+      },
+      {
         id: "Vinland_Saga",
         title: "Vinland Saga",
         plot: "Following a tragedy, Thorfinn embarks on a journey with the man responsible for it to take his life in a duel as a true and honorable warrior to pay homage.",
@@ -488,7 +548,7 @@
       displaySubs(filtered);
     });
 
-    document.getElementById("bot-status").classList.add("active");
+    document.getElementById("bot-status").classList.add("");
 
 //ads sideshow
 const ads = [
