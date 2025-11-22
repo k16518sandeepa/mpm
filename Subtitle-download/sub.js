@@ -488,7 +488,7 @@
       displaySubs(filtered);
     });
 
-    document.getElementById("bot-status").classList.add("");
+    document.getElementById("bot-status").classList.add("active");
 
 //ads sideshow
 const ads = [
