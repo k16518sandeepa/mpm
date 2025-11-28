@@ -1,0 +1,9 @@
+{
+  "poll": {
+    "anime": {
+      "Demon Slayer": 0,
+      "One Piece": 0,
+      "Jujutsu Kaisen": 0
+    }
+  }
+}

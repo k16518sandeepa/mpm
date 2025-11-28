@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="Sinhala Subtitle translate,Subtitle translator,Subtitle translate,Subtitles translate,Subtitle translate MPM, Motion Picture Mafia,MPM">
+  <meta name="robots" content="index, follow">
+  <title>Subtitle Translator | Motion Picture Mafia</title>
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+<meta property="og:title" content="Subtitle Translator | MPM">
+<meta property="og:description" content="Translate subtitles (.srt & .ass) into multiple languages.">
+<meta property="og:image" content="https://i.imgur.com/JbmemAc.jpeg">
+<meta property="og:url" content="https://motionpicturemafia.com/subtitle%20translator.html">
+<meta property="og:type" content="article">
+<!--Google Ads-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8377794585544932"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6KK47Q2PLX');
+</script>  
+
+<link rel="manifest" href="manifest.json">
+  <meta name="description" content="Translate subtitles (.srt & .ass) into multiple languages. Upload by drag & drop or file picker, preview, translate, and download as ZIP.">
+
+  <!-- JSZip + FileSaver -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1e272e;
+      color: #f1f2f6;
+      text-align: center;
+      padding: 20px;
+    }
+    header {
+      margin-bottom: 20px;
+    }
+    input, select, button {
+      margin: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      background: #ff4757;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #e84118;
+    }
+
+    /* Drag & Drop */
+    #dropZone {
+      border: 2px dashed #ff4757;
+      padding: 30px;
+      margin: 20px auto;
+      border-radius: 10px;
+      max-width: 600px;
+      background: #2f3640;
+      cursor: pointer;
+    }
+    #dropZone.dragover {
+      background: #353b48;
+      border-color: #e84118;
+    }
+
+    .file-list {
+      text-align: left;
+      margin: 20px auto;
+      max-width: 600px;
+      background: #2f3640;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .file-list li {
+      margin: 5px 0;
+      cursor: pointer;
+      color: #ff6b81;
+    }
+    .file-list li:hover {
+      text-decoration: underline;
+    }
+
+    #downloadAll {
+      margin-top: 20px;
+      background: #2ed573;
+    }
+    #downloadAll:hover {
+      background: #1eae60;
+    }
+
+    /* Loader */
+    #loader {
+      display: none;
+      margin: 20px auto;
+      font-size: 16px;
+      color: #ff6b81;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      width: 80%;
+      margin: 20px auto;
+      background: #2f3640;
+      border-radius: 10px;
+      overflow: hidden;
+      display: none;
+    }
+    .progress-bar {
+      height: 20px;
+      width: 0%;
+      background: #ff4757;
+      text-align: center;
+      color: white;
+      font-size: 12px;
+      transition: width 0.3s;
+    }
+
+    /* Preview panel */
+    #previewBox {
+      margin: 20px auto;
+      max-width: 900px;
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      text-align: left;
+    }
+    .preview-panel {
+      background: #2f3640;
+      padding: 15px;
+      border-radius: 10px;
+      white-space: pre-wrap;
+      font-family: monospace;
+      color: #dcdde1;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .preview-title {
+      font-weight: bold;
+      color: #ff4757;
+      margin-bottom: 8px;
+    }
+     /* Footer */
+#siteFooter {
+  text-align: center;
+  padding: 15px;
+  background: #2f3640;
+  color: #f1f2f6;
+  margin-top: 50px; /* space from content */
+  border-radius: 10px;
+}
+
+/* Optional: small icons spacing */
+#siteFooter a { margin: 0 5px; display:inline-block; }
+  footer nav {
+    margin-bottom: 10px;
+  }
+  body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main { flex: 1; }
+
+  footer nav a {
+    color: #ff6b81;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  footer nav a:hover {
+    text-decoration: underline;
+  }
+  .social-icons a {
+    margin: 0 8px;
+    display: inline-block;
+  }
+  .social-icons img {
+    width: 28px;
+    height: 28px;
+    
+    transition: 0.3s;
+  }
+  .social-icons img:hover {
+    filter: none; /* show original colors on hover */
+    transform: scale(1.1);
+  }
+  </style>
+</head>
+<body>
+<main>
+<header>
+  <h1>🎬 Subtitle Translator | MPM</h1>
+  <p>Drag & drop or upload multiple subtitle files (.srt & .ass), preview, translate, and download as ZIP</p>
+</header>
+
+<!-- Drag & Drop -->
+<div id="dropZone">📂 Drag & Drop subtitle files here or click to select [Max 20 files Recommended]</div>
+<input type="file" id="fileInput" multiple accept=".srt,.ass" style="display:none;">
+
+<!-- Language selector -->
+<select id="targetLang">
+  <option value="si">Sinhala</option>
+  <option value="en">English</option>
+  <option value="es">Spanish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="it">Italian</option>
+  <option value="ja">Japanese</option>
+  <option value="hi">Hindi</option>
+</select>
+<button onclick="processFiles()">Translate Files</button>
+<button onclick="clearFiles()">Clear Files</button>
+
+<div id="loader">⏳ Translating... please wait</div>
+
+<!-- Progress bar -->
+<div class="progress-container">
+  <div id="progressBar" class="progress-bar">0%</div>
+</div>
+
+<ul id="fileList" class="file-list"></ul>
+
+<!-- Preview original + translated -->
+<div id="previewBox">
+  <div class="preview-panel">
+    <div class="preview-title">Original Subtitle</div>
+    <div id="originalPreview"></div>
+  </div>
+  <div class="preview-panel">
+    <div class="preview-title">Translated Subtitle</div>
+    <div id="translatedPreview"></div>
+  </div>
+</div>
+
+<button id="downloadAll" style="display:none;" onclick="downloadAll()">Download All as ZIP</button>
+</main>
+<footer id="siteFooter">
+  <nav>
+    <a href="https://motionpicturemafia.com/">Home</a> |
+    <a href="https://motionpicturemafia.com/movies/movies">Movies</a> |
+    <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a> |
+    <a href="https://motionpicturemafia.com/anime/anime">Anime</a> |
+    <a href="https://motionpicturemafia.com/games/games">Games</a> |
+    <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+  </nav>
+
+  <!-- Social Media Links -->
+  <div class="social-icons">
+    <a href="https://web.facebook.com/groups/721197248262091" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" alt="Facebook Group 1">
+    </a>
+    
+    <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp Channel 1">
+    </a>
+    
+    <a href="https://discord.gg/KS8anqchac" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord Server">
+    </a>
+
+    <a href="https://t.me/whatsappgang" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram">
+    </a>
+  </div>
+   <!--ads-->
+<script async="async" data-cfasync="false" src="//pl27826692.effectivegatecpm.com/7a2a154083827637e3f699badd2ac703/invoke.js"></script>
+<div id="container-7a2a154083827637e3f699badd2ac703"></div>
+  <p>© 2025 Motion Picture Mafia Studio | Designed by SANA</p>
+</footer>
+<script>
+let translatedFiles = [];
+let uploadedFiles = [];
+
+// Translate function
+async function translateText(text, targetLang) {
+  const res = await fetch(
+    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`
+  );
+  const data = await res.json();
+  return data[0].map(x => x[0]).join(" ");
+}
+
+// Handle file selection
+function handleFiles(files) {
+  const fileList = document.getElementById("fileList");
+  fileList.innerHTML = "";
+  uploadedFiles = [];
+
+  for (let file of files) {
+    uploadedFiles.push(file);
+    const li = document.createElement("li");
+    li.textContent = file.name;
+    li.onclick = async () => {
+      const content = await file.text();
+      document.getElementById("previewBox").style.display = "grid";
+      document.getElementById("originalPreview").textContent = content.substring(0, 1000) + (content.length > 1000 ? "\n... (truncated)" : "");
+      document.getElementById("translatedPreview").textContent = "⚠️ Not translated yet.";
+    };
+    fileList.appendChild(li);
+  }
+}
+
+// File input trigger
+document.getElementById("dropZone").addEventListener("click", () => {
+  document.getElementById("fileInput").click();
+});
+document.getElementById("fileInput").addEventListener("change", (e) => handleFiles(e.target.files));
+
+// Drag & drop
+const dropZone = document.getElementById("dropZone");
+dropZone.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  dropZone.classList.add("dragover");
+});
+dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
+dropZone.addEventListener("drop", (e) => {
+  e.preventDefault();
+  dropZone.classList.remove("dragover");
+  handleFiles(e.dataTransfer.files);
+});
+
+// Process translation
+async function processFiles() {
+  const files = uploadedFiles;
+  const targetLang = document.getElementById("targetLang").value;
+  const fileList = document.getElementById("fileList");
+  translatedFiles = [];
+
+  if (files.length === 0) {
+    alert("Please upload at least one subtitle file.");
+    return;
+  }
+
+  document.getElementById("loader").style.display = "block";
+  document.querySelector(".progress-container").style.display = "block";
+  const progressBar = document.getElementById("progressBar");
+
+  let completed = 0;
+
+  for (let file of files) {
+    const text = await file.text();
+
+    const translated = await Promise.all(
+      text.split("\n").map(async line => {
+        if (
+          line.match(/^\d+$/) ||
+          line.match(/^\d{2}:\d{2}/) ||
+          line.startsWith("[")
+        ) {
+          return line;
+        }
+        return line.trim() ? await translateText(line, targetLang) : line;
+      })
+    );
+
+    const finalText = translated.join("\n");
+
+    translatedFiles.push({
+      name: file.name.replace(/\.(srt|ass)$/i, `_translated.$1`),
+      content: finalText
+    });
+
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([finalText], { type: "text/plain" }));
+    a.download = file.name.replace(/\.(srt|ass)$/i, `_translated.$1`);
+    a.textContent = `Download ${a.download}`;
+    li.appendChild(a);
+    fileList.appendChild(li);
+
+    // update preview with first translated file
+    if (completed === 0) {
+      document.getElementById("previewBox").style.display = "grid";
+      document.getElementById("originalPreview").textContent = text.substring(0, 1000) + (text.length > 1000 ? "\n... (truncated)" : "");
+      document.getElementById("translatedPreview").textContent = finalText.substring(0, 1000) + (finalText.length > 1000 ? "\n... (truncated)" : "");
+    }
+
+    completed++;
+    let percent = Math.round((completed / files.length) * 100);
+    progressBar.style.width = percent + "%";
+    progressBar.textContent = percent + "%";
+  }
+
+  document.getElementById("loader").style.display = "none";
+
+  if (translatedFiles.length > 1) {
+    document.getElementById("downloadAll").style.display = "block";
+  }
+}
+
+function downloadAll() {
+  let zip = new JSZip();
+  translatedFiles.forEach(file => {
+    zip.file(file.name, file.content);
+  });
+  zip.generateAsync({ type: "blob" }).then(content => {
+    saveAs(content, "translated_subtitles.zip");
+  });
+}
+
+function clearFiles() {
+  document.getElementById("fileInput").value = "";
+  document.getElementById("fileList").innerHTML = "";
+  document.getElementById("previewBox").style.display = "none";
+  document.getElementById("originalPreview").textContent = "";
+  document.getElementById("translatedPreview").textContent = "";
+  translatedFiles = [];
+  uploadedFiles = [];
+  document.getElementById("downloadAll").style.display = "none";
+  document.getElementById("progressBar").style.width = "0%";
+  document.getElementById("progressBar").textContent = "0%";
+}
+</script>
+
+</body>
+</html>

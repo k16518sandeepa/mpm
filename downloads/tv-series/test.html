@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <title>Stranger Things - Download</title>
+
+  <link rel="stylesheet" href="stranger-things.css">
+
+  <audio id="themeSong" src="https://github.com/k16518sandeepa/mpm-en/blob/main/stranger-things-theme.mp3" loop preload="auto" volume="0"></audio> 
+</head>
+
+<body>
+<div class="bg-blur"></div>
+<header>Motion Picture Mafia</header>
+
+<div class="container">
+
+  <div class="poster">
+    <img src="https://m.media-amazon.com/images/M/MV5BNjRiMTA4NWUtNmE0ZC00NGM0LWJhMDUtZWIzMDM5ZDIzNTg3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Poster">
+  </div>
+
+  <div class="glass-box">
+
+    <h2>Stranger Things</h2>
+
+    <p>
+In 1980s Indiana, a group of young friends witness supernatural forces and secret government exploits. As they search for answers, the children unravel a series of extraordinary mysteries.    
+    </p>
+
+    <div class="stats">
+      <span>📅 2016-2025</span>
+      <span>⭐ 8.6/10</span>
+      <span>🧪 Sci-Fi Epic</span>
+      <span>🔮 Dark-Fantasy</span>
+      <span>🎭 Drama</span>
+      <span>🔞 TV-14</span>
+    </div>
+
+    <iframe src="https://www.youtube.com/embed/b9EkMc79ZSU" allowfullscreen></iframe>
+
+    <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S05_720p_Part1">
+      Download Season 05 Vol.1 720p
+    </a>
+     <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S05_1080p_Part1">
+      Download Season 05 Vol.1 1080p
+    </a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S05_Part1">
+      Download Sinhala Subtitles
+    </a>
+
+
+    </div>
+
+</div>
+
+<script>
+  // Get the audio element
+  const themeSong = document.getElementById('themeSong');
+  // Set the target volume (adjust this if you want it quieter/louder)
+  const targetVolume = 0.5; 
+  // How fast the fade-in should be (in milliseconds)
+  const fadeDuration = 5000; 
+  // The interval between volume changes (for a smooth effect)
+  const fadeInterval = 50; 
+  // How much the volume increases in each interval
+  const volumeIncrement = targetVolume * (fadeInterval / fadeDuration); 
+  
+  let hasPlayed = false;
+
+  function fadeInAudio() {
+    if (hasPlayed) return; // Only run once
+    
+    // Attempt to start playback. This is necessary because some browsers
+    // require an explicit user gesture to begin audio playback.
+    themeSong.play().then(() => {
+      // Audio started successfully, now fade it in
+      hasPlayed = true;
+      const fadeEffect = setInterval(() => {
+        if (themeSong.volume < targetVolume) {
+          themeSong.volume = Math.min(themeSong.volume + volumeIncrement, targetVolume);
+        } else {
+          // Volume reached target, stop the interval
+          clearInterval(fadeEffect);
+        }
+      }, fadeInterval);
+
+      // Remove the event listener once the music starts playing
+      document.removeEventListener('click', fadeInAudio);
+      document.removeEventListener('touchstart', fadeInAudio);
+
+    }).catch(error => {
+      // Handle potential playback errors (e.g., user hasn't interacted yet)
+      console.log('Playback failed:', error.message);
+    });
+  }
+
+  // Add event listeners to the entire document for 'click' (desktop) and 'touchstart' (mobile)
+  document.addEventListener('click', fadeInAudio);
+  document.addEventListener('touchstart', fadeInAudio);
+
+</script>
+</body>
+</html>

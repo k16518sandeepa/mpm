@@ -1,0 +1,155 @@
+/* MAIN INDEX PAGE CSS */
+
+/* Global */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+}
+
+/* Header */
+header {
+  padding: 20px;
+  text-align: center;
+  background: #111;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(255,0,0,0.4);
+}
+header h1 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: 2px;
+  animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+  from { text-shadow: 0 0 6px #b30000; }
+  to   { text-shadow: 0 0 20px #ff0000; }
+}
+
+/* Filters */
+.filters {
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto 10px;
+}
+.filters select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #1c1c1c;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  box-shadow: 0 0 10px rgba(255,0,0,0.2);
+}
+
+/* Search */
+.search-bar {
+  width: 90%;
+  max-width: 600px;
+  margin: 10px auto 25px;
+}
+.search-bar input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+@media(max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards */
+.card {
+  background: #141414;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(255,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 0 20px rgba(255,0,0,0.4);
+}
+.card img {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+}
+.card .info {
+  padding: 15px;
+}
+
+/* Button */
+.card button {
+  width: 100%;
+  padding: 12px;
+  background: #c40000;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.card button:hover {
+  background: #ff0000;
+}
+
+/* ===== Back to Top ===== */
+.back-to-top {
+ position: fixed;
+ bottom: 30px;
+ right: 30px;
+ background: #ff4757;
+ color: #fff;
+ border: none;
+ padding: 10px 15px;
+ border-radius: 50px;
+ cursor: pointer;
+ font-size: 16px;
+ opacity: 0.7;
+ transition: opacity 0.3s;
+}
+.back-to-top:hover {
+ opacity: 1;
+}
+
+/* Bot status*/
+#bot-status {
+ background-color: #ff4d4d;
+ color: white;
+ text-align: center;
+ padding: 10px;
+ font-weight: bold;
+ display: none;
+}
+
+#bot-status.active {
+ display: block;
+}
+
+.bot-offline {
+animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+ 50% { opacity: 0.6; }
+}

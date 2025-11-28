@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Updates & News | Motion Picture Mafia Studio</title>
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header>
+    <h1>Motion Picture Mafia Studio</h1>
+    <p>Updates & News</p>
+  </header>
+
+  <!-- ===== Navigation ===== -->
+  <nav>
+    <a href="https://motionpicturemafia.netlify.app/">Home</a>
+    <a href="https://motionpicturemafia.netlify.app/movies/movies">Movies</a>
+    <a href="https://motionpicturemafia.netlify.app/tv%20series/tv%20series">TV Series</a>
+    <a href="https://motionpicturemafia.netlify.app/anime/anime">Anime</a>
+    <a href="https://motionpicturemafia.netlify.app/games/games">Games</a>
+    <a href="updates.html" class="active">Updates</a>
+    
+  </nav>
+
+  <!-- ===== Search Box ===== -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search articles...">
+  </div>
+
+  <!-- ===== Main Container ===== -->
+  <div class="container">
+    <!-- ===== Articles Section ===== -->
+    <div class="articles" id="articleList">
+
+      <!-- Article 1 -->
+      <div class="card">
+        <img src="https://hips.hearstapps.com/hmg-prod/images/gridoffset-videogames-1-1585583517.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*" alt="Game list">
+        <h2>MPM PC GAMES UPLOADED GAMES LIST</h2>
+        <p class="author">By MPM Admin Team</p>
+        <p></p>
+        <a href="update game list.html" class="read-more">Read More</a>
+      </div>
+
+      <!-- You can keep adding more cards here -->
+
+    </div>
+
+    <!-- ===== Sidebar Section ===== -->
+    <aside class="sidebar">
+      <h2>Updates</h2>
+      <ul>
+        <li><a href="Updates/update game list.html" class="read-more">Uploaded Game List</a></li>
+      </ul>
+    </aside>
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p>&copy; 2025 Motion Picture Mafia Studio | Designed By SANA</p>
+    <p>Follow us on 
+      <a href="https://web.facebook.com/groups/721197248262091">Facebook</a>, 
+      <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i">WhatsApp</a>
+    </p>
+  </footer>
+
+  <!-- ===== Back to Top Button ===== -->
+  <button id="backToTop">↑</button>
+
+  <!-- ===== Scripts ===== -->
+  <script>
+    // Back to Top button
+    const backToTop = document.getElementById("backToTop");
+    window.onscroll = function () {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTop.style.display = "block";
+      } else {
+        backToTop.style.display = "none";
+      }
+    };
+    backToTop.onclick = function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    // Search Filter
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keyup", function () {
+      const filter = searchInput.value.toLowerCase();
+      const cards = document.querySelectorAll(".card");
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(filter) ? "" : "none";
+      });
+    });
+  </script>
+</body>
+</html>

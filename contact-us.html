@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us| MPM</title>
+  <link rel="stylesheet" href="general.css">
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <meta property="og:title" content="Contact Us | Motion Picture Mafia Studio">
+<meta property="og:description" content="We’d love to hear from you! Fill out the form below or reach us through our social media.">
+<meta property="og:image" content="https://i.imgur.com/JbmemAc.jpeg">
+<meta property="og:url" content="https://motionpicturemafia.com/contact">
+<meta property="og:type" content="article">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6KK47Q2PLX');
+</script>
+<link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <header>
+    <h1>Motion Picture Mafia Studio</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="about-us.html">About Us</a>
+    <a href="contact-us.html"  class="active">Contact Us</a>
+  </nav>
+
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>We’d love to hear from you! Fill out the form below or reach us through our social media.</p>
+
+    <form action="https://formspree.io/f/xovnzepn" method="post">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+
+    <p>Or email us directly at <a href="mailto:admin@motionpicturemafia.com">admin@motionpicturemafia.com</a></p>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Motion Picture Mafia Studio</p>
+  </footer>
+  <script>
+  const form = document.querySelector("form");
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      alert("✅ Message sent successfully!");
+      form.reset();
+    } else {
+      alert("❌ Oops! Something went wrong.");
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>We'll be back soon — Maintenance</title>
+<meta name="description" content="Site under maintenance — we'll be back soon." />
+<link rel="icon" type="image/png" href="Images/mpm logo.png">
+<style>
+ /* Reset */
+ *{box-sizing:border-box;margin:0;padding:0}
+ html,body{height:100%}
+ body{
+ font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans",sans-serif;
+ background: linear-gradient(180deg,#0f172a 0%, #071026 60%);
+ color:#e6eef8;
+ -webkit-font-smoothing:antialiased;
+ -moz-osx-font-smoothing:grayscale;
+ display:flex;align-items:center;justify-content:center;
+ padding:32px;
+ }
+
+ /* Card */
+ .card{
+ width:min(980px,96%);
+ background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+ border:1px solid rgba(255,255,255,0.04);
+ border-radius:16px;
+ padding:36px;
+ position:relative;
+ overflow:hidden;
+ box-shadow:0 10px 30px rgba(2,6,23,0.6);
+ backdrop-filter: blur(6px) saturate(120%);
+ }
+
+ /* Decorative floating circles */
+ .floaters{position:absolute;inset:0;pointer-events:none}
+ .floater{
+ position:absolute;border-radius:50%;opacity:0.12;mix-blend-mode:screen;filter:blur(18px);
+ animation:float 8s ease-in-out infinite;
+ }
+ .floater.a{width:260px;height:260px;background:#7dd3fc;left:-80px;top:-40px}
+ .floater.b{width:180px;height:180px;background:#a78bfa;right:-50px;bottom:-60px;animation-duration:10s}
+ .floater.c{width:120px;height:120px;background:#34d399;left:40%;top:-60px;animation-duration:12s}
+ @keyframes float{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-18px) rotate(6deg)}100%{transform:translateY(0) rotate(0)}}
+
+ /* Layout */
+ .row{display:flex;gap:28px;align-items:center}
+ .left{flex:1;min-width:260px}
+ .right{width:320px;display:flex;flex-direction:column;gap:18px;align-items:center}
+
+ h1{font-size:2.05rem;line-height:1.05;margin-bottom:10px;letter-spacing:-0.02em}
+ p.lead{color:rgba(230,238,248,0.9);opacity:0.95;margin-bottom:8px}
+ .muted{color:rgba(230,238,248,0.65);font-size:0.95rem}
+
+ /* Animated gear (SVG) */
+ .gear-wrap{width:170px;height:170px;display:grid;place-items:center;padding:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px}
+ .gear{width:120px;height:120px;animation:spin 3.8s linear infinite}
+ @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+
+ /* Neon text effect */
+ .status{display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 6px 30px rgba(120,180,255,0.04)}
+ .status strong{color:#a5f3fc;text-shadow:0 6px 30px rgba(165,243,252,0.06)}
+
+ /* Progress + pulse */
+ .progress-wrap{width:100%;background:rgba(255,255,255,0.03);border-radius:12px;padding:10px}
+ .progress{height:12px;background:linear-gradient(90deg,#0891b2,#7c3aed);border-radius:10px;width:0%;box-shadow:0 6px 20px rgba(12,74,110,0.12);transition:width 900ms cubic-bezier(.2,.9,.25,1)}
+ .eta{font-size:0.92rem;color:rgba(230,238,248,0.75);margin-top:8px}
+
+ /* Buttons */
+ .btn{display:inline-flex;gap:10px;align-items:center;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit;cursor:pointer;text-decoration:none}
+ .btn.primary{background:linear-gradient(90deg,#06b6d4,#7c3aed);color:white;box-shadow:0 8px 30px rgba(124,58,237,0.14)}
+ .btn.ghost{border-style:dashed}
+
+ /* Small features */
+ ul.features{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:8px;margin-top:8px}
+ ul.features li{display:flex;gap:8px;align-items:center}
+ .dot{width:10px;height:10px;border-radius:50%;background:#34d399;box-shadow:0 6px 18px rgba(52,211,153,0.08)}
+
+ /* Countdown */
+ .countdown{display:flex;gap:10px;margin-top:8px}
+ .countdown .cell{min-width:56px;background:rgba(255,255,255,0.02);border-radius:8px;padding:8px;text-align:center}
+ .cell .num{font-weight:700;font-size:1.05rem}
+ .cell .lbl{font-size:0.8rem;color:rgba(230,238,248,0.7)}
+
+ /* Footer small */
+ .footer{font-size:0.85rem;color:rgba(230,238,248,0.6);margin-top:16px;text-align:center}
+
+ /* Responsive tweaks */
+ @media (max-width:880px){
+ .row{flex-direction:column}
+ .right{width:100%;order:2}
+ .left{order:1}
+ .gear-wrap{margin:0 auto}
+ }
+
+ </style>
+</head>
+<body>
+ <main class="card" role="main" aria-labelledby="title">
+ <div class="floaters" aria-hidden="true">
+ <div class="floater a"></div>
+ <div class="floater b"></div>
+ <div class="floater c"></div>
+ </div>
+
+ <div class="row">
+ <section class="left" aria-labelledby="title">
+ <h1 id="title">We&rsquo;re making improvements ✨</h1>
+ <p class="lead">Thanks for visiting — we&rsquo;re updating a few things to make the site better and faster. You can still reach us via email if you need help.</p>
+
+ <div class="status" aria-live="polite"><strong>Under maintenance</strong> — scheduled upgrade in progress</div>
+
+ <div style="height:18px"></div>
+
+ <div class="progress-wrap" aria-hidden="true">
+ <div id="progress" class="progress" style="width:0%"></div>
+ </div>
+ <div class="eta" id="eta">Initializing…</div>
+
+ <div class="countdown" id="countdown" aria-hidden="false" style="margin-top:14px"></div>
+
+ <ul class="features" aria-hidden="true">
+ <li><span class="dot" aria-hidden="true"></span> Faster load times</li>
+ <li><span class="dot" aria-hidden="true"></span> New Files Download System</li>
+ <li><span class="dot" aria-hidden="true"></span> Improved search</li>
+ <li><span class="dot" aria-hidden="true"></span> Bug fixes</li>
+ </ul>
+
+ <div style="height:10px"></div>
+
+ <p class="muted">Need help? <a href="mailto:admin@motionpicturemafia.com" class="btn" style="text-decoration:underline">Contact support</a></p>
+
+ <p class="footer">If you're seeing this after the scheduled time, try clearing your cache or contact support.</p>
+ </section>
+
+ <aside class="right" aria-label="Maintenance status">
+ <div class="gear-wrap" role="img" aria-label="Animated maintenance gear">
+ <svg class="gear" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+ <defs>
+ <linearGradient id="g1" x1="0" x2="1">
+ <stop offset="0%" stop-color="#06b6d4"/>
+ <stop offset="100%" stop-color="#7c3aed"/>
+ </linearGradient>
+ </defs>
+ <g transform="translate(50,50)">
+ <path d="M-14-36 L14-36 L18-22 L32-18 L36 0 L32 18 L18 22 L14 36 L-14 36 L-18 22 L-32 18 L-36 0 L-32 -18 L-18 -22 Z" fill="url(#g1)" opacity="0.15"></path>
+ <circle r="26" fill="none" stroke="url(#g1)" stroke-width="6" stroke-linecap="round"/>
+ <circle r="10" fill="#071026" stroke="url(#g1)" stroke-width="3"/>
+ </g>
+ </svg>
+ </div>
+
+ <div style="text-align:center">
+ <a id="refreshBtn" class="btn primary" role="button">Check status</a>
+ <a href="/" class="btn" style="margin-left:8px">Return home</a>
+ </div>
+
+ <p class="muted" style="text-align:center;margin-top:8px">Last update: <span id="lastUpdate">—</span></p>
+ </aside>
+ </div>
+
+ </main>
+
+ <script>
+  /* ====== Configuration ====== */
+
+ const expectedStartISO = '2025-11-27T01:00:00+05:30'; // Maintenance start time
+ const expectedReturnISO = '2025-11-27T11:30:00+05:30'; // Planned finish time
+
+
+ const simulate = false; 
+
+ /* ====== Small helpers ====== */
+ const progressEl = document.getElementById('progress');
+ const etaEl = document.getElementById('eta');
+ const countdownEl = document.getElementById('countdown');
+ const lastUpdateEl = document.getElementById('lastUpdate');
+ let progressInterval; // Declare interval globally for clarity
+
+ function setProgress(p){
+ // Ensure progress is between 0% and 100%
+ const clampedP = Math.max(2, Math.min(100, p));
+ progressEl.style.width = clampedP + '%';
+ 
+ if (p < 0) {
+ etaEl.textContent = 'Maintenance scheduled to start soon.';
+ } else if (p >= 100) {
+ etaEl.textContent = 'Completed — refreshing shortly';
+ } else {
+ etaEl.textContent = `Upgrade progress: ${Math.round(p)}%`;
+ }
+ lastUpdateEl.textContent = new Date().toLocaleString();
+ }
+
+ /* Time-based progress calculation */
+ const start = expectedStartISO ? new Date(expectedStartISO).getTime() : 0;
+ const end = expectedReturnISO ? new Date(expectedReturnISO).getTime() : 0;
+ const totalDuration = end - start;
+ 
+ function updateTimeProgress() {
+ if (totalDuration <= 0) {
+ // If end time is before or equal to start time, or times are not set
+ setProgress(end > 0 && new Date().getTime() > end ? 100 : 0);
+ return;
+ }
+
+ const now = new Date().getTime();
+ const elapsed = now - start;
+ let percentage = (elapsed / totalDuration) * 100;
+
+ // Clamp the percentage between 0 and 100
+ percentage = Math.max(0, Math.min(100, percentage));
+ setProgress(percentage);
+
+ if (percentage >= 100) {
+ clearInterval(progressInterval);
+ progressEl.style.transition = 'width 600ms ease-out';
+ 
+ // Attempt auto-refresh after completion
+ setTimeout(()=>{
+ try{ if('navigation' in window) window.location.reload(); else window.location.href = window.location.href; }catch(e){}
+ }, 1400);
+ }
+ }
+
+ // Start time-based progress updates
+ updateTimeProgress();
+ progressInterval = setInterval(updateTimeProgress, 1000);
+
+ /* Countdown display (if configured) */
+ function renderCountdown(iso){
+ if(!iso) return;
+ const target = new Date(iso);
+ if(isNaN(target)) return;
+
+ function update(){
+ const diff = Math.max(0, target - new Date());
+ const days = Math.floor(diff / (1000*60*60*24));
+ const hrs = Math.floor((diff / (1000*60*60)) % 24);
+ const mins = Math.floor((diff / (1000*60)) % 60);
+ const secs = Math.floor((diff / 1000) % 60);
+
+ countdownEl.innerHTML = `
+ <div class="cell" aria-hidden="false"><div class="num">${days}</div><div class="lbl">days</div></div>
+ <div class="cell" aria-hidden="false"><div class="num">${hrs}</div><div class="lbl">hrs</div></div>
+ <div class="cell" aria-hidden="false"><div class="num">${mins}</div><div class="lbl">mins</div></div>
+ <div class="cell" aria-hidden="false"><div class="num">${secs}</div><div class="lbl">secs</div></div>
+`;
+
+ if(diff <= 0){
+ countdownEl.innerHTML = '<div class="muted">Maintenance window ended — reloading status…</div>';
+ clearInterval(iv);
+ setTimeout(()=>location.reload(),1200);
+ }
+ }
+ update();
+ const iv = setInterval(update, 1000);
+ }
+
+ // Start countdown if date set
+ renderCountdown(expectedReturnISO);
+
+ // Manual check button
+ document.getElementById('refreshBtn').addEventListener('click', ()=>{
+ updateTimeProgress();
+ lastUpdateEl.textContent = new Date().toLocaleString();
+ });
+
+ // Accessibility: announce when progress reaches 100
+ const obs = new MutationObserver(()=>{
+ if(parseFloat(progressEl.style.width) >= 100){
+ etaEl.setAttribute('aria-live','polite');
+ }
+ });
+ obs.observe(progressEl,{attributes:true,attributeFilter:['style']});
+
+ // Small entrance animation
+ document.querySelector('.card').animate([
+ {transform:'translateY(14px)',opacity:0},
+ {transform:'translateY(0)',opacity:1}
+ ],{duration:700,easing:'cubic-bezier(.2,.9,.25,1)'});
+
+ </script>
+</body>
+</html>
