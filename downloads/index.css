@@ -153,3 +153,35 @@ animation: blink 1.5s infinite;
 @keyframes blink {
  50% { opacity: 0.6; }
 }
+
+/* Navigation */
+nav {
+ background: #2b2b2b;
+ display: flex;
+ justify-content: center;
+ gap: 20px;
+ padding: 10px;
+ transition: background 0.3s;
+}
+body.light-theme nav {
+ background: #dcdcdc;
+}
+nav a {
+ text-decoration: none;
+ color: #fff;
+ font-weight: bold;
+ transition: color 0.3s;
+}
+body.light-theme nav a {
+ color: #121212;
+}
+nav a:hover {
+ color: #ff4757;
+}
+nav a.active {
+ color: #ff4757;
+ border-bottom: 2px solid #ff4757;
+}
+.link{
+  color:#dcdcdc;
+}
