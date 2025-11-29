@@ -35,7 +35,7 @@ export const handler = async (event) => {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Telegram Video Stream</title>
+        <title>MPM Streaming</title>
         <link href="https://vjs.zencdn.net/8.8.2/video.min.css" rel="stylesheet" />
         <style>
           body { margin:0; background:#000; display:flex; justify-content:center; align-items:center; height:100vh; }
