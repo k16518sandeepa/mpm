@@ -3,28 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Telegram Video Stream</title>
+  <title>Stream Video</title>
+  <link href="https://vjs.zencdn.net/8.8.2/video.min.css" rel="stylesheet" />
   <style>
-    body {
-      margin: 0;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    video {
-      width: 90%;
-      max-width: 800px;
-      border: 2px solid #fff;
-      border-radius: 8px;
-    }
+    body { margin:0; background:#000; display:flex; justify-content:center; align-items:center; height:100vh; }
+    .video-js { width:90%; max-width:800px; border-radius:8px; }
   </style>
 </head>
 <body>
-  <video controls autoplay>
-    <source src="https://motionpicturemafia.com/.netlify/functions/stream?id=BAACAgEAAxkBAAIIwmkrIYX5e0ZP2bfSy-CBLzive-voAAImDgACV1NYRWbsyK6Qvc4FNgQ" type="video/mp4">
+  <video id="my-video" class="video-js" controls autoplay muted preload="auto">
+    <source src="https://api.telegram.org/file/bot7962563315:AAES7FzwRkbFbh2FhEhvCplKsJiAnoUfmjI/videos/file_12345.mkv" type="video/x-matroska">
     Your browser does not support the video tag.
   </video>
+
+  <script src="https://vjs.zencdn.net/8.8.2/video.min.js"></script>
+  <script>videojs('my-video');</script>
 </body>
 </html>
