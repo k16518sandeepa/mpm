@@ -28,7 +28,7 @@ export const handler = async (event) => {
     // 2. Telegram CDN link
     const fileURL = `https://api.telegram.org/file/bot${BOT_TOKEN}/${filePath}`;
 
-    // 3. Return a small HTML page with autoplay video
+    // 3. Return HTML page with responsive Video.js player
     const html = `
       <!DOCTYPE html>
       <html lang="en">
@@ -39,17 +39,22 @@ export const handler = async (event) => {
         <link href="https://vjs.zencdn.net/8.8.2/video.min.css" rel="stylesheet" />
         <style>
           body { margin:0; background:#000; display:flex; justify-content:center; align-items:center; height:100vh; }
-          .video-js { width:90%; max-width:800px; border-radius:8px; }
+          .video-js { width:100%; height:auto; max-height:100vh; border-radius:8px; }
         </style>
       </head>
       <body>
-        <video id="my-video" class="video-js" controls autoplay muted preload="auto">
+        <video id="my-video" class="video-js" controls autoplay muted preload="metadata">
           <source src="${fileURL}" type="video/mp4">
           <source src="${fileURL}" type="video/x-matroska">
           Your browser does not support the video tag.
         </video>
         <script src="https://vjs.zencdn.net/8.8.2/video.min.js"></script>
-        <script>videojs('my-video');</script>
+        <script>
+          const player = videojs('my-video');
+          player.ready(() => {
+            console.log('Video.js player ready');
+          });
+        </script>
       </body>
       </html>
     `;
