@@ -1,3 +1,4 @@
+// netlify/functions/stream.js
 export const handler = async (event) => {
   try {
     const TELEGRAM_FILE_ID = event.queryStringParameters.id;
@@ -10,9 +11,10 @@ export const handler = async (event) => {
       };
     }
 
-    // 1. Get filePath from Telegram API
+    // 1. Get file path from Telegram API
     const fileInfoURL = `https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${TELEGRAM_FILE_ID}`;
-    const fileInfo = await fetch(fileInfoURL).then(r => r.json());
+    const fileInfoResponse = await fetch(fileInfoURL);
+    const fileInfo = await fileInfoResponse.json();
 
     if (!fileInfo.ok) {
       return {
@@ -26,18 +28,15 @@ export const handler = async (event) => {
     // 2. Telegram CDN direct link
     const fileURL = `https://api.telegram.org/file/bot${BOT_TOKEN}/${filePath}`;
 
-    // 3. Fetch video file and stream to browser
-    const fileResponse = await fetch(fileURL);
-
+    // 3. Redirect browser to CDN URL
     return {
-      statusCode: 200,
+      statusCode: 302,
       headers: {
-        "Content-Type": "video/mp4",
-        "Cache-Control": "public, max-age=31536000",
+        Location: fileURL
       },
-      body: Buffer.from(await fileResponse.arrayBuffer()).toString("base64"),
-      isBase64Encoded: true
+      body: ""
     };
+
   } catch (e) {
     return {
       statusCode: 500,
