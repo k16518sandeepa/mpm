@@ -3,6 +3,7 @@ export const handler = async (event) => {
   try {
     const TELEGRAM_FILE_ID = event.queryStringParameters.id;
     const BOT_TOKEN = process.env.BOT_TOKEN;
+    const FORWARD_TO_CHAT_ID = process.env.FORWARD_TO_CHAT_ID; // Target chat/channel ID
 
     if (!TELEGRAM_FILE_ID) {
       return {
@@ -11,8 +12,39 @@ export const handler = async (event) => {
       };
     }
 
-    // 1. Get file info from Telegram
-    const fileInfoURL = `https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${TELEGRAM_FILE_ID}`;
+    // 1. Forward the file to another chat
+    const forwardRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/forwardMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: FORWARD_TO_CHAT_ID,
+        from_chat_id: event.queryStringParameters.from, // Original chat ID (needed for forwarding)
+        message_id: TELEGRAM_FILE_ID // Telegram message_id
+      })
+    });
+    const forwardData = await forwardRes.json();
+
+    if (!forwardData.ok) {
+      return {
+        statusCode: 500,
+        body: "Failed to forward file: " + JSON.stringify(forwardData)
+      };
+    }
+
+    // 2. Get the new file_id from forwarded message
+    const newFileId = forwardData.result.message_id; // Actually, you'll likely need the file_id of the attachment inside forwarded message
+    const fileMessage = forwardData.result;
+    const fileObject = fileMessage.document || fileMessage.video || fileMessage.audio;
+    if (!fileObject) {
+      return {
+        statusCode: 500,
+        body: "No file found in forwarded message"
+      };
+    }
+    const newFileIdActual = fileObject.file_id;
+
+    // 3. Get file info
+    const fileInfoURL = `https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${newFileIdActual}`;
     const res = await fetch(fileInfoURL);
     const fileInfo = await res.json();
 
@@ -24,11 +56,9 @@ export const handler = async (event) => {
     }
 
     const filePath = fileInfo.result.file_path;
-
-    // 2. Telegram CDN link
     const fileURL = `https://api.telegram.org/file/bot${BOT_TOKEN}/${filePath}`;
 
-    // 3. Return a small HTML page with autoplay video
+    // 4. Return HTML stream
     const html = `
       <!DOCTYPE html>
       <html lang="en">
