@@ -199,7 +199,7 @@
  
  function updateTimeProgress() {
  if (totalDuration <= 0) {
- // If end time is before or equal to start time, or times are not set
+ 
  setProgress(end > 0 && new Date().getTime() > end ? 100 : 0);
  return;
  }
