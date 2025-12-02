@@ -197,33 +197,39 @@ setInterval(() => {
     adLink.href = ads[current].link;
     adImg.style.opacity = 1;
   }, 1000);
-}, 5000);
+}, 5000); 
 
-// Only Navigation Script - No other changes
-document.addEventListener("DOMContentLoaded", () => {
+ // === Mobile Menu + Swipe Gestures ===
   const hamburger = document.querySelector(".hamburger");
   const mobileMenu = document.querySelector(".mobile-menu");
+  const body = document.body;
 
-  hamburger.addEventListener("click", () => {
-    mobileMenu.classList.toggle("active");
-  });
+  function openMenu() { mobileMenu.classList.add("active"); body.style.overflow = "hidden"; }
+  function closeMenu() { mobileMenu.classList.remove("active"); body.style.overflow = ""; }
 
-  // Swipe to close (mobile)
-  let startX = 0;
-  document.addEventListener("touchstart", e => startX = e.touches[0].screenX);
-  document.addEventListener("touchend", e => {
-    if (!startX) return;
-    const endX = e.changedTouches[0].screenX;
-    if (startX - endX > 50) mobileMenu.classList.remove("active"); // swipe left → close
-    startX = 0;
-  });
+  hamburger?.addEventListener("click", () => mobileMenu.classList.toggle("active"));
 
   // Close when tapping outside
-  document.addEventListener("click", e => {
-    if (mobileMenu.classList.contains("active") && 
-        !mobileMenu.contains(e.target) && 
-        !hamburger.contains(e.target)) {
-      mobileMenu.classList.remove("active");
+  document.addEventListener("click", (e) => {
+    if (mobileMenu.classList.contains("active") && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+      closeMenu();
     }
   });
-});
+
+  // Touch Swipe Gestures
+  let touchStartX = 0;
+  document.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  document.addEventListener("touchend", (e) => {
+    if (!touchStartX) return;
+    let touchEndX = e.changedTouches[0].screenX;
+    let diff = touchEndX - touchStartX;
+
+    if (Math.abs(diff) > 70) {  // Minimum swipe distance
+      if (diff > 0) openMenu();     // Swipe right → open
+      else closeMenu();             // Swipe left → close
+    }
+    touchStartX = 0;
+  });

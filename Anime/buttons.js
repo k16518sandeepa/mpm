@@ -197,4 +197,4 @@ setInterval(() => {
     adLink.href = ads[current].link;
     adImg.style.opacity = 1;
   }, 1000);
-}, 5000);
+}, 5000); 
