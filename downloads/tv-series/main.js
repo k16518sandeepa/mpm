@@ -1,6 +1,6 @@
-// main.js – Put this file once, use in ALL pages
+// main.js
 document.addEventListener("DOMContentLoaded", () => {
-  // === Christmas Snowflakes (real symbols) ===
+  // Christmas Snowflakes
   const snowContainer = document.getElementById("snow");
   const symbols = ["❄", "❅", "❆", "✵", "★", "✻", "✽"];
 
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   setInterval(createSnowflake, 350);
 
-  // === Theme Music Auto-Play with Fade-in ===
+  // Theme Music
   const themeSong = document.getElementById("themeSong");
   if (themeSong) {
     let played = false;
@@ -35,5 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     document.addEventListener("click", playMusic, { once: true });
     document.addEventListener("touchstart", playMusic, { once: true });
+  }
+
+  // Mobile Menu Toggle
+  const hamburger = document.querySelector(".hamburger");
+  const mobileMenu = document.querySelector(".mobile-menu");
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener("click", () => {
+      mobileMenu.classList.toggle("active");
+    });
   }
 });
