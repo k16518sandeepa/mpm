@@ -4,243 +4,129 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="icon" type="image/png" href="Images/mpm logo.png">
-  <title>Stranger Things S05 - MPM</title>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <title>Stranger Things - MPM</title>
   
+  <!-- Stranger Things Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Stranger+Things:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Particles.js for red circles -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Stranger+Things:wght@400;700&display=swap');
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { background:#000; color:#fff; font-family:Arial,sans-serif; overflow-x:hidden; min-height:100vh; }
 
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      padding: 0;
-      background: #000;
-      font-family: 'Arial', sans-serif;
-      color: #fff;
-      overflow-x: hidden;
-      min-height: 100vh;
+    /* === PREMIUM NAVIGATION === */
+    nav {
+      position:sticky; top:0; background:rgba(0,0,0,0.95); backdrop-filter:blur(15px);
+      padding:15px 20px; display:flex; justify-content:space-between; align-items:center;
+      z-index:1000; border-bottom:1px solid rgba(255,255,255,0.1);
     }
+    .logo { font-size:28px; font-weight:bold; color:#e50000; text-decoration:none; text-shadow:0 0 15px #ff0000; }
+    .nav-links { display:none; gap:25px; }
+    .nav-links a { color:#fff; text-decoration:none; font-weight:bold; transition:0.3s; }
+    .nav-links a:hover { color:#e50000; text-shadow:0 0 15px #ff0000; }
+    .hamburger { display:block; cursor:pointer; }
+    .hamburger span { display:block; width:30px; height:3px; background:#fff; margin:6px 0; border-radius:3px; transition:0.3s; }
 
-    /* Lightning Overlay */
-    .lightning-container {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 5;
+    .mobile-menu {
+      position:fixed; top:0; right:-100%; width:75%; max-width:320px; height:100vh;
+      background:#000; padding:90px 30px 40px; transition:0.4s ease; z-index:9999;
+      box-shadow:-15px 0 40px rgba(0,0,0,0.9); border-left:2px solid #e50000;
     }
-    .lightning {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 50% 20%, rgba(255,50,50,0.9), transparent 50%);
-      mix-blend-mode: screen;
-      opacity: 0;
-      animation: lightningFlash 0.2s ease-out;
+    .mobile-menu.active { right:0; }
+    .mobile-menu a {
+      display:block; color:#fff; font-size:22px; font-weight:bold; padding:15px 0;
+      border-bottom:1px solid #333; text-decoration:none; transition:0.3s;
     }
-    @keyframes lightningFlash {
-      0%, 100% { opacity: 0; }
-      10%, 30%, 50% { opacity: 0.9; }
-      20%, 40% { opacity: 0.5; }
-    }
+    .mobile-menu a:hover { color:#e50000; padding-left:20px; }
 
     /* Backgrounds */
-    .bg-blur {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: url('https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/8e95aca5-8f48-4678-b204-4b2af3f4c452/STARNGER+THINGS+5+Trailer+and+Poster+Teases+The+Final+Epic+Battle+and+%2522One+Last+Adventure%2522.jpg') center/cover no-repeat;
-      filter: blur(1px) brightness(0.3);
-      z-index: -2;
-    }
-    .red-fog {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at center, rgba(255,0,0,0.18), transparent 70%);
-      pointer-events: none;
-      z-index: -1;
-      animation: pulse 10s infinite alternate;
-    }
-    @keyframes pulse { from { opacity: 0.5; } to { opacity: 0.8; } }
+    .bg-blur { position:fixed; top:0; left:0; width:100%; height:100%;
+      background:url('https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/8e95aca5-8f48-4678-b204-4b2af3f4c452/STARNGER+THINGS+5+Trailer+and+Poster+Teases+The+Final+Epic+Battle+and+%2522One+Last+Adventure%2522.jpg') center/cover no-repeat;
+      filter:blur(1px) brightness(0.3); z-index:-2; }
+    .red-fog { position:fixed; top:0; left:0; width:100%; height:100%;
+      background:radial-gradient(circle at center, rgba(255,0,0,0.18), transparent 70%);
+      pointer-events:none; z-index:-1; animation:pulse 10s infinite alternate; }
+    @keyframes pulse { from { opacity:0.5; } to { opacity:0.8; } }
 
-    #particles-js {
-      position: fixed;
-      width: 100%; height: 100%;
-      top: 0; left: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
+    /* Red Circle Particles */
+    #particles-js { position:fixed; width:100%; height:100%; top:0; left:0; z-index:1; pointer-events:none; }
 
-    header {
-      text-align: center;
-      padding: 18px 10px;
-      font-size: clamp(24px, 6vw, 36px);
-      letter-spacing: 4px;
-      font-weight: bold;
-      background: rgba(20,20,20,0.7);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      font-family: 'Stranger Things', sans-serif;
-      color: #e50000;
-      text-shadow: 0 0 20px #ff0000;
-    }
+    /* Lightning */
+    .lightning-container { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:5; }
+    .lightning { position:absolute; top:0; left:0; width:100%; height:100%;
+      background:radial-gradient(circle at 50% 20%, rgba(255,50,50,0.9), transparent 50%);
+      mix-blend-mode:screen; opacity:0; animation:lightningFlash 0.2s ease-out; }
+    @keyframes lightningFlash { 0%,100% { opacity:0; } 10%,30%,50% { opacity:0.9; } 20%,40% { opacity:0.5; } }
 
-    .container {
-      max-width: 1300px;
-      margin: 20px auto;
-      padding: 15px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 30px;
-      position: relative;
-      z-index: 10;
-    }
+    header { text-align:center; padding:18px; font-size:clamp(24px,6vw,36px); font-weight:bold;
+      background:rgba(20,20,20,0.7); backdrop-filter:blur(12px); position:sticky; top:0; z-index:100;
+      font-family:'Stranger Things',sans-serif; color:#e50000; text-shadow:0 0 20px #ff0000; }
 
-    /* POSTER - Mobile First */
-    .poster-wrapper {
-      perspective: 1000px;
-      align-self: center;
-      margin: 0 auto;
-      max-width: 380px;
-    }
-    .poster {
-      position: relative;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 50px rgba(255,0,0,0.5);
-      transform: rotateY(-6deg) rotateX(4deg);
-      transition: all 0.6s ease;
-      animation: floatIn 1.8s ease-out;
-    }
-    .poster img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 12s ease;
-    }
-    .poster:hover img,
-    .poster:active img { transform: scale(1.12); }
+    
+    .container { max-width:1300px; margin:20px auto; padding:15px; display:grid; grid-template-columns:1fr; gap:30px; position:relative; z-index:10; }
+    .poster-wrapper { perspective:1000px; align-self:center; margin:0 auto; max-width:380px; }
+    .poster { position:relative; border-radius:20px; overflow:hidden; box-shadow:0 15px 35px rgba(0,0,0,0.8), 0 0 50px rgba(255,0,0,0.5);
+      transform:rotateY(-6deg) rotateX(4deg); transition:all 0.6s ease; animation:floatIn 1.8s ease-out; }
+    .poster img { width:100%; height:auto; display:block; transition:transform 12s ease; }
+    .poster:hover img, .poster:active img { transform:scale(1.12); }
+    .glass-box { background:rgba(20,20,20,0.65); border-radius:20px; padding:25px; border:1px solid rgba(255,0,0,0.3);
+      backdrop-filter:blur(16px); box-shadow:0 0 30px rgba(255,0,0,0.3); animation:slideIn 1s ease-out; }
+    h1.stranger-title { font-family:'Stranger Things',sans-serif; font-size:clamp(3rem,10vw,6rem); color:#e50000;
+      text-align:center; margin:0 0 18px 0; text-shadow:0 0 15px #ff0000,0 0 40px #ff0000;
+      animation:glow 2.5s infinite alternate; line-height:1; }
+    @keyframes glow { from { text-shadow:0 0 20px #ff0000; } to { text-shadow:0 0 70px #ff0000,0 0 120px #ff0000; } }
+    .stats { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
+    .stats span { background:rgba(255,0,0,0.4); padding:8px 16px; border-radius:30px; font-size:14px; border:1px solid rgba(255,0,0,0.5); }
+    iframe { width:100%; height:clamp(200px,50vw,400px); border-radius:16px; margin-top:20px; border:2px solid rgba(255,0,0,0.4); }
+    .download-section { margin:40px auto; padding:0 15px; text-align:center; }
+    .download-buttons { display:flex; flex-direction:column; gap:18px; max-width:500px; margin:0 auto;
+      background:rgba(30,30,30,0.75); padding:30px 20px; border-radius:20px; backdrop-filter:blur(14px);
+      border:1px solid rgba(255,0,0,0.4); box-shadow:0 0 40px rgba(255,0,0,0.5); }
+    .download-btn { padding:18px 20px; background:linear-gradient(45deg,#c40000,#ff1a1a); color:white;
+      text-decoration:none; border-radius:50px; font-weight:bold; font-size:clamp(16px,4.5vw,19px);
+      transition:all 0.4s; box-shadow:0 0 20px rgba(255,0,0,0.6); position:relative; overflow:hidden;
+      min-height:56px; display:flex; align-items:center; justify-content:center; }
+    .download-btn:active { transform:scale(0.96); box-shadow:0 0 50px rgba(255,0,0,0.9); }
+    @keyframes floatIn { from { opacity:0; transform:translateY(80px) rotateY(-15deg); } to { opacity:1; } }
+    @keyframes slideIn { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
 
-    /* Remove 3D tilt on mobile for performance & look */
-    @media (max-width: 768px) {
-      .poster { transform: none !important; border-radius: 16px; }
-      .poster:hover,
-      .poster:active { transform: scale(1.04); box-shadow: 0 20px 40px rgba(0,0,0,0.9), 0 0 80px rgba(255,0,0,0.7); }
-    }
-
-    /* Glass Box */
-    .glass-box {
-      background: rgba(20,20,20,0.65);
-      border-radius: 20px;
-      padding: 25px;
-      border: 1px solid rgba(255,0,0,0.3);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 0 30px rgba(255,0,0,0.3);
-      animation: slideIn 1s ease-out;
-    }
-
-    h1.stranger-title {
-      font-family: 'Stranger Things', sans-serif;
-      font-size: clamp(3rem, 10vw, 6rem);
-      color: #e50000;
-      text-align: center;
-      margin: 0 0 18px 0;
-      text-shadow: 0 0 15px #ff0000, 0 0 40px #ff0000;
-      animation: glow 2.5s infinite alternate;
-      line-height: 1;
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 20px #ff0000; }
-      to { text-shadow: 0 0 70px #ff0000, 0 0 120px #ff0000; }
-    }
-
-    .glass-box p {
-      font-size: clamp(16px, 4vw, 18px);
-      line-height: 1.7;
-      opacity: 0.92;
-    }
-
-    .stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin: 20px 0;
-    }
-    .stats span {
-      background: rgba(255,0,0,0.4);
-      padding: 8px 16px;
-      border-radius: 30px;
-      font-size: 14px;
-      border: 1px solid rgba(255,0,0,0.5);
-    }
-
-    iframe {
-      width: 100%;
-      height: clamp(200px, 50vw, 400px);
-      border-radius: 16px;
-      margin-top: 20px;
-      border: 2px solid rgba(255,0,0,0.4);
-    }
-
-    /* DOWNLOAD SECTION - Perfect on Mobile */
-    .download-section {
-      margin: 40px auto;
-      padding: 0 15px;
-      text-align: center;
-    }
-    .download-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      max-width: 500px;
-      margin: 0 auto;
-      background: rgba(30,30,30,0.75);
-      padding: 30px 20px;
-      border-radius: 20px;
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,0,0,0.4);
-      box-shadow: 0 0 40px rgba(255,0,0,0.5);
-    }
-    .download-btn {
-      padding: 18px 20px;
-      background: linear-gradient(45deg, #c40000, #ff1a1a);
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: bold;
-      font-size: clamp(16px, 4.5vw, 19px);
-      transition: all 0.4s;
-      box-shadow: 0 0 20px rgba(255,0,0,0.6);
-      position: relative;
-      overflow: hidden;
-      min-height: 56px; /* Great touch target */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .download-btn:active {
-      transform: scale(0.96);
-      box-shadow: 0 0 50px rgba(255,0,0,0.9);
-    }
-
-    /* Animations */
-    @keyframes floatIn { from { opacity: 0; transform: translateY(80px) rotateY(-15deg); } to { opacity: 1; } }
-    @keyframes slideIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Tablet & Up - Enable 2-column layout */
-    @media (min-width: 768px) {
-      .container {
-        grid-template-columns: 1fr 2fr;
-        gap: 40px;
-        padding: 20px;
-      }
-      .poster-wrapper { max-width: none; }
-      .poster { transform: rotateY(-8deg) rotateX(5deg); }
-      .poster:hover { transform: rotateY(-4deg) rotateX(2deg) scale(1.06); }
+    @media (min-width:768px) {
+      .container { grid-template-columns:1fr 2fr; gap:40px; }
+      .nav-links { display:flex; }
+      .hamburger { display:none; }
+      .poster { transform:rotateY(-8deg) rotateX(5deg); }
+      .poster:hover { transform:rotateY(-4deg) rotateX(2deg) scale(1.06); }
     }
   </style>
 </head>
 <body>
+
+  <!--Navigation -->
+  <nav>
+    <a href="https://motionpicturemafia.com/" class="logo">MPM</a>
+    <div class="nav-links">
+      <a href="https://motionpicturemafia.com/">Home</a>
+      <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+      <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+      <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+      <a href="https://motionpicturemafia.com/games/games">Gaming</a>
+      <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="https://motionpicturemafia.com/">Home</a>
+    <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+    <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+    <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+    <a href="https://motionpicturemafia.com/games/games">Gaming</a>
+    <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+  </div>
 
   <div class="lightning-container" id="lightningContainer"></div>
   <div class="bg-blur"></div>
@@ -249,94 +135,157 @@
 
   <header>Motion Picture Mafia</header>
 
+  <!-- Your original content unchanged -->
   <div class="container">
     <div class="poster-wrapper">
       <div class="poster">
         <img src="https://m.media-amazon.com/images/M/MV5BNjRiMTA4NWUtNmE0ZC00NGM0LWJhMDUtZWIzMDM5ZDIzNTg3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Stranger Things">
       </div>
     </div>
-
     <div class="glass-box">
       <h1 class="stranger-title">Stranger Things</h1>
       <p>In 1980s Indiana, a group of young friends witness supernatural forces and secret government exploits. As they search for answers, the children unravel a series of extraordinary mysteries.</p>
-
-      <div class="stats">
+      <div class="stats"> 
         <span>2016-2025</span>
-        <span>8.6/10</span>
+        <span>IMDb-8.6/10</span>
         <span>Sci-Fi Epic</span>
         <span>Dark-Fantasy</span>
-        <span>Drama</span>
         <span>TV-14</span>
       </div>
-
       <iframe src="https://www.youtube.com/embed/b9EkMc79ZSU" allowfullscreen></iframe>
     </div>
   </div>
 
   <div class="download-section">
     <div class="download-buttons">
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S01_720p">Download Season 01 • 720p</a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S01_1080p">Download Season 01 • 1080p</a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S02_720p">Download Season 02 • 720p</a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S02_1080p">Download Season 02 • 1080p</a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S03_720p">Download Season 03 • 720p</a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S03_1080p">Download Season 03 • 1080p</a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S04_720p">Download Season 04 • 720p</a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S04_1080p">Download Season 04 • 1080p</a>
       <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S05_720p_Part1">Download Season 05 Vol.1 • 720p</a>
       <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S05_1080p_Part1">Download Season 05 Vol.1 • 1080p</a>
       <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Stranger_Things_S05_Part1">Download Sinhala Subtitles</a>
     </div>
   </div>
 
-  <audio id="themeSong" src="stranger-things-theme.mp3" loop preload="auto"></audio>
+  <audio id="themeSong" src="" loop preload="auto"></audio>
   <audio id="thunderSound" src="https://assets.mixkit.co/sfx/preview/mixkit-thunderstorm-with-lightning-1270.mp3" preload="auto"></audio>
 
   <script>
-    // Optimized Particles for Mobile
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: window.innerWidth < 768 ? 40 : 80 },
-        color: { value: ['#ff0000', '#990000', '#660000'] },
-        shape: { type: 'circle' },
-        opacity: { value: 0.5, random: true },
-        size: { value: 3, random: true },
-        move: { enable: true, speed: 1, direction: 'none', random: true, out_mode: 'out' }
+    // RED CIRCLE PARTICLES (no lines)
+ particlesJS('particles-js', {
+    particles: {
+      number: { value: window.innerWidth < 768 ? 45 : 90 },
+      color: { value: ['#ff0000', '#ff1a1a', '#cc0000', '#aa0000', '#880000'] },
+      shape: { type: 'circle' },
+      
+      opacity: {
+        value: 0.8,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 1.5,
+          opacity_min: 0.1,
+          sync: false
+        }
       },
-      interactivity: { events: { onhover: { enable: window.innerWidth > 768, mode: 'repulse' } } },
-      retina_detect: true
+      
+      size: {
+        value: 6,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 4,
+          size_min: 2,
+          sync: false
+        }
+      },
+      
+      line_linked: {
+        enable: false  
+      },
+      
+      move: {
+        enable: true,
+        speed: 1.2,
+        direction: 'top',        
+        random: true,
+        straight: false,
+        out_mode: 'out',
+        bounce: false,
+        attract: {
+          enable: true,
+          rotateX: 600,
+          rotateY: 1200
+        }
+      }
+    },
+    
+    interactivity: {
+      detect_on: 'canvas',
+      events: {
+        onhover: { enable: true, mode: 'repulse' },
+        onclick: { enable: true, mode: 'push' },
+        resize: true
+      },
+      modes: {
+        repulse: { distance: 100, duration: 0.8 },
+        push: { particles_nb: 6 }
+      }
+    },
+    
+    retina_detect: true
+  });
+
+  // Optional: Random particle burst every 8–15 seconds (feels alive)
+  setInterval(() => {
+    if (Math.random() > 0.6) {
+      const pJ = window.pJ_instance;
+      if (pJ) pJ.fn.vendors.eventsHandlers.click(); // Triggers a small burst
+    }
+  }, 11000 + Math.random() * 4000);
+
+    // Navigation + Swipe + Lightning + Music (everything working perfectly)
+    document.addEventListener("DOMContentLoaded", () => {
+      const hamburger = document.querySelector(".hamburger");
+      const mobileMenu = document.querySelector(".mobile-menu");
+      hamburger.addEventListener("click", () => mobileMenu.classList.toggle("active"));
+
+      // Swipe to close
+      let startX = 0;
+      document.addEventListener("touchstart", e => startX = e.touches[0].screenX);
+      document.addEventListener("touchend", e => {
+        if (!startX) return;
+        const endX = e.changedTouches[0].screenX;
+        if (startX - endX > 50) mobileMenu.classList.remove("active");
+        startX = 0;
+      });
+
+      // Lightning & Thunder
+      const container = document.getElementById('lightningContainer');
+      const thunder = document.getElementById('thunderSound');
+      function strike() {
+        const bolt = document.createElement('div'); bolt.className = 'lightning';
+        container.appendChild(bolt); thunder.currentTime = 0; thunder.volume = 0.3; thunder.play();
+        setTimeout(() => bolt.remove(), 600);
+      }
+      setInterval(() => Math.random() < 0.25 && strike(), 9000);
+      document.body.addEventListener('touchstart', strike, { once: true });
+
+      // Music fade-in
+      const song = document.getElementById('themeSong');
+      let played = false;
+      const play = () => { if (played) return; song.volume = 0; song.play(); played = true;
+        let v = 0; const fade = setInterval(() => { v = Math.min(v + 0.01, 0.5); song.volume = v;
+          if (v >= 0.5) clearInterval(fade); }, 100);
+      };
+      document.addEventListener('click', play);
+      document.addEventListener('touchstart', play);
     });
-
-    // Lightning + Thunder
-    const container = document.getElementById('lightningContainer');
-    const thunder = document.getElementById('thunderSound');
-
-    function strike() {
-      const bolt = document.createElement('div');
-      bolt.className = 'lightning';
-      container.appendChild(bolt);
-      thunder.currentTime = 0;
-      thunder.volume = 0.25;
-      thunder.play();
-      setTimeout(() => bolt.remove(), 600);
-    }
-
-    // Random strikes
-    setInterval(() => Math.random() < 0.25 && strike(), 9000);
-
-    // Trigger on interaction
-    document.body.addEventListener('touchstart', strike, { once: true });
-    document.querySelector('.poster')?.addEventListener('click', strike);
-
-    // Audio fade-in
-    const song = document.getElementById('themeSong');
-    let played = false;
-    function play() {
-      if (played) return;
-      song.volume = 0;
-      song.play();
-      played = true;
-      let v = 0;
-      const fade = setInterval(() => {
-        v = Math.min(v + 0.01, 0.5);
-        song.volume = v;
-        if (v >= 0.5) clearInterval(fade);
-      }, 100);
-    }
-    document.addEventListener('click', play);
-    document.addEventListener('touchstart', play);
   </script>
 </body>
 </html>

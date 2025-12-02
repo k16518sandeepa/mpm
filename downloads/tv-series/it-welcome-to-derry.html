@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <title>IT: Welcome to Derry - MPM</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { background:#000; color:#fff; font-family:Arial,sans-serif; overflow-x:hidden; min-height:100vh; }
+
+    /* === PREMIUM NAVIGATION === */
+    nav {
+      position:sticky; top:0; background:rgba(0,0,0,0.95); backdrop-filter:blur(15px);
+      padding:15px 20px; display:flex; justify-content:space-between; align-items:center;
+      z-index:1000; border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+    .logo { font-size:28px; font-weight:bold; color:#e50000; text-decoration:none; text-shadow:0 0 15px #ff0000; }
+    .nav-links { display:none; gap:25px; }
+    .nav-links a { color:#fff; text-decoration:none; font-weight:bold; transition:0.3s; }
+    .nav-links a:hover { color:#e50000; text-shadow:0 0 15px #ff0000; }
+    .hamburger { display:block; cursor:pointer; }
+    .hamburger span { display:block; width:30px; height:3px; background:#fff; margin:6px 0; border-radius:3px; }
+
+    .mobile-menu {
+      position:fixed; top:0; right:-100%; width:75%; max-width:320px; height:100vh;
+      background:#000; padding:90px 30px 40px; transition:0.4s ease; z-index:9999;
+      box-shadow:-15px 0 40px rgba(0,0,0,0.9); border-left:2px solid #e50000;
+    }
+    .mobile-menu.active { right:0; }
+    .mobile-menu a { display:block; color:#fff; font-size:22px; font-weight:bold; padding:15px 0;
+      border-bottom:1px solid #333; text-decoration:none; }
+    .mobile-menu a:hover { color:#e50000; padding-left:20px; }
+
+    .bg-blur { position:fixed; top:0; left:0; width:100%; height:100%;
+      background:url('https://images5.alphacoders.com/133/1338677.jpg') center/cover no-repeat;
+      filter:blur(1px) brightness(0.3); z-index:-2; }
+    .red-fog { position:fixed; top:0; left:0; width:100%; height:100%;
+      background:radial-gradient(circle at center, rgba(255,0,0,0.22), transparent 70%);
+      pointer-events:none; z-index:-1; }
+
+    /* Only Balloons — No lines, no thunder, no glow */
+    #particles-js { position:fixed; width:100%; height:100%; top:0; left:0; z-index:1; pointer-events:none; }
+
+    header { text-align:center; padding:18px; font-size:clamp(24px,6vw,36px); font-weight:bold;
+      background:rgba(20,20,20,0.7); backdrop-filter:blur(12px); position:sticky; top:0; z-index:100;
+      color:#e50000; text-shadow:0 0 20px #ff0000; }
+
+    .container { max-width:1300px; margin:20px auto; padding:15px; display:grid; grid-template-columns:1fr; gap:30px; position:relative; z-index:10; }
+    .poster-wrapper { perspective:1000px; align-self:center; margin:0 auto; max-width:380px; }
+    .poster { position:relative; border-radius:20px; overflow:hidden; box-shadow:0 15px 35px rgba(0,0,0,0.8), 0 0 50px rgba(255,0,0,0.5);
+      transform:rotateY(-6deg) rotateX(4deg); transition:all 0.6s ease; animation:floatIn 1.8s ease-out; }
+    .poster img { width:100%; height:auto; display:block; }
+    .poster:hover img, .poster:active img { transform:scale(1.12); }
+    .glass-box { background:rgba(20,20,20,0.65); border-radius:20px; padding:25px; border:1px solid rgba(255,0,0,0.3);
+      backdrop-filter:blur(16px); box-shadow:0 0 30px rgba(255,0,0,0.3); animation:slideIn 1s ease-out; }
+
+    /* Title — No glow animation, just clean red */
+    h1 { font-size:clamp(3.8rem,12vw,7rem); color:#e50000; text-align:center; margin:0 0 20px 0;
+      font-weight:bold; line-height:1; text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 0 0 30px #ff0000; }
+
+    .stats { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
+    .stats span { background:rgba(255,0,0,0.4); padding:8px 16px; border-radius:30px; font-size:14px; border:1px solid rgba(255,0,0,0.5); }
+    iframe { width:100%; height:clamp(200px,50vw,400px); border-radius:16px; margin-top:20px; border:2px solid rgba(255,0,0,0.4); }
+
+    .download-section { margin:40px auto; padding:0 15px; text-align:center; }
+    .download-buttons { display:flex; flex-direction:column; gap:18px; max-width:500px; margin:0 auto;
+      background:rgba(30,30,30,0.75); padding:30px 20px; border-radius:20px; backdrop-filter:blur(14px);
+      border:1px solid rgba(255,0,0,0.4); box-shadow:0 0 40px rgba(255,0,0,0.5); }
+    .download-btn { padding:18px 20px; background:linear-gradient(45deg,#c40000,#ff1a1a); color:white;
+      text-decoration:none; border-radius:50px; font-weight:bold; font-size:clamp(16px,4.5vw,19px);
+      transition:all 0.4s; box-shadow:0 0 20px rgba(255,0,0,0.6); min-height:56px; display:flex; align-items:center; justify-content:center; }
+    .download-btn:active { transform:scale(0.96); box-shadow:0 0 50px rgba(255,0,0,0.9); }
+
+    @keyframes floatIn { from { opacity:0; transform:translateY(80px) rotateY(-15deg); } to { opacity:1; } }
+    @keyframes slideIn { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
+
+    @media (min-width:768px) {
+      .container { grid-template-columns:1fr 2fr; gap:40px; }
+      .nav-links { display:flex; }
+      .hamburger { display:none; }
+      .poster { transform:rotateY(-8deg) rotateX(5deg); }
+      .poster:hover { transform:rotateY(-4deg) rotateX(2deg) scale(1.06); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="https://motionpicturemafia.com/" class="logo">MPM</a>
+    <div class="nav-links">
+      <a href="https://motionpicturemafia.com/">Home</a>
+      <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+      <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+      <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+      <a href="https://motionpicturemafia.com/games/games">Gaming</a>
+      <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="mobile-menu">
+    <a href="https://motionpicturemafia.com/">Home</a>
+    <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+    <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+    <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+    <a href="https://motionpicturemafia.com/games/games">Gaming</a>
+    <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+  </div>
+
+  <div class="bg-blur"></div>
+  <div class="red-fog"></div>
+  <div id="particles-js"></div>
+
+  <header>Motion Picture Mafia</header>
+
+  <div class="container">
+    <div class="poster-wrapper">
+      <div class="poster">
+        <img src="https://m.media-amazon.com/images/M/MV5BNzE4ZGEzNjktZjY2Mi00ZjM0LThkNTgtNzE3ZjY3ZmEyNzBhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="IT Welcome to Derry">
+      </div>
+    </div>
+
+    <div class="glass-box">
+      <h1>IT: WELCOME TO DERRY</h1>
+      <p>Set in the 1960s, this chilling prequel explores the origins of Pennywise the Dancing Clown and the ancient evil that has haunted Derry, Maine for centuries.</p>
+      <div class="stats">
+        <span>2025</span>
+        <span>Horror</span>
+        <span>Supernatural</span>
+        <span>TV-MA</span>
+      </div>
+      <iframe src="https://www.youtube.com/embed/9lP6hTzQ6XY" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="download-section">
+    <div class="download-buttons">
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=IT_Welcome_To_Derry_E01">Episode 01 • 720p</a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=IT_Welcome_To_Derry_E01_1080p">Episode 01 • 1080p</a>
+      <a class="download-btn" href="https://motionpicturemafia.com/subtitle-download/">Download Subtitles</a>
+    </div>
+  </div>
+
+  <script>
+    // ONLY RED BALLOONS — super clean & creepy
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: window.innerWidth < 768 ? 20 : 40 },
+        shape: {
+          type: "image",
+          image: {
+            src: "https://i.ibb.co.com/8XvJ1vB/red-balloon.png",  // transparent red balloon
+            width: 100,
+            height: 100
+          }
+        },
+        opacity: { value: 0.9, random: true },
+        size: { value: 40, random: true },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "top",
+          random: false,
+          straight: false,
+          out_mode: "out"
+        }
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" }
+        },
+        modes: {
+          repulse: { distance: 100 },
+          push: { particles_nb: 3 }
+        }
+      },
+      retina_detect: true
+    });
+
+    // Only navigation + swipe — no thunder, no glow, no extra sounds
+    document.addEventListener("DOMContentLoaded", () => {
+      const hamburger = document.querySelector(".hamburger");
+      const mobileMenu = document.querySelector(".mobile-menu");
+      hamburger.addEventListener("click", () => mobileMenu.classList.toggle("active"));
+
+      // Swipe to close menu
+      let startX = 0;
+      document.addEventListener("touchstart", e => startX = e.touches[0].screenX);
+      document.addEventListener("touchend", e => {
+        if (startX && startX - e.changedTouches[0].screenX > 50) {
+          mobileMenu.classList.remove("active");
+        }
+        startX = 0;
+      });
+    });
+  </script>
+</body>
+</html>
