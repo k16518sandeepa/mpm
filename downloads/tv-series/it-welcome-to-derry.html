@@ -4,201 +4,335 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="icon" type="image/png" href="Images/mpm logo.png">
-  <title>IT: Welcome to Derry - MPM</title>
-  
+  <title>IT: Welcome To Derry - MPM</title>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <style>
-    * { box-sizing: border-box; margin:0; padding:0; }
-    body { background:#000; color:#fff; font-family:Arial,sans-serif; overflow-x:hidden; min-height:100vh; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#000; color:#fff; font-family:Arial,sans-serif; overflow-x:hidden; min-height:100vh; position:relative; }
+    
+   
+    .bg-blur { position:fixed; top:0; left:0; width:100%; height:100%;
+      background:url('https://beam-images.warnermediacdn.com/2025-10/it-welcome-to-derry-og.png?host=wbd-dotcom-drupal-prd-us-east-1.s3.amazonaws.com') center/cover no-repeat;
+      filter:blur(2px) brightness(0.5); /*blur*/
+      z-index:-2; }
+    .overlay { position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.45); z-index:-1; }
+     /* Red Circle Particles */
+    #particles-js { position:fixed; width:100%; height:100%; top:0; left:0; z-index:1; pointer-events:none; }
+    .snow { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:10; }
+    .snowflake { position:absolute; color:#fff; user-select:none; animation:fall linear infinite; }
+    @keyframes fall { to { transform:translateY(110vh); } }
 
-    /* === PREMIUM NAVIGATION === */
+    /* NAVIGATION - Desktop + Mobile */
     nav {
-      position:sticky; top:0; background:rgba(0,0,0,0.95); backdrop-filter:blur(15px);
-      padding:15px 20px; display:flex; justify-content:space-between; align-items:center;
+      position:sticky; top:0; background:rgba(0,0,0,0.92);
+      backdrop-filter:blur(12px); padding:15px 20px;
+      display:flex; justify-content:space-between; align-items:center;
       z-index:1000; border-bottom:1px solid rgba(255,255,255,0.1);
     }
-    .logo { font-size:28px; font-weight:bold; color:#e50000; text-decoration:none; text-shadow:0 0 15px #ff0000; }
-    .nav-links { display:none; gap:25px; }
-    .nav-links a { color:#fff; text-decoration:none; font-weight:bold; transition:0.3s; }
-    .nav-links a:hover { color:#e50000; text-shadow:0 0 15px #ff0000; }
-    .hamburger { display:block; cursor:pointer; }
-    .hamburger span { display:block; width:30px; height:3px; background:#fff; margin:6px 0; border-radius:3px; }
+    .logo { font-size:28px; font-weight:bold; color:#fff; text-decoration:none; }
+    .nav-links { display:none; }
+    .nav-links a { color:#fff; text-decoration:none; margin:0 18px; font-weight:bold; transition:0.3s; }
+    .nav-links a:hover { color:#e50914; text-shadow:0 0 12px #e50914; }
 
+    /* Hamburger Menu */
+    .hamburger {
+      display:none; cursor:pointer; font-size:26px;
+    }
+    .hamburger span {
+      display:block; width:30px; height:3px; background:#fff;
+      margin:6px 0; transition:0.3s; border-radius:3px;
+    }
+
+    /* Mobile Menu */
     .mobile-menu {
-      position:fixed; top:0; right:-100%; width:75%; max-width:320px; height:100vh;
-      background:#000; padding:90px 30px 40px; transition:0.4s ease; z-index:9999;
-      box-shadow:-15px 0 40px rgba(0,0,0,0.9); border-left:2px solid #e50000;
+      position:fixed; top:0; right:-100%; width:70%; max-width:300px; height:100vh;
+      background:rgba(0,0,0,0.98); backdrop-filter:blur(20px);
+      padding:80px 30px 30px; transition:0.4s; z-index:9999;
+      box-shadow:-10px 0 30px rgba(0,0,0,0.8);
     }
     .mobile-menu.active { right:0; }
-    .mobile-menu a { display:block; color:#fff; font-size:22px; font-weight:bold; padding:15px 0;
-      border-bottom:1px solid #333; text-decoration:none; }
-    .mobile-menu a:hover { color:#e50000; padding-left:20px; }
+    .mobile-menu a {
+      display:block; color:#fff; text-decoration:none; font-size:20px;
+      font-weight:bold; margin:20px 0; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.1);
+      transition:0.3s;
+    }
+    .mobile-menu a:hover { color:#e50914; padding-left:15px; }
 
-    .bg-blur { position:fixed; top:0; left:0; width:100%; height:100%;
-      background:url('https://images5.alphacoders.com/133/1338677.jpg') center/cover no-repeat;
-      filter:blur(1px) brightness(0.3); z-index:-2; }
-    .red-fog { position:fixed; top:0; left:0; width:100%; height:100%;
-      background:radial-gradient(circle at center, rgba(255,0,0,0.22), transparent 70%);
-      pointer-events:none; z-index:-1; }
+    header { text-align:center; padding:20px; font-size:clamp(26px,6vw,38px); font-weight:bold; }
 
-    /* Only Balloons — No lines, no thunder, no glow */
-    #particles-js { position:fixed; width:100%; height:100%; top:0; left:0; z-index:1; pointer-events:none; }
+    .container { max-width:1300px; margin:20px auto; padding:15px;
+      display:grid; grid-template-columns:1fr; gap:30px; position:relative; z-index:20; }
 
-    header { text-align:center; padding:18px; font-size:clamp(24px,6vw,36px); font-weight:bold;
-      background:rgba(20,20,20,0.7); backdrop-filter:blur(12px); position:sticky; top:0; z-index:100;
-      color:#e50000; text-shadow:0 0 20px #ff0000; }
-
-    .container { max-width:1300px; margin:20px auto; padding:15px; display:grid; grid-template-columns:1fr; gap:30px; position:relative; z-index:10; }
-    .poster-wrapper { perspective:1000px; align-self:center; margin:0 auto; max-width:380px; }
-    .poster { position:relative; border-radius:20px; overflow:hidden; box-shadow:0 15px 35px rgba(0,0,0,0.8), 0 0 50px rgba(255,0,0,0.5);
-      transform:rotateY(-6deg) rotateX(4deg); transition:all 0.6s ease; animation:floatIn 1.8s ease-out; }
+    .poster-wrapper { max-width:380px; margin:0 auto; }
+    .poster { border-radius:18px; overflow:hidden; box-shadow:0 15px 40px rgba(0,0,0,0.9); transition:0.5s; }
     .poster img { width:100%; height:auto; display:block; }
-    .poster:hover img, .poster:active img { transform:scale(1.12); }
-    .glass-box { background:rgba(20,20,20,0.65); border-radius:20px; padding:25px; border:1px solid rgba(255,0,0,0.3);
-      backdrop-filter:blur(16px); box-shadow:0 0 30px rgba(255,0,0,0.3); animation:slideIn 1s ease-out; }
+    .poster:hover { transform:translateY(-10px); box-shadow:0 25px 60px rgba(0,0,0,0.95); }
 
-    /* Title — No glow animation, just clean red */
-    h1 { font-size:clamp(3.8rem,12vw,7rem); color:#e50000; text-align:center; margin:0 0 20px 0;
-      font-weight:bold; line-height:1; text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 0 0 30px #ff0000; }
+    .glass-box { background:rgba(20,20,20,0.75); border-radius:20px; padding:30px;
+      border:1px solid rgba(255,255,255,0.15); backdrop-filter:blur(16px); box-shadow:0 0 40px rgba(0,0,0,0.6); }
+    h1 { font-size:clamp(3rem,10vw,5.5rem); text-align:center; margin-bottom:16px;
+      background:linear-gradient(90deg,#fff,#e50914,#fff);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:bold; }
 
-    .stats { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
-    .stats span { background:rgba(255,0,0,0.4); padding:8px 16px; border-radius:30px; font-size:14px; border:1px solid rgba(255,0,0,0.5); }
-    iframe { width:100%; height:clamp(200px,50vw,400px); border-radius:16px; margin-top:20px; border:2px solid rgba(255,0,0,0.4); }
+    .stats { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:25px 0; }
+    .stats span { background:rgba(229,9,20,0.2); border:1px solid #e50914; color:#e50914;
+      padding:10px 18px; border-radius:30px; font-weight:bold; }
 
-    .download-section { margin:40px auto; padding:0 15px; text-align:center; }
-    .download-buttons { display:flex; flex-direction:column; gap:18px; max-width:500px; margin:0 auto;
-      background:rgba(30,30,30,0.75); padding:30px 20px; border-radius:20px; backdrop-filter:blur(14px);
-      border:1px solid rgba(255,0,0,0.4); box-shadow:0 0 40px rgba(255,0,0,0.5); }
-    .download-btn { padding:18px 20px; background:linear-gradient(45deg,#c40000,#ff1a1a); color:white;
-      text-decoration:none; border-radius:50px; font-weight:bold; font-size:clamp(16px,4.5vw,19px);
-      transition:all 0.4s; box-shadow:0 0 20px rgba(255,0,0,0.6); min-height:56px; display:flex; align-items:center; justify-content:center; }
-    .download-btn:active { transform:scale(0.96); box-shadow:0 0 50px rgba(255,0,0,0.9); }
+    iframe { width:100%; height:clamp(220px,52vw,420px); border-radius:16px;
+      border:2px solid rgba(229,9,20,0.3); margin-top:20px; }
 
-    @keyframes floatIn { from { opacity:0; transform:translateY(80px) rotateY(-15deg); } to { opacity:1; } }
-    @keyframes slideIn { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
+    .download-section { margin:60px auto; text-align:center; padding:0 15px; }
+    .download-buttons { display:flex; flex-direction:column; gap:22px; max-width:520px;
+      margin:0 auto; background:rgba(0,0,0,0.7); padding:40px 25px; border-radius:24px;
+      border:2px solid rgba(229,9,20,0.4); box-shadow:0 0 50px rgba(229,9,20,0.3);
+      backdrop-filter:blur(12px); }
+    .download-btn { padding:20px; background:linear-gradient(45deg,#e50914,#ff2c2c);
+      color:white; border-radius:50px; font-weight:bold; font-size:clamp(17px,5vw,20px);
+      box-shadow:0 0 25px rgba(229,9,20,0.6); transition:all 0.4s; position:relative; overflow:hidden;
+      min-height:64px; display:flex; align-items:center; justify-content:center;
+      animation:pulse 4s infinite; }
+    .download-btn:hover { transform:translateY(-5px) scale(1.05);
+      box-shadow:0 0 50px #e50914, 0 0 70px #ff0000; }
+    .download-btn::before { content:''; position:absolute; top:0; left:-100%;
+      width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+      transition:0.7s; }
+    .download-btn:hover::before { left:100%; }
+    @keyframes pulse { 0%,100% { box-shadow:0 0 25px rgba(229,9,20,0.6); } 50% { box-shadow:0 0 40px rgba(229,9,20,0.9); } }
 
-    @media (min-width:768px) {
+    footer { background:rgba(0,0,0,0.95); padding:40px 20px; text-align:center;
+      margin-top:80px; border-top:1px solid rgba(255,255,255,0.1); }
+    .social-links a { color:#fff; font-size:20px; margin:0 12px; transition:0.3s; }
+    .social-links a:hover { color:#e50914; transform:translateY(-4px); }
+    .footer-text { margin-top:16px; font-size:13px; opacity:0.7; }
+
+    /* Desktop Nav */
+    @media (min-width: 768px) {
       .container { grid-template-columns:1fr 2fr; gap:40px; }
+      .poster-wrapper { max-width:none; }
       .nav-links { display:flex; }
       .hamburger { display:none; }
-      .poster { transform:rotateY(-8deg) rotateX(5deg); }
-      .poster:hover { transform:rotateY(-4deg) rotateX(2deg) scale(1.06); }
+    }
+
+    /* Mobile Nav */
+    @media (max-width: 767px) {
+      .hamburger { display:block; }
+      .nav-links { display:none; }
     }
   </style>
 </head>
 <body>
 
+  <div class="bg-blur"></div>
+  <div class="overlay"></div>
+  <div class="snow" id="snow"></div>
+
   <!-- Navigation -->
   <nav>
     <a href="https://motionpicturemafia.com/" class="logo">MPM</a>
+
+    <!-- Desktop Links -->
     <div class="nav-links">
       <a href="https://motionpicturemafia.com/">Home</a>
+      <a href="https://motionpicturemafia.com/">Subtitles</a>
       <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
       <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
       <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
       <a href="https://motionpicturemafia.com/games/games">Gaming</a>
       <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
     </div>
-    <div class="hamburger"><span></span><span></span><span></span></div>
+
+    <!-- Mobile Hamburger -->
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </nav>
 
+  <!-- Mobile Slide Menu -->
   <div class="mobile-menu">
-    <a href="https://motionpicturemafia.com/">Home</a>
-    <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
-    <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
-    <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
-    <a href="https://motionpicturemafia.com/games/games">Gaming</a>
-    <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+      <a href="https://motionpicturemafia.com/">Home</a>
+      <a href="https://motionpicturemafia.com/">Subtitles</a>
+      <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+      <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+      <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+      <a href="https://motionpicturemafia.com/games/games">Gaming</a>
+      <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
   </div>
-
-  <div class="bg-blur"></div>
-  <div class="red-fog"></div>
-  <div id="particles-js"></div>
-
+ <div id="particles-js"></div>
   <header>Motion Picture Mafia</header>
 
+  
   <div class="container">
     <div class="poster-wrapper">
       <div class="poster">
-        <img src="https://m.media-amazon.com/images/M/MV5BNzE4ZGEzNjktZjY2Mi00ZjM0LThkNTgtNzE3ZjY3ZmEyNzBhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="IT Welcome to Derry">
+        <img src="https://images2.9c9media.com/image_asset/2025_9_24_edcf328d-1af0-47f9-88bc-b0f854bca560_png_2000x3000.jpg" alt="Poster">
       </div>
     </div>
 
     <div class="glass-box">
-      <h1>IT: WELCOME TO DERRY</h1>
-      <p>Set in the 1960s, this chilling prequel explores the origins of Pennywise the Dancing Clown and the ancient evil that has haunted Derry, Maine for centuries.</p>
+      <h1>IT: Welcome To Derry</h1>
+      <p>
+     In 1962, a couple with their son move to Derry, Maine just as a young boy disappears. With their arrival, very bad things begin to happen in the town.
+      </p>
       <div class="stats">
         <span>2025</span>
+        <span>IMDb-7.7/10</span>
+        <span>Dark-Fantasy</span>
         <span>Horror</span>
-        <span>Supernatural</span>
         <span>TV-MA</span>
       </div>
-      <iframe src="https://www.youtube.com/embed/9lP6hTzQ6XY" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/oKa6u7LT0qE" allowfullscreen></iframe>
     </div>
   </div>
 
   <div class="download-section">
     <div class="download-buttons">
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=IT_Welcome_To_Derry_E01">Episode 01 • 720p</a>
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=IT_Welcome_To_Derry_E01_1080p">Episode 01 • 1080p</a>
-      <a class="download-btn" href="https://motionpicturemafia.com/subtitle-download/">Download Subtitles</a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Inside_Job_Season_01">Download S1 • 720p HD</a>
+      <a class="download-btn" href="https://motionpicturemafia.com/subtitle-download/">Subtitles</a>
     </div>
   </div>
 
-  <script>
-    // ONLY RED BALLOONS — super clean & creepy
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: window.innerWidth < 768 ? 20 : 40 },
-        shape: {
-          type: "image",
-          image: {
-            src: "https://i.ibb.co.com/8XvJ1vB/red-balloon.png",  // transparent red balloon
-            width: 100,
-            height: 100
-          }
-        },
-        opacity: { value: 0.9, random: true },
-        size: { value: 40, random: true },
-        move: {
-          enable: true,
-          speed: 1,
-          direction: "top",
-          random: false,
-          straight: false,
-          out_mode: "out"
-        }
-      },
-      interactivity: {
-        events: {
-          onhover: { enable: true, mode: "repulse" },
-          onclick: { enable: true, mode: "push" }
-        },
-        modes: {
-          repulse: { distance: 100 },
-          push: { particles_nb: 3 }
-        }
-      },
-      retina_detect: true
-    });
+  <footer>
+    <div class="social-links">
+      <a href="https://t.me/whatsappgang" target="_blank">Telegram</a>
+      <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i" target="_blank">Whatsapp</a>
+      <a href="https://web.facebook.com/groups/721197248262091" target="_blank">Facebook</a>
+    </div>
+    <div class="footer-text">© 2025 Motion Picture Mafia • Fast • Free • Forever</div>
+  </footer>
 
-    // Only navigation + swipe — no thunder, no glow, no extra sounds
+  <audio id="themeSong" src="" loop preload="auto"></audio>
+
+  <script>
+    // RED CIRCLE PARTICLES (no lines)
+ particlesJS('particles-js', {
+    particles: {
+      number: { value: window.innerWidth < 768 ? 45 : 90 },
+      color: { value: ['#ff0000', '#ff1a1a', '#cc0000', '#aa0000', '#880000'] },
+      shape: { type: 'circle' },
+      
+      opacity: {
+        value: 0.8,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 1.5,
+          opacity_min: 0.1,
+          sync: false
+        }
+      },
+      
+      size: {
+        value: 6,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 4,
+          size_min: 2,
+          sync: false
+        }
+      },
+      
+      line_linked: {
+        enable: false  
+      },
+      
+      move: {
+        enable: true,
+        speed: 1.2,
+        direction: 'top',        
+        random: true,
+        straight: false,
+        out_mode: 'out',
+        bounce: false,
+        attract: {
+          enable: true,
+          rotateX: 600,
+          rotateY: 1200
+        }
+      }
+    },
+    
+    interactivity: {
+      detect_on: 'canvas',
+      events: {
+        onhover: { enable: true, mode: 'repulse' },
+        onclick: { enable: true, mode: 'push' },
+        resize: true
+      },
+      modes: {
+        repulse: { distance: 100, duration: 0.8 },
+        push: { particles_nb: 6 }
+      }
+    },
+    
+    retina_detect: true
+  });
+
+  // Optional: Random particle burst every 8–15 seconds (feels alive)
+  setInterval(() => {
+    if (Math.random() > 0.6) {
+      const pJ = window.pJ_instance;
+      if (pJ) pJ.fn.vendors.eventsHandlers.click(); // Triggers a small burst
+    }
+  }, 11000 + Math.random() * 4000);
+
+    // Navigation + Swipe + Lightning + Music (everything working perfectly)
     document.addEventListener("DOMContentLoaded", () => {
       const hamburger = document.querySelector(".hamburger");
       const mobileMenu = document.querySelector(".mobile-menu");
       hamburger.addEventListener("click", () => mobileMenu.classList.toggle("active"));
 
-      // Swipe to close menu
+      // Swipe to close
       let startX = 0;
       document.addEventListener("touchstart", e => startX = e.touches[0].screenX);
       document.addEventListener("touchend", e => {
-        if (startX && startX - e.changedTouches[0].screenX > 50) {
-          mobileMenu.classList.remove("active");
-        }
+        if (!startX) return;
+        const endX = e.changedTouches[0].screenX;
+        if (startX - endX > 50) mobileMenu.classList.remove("active");
         startX = 0;
       });
+
+      // Lightning & Thunder
+      const container = document.getElementById('lightningContainer');
+      const thunder = document.getElementById('thunderSound');
+      function strike() {
+        const bolt = document.createElement('div'); bolt.className = 'lightning';
+        container.appendChild(bolt); thunder.currentTime = 0; thunder.volume = 0.3; thunder.play();
+        setTimeout(() => bolt.remove(), 600);
+      }
+      setInterval(() => Math.random() < 0.25 && strike(), 9000);
+      document.body.addEventListener('touchstart', strike, { once: true });
+
+      // Music fade-in
+      const song = document.getElementById('themeSong');
+      let played = false;
+      const play = () => { if (played) return; song.volume = 0; song.play(); played = true;
+        let v = 0; const fade = setInterval(() => { v = Math.min(v + 0.01, 0.5); song.volume = v;
+          if (v >= 0.5) clearInterval(fade); }, 100);
+      };
+      document.addEventListener('click', play);
+      document.addEventListener('touchstart', play);
     });
+      // === Christmas Snow ===
+  const snowContainer = document.getElementById("snow");
+  const symbols = ["❄", "❅", "❆", "✵", "★", "✻", "✽"];
+
+  function createSnowflake() {
+    const f = document.createElement("div");
+    f.className = "snowflake";
+    f.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.animationDuration = Math.random() * 8 + 10 + "s";
+    f.style.fontSize = Math.random() * 15 + 12 + "px";
+    f.style.opacity = Math.random() * 0.6 + 0.4;
+    snowContainer.appendChild(f);
+    setTimeout(() => f.remove(), 20000);
+  }
+  setInterval(createSnowflake, 350);
   </script>
 </body>
 </html>
