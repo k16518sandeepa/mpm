@@ -72,8 +72,8 @@
       transform:rotateY(-6deg) rotateX(4deg); transition:all 0.6s ease; animation:floatIn 1.8s ease-out; }
     .poster img { width:100%; height:auto; display:block; transition:transform 12s ease; }
     .poster:hover img, .poster:active img { transform:scale(1.12); }
-    .glass-box { background:rgba(20,20,20,0.65); border-radius:20px; padding:25px; border:1px solid rgba(255,0,0,0.3);
-      backdrop-filter:blur(16px); box-shadow:0 0 30px rgba(255,0,0,0.3); animation:slideIn 1s ease-out; }
+    .glass-box { background-color: rgba(255, 255, 255, 0.15); border-radius:12px; padding:20px;
+      border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(5px); box-shadow:0 0 40px rgba(0,0,0,0.6); animation:slideIn 1s ease-out; }
     h1.stranger-title { font-family:'Stranger Things',sans-serif; font-size:clamp(3rem,10vw,6rem); color:#e50000;
       text-align:center; margin:0 0 18px 0; text-shadow:0 0 15px #ff0000,0 0 40px #ff0000;
       animation:glow 2.5s infinite alternate; line-height:1; }
@@ -81,15 +81,65 @@
     .stats { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
     .stats span { background:rgba(255,0,0,0.4); padding:8px 16px; border-radius:30px; font-size:14px; border:1px solid rgba(255,0,0,0.5); }
     iframe { width:100%; height:clamp(200px,50vw,400px); border-radius:16px; margin-top:20px; border:2px solid rgba(255,0,0,0.4); }
-    .download-section { margin:40px auto; padding:0 15px; text-align:center; }
-    .download-buttons { display:flex; flex-direction:column; gap:18px; max-width:500px; margin:0 auto;
-      background:rgba(30,30,30,0.75); padding:30px 20px; border-radius:20px; backdrop-filter:blur(14px);
-      border:1px solid rgba(255,0,0,0.4); box-shadow:0 0 40px rgba(255,0,0,0.5); }
-    .download-btn { padding:18px 20px; background:linear-gradient(45deg,#c40000,#ff1a1a); color:white;
-      text-decoration:none; border-radius:50px; font-weight:bold; font-size:clamp(16px,4.5vw,19px);
-      transition:all 0.4s; box-shadow:0 0 20px rgba(255,0,0,0.6); position:relative; overflow:hidden;
-      min-height:56px; display:flex; align-items:center; justify-content:center; }
-    .download-btn:active { transform:scale(0.96); box-shadow:0 0 50px rgba(255,0,0,0.9); }
+.download-section { 
+    margin: 60px auto; 
+    text-align: center; 
+    padding: 0 15px; 
+}
+.download-buttons { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 22px; 
+    max-width: 520px;
+    margin: 0 auto; 
+    /* --- UPDATED GLASS EFFECT STARTS HERE --- */
+    background: rgba(255, 255, 255, 0.08); /* Changed to highly transparent white */
+    backdrop-filter: blur(5px); /* Increased blur for stronger effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Changed border to subtle white */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), 0 0 50px rgba(255, 255, 255, 0.1); /* Subtle black shadow with a faint inner white glow */
+    /* --- UPDATED GLASS EFFECT ENDS HERE --- */
+    
+    padding: 40px 25px; 
+    border-radius: 24px;
+}
+.download-btn { 
+    padding: 20px; 
+    background: linear-gradient(45deg, #e50914, #ff2c2c); /* Retaining original red gradient */
+    color: white; 
+    border-radius: 50px; 
+    font-weight: bold; 
+    font-size: clamp(17px, 5vw, 20px);
+    box-shadow: 0 0 25px rgba(229, 9, 20, 0.6); 
+    transition: all 0.4s; 
+    position: relative; 
+    overflow: hidden;
+    min-height: 64px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    animation: pulse 4s infinite; 
+}
+.download-btn:hover { 
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 50px #e50914, 0 0 70px #ff0000; 
+}
+.download-btn::before { 
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    left: -100%;
+    width: 100%; 
+    height: 100%; 
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.7s; 
+}
+.download-btn:hover::before { 
+    left: 100%; 
+}
+@keyframes pulse { 
+    0%, 100% { box-shadow: 0 0 25px rgba(229, 9, 20, 0.6); } 
+    50% { box-shadow: 0 0 40px rgba(229, 9, 20, 0.9); } 
+}
     @keyframes floatIn { from { opacity:0; transform:translateY(80px) rotateY(-15deg); } to { opacity:1; } }
     @keyframes slideIn { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
 
@@ -108,7 +158,7 @@
   <nav>
     <a href="https://motionpicturemafia.com/" class="logo">MPM</a>
     <div class="nav-links">
-      <a href="https://motionpicturemafia.com/">Home</a>
+      <a href="https://motionpicturemafia.com/downloads/">Home</a>
       <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
       <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
       <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
@@ -120,7 +170,7 @@
 
   <!-- Mobile Menu -->
   <div class="mobile-menu">
-    <a href="https://motionpicturemafia.com/">Home</a>
+    <a href="https://motionpicturemafia.com/downloads/">Home</a>
     <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
     <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
     <a href="https://motionpicturemafia.com/anime/anime">Anime</a>

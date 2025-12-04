@@ -67,9 +67,6 @@
     .poster { border-radius:18px; overflow:hidden; box-shadow:0 15px 40px rgba(0,0,0,0.9); transition:0.5s; }
     .poster img { width:100%; height:auto; display:block; }
     .poster:hover { transform:translateY(-10px); box-shadow:0 25px 60px rgba(0,0,0,0.95); }
-
-    .glass-box { background:rgba(20,20,20,0.75); border-radius:20px; padding:30px;
-      border:1px solid rgba(255,255,255,0.15); backdrop-filter:blur(16px); box-shadow:0 0 40px rgba(0,0,0,0.6); }
     h1 { font-size:clamp(3rem,10vw,5.5rem); text-align:center; margin-bottom:16px;
       background:linear-gradient(90deg,#fff,#e50914,#fff);
       -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:bold; }
@@ -81,23 +78,66 @@
     iframe { width:100%; height:clamp(220px,52vw,420px); border-radius:16px;
       border:2px solid rgba(229,9,20,0.3); margin-top:20px; }
 
-    .download-section { margin:60px auto; text-align:center; padding:0 15px; }
-    .download-buttons { display:flex; flex-direction:column; gap:22px; max-width:520px;
-      margin:0 auto; background:rgba(0,0,0,0.7); padding:40px 25px; border-radius:24px;
-      border:2px solid rgba(229,9,20,0.4); box-shadow:0 0 50px rgba(229,9,20,0.3);
-      backdrop-filter:blur(12px); }
-    .download-btn { padding:20px; background:linear-gradient(45deg,#e50914,#ff2c2c);
-      color:white; border-radius:50px; font-weight:bold; font-size:clamp(17px,5vw,20px);
-      box-shadow:0 0 25px rgba(229,9,20,0.6); transition:all 0.4s; position:relative; overflow:hidden;
-      min-height:64px; display:flex; align-items:center; justify-content:center;
-      animation:pulse 4s infinite; }
-    .download-btn:hover { transform:translateY(-5px) scale(1.05);
-      box-shadow:0 0 50px #e50914, 0 0 70px #ff0000; }
-    .download-btn::before { content:''; position:absolute; top:0; left:-100%;
-      width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
-      transition:0.7s; }
-    .download-btn:hover::before { left:100%; }
-    @keyframes pulse { 0%,100% { box-shadow:0 0 25px rgba(229,9,20,0.6); } 50% { box-shadow:0 0 40px rgba(229,9,20,0.9); } }
+       .glass-box { background-color: rgba(255, 255, 255, 0.15); border-radius:12px; padding:20px;
+      border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(5px); box-shadow:0 0 40px rgba(0,0,0,0.6); }
+      
+.download-section { 
+    margin: 60px auto; 
+    text-align: center; 
+    padding: 0 15px; 
+}
+.download-buttons { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 22px; 
+    max-width: 520px;
+    margin: 0 auto; 
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(5px); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), 0 0 50px rgba(255, 255, 255, 0.1);
+    
+    padding: 40px 25px; 
+    border-radius: 24px;
+}
+.download-btn { 
+    padding: 20px; 
+    background: linear-gradient(45deg, #e50914, #ff2c2c); 
+    color: white; 
+    border-radius: 50px; 
+    font-weight: bold; 
+    font-size: clamp(17px, 5vw, 20px);
+    box-shadow: 0 0 25px rgba(229, 9, 20, 0.6); 
+    transition: all 0.4s; 
+    position: relative; 
+    overflow: hidden;
+    min-height: 64px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    animation: pulse 4s infinite; 
+}
+.download-btn:hover { 
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 50px #e50914, 0 0 70px #ff0000; 
+}
+.download-btn::before { 
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    left: -100%;
+    width: 100%; 
+    height: 100%; 
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.7s; 
+}
+.download-btn:hover::before { 
+    left: 100%; 
+}
+@keyframes pulse { 
+    0%, 100% { box-shadow: 0 0 25px rgba(229, 9, 20, 0.6); } 
+    50% { box-shadow: 0 0 40px rgba(229, 9, 20, 0.9); } 
+}
 
     footer { background:rgba(0,0,0,0.95); padding:40px 20px; text-align:center;
       margin-top:80px; border-top:1px solid rgba(255,255,255,0.1); }
@@ -132,8 +172,8 @@
 
     <!-- Desktop Links -->
     <div class="nav-links">
-      <a href="https://motionpicturemafia.com/">Home</a>
-      <a href="https://motionpicturemafia.com/">Subtitles</a>
+      <a href="https://motionpicturemafia.com/downloads/">Home</a>
+      <a href="https://motionpicturemafia.com/subtitle-download/">Subtitles</a>
       <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
       <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
       <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
@@ -151,8 +191,8 @@
 
   <!-- Mobile Slide Menu -->
   <div class="mobile-menu">
-      <a href="https://motionpicturemafia.com/">Home</a>
-      <a href="https://motionpicturemafia.com/">Subtitles</a>
+      <a href="https://motionpicturemafia.com/downloads/">Home</a>
+      <a href="https://motionpicturemafia.com/subtitle-download/">Subtitles</a>
       <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
       <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
       <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
