@@ -629,7 +629,7 @@ searchBox.addEventListener("input", e => {
     displaySubs(filtered);
 });
 
-document.getElementById("bot-status").classList.add("active"); 
+document.getElementById("bot-status").classList.add(""); 
 
 //ads sideshow
 const ads = [
