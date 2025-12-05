@@ -4,16 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="icon" type="image/png" href="Images/mpm logo.png">
-  <title>Blue Box - MPM</title>
+  <title>Dear X - MPM</title>
 
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body { background:#000; color:#fff; font-family:Arial,sans-serif; overflow-x:hidden; min-height:100vh; position:relative; }
 
-    /* BLUR CONTROL - Change only this line */
+   
     .bg-blur { position:fixed; top:0; left:0; width:100%; height:100%;
-      background:url('https://images7.alphacoders.com/138/thumb-1920-1380691.jpg') center/cover no-repeat;
-      filter:blur(2px) brightness(0.5); /* ← Edit blur here */
+      background:url('https://images.lifestyleasia.com/wp-content/uploads/sites/3/2025/11/04145049/Untitled-design-2025-11-04T131858.519-1600x900.jpg') center/cover no-repeat;
+      filter:blur(2px) brightness(0.5); /*blur*/
       z-index:-2; }
     .overlay { position:fixed; top:0; left:0; width:100%; height:100%;
       background:rgba(0,0,0,0.45); z-index:-1; }
@@ -32,7 +32,7 @@
     .logo { font-size:28px; font-weight:bold; color:#fff; text-decoration:none; }
     .nav-links { display:none; }
     .nav-links a { color:#fff; text-decoration:none; margin:0 18px; font-weight:bold; transition:0.3s; }
-    .nav-links a:hover { color:#83e0f5; text-shadow:0 0 12px #6FBCCE; }
+    .nav-links a:hover { color:#e02727; text-shadow:0 0 12px #ff0505; }
 
     /* Hamburger Menu */
     .hamburger {
@@ -56,9 +56,9 @@
       font-weight:bold; margin:20px 0; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.1);
       transition:0.3s;
     }
-    .mobile-menu a:hover { color:#6FBCCE; padding-left:15px; }
+    .mobile-menu a:hover { color:#FD133B; padding-left:15px; }
 
-    header { text-align:center; padding:20px; font-size:clamp(26px,6vw,38px); font-weight:bold; color:#6FBCCE; }
+    header { text-align:center; padding:20px; font-size:clamp(26px,6vw,38px); font-weight:bold; color:#FD133B;}
 
     .container { max-width:1300px; margin:20px auto; padding:15px;
       display:grid; grid-template-columns:1fr; gap:30px; position:relative; z-index:20; }
@@ -71,15 +71,15 @@
     .glass-box { background-color: rgba(255, 255, 255, 0.15); border-radius:12px; padding:20px;
       border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(5px); box-shadow:0 0 40px rgba(0,0,0,0.6); }
     h1 { font-size:clamp(3rem,10vw,5.5rem); text-align:center; margin-bottom:16px;
-      background:linear-gradient(90deg,#fff,#6FBCCE,#fff);
+      background:linear-gradient(90deg,#fff,#FD133B,#fff);
       -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:bold; }
 
     .stats { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:25px 0; }
-    .stats span { background:rgba(111,188,206,0.2); border:1px solid #6FBCCE; color:#6FBCCE;
+    .stats span { background:#FD133B; border:1px solid #ffffff; color:#ffffff;
       padding:10px 18px; border-radius:30px; font-weight:bold; }
 
     iframe { width:100%; height:clamp(220px,52vw,420px); border-radius:16px;
-      border:2px solid rgba(111,188,206,0.3); margin-top:20px; }
+      border:2px solid #FD133B; margin-top:20px; }
 .download-section { 
     margin: 60px auto; 
     text-align: center; 
@@ -101,12 +101,12 @@
 }
 .download-btn { 
     padding: 20px; 
-    background: linear-gradient(45deg, #6FBCCE, #6FBCCE); 
+    background: linear-gradient(45deg, #fa2a4c, #FD133B); 
     color: white; 
     border-radius: 50px; 
     font-weight: bold; 
     font-size: clamp(17px, 5vw, 20px);
-    box-shadow: 0 0 25px rgba(88, 148, 161, 0.6); 
+    box-shadow: 0 0 25px #b80926; 
     transition: all 0.4s; 
     position: relative; 
     overflow: hidden;
@@ -118,7 +118,7 @@
 }
 .download-btn:hover { 
     transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 0 50px #6FBCCE, 0 0 70px #6FBCCE; 
+    box-shadow: 0 0 50px #b80926, 0 0 70px #FD133B; 
 }
 .download-btn::before { 
     content: ''; 
@@ -134,8 +134,8 @@
     left: 100%; 
 }
 @keyframes pulse { 
-    0%, 100% { box-shadow: 0 0 25px #4c808b; } 
-    50% { box-shadow: 0 0 40px #6FBCCE; } 
+    0%, 100% { box-shadow: 0 0 25px #FD133B; } 
+    50% { box-shadow: 0 0 40px #b80926; } 
 }
 
     footer { background:rgba(0,0,0,0.95); padding:40px 20px; text-align:center;
@@ -205,28 +205,29 @@
   <div class="container">
     <div class="poster-wrapper">
       <div class="poster">
-        <img src="https://m.media-amazon.com/images/M/MV5BZTQ3Zjg5YjQtMDE1NS00MmVhLTk0NjItZjJiNmExNWY5YmRjXkEyXkFqcGc@._V1_.jpg" alt="Poster">
+        <img src="https://m.media-amazon.com/images/M/MV5BZTRiOGQ2NGUtNzc3NC00OTY0LWJiZWMtNzBlOGVlNTY0ZThlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Poster">
       </div>
     </div>
 
     <div class="glass-box">
-      <h1>Blue Box</h1>
-      <p>Third-year student Taiki joins badminton club. Despite being an early riser, star player Chinatsu, his crush, arrives first. Living together unexpectedly, Taiki strives to reach Nationals to impress Chinatsu.</p>
+      <h1>Dear X</h1>
+      <p>
+   A woman dons a mask to flee her situation and rise to power, causing devastation along her path.
+    </p>
       <div class="stats">
-        <span>2024</span>
-        <span>IMDb-7.9/10</span>
+        <span>2025</span>
+        <span>IMDb-8.4/10</span>
+        <span>Crime</span>
         <span>Romance</span>
-        <span>Sports</span>
-        <span>TV-PG</span>
+        <span>TV-MA</span>
       </div>
-      <iframe src="https://www.youtube.com/embed/tcK9Eghsfq8" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/62WcqUVFxS8" allowfullscreen></iframe>
     </div>
   </div>
 
   <div class="download-section">
     <div class="download-buttons">
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Blue_Box_S01_1080p">Download • 1080p HD</a>
-      <a class="download-btn" href="https://motionpicturemafia.com/subtitle-download/">Subtitles</a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Dear_X_S01_720p">Download • 720p HD</a>
     </div>
   </div>
 
@@ -242,7 +243,7 @@
   <audio id="themeSong" src="theme.mp3" loop preload="auto"></audio>
 
   <script src="main.js"></script>
-  <script>
+<script>
 document.addEventListener('DOMContentLoaded', () => {
     // === Stranger Things Poster Effect ===
     const poster = document.querySelector(".poster");
@@ -251,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Initial setup for the poster (CSS equivalent for default state)
         poster.style.transition = "all 0.6s cubic-bezier(0.23,1,0.32,1)";
         poster.style.transform = "rotateY(-8deg) rotateX(5deg) translateZ(0)";
-        poster.style.boxShadow = "0 20px 50px rgba(0,0,0,0.9), 0 0 60px #6FBCCE";
+        poster.style.boxShadow = "0 20px 50px rgba(0,0,0,0.9), 0 0 60px #FD133B";
 
         // Function to reset the poster to its default tilted state
         const resetPoster = () => {
@@ -283,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
         poster.addEventListener("mousemove", handleMouseMove);
         poster.addEventListener("mouseenter", () => {
             // Apply stronger glow on hover
-            poster.style.boxShadow = "0 30px 70px rgba(0,0,0,0.95), 0 0 100px #6FBCCE";
+            poster.style.boxShadow = "0 30px 70px rgba(0,0,0,0.95), 0 0 100px #FD133B";
         });
         poster.addEventListener("mouseleave", resetPoster);
 
@@ -294,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Revert shadow and transition after 300ms
             setTimeout(() => {
-                poster.style.boxShadow = "0 20px 50px rgba(0,0,0,0.9), 0 0 60px #6FBCCE";
+                poster.style.boxShadow = "0 20px 50px rgba(0,0,0,0.9), 0 0 60px #FD133B";
                 // Reset transition back to the smooth 0.6s
                 poster.style.transition = "all 0.6s cubic-bezier(0.23,1,0.32,1)"; 
             }, 300);
