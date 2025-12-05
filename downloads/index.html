@@ -51,7 +51,7 @@
     <option value="movie">Movies</option>
     <option value="tv">TV Series</option>
     <option value="anime">Anime</option>
-    <option value="k-drama">K Drama</option>
+    <option value="asian-drama">Asian Dramas</option>
   </select>
 </div>
 
@@ -64,7 +64,59 @@
 <div class="grid" id="gridContainer">
 
   <!--Cards -->
-<div class="card" data-category="k-drama" data-title="dear x">
+            <<div class="card" data-category="tv" data-title="task">
+    <img src="https://static3.go3.tv/scale/go3/imagesVOD/149202498.jpg?dsth=1080&dstw=1920&srcmode=0&quality=80&srcx=0&srcy=0&srcw=1/1&srch=1/1&type=2" alt="task">
+    <div class="info">
+      <h3>Task</h3>
+      <p>Crime · Drama · Drug Crime · 2025</p>
+      <button onclick="location.href='tv-series/task.html'">Download</button>
+    </div>
+  </div>
+          <div class="card" data-category="tv" data-title="the paper">
+    <img src="https://images.plex.tv/photo?size=large-1920&scale=1&url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Foriginal%2FqtMVO0McAXN4IV30SMFAVmXraBL.jpg" alt="the paper">
+    <div class="info">
+      <h3>The Paper</h3>
+      <p>Sitcom · Comedy · Mockumentary · 2025</p>
+      <button onclick="location.href='tv-series/the-paper.html'">Download</button>
+    </div>
+  </div>
+        <div class="card" data-category="tv" data-title="eyes of wakanda">
+    <img src="https://images.squarespace-cdn.com/content/v1/5fbc4a62c2150e62cfcb09aa/1702541920227-MHYLDA55LWNU17XAOX3Y/Eyes%2Bof%2BWakanda%2BCosmic%2BWonder.jpg" alt="eyes of wakanda">
+    <div class="info">
+      <h3>Eyes of Wakanda</h3>
+      <p>Action · Adventure · Superhero · 2025</p>
+      <button onclick="location.href='tv-series/eyes-of-wakanda.html'">Download</button>
+    </div>
+  </div>
+
+      <div class="card" data-category="tv" data-title="what if">
+    <img src="https://static0.colliderimages.com/wordpress/wp-content/uploads/2021/10/best-what-if-episodes.jpg" alt="what if">
+    <div class="info">
+      <h3>What If...?</h3>
+      <p>Action · Adventure · Superhero · 2021</p>
+      <button onclick="location.href='tv-series/what-if.html'">Download</button>
+    </div>
+  </div>
+  
+    <div class="card" data-category="tv" data-title="marvel zombies">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCoWIS8lrqO5HhEqiUz8QRlmSpGQAXmielCw&s" alt="mz">
+    <div class="info">
+      <h3>Marvel Zombies</h3>
+      <p>Action · Adventure · Superhero · 2025</p>
+      <button onclick="location.href='tv-series/marvel-zombies.html'">Download</button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="foundation">
+    <img src="https://www.apple.com/tv-pr/articles/2025/06/apple-tv-debuts-trailer-for-highly-anticipated-third-season-of-foundation/images/big-image/big-image-01/061125_apple_tv_debuts_trailer_for_third_season_of_foundation_Big_Image_01_big_image_post.jpg.slideshow_large.jpg" alt="foundation">
+    <div class="info">
+      <h3>Foundation</h3>
+      <p>Space Sci-Fi · Drama · Sci-Fi · 2021</p>
+      <button onclick="location.href='tv-series/foundation.html'">Download</button>
+    </div>
+  </div>
+
+<div class="card" data-category="asian-drama" data-title="dear x">
     <img src="https://media.assettype.com/outlookindia/2025-11-06/wie93cpo/dear-x.jpg?w=1200&h=675&auto=format%2Ccompress&fit=max&enlarge=true" alt="dear x">
     <div class="info">
       <h3>Dear X</h3>
@@ -367,7 +419,7 @@ function topFunction() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 //bot status
-document.getElementById("bot-status").classList.add(""); 
+document.getElementById("bot-status").classList.add("active"); 
 </script>
 
 </body>
