@@ -1,5 +1,13 @@
 const subtitles = [
       {
+        id: "Miss_Nagatoro",
+        title: "Don't Toy With Me, Miss Nagatoro",
+        plot: "Don't Toy with Me, Miss Nagatoro is a Japanese web manga series written and illustrated by Nanashi, also known as 774, about a high-schooler and art club member who is frequently annoyed by his junior Nagatoro,...",
+        img: "https://m.media-amazon.com/images/M/MV5BOWQyM2U1ZGQtYjBjYS00YzViLTg1NzgtMjkyYTAwMjdjZTRlXkEyXkFqcGc@._V1_.jpg",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+      {
         id: "Eighty_Six",
         title: "86",
         plot: "The Republic of San Magnolia has been attacked by its neighbor, the Empire.",
