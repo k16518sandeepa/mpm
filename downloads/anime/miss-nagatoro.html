@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <title>Don't Toy with Me, Miss Nagatoro - MPM</title>
+   <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6KK47Q2PLX');
+</script> 
+   <!--Google Ads-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8377794585544932"
+     crossorigin="anonymous"></script>
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#000; color:#fff; font-family:Arial,sans-serif; overflow-x:hidden; min-height:100vh; position:relative; }
+
+   
+    .bg-blur { position:fixed; top:0; left:0; width:100%; height:100%;
+      background:url('https://m.media-amazon.com/images/M/MV5BOWQyM2U1ZGQtYjBjYS00YzViLTg1NzgtMjkyYTAwMjdjZTRlXkEyXkFqcGc@._V1_.jpg') center/cover no-repeat;
+      filter:blur(2px) brightness(0.5); /*blur*/
+      z-index:-2; }
+    .overlay { position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.45); z-index:-1; }
+
+    .snow { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:10; }
+    .snowflake { position:absolute; color:#fff; user-select:none; animation:fall linear infinite; }
+    @keyframes fall { to { transform:translateY(110vh); } }
+
+    /* NAVIGATION - Desktop + Mobile */
+    nav {
+      position:sticky; top:0; background:rgba(0,0,0,0.92);
+      backdrop-filter:blur(12px); padding:15px 20px;
+      display:flex; justify-content:space-between; align-items:center;
+      z-index:1000; border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+    .logo { font-size:28px; font-weight:bold; color:#fff; text-decoration:none; }
+    .nav-links { display:none; }
+    .nav-links a { color:#fff; text-decoration:none; margin:0 18px; font-weight:bold; transition:0.3s; }
+    .nav-links a:hover { color:#e50914; text-shadow:0 0 12px #e50914; }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display:none; cursor:pointer; font-size:26px;
+    }
+    .hamburger span {
+      display:block; width:30px; height:3px; background:#fff;
+      margin:6px 0; transition:0.3s; border-radius:3px;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      position:fixed; top:0; right:-100%; width:70%; max-width:300px; height:100vh;
+      background:rgba(0,0,0,0.98); backdrop-filter:blur(20px);
+      padding:80px 30px 30px; transition:0.4s; z-index:9999;
+      box-shadow:-10px 0 30px rgba(0,0,0,0.8);
+    }
+    .mobile-menu.active { right:0; }
+    .mobile-menu a {
+      display:block; color:#fff; text-decoration:none; font-size:20px;
+      font-weight:bold; margin:20px 0; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.1);
+      transition:0.3s;
+    }
+    .mobile-menu a:hover { color:#e50914; padding-left:15px; }
+
+    header { text-align:center; padding:20px; font-size:clamp(26px,6vw,38px); font-weight:bold; }
+
+    .container { max-width:1300px; margin:20px auto; padding:15px;
+      display:grid; grid-template-columns:1fr; gap:30px; position:relative; z-index:20; }
+
+    .poster-wrapper { max-width:380px; margin:0 auto; }
+    .poster { border-radius:18px; overflow:hidden; box-shadow:0 15px 40px rgba(0,0,0,0.9); transition:0.5s; }
+    .poster img { width:100%; height:auto; display:block; }
+    .poster:hover { transform:translateY(-10px); box-shadow:0 25px 60px rgba(0,0,0,0.95); }
+
+    .glass-box { background-color: rgba(255, 255, 255, 0.15); border-radius:12px; padding:20px;
+      border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(5px); box-shadow:0 0 40px rgba(0,0,0,0.6); }
+    h1 { font-size:clamp(3rem,10vw,5.5rem); text-align:center; margin-bottom:16px;
+      background:linear-gradient(90deg,#fff,#0253BC,#fff);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:bold; }
+
+    .stats { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:25px 0; }
+    .stats span { background:rgba(229,9,20,0.2); border:1px solid #e50914; color:#e50914;
+      padding:10px 18px; border-radius:30px; font-weight:bold; }
+
+    iframe { width:100%; height:clamp(220px,52vw,420px); border-radius:16px;
+      border:2px solid rgba(229,9,20,0.3); margin-top:20px; }
+
+.download-section { 
+    margin: 60px auto; 
+    text-align: center; 
+    padding: 0 15px; 
+}
+.download-buttons { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 22px; 
+    max-width: 520px;
+    margin: 0 auto; 
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(5px); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), 0 0 50px rgba(255, 255, 255, 0.1);
+    
+    padding: 40px 25px; 
+    border-radius: 24px;
+}
+.download-btn { 
+    padding: 20px; 
+    background: linear-gradient(45deg, #e50914, #ff2c2c); 
+    color: white; 
+    border-radius: 50px; 
+    font-weight: bold; 
+    font-size: clamp(17px, 5vw, 20px);
+    box-shadow: 0 0 25px rgba(229, 9, 20, 0.6); 
+    transition: all 0.4s; 
+    position: relative; 
+    overflow: hidden;
+    min-height: 64px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    animation: pulse 4s infinite; 
+}
+.download-btn:hover { 
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 50px #e50914, 0 0 70px #ff0000; 
+}
+.download-btn::before { 
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    left: -100%;
+    width: 100%; 
+    height: 100%; 
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.7s; 
+}
+.download-btn:hover::before { 
+    left: 100%; 
+}
+@keyframes pulse { 
+    0%, 100% { box-shadow: 0 0 25px rgba(229, 9, 20, 0.6); } 
+    50% { box-shadow: 0 0 40px rgba(229, 9, 20, 0.9); } 
+}
+
+    footer { background:rgba(0,0,0,0.95); padding:40px 20px; text-align:center;
+      margin-top:80px; border-top:1px solid rgba(255,255,255,0.1); }
+    .social-links a { color:#fff; font-size:20px; margin:0 12px; transition:0.3s; }
+    .social-links a:hover { color:#e50914; transform:translateY(-4px); }
+    .footer-text { margin-top:16px; font-size:13px; opacity:0.7; }
+
+    /* Desktop Nav */
+    @media (min-width: 768px) {
+      .container { grid-template-columns:1fr 2fr; gap:40px; }
+      .poster-wrapper { max-width:none; }
+      .nav-links { display:flex; }
+      .hamburger { display:none; }
+    }
+
+    /* Mobile Nav */
+    @media (max-width: 767px) {
+      .hamburger { display:block; }
+      .nav-links { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-blur"></div>
+  <div class="overlay"></div>
+  <div class="snow" id="snow"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="https://motionpicturemafia.com/" class="logo">MPM</a>
+
+    <!-- Desktop Links -->
+    <div class="nav-links">
+      <a href="https://motionpicturemafia.com/downloads/">Home</a>
+      <a href="https://motionpicturemafia.com/subtitle-download/">Subtitles</a>
+      <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+      <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+      <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+      <a href="https://motionpicturemafia.com/games/games">Gaming</a>
+      <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Mobile Slide Menu -->
+  <div class="mobile-menu">
+      <a href="https://motionpicturemafia.com/downloads/">Home</a>
+      <a href="https://motionpicturemafia.com/subtitle-download/">Subtitles</a>
+      <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+      <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+      <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+      <a href="https://motionpicturemafia.com/games/games">Gaming</a>
+      <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+  </div>
+
+  <header>Motion Picture Mafia</header>
+
+  
+  <div class="container">
+    <div class="poster-wrapper">
+      <div class="poster">
+        <img src="https://m.media-amazon.com/images/M/MV5BZjNhM2I2YTMtYzA1MC00NTljLWJhZjQtY2JmNmZlZjZlMmI0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Poster">
+      </div>
+    </div>
+
+    <div class="glass-box">
+      <h1>Don't Toy with Me, Miss Nagatoro</h1>
+      <p>
+    Nagatoro, a high school girl, takes pleasure in relentlessly teasing her shy upperclassman after discovering his artistic talents and drawings with her friends.
+    </p>
+      <div class="stats">
+        <span>2021-2023</span>
+        <span>IMDb-7.1/10</span>
+        <span>Romance</span>
+        <span>Comedy</span>
+        <span>TV-14</span>
+      </div>
+      <iframe src="https://www.youtube.com/embed/4TWMQziAJcA" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="download-section">
+    <div class="download-buttons">
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=My_Little_Monster_Season_01">Download • 720p HD</a>
+      <a class="download-btn" href="https://motionpicturemafia.com/subtitle-download/">Subtitles</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://t.me/whatsappgang" target="_blank">Telegram</a>
+      <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i" target="_blank">Whatsapp</a>
+      <a href="https://web.facebook.com/groups/721197248262091" target="_blank">Facebook</a>
+    </div>
+    <div class="footer-text">© 2025 Motion Picture Mafia • Fast • Free • Forever</div>
+  </footer>
+
+  <audio id="themeSong" src="theme.mp3" loop preload="auto"></audio>
+
+  <script src="main.js"></script>
+</body>
+</html>
