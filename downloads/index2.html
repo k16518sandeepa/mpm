@@ -64,6 +64,23 @@
 <div class="grid" id="gridContainer">
 
   <!--Cards -->
+  <!--<div class="card" data-category="tv" data-title="breaking bad">
+    <img src="https://www.dorkaholics.com/wp-content/uploads/2024/12/breaking-bad.jpg" alt="breaking bad">
+    <div class="info">
+      <h3>Breaking Bad</h3>
+      <p>Crime · Thriller · Drug Crime · 2008</p>
+      <button onclick="location.href='tv-series/breaking-bad.html'">Download</button>
+    </div>
+  </div>-->
+    <div class="card" data-category="anime" data-title="chainsaw man the movie reze arc">
+    <img src="https://www.lab111.nl/wp-content/uploads/2025/10/chainsaw-man-the-banner-scaled.jpg" alt="chainsaw man the movie reze arc">
+    <div class="info">
+      <h3>Chainsaw Man The Movie: Reze Arc</h3>
+      <p>Adventure · Drama · 2025</p>
+      <button class="download-btn" data-href="anime/chainsaw-man-reze-arc.html">Download</button>
+    </div>
+  </div>
+
   <div class="card" data-category="tv" data-title="robin hood 2025">
     <img src="https://www.vitalthrills.com/wp-content/uploads/2025/09/robinmgm1.jpg" alt="robin hood 2025">
     <div class="info">
@@ -476,7 +493,7 @@ window.onscroll = function() {
 function topFunction() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
+ 
 // === BOT OFFLINE PROTECTION ===
 const botStatus = document.getElementById("bot-status");
 const isOffline = botStatus.classList.contains("bot-offline");
