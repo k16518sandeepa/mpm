@@ -72,12 +72,48 @@
       <button onclick="location.href='tv-series/breaking-bad.html'">Download</button>
     </div>
   </div>-->
-    <div class="card" data-category="anime" data-title="chainsaw man the movie reze arc">
+      <div class="card" data-category="anime" data-title="chainsaw man the movie reze arc">
     <img src="https://www.lab111.nl/wp-content/uploads/2025/10/chainsaw-man-the-banner-scaled.jpg" alt="chainsaw man the movie reze arc">
     <div class="info">
       <h3>Chainsaw Man The Movie: Reze Arc</h3>
       <p>Adventure · Drama · 2025</p>
-      <button class="download-btn" data-href="anime/chainsaw-man-reze-arc.html">Download</button>
+      <button class="download-btn" data-href="anime/chainsaw-man-the-movie-reze-arc.html">Download</button>
+    </div>
+  </div>
+
+      <div class="card" data-category="tv" data-title="merlin">
+    <img src="https://cdn.iview.abc.net.au/thumbs/i/X0_651baa4458767_3600.jpg" alt="merlin">
+    <div class="info">
+      <h3>Merlin</h3>
+      <p>Fantasy · Supernatural · Adventure · 2008</p>
+      <button class="download-btn" data-href="tv-series/merlin.html">Download</button>
+    </div>
+  </div>
+
+    <div class="card" data-category="tv" data-title="alien earth">
+    <img src="https://cdn.abcotvs.com/dip/images/16667231_060525-otrc-alienearth-img.jpg" alt="alien earth">
+    <div class="info">
+      <h3>Alien Earth</h3>
+      <p>Sci-Fi · Monster Horror · Drama · 2025</p>
+      <button class="download-btn" data-href="tv-series/alien-earth.html">Download</button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="dexter resurrection">
+    <img src="https://image.tmdb.org/t/p/original/oe3RckoqUOVgHfktWIsodYxmClz.jpg" alt="dexter resurrection">
+    <div class="info">
+      <h3>Dexter: Resurrection</h3>
+      <p>Crime · Thriller · Drama · 2025</p>
+      <button class="download-btn" data-href="tv-series/dexter-resurrection.html">Download</button>
+    </div>
+  </div>
+
+      <div class="card" data-category="anime" data-title="fullmetal alchemist brotherhood">
+    <img src="https://static0.srcdn.com/wordpress/wp-content/uploads/2025/01/fullmetal-alchemist-ed-poster.jpg?w=1200&h=675&fit=crop" alt="fullmetal alchemist brotherhood">
+    <div class="info">
+      <h3>Fullmetal Alchemist: Brotherhood</h3>
+      <p>Fantasy · Tragedy · 2009</p>
+      <button class="download-btn" data-href="anime/fmab.html">Download</button>
     </div>
   </div>
 
@@ -496,7 +532,7 @@ function topFunction() {
  
 // === BOT OFFLINE PROTECTION ===
 const botStatus = document.getElementById("bot-status");
-const isOffline = botStatus.classList.contains("bot-offline");
+const isOffline = botStatus.classList.contains("bot-online");
 
 document.querySelectorAll(".download-btn").forEach(btn => {
   if (isOffline) {
@@ -514,7 +550,7 @@ document.querySelectorAll(".download-btn").forEach(btn => {
   }
 });
 //bot status
-document.getElementById("bot-status").classList.add("active"); 
+document.getElementById("bot-status").classList.add(""); 
 </script>
 
 </body>
