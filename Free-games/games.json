@@ -1,34 +1,32 @@
-// games.json
 [
-  {
-    "id": "mystery-dec12",
-    "platform": "epic",
-    "title": "MYSTERY GAME",
-    "image": "https://imgur.com/5UFY5jL.jpeg",
-    "description": "Tune in Dec 12 at 6.30 am IST",
-    "claimUrl": "https://store.epicgames.com/en-US/free-games",
-    "startDate": "2025-12-12T01:00:00Z",
-    "endDate": "2025-12-19T16:00:00Z",
-    "status": "upcoming"   // can be: upcoming, active, expired (auto-calculated if omitted)
-  },
   {
     "id": "darkside-detective",
     "platform": "epic",
     "title": "The Darkside Detective",
     "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/368390/header.jpg?t=1751347179",
-    "description": "Grab your trench coat, tune your sixth sense and join the Darkside Division...",
+    "description": "Grab your trench coat, tune your sixth sense and join the Darkside Division as they investigate the outright bizarre cases of Twin Lakes.",
     "claimUrl": "https://store.epicgames.com/en-US/p/the-darkside-detective-02fd5a",
-    "startDate": "2025-12-04T16:00:00Z",
-    "endDate": "2025-12-11T16:00:00Z"
+    "startDate": "2025-12-04T21:30:00",
+    "endDate": "2025-12-11T22:30:00"
   },
   {
-    "id": "example-steam",
-    "platform": "steam",
-    "title": "Some Free Steam Game",
-    "image": "https://cdn.akamai.steamstatic.com/steam/apps/123456/header.jpg",
-    "description": "Limited time free weekend!",
-    "claimUrl": "https://store.steampowered.com/app/123456",
-    "startDate": "2025-12-10T00:00:00Z",
-    "endDate": "2025-12-15T23:59:00Z"
+    "id": "the-jackbox-party-pack-4",
+    "platform": "epic",
+    "title": "The Jackbox Party Pack 4",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/610180/header.jpg?t=1728584458",
+    "description": "The fourth pack in this storied party game franchise features Fibbage 3 and its new game mode, Fibbage: Enough About You;..",
+    "claimUrl": "",
+    "startDate": "2025-12-04T21:30:00",
+    "endDate": "2025-12-11T22:30:00"
+  },
+  {
+    "id": "immortal-fenyx-rising",
+    "platform": "ubisoft",
+    "title": "Immortals Fenyx Rising",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2221920/header.jpg?t=1751969539",
+    "description": "Immortals Fenyx Rising brings grand mythological adventure to life. Play as Fenyx on a quest to save the Greek gods.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/the-darkside-detective-02fd5a",
+    "startDate": "2025-12-01T21:30:00",
+    "endDate": "2025-12-02T22:30:00"
   }
 ]
