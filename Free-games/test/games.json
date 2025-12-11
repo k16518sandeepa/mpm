@@ -1,0 +1,32 @@
+[
+  {
+    "id": "mystery-dec12",
+    "platform": "epic",
+    "title": "MYSTERY GAME",
+    "image": "https://i.imgur.com/5UFY5jL.jpeg",
+    "description": "Tune in Dec 12 at 6:30 AM IST",
+    "claimUrl": "https://store.epicgames.com/en-US/free-games",
+    "startDate": "2025-12-12T01:00:00Z",
+    "endDate": "2025-12-19T16:00:00Z"
+  },
+  {
+    "id": "darkside-detective",
+    "platform": "epic",
+    "title": "The Darkside Detective",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/368390/header.jpg?t=1751347179",
+    "description": "Grab your trench coat, tune your sixth sense and join the Darkside Division as they investigate the outright bizarre cases of Twin Lakes.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/the-darkside-detective-02fd5a",
+    "startDate": "2025-12-04T16:00:00Z",
+    "endDate": "2025-12-11T16:00:00Z"
+  },
+  {
+    "id": "example-steam",
+    "platform": "steam",
+    "title": "ISDefense (Example)",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/448370/header.jpg",
+    "description": "Defend the coast of Europe in this arcade-style tower defense!",
+    "claimUrl": "https://store.steampowered.com/app/448370/ISDefense/",
+    "startDate": "2025-12-15T18:00:00Z",
+    "endDate": "2025-12-22T18:00:00Z"
+  }
+]
