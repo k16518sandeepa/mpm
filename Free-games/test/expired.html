@@ -89,87 +89,105 @@
     <p>© 2025 Motion Picture Mafia Studio | Designed By SANA</p>
   </footer>
 
-  <script>
-    // Auto highlight correct tab
-    const page = location.pathname.split('/').pop();
-    if (page.includes('active')) document.getElementById('tab-active').classList.add('active');
-    if (page.includes('coming-soon')) document.getElementById('tab-soon').classList.add('active');
-    if (page.includes('expired')) document.getElementById('tab-expired').classList.add('active');
+ <script>
+  // Auto highlight correct tab
+  const page = location.pathname.split('/').pop();
+  if (page.includes('active')) document.getElementById('tab-active').classList.add('active');
+  if (page.includes('coming-soon')) document.getElementById('tab-soon').classList.add('active');
+  if (page.includes('expired')) document.getElementById('tab-expired').classList.add('active');
 
-    // Load games
-    fetch('games.json')
-      .then(r => r.json())
-      .then(games => {
-        const container = document.getElementById('game-container');
-        container.innerHTML = '';
-        const now = new Date();
+  // Format IST date
+  function formatIST(date) {
+    return date.toLocaleString('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    }) + " IST";
+  }
 
-        games.forEach(game => {
-          const start = new Date(game.startDate);
-          const end = new Date(game.endDate);
+  // Load games
+  fetch('games.json')
+    .then(r => r.json())
+    .then(games => {
+      const container = document.getElementById('game-container');
+      container.innerHTML = '';
+      const now = new Date();
 
-          const isActivePage = page.includes('active');
-          const isSoonPage = page.includes('coming-soon');
-          const isExpiredPage = page.includes('expired');
+      games.forEach(game => {
+        const start = new Date(game.startDate);
+        const end = new Date(game.endDate);
 
-          const showOnActive = isActivePage && now >= start && now < end;
-          const showOnSoon = isSoonPage && now < start;
-          const showOnExpired = isExpiredPage && now >= end;
+        const isActivePage = page.includes('active');
+        const isSoonPage = page.includes('coming-soon');
+        const isExpiredPage = page.includes('expired');
 
-          if (!showOnActive && !showOnSoon && !showOnExpired) return;
+        const showOnActive = isActivePage && now >= start && now < end;
+        const showOnSoon = isSoonPage && now < start;
+        const showOnExpired = isExpiredPage && now >= end;
 
-          const card = document.createElement('div');
-          card.className = 'game-card';
-          if (now >= end) card.classList.add('expired');
-          if (now < start) card.classList.add('upcoming');
+        if (!showOnActive && !showOnSoon && !showOnExpired) return;
 
-          card.innerHTML = `
-            <div class="badge ${game.platform}">${game.platform.toUpperCase()}</div>
-            <img src="${game.image}" alt="${game.title}">
-            <h2>${game.title}</h2>
-            <p>${game.description}</p>
-            ${now >= start && now < end ? `<div class="countdown" data-end="${game.endDate}"></div>` : ''}
-            ${now < start ? `<p class="expires" style="color:#00d2ff;font-weight:bold;">Starts: ${start.toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'})}</p>` : ''}
-            ${now >= end ? `<p class="expires" style="color:#ff4757;font-weight:bold;">Ended: ${end.toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'})}</p>` : ''}
-            <a href="${game.claimUrl}" target="_blank" class="claim-btn">
-              ${now < start ? 'Coming Soon' : now >= end ? 'Expired' : 'Claim Now'}
-            </a>
-          `;
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        if (now >= end) card.classList.add('expired');
+        if (now < start) card.classList.add('upcoming');
 
-          if (now >= end) {
-            card.innerHTML += '<div class="overlay">EXPIRED</div>';
-          }
+        card.innerHTML = `
+          <div class="badge ${game.platform}">${game.platform.toUpperCase()}</div>
+          <img src="${game.image}" alt="${game.title}">
+          <h2>${game.title}</h2>
+          <p>${game.description}</p>
 
-          container.appendChild(card);
-        });
+          ${now >= start && now < end ? `<div class="countdown" data-end="${game.endDate}"></div>` : ''}
 
-        // Countdown timers
-        document.querySelectorAll('.countdown').forEach(el => {
-          const end = new Date(el.getAttribute('data-end'));
-          const update = () => {
-            const diff = end - new Date();
-            if (diff <= 0) {
-              el.textContent = 'EXPIRED!';
-              el.closest('.game-card').classList.add('expired');
-              el.closest('.game-card').querySelector('.claim-btn').textContent = 'Expired';
-              return;
-            }
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            el.textContent = `${d}d ${h}h ${m}m left`;
-          };
-          update();
-          setInterval(update, 60000);
-        });
+          ${now < start ? `<p class="expires" style="color:#00d2ff;font-weight:bold;">Starts: ${formatIST(start)}</p>` : ''}
 
-        if (container.innerHTML === '') {
-          container.innerHTML = '<p style="text-align:center; padding:50px; color:#aaa;">No games in this category right now. Check back soon!</p>';
+          ${now >= end ? `<p class="expires" style="color:#ff4757;font-weight:bold;">Ended: ${formatIST(end)}</p>` : ''}
+
+          <a href="${game.claimUrl}" target="_blank" class="claim-btn">
+            ${now < start ? 'Coming Soon' : now >= end ? 'Expired' : 'Claim Now'}
+          </a>
+        `;
+
+        if (now >= end) {
+          card.innerHTML += '<div class="overlay">EXPIRED</div>';
         }
-      })
-      .catch(err => {
-        document.getElementById('game-container').innerHTML = '<p style="color:red;text-align:center;">Failed to load games. Please refresh or check games.json file.</p>';
+
+        container.appendChild(card);
       });
-  </script>
+
+      // Countdown timers
+      document.querySelectorAll('.countdown').forEach(el => {
+        const end = new Date(el.getAttribute('data-end'));
+        const update = () => {
+          const diff = end - new Date();
+          if (diff <= 0) {
+            el.textContent = 'EXPIRED!';
+            el.closest('.game-card').classList.add('expired');
+            el.closest('.game-card').querySelector('.claim-btn').textContent = 'Expired';
+            return;
+          }
+          const d = Math.floor(diff / 86400000);
+          const h = Math.floor((diff % 86400000) / 3600000);
+          const m = Math.floor((diff % 3600000) / 60000);
+          el.textContent = `${d}d ${h}h ${m}m left`;
+        };
+        update();
+        setInterval(update, 60000);
+      });
+
+      if (container.innerHTML === '') {
+        container.innerHTML = '<p style="text-align:center; padding:50px; color:#aaa;">No games in this category right now. Check back soon!</p>';
+      }
+    })
+    .catch(err => {
+      document.getElementById('game-container').innerHTML =
+        '<p style="color:red;text-align:center;">Failed to load games. Please refresh or check games.json file.</p>';
+    });
+</script>
 </body>
 </html>
