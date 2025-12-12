@@ -1,5 +1,15 @@
 [
   {
+    "id": "hogwarts-legacy",
+    "platform": "epic",
+    "title": "Hogwarts Legacy",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/a3cdc6f40d97df8ac993679c2dd1edeb5222421e/header.jpg?t=1765473525",
+    "description": "Hogwarts Legacy is an immersive, open-world action RPG. Now you can take control of the action and be at the center of your own adventure in the wizarding world.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/hogwarts-legacy",
+    "startDate": "2025-12-12T08:30:00",
+    "endDate": "2025-12-19T08:30:00"
+  },
+  {
     "id": "darkside-detective",
     "platform": "epic",
     "title": "The Darkside Detective",
