@@ -1,5 +1,0 @@
-fastapi
-uvicorn
-telethon
-aiofiles
-jinja2
