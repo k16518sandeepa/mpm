@@ -10,6 +10,27 @@
     "endDate": "2025-12-18T21:30:00"
   },
   {
+    "id": "just-ignore-them",
+    "platform": "steam",
+    "title": "Just Ignore Them",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/561770/header.jpg?t=1765458102",
+    "description": "Played by over 20 million Adventurers - Black Desert Online is an open-world, action MMORPG. Experience intense, action-packed combat, battle massive world bosses, fight alongside friends to siege and conquer castles, and train in professions",
+    "description": "However, his offer is region-limited, not the game itself, so these are the regions who are unable to redeem this offer: South Asia, South Korea, Chinese, Israel",
+    "claimUrl": "https://store.steampowered.com/app/582660/",
+    "startDate": "2025-12-11T23:30:00",
+    "endDate": "2025-12-18T23:30:00"
+  },
+  {
+    "id": "black-desert",
+    "platform": "steam",
+    "title": "Black Desert",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/582660/header.jpg?t=1758315448",
+    "description": "One night can feel like a lifetime of pain, suffering and horror to a child...do you have what it takes to survive the night? Play as an 8 year old child who is tormented by monsters in his house.",
+    "claimUrl": "https://store.steampowered.com/app/561770/Just_Ignore_Them/?curator_clanid=4777282",
+    "startDate": "2025-12-12T23:30:00",
+    "endDate": "2025-12-15T23:30:00"
+  },
+  {
     "id": "darkside-detective",
     "platform": "epic",
     "title": "The Darkside Detective",
