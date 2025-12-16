@@ -10,6 +10,15 @@
     "endDate": "2025-12-18T21:30:00"
   },
   {
+    "id": "wild-terra-2-new-lands",
+    "platform": "steam",
+    "title": "Wild Terra 2: New Lands",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1134700/07763518d7a4ca5cd3ca53a670f955b90efeb333/header_alt_assets_5.jpg?t=1765908364",
+    "description": "MMORPG full of details that create a unique immersion and the spirit of adventure! Play your role in the life-filled medieval world controlled by players.",
+    "claimUrl": "https://store.steampowered.com/app/1134700/Wild_Terra_2_New_Lands/",
+    "startDate": "2025-12-16T23:30:00",
+    "endDate": "2025-12-18T23:30:00"
+  },{
     "id": "one-gun-guy",
     "platform": "steam",
     "title": "One Gun Guy",
