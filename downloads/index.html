@@ -532,7 +532,7 @@ function topFunction() {
  
 // === BOT OFFLINE PROTECTION ===
 const botStatus = document.getElementById("bot-status");
-const isOffline = botStatus.classList.contains("bot-online");
+const isOffline = botStatus.classList.contains("bot-offline");
 
 document.querySelectorAll(".download-btn").forEach(btn => {
   if (isOffline) {
@@ -550,7 +550,7 @@ document.querySelectorAll(".download-btn").forEach(btn => {
   }
 });
 //bot status
-document.getElementById("bot-status").classList.add(""); 
+document.getElementById("bot-status").classList.add("active"); 
 </script>
 
 </body>
