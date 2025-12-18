@@ -10,6 +10,36 @@
     "endDate": "2025-12-19T21:30:00"
   },
   {
+    "id": "toy-tinker-simulator",
+    "platform": "steam",
+    "title": "Toy Tinker Simulator",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1510580/header.jpg?t=1766051622",
+    "description": "Have you ever wanted to be a toy tinker? This is a unique chance to become one! Repair toys and start your toy-museums to make everyone happy!",
+    "claimUrl": "https://store.steampowered.com/app/1510580/Toy_Tinker_Simulator/",
+    "startDate": "2025-12-18T23:30:00",
+    "endDate": "2025-12-21T23:30:00"
+  },
+  {
+    "id": "100%-orange-juice",
+    "platform": "steam",
+    "title": "100% Orange Juice",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/282800/74b8f808c2ea623f9aee9ed20c6d76c7e536e137/header.jpg?t=1766086237",
+    "description": "100% Orange Juice is a digital multiplayer board game populated by developer Orange Juice's all-star cast.",
+    "claimUrl": "https://store.steampowered.com/app/282800/100_Orange_Juice/",
+    "startDate": "2025-12-18T23:30:00",
+    "endDate": "2025-12-22T23:30:00"
+  },
+  {
+    "id": "rat-quest",
+    "platform": "steam",
+    "title": "Rat Quest",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2952470/efd77acebd190f5588262c9b1cbe8c38dbdec638/header.jpg?t=1763754651",
+    "description": "In this platformer, jumping will be your main mechanic as you climb the level, each jump matters, if you miss a jump, you have to restart. You may be small but so are the platforms.",
+    "claimUrl": "https://store.steampowered.com/app/2952470/Rat_Quest/",
+    "startDate": "2025-12-18T23:30:00",
+    "endDate": "2025-12-25T23:30:00"
+  },
+  {
     "id": "hogwarts-legacy",
     "platform": "epic",
     "title": "Hogwarts Legacy",
@@ -28,7 +58,8 @@
     "claimUrl": "https://store.steampowered.com/app/1134700/Wild_Terra_2_New_Lands/",
     "startDate": "2025-12-16T23:30:00",
     "endDate": "2025-12-18T23:30:00"
-  },{
+  },
+  {
     "id": "one-gun-guy",
     "platform": "steam",
     "title": "One Gun Guy",
