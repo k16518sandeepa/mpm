@@ -72,6 +72,59 @@
       <button onclick="location.href='tv-series/breaking-bad.html'">Download</button>
     </div>
   </div>-->
+      <div class="card" data-category="anime" data-title="scissor seven">
+    <img src="https://occ-0-8407-2218.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABcHTZw-TkvZ246LjpJuSu3SEZ--_5bkpRjqCxvRxRjN-DxbEO12rqZFeH5pegey637TlZieYz3EL2gqn1FMEHEYYYO8GvPSaYLna.jpg?r=bd7" alt="scissor seven">
+    <div class="info">
+      <h3>Scissor Seven</h3>
+      <p>Fantasy · Comedy · Action · 2020</p>
+      <button class="download-btn" data-href="anime/scissor-seven.html">Download</button>
+    </div>
+  </div>
+
+      <div class="card" data-category="anime" data-title="black butler">
+    <img src="https://i.ytimg.com/vi/S8j5iEklHyI/maxresdefault.jpg" alt="black butler">
+    <div class="info">
+      <h3>Black Butler</h3>
+      <p>Fantasy · Supernatural · Action · 2008</p>
+      <button class="download-btn" data-href="anime/black-butler.html">Download</button>
+    </div>
+  </div>
+
+      <div class="card" data-category="tv" data-title="percy jackson and the olympian">
+    <img src="https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/1493cdb8-cc7c-45c4-82a2-589490d484bb/compose?aspectRatio=1.78&format=webp&width=1200" alt="percy jackson and the olympian">
+    <div class="info">
+      <h3>Percy Jackson and the Olympians</h3>
+      <p>Fantasy · Action · Adventure · 2023</p>
+      <button class="download-btn" data-href="tv-series/percy-jackson-and-the-olympian.html">Download</button>
+    </div>
+  </div> 
+      <div class="card" data-category="tv" data-title="the 100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/The-100.jpg" alt="the 100">
+    <div class="info">
+      <h3>The 100</h3>
+      <p>Sci-Fi · Action · Drama · 2014</p>
+      <button class="download-btn" data-href="tv-series/the-100.html">Download</button>
+    </div>
+  </div>
+
+      <div class="card" data-category="tv" data-title="man vs baby">
+    <img src="https://occ-0-8407-90.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABfx9D842uziMxhWQfcwSeREjV8ru_oh4nFcHveW1GdGCyoJXlCQStQa5cgNCBxrZNVI0ehToKimD32kD5pdFAiYefwXeUslb5KTd.jpg?r=0c2" alt="man vs baby">
+    <div class="info">
+      <h3>Man Vs Baby</h3>
+      <p>Comedy · Family · Slapstick · 2025</p>
+      <button class="download-btn" data-href="tv-series/man-vs-baby.html">Download</button>
+    </div>
+  </div>
+
+      <div class="card" data-category="tv" data-title="tomb raider the legend of lara croft">
+    <img src="https://static0.polygonimages.com/wordpress/wp-content/uploads/2024/08/Tomb_Raider__The_Legend_of_Lara_Croft_u_S1_E2_00_15_43_03.jpg" alt="tomb raider the legend of lara croft">
+    <div class="info">
+      <h3>Tomb Raider: The Legend of Lara Croft</h3>
+      <p>Action · Animation · Adventure · 2024</p>
+      <button class="download-btn" data-href="tv-series/tomb-raider-the-legend-of-lara-croft.html">Download</button>
+    </div>
+  </div>
+
       <div class="card" data-category="anime" data-title="chainsaw man the movie reze arc">
     <img src="https://www.lab111.nl/wp-content/uploads/2025/10/chainsaw-man-the-banner-scaled.jpg" alt="chainsaw man the movie reze arc">
     <div class="info">
@@ -532,7 +585,7 @@ function topFunction() {
  
 // === BOT OFFLINE PROTECTION ===
 const botStatus = document.getElementById("bot-status");
-const isOffline = botStatus.classList.contains("bot-offline");
+const isOffline = botStatus.classList.contains("bot-online");
 
 document.querySelectorAll(".download-btn").forEach(btn => {
   if (isOffline) {
@@ -550,7 +603,7 @@ document.querySelectorAll(".download-btn").forEach(btn => {
   }
 });
 //bot status
-document.getElementById("bot-status").classList.add("active"); 
+document.getElementById("bot-status").classList.add(""); 
 </script>
 
 </body>
