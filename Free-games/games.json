@@ -10,6 +10,16 @@
     "endDate": "2025-12-20T21:30:00"
   },
    {
+    "id": "banana-hell-mountain-of-madness",
+    "platform": "steam",
+    "title": "Banana Hell: Mountain of Madness",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2068520/header.jpg?t=1766020401",
+    "description": "Jump your way to get the blue diamond as you try to survive a very annoying banana monologue! A REALLY HARD game!",
+    "claimUrl": "https://store.steampowered.com/app/2068520/Banana_Hell_Mountain_of_Madness/",
+    "startDate": "2025-12-19T23:30:00",
+    "endDate": "2025-12-22T12:30:00"
+  },
+   {
     "id": "jotunnslayer-hordes-of-hel",
     "platform": "epic",
     "title": "Jotunnslayer: Hordes of Hel",
