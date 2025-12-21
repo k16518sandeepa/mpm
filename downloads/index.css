@@ -185,3 +185,21 @@ nav a.active {
 .link{
   color:#dcdcdc;
 }
+
+/* Latest */
+.card {
+  position: relative;
+}
+
+.latest-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff3d00;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 2;
+}

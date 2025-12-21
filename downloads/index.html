@@ -26,6 +26,25 @@
   <title>Downloads - MPM</title>
 
   <link rel="stylesheet" href="index.css">
+<style>
+/* ===== LATEST BADGE ===== */
+.card {
+  position: relative;
+}
+
+.latest-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff3d00;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 2;
+}
+</style>
 </head>
 
 <body>
@@ -72,7 +91,10 @@
       <button onclick="location.href='tv-series/breaking-bad.html'">Download</button>
     </div>
   </div>-->
-  <div class="card" data-category="asian-drama" data-title="moon river the moon flows through the river">
+<div class="card"
+     data-category="asian-drama"
+     data-title="moon river the moon flows through the river"
+     data-updated="2025-12-19">
     <img src="https://1.vikiplatform.com/c/41235c/56e95182d5.jpg?x=b" alt="moon river">
     <div class="info">
       <h3>Moon River</h3>
@@ -99,7 +121,7 @@
     </div>
   </div>
 
-      <div class="card" data-category="tv" data-title="percy jackson and the olympian">
+      <div class="card" data-category="tv" data-title="percy jackson and the olympian" data-updated="2025-12-20">
     <img src="https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/1493cdb8-cc7c-45c4-82a2-589490d484bb/compose?aspectRatio=1.78&format=webp&width=1200" alt="percy jackson and the olympian">
     <div class="info">
       <h3>Percy Jackson and the Olympians</h3>
@@ -197,7 +219,7 @@
     </div>
   </div> 
  
-  <div class="card" data-category="tv" data-title="pluribus">
+  <div class="card" data-category="tv" data-title="pluribus" data-updated="2025-12-21">
     <img src="https://external-preview.redd.it/no-one-knows-what-pluribus-the-next-show-from-the-creator-v0-KJuLiTBDviXneezEubarVvTl1SJj-cnGZSvwIOqG7Zs.jpeg?auto=webp&s=8e92eea2795a6f8edbb66451cd042aea7ef94080" alt="pluribus">
     <div class="info">
       <h3>Pluribus</h3>
@@ -215,7 +237,7 @@
     </div>
   </div>
 
-  <div class="card" data-category="tv" data-title="spartacus house of ashur">
+  <div class="card" data-category="tv" data-title="spartacus house of ashur" data-updated="2025-12-21">
     <img src="https://www.vitalthrills.com/wp-content/uploads/2025/10/ashurtrailer1.jpg" alt="spartacus house of ashur">
     <div class="info">
       <h3>Spartacus: House of Ashur</h3>
@@ -562,57 +584,77 @@
 <button onclick="topFunction()" class="back-to-top" title="Go to top">↑ Top</button>
 
 <script>
-// Filter & Search (unchanged)
+/* ================= LATEST SYSTEM ================= */
+document.addEventListener("DOMContentLoaded", () => {
+    const LATEST_DAYS = 3;
+    const now = new Date();
+    const grid = document.getElementById("gridContainer");
+    const cards = Array.from(grid.querySelectorAll(".card"));
+
+    cards.forEach(card => {
+        const updated = card.dataset.updated;
+        if (!updated) return;
+
+        // Parse date (YYYY-MM-DD)
+        const updatedDate = new Date(updated + "T00:00:00");
+        const diffTime = now - updatedDate;
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+        // Show badge if updated within the last 3 days
+        if (diffDays >= 0 && diffDays <= LATEST_DAYS) {
+            const badge = document.createElement("span");
+            badge.className = "latest-badge";
+            badge.textContent = "LATEST";
+            card.prepend(badge); // Use prepend to put it at the top of the card div
+            card.dataset.latest = "true";
+        }
+    });
+
+    /* ===== SORT LATEST TO TOP ===== */
+    cards.sort((a, b) => {
+        const aLatest = a.dataset.latest === "true" ? 1 : 0;
+        const bLatest = b.dataset.latest === "true" ? 1 : 0;
+        return bLatest - aLatest;
+    });
+
+    cards.forEach(card => grid.appendChild(card));
+});
+
+/* ================= BOT & DOWNLOAD LOGIC ================= */
+// Check if the bot is offline based on the class actually present in your HTML
+const botStatus = document.getElementById("bot-status");
+const isActuallyOffline = botStatus.classList.contains("bot-offline");
+
+document.querySelectorAll(".download-btn").forEach(btn => {
+    if (isActuallyOffline) {
+        btn.style.opacity = "0.6";
+        btn.style.cursor = "not-allowed";
+        btn.onclick = function (e) {
+            e.preventDefault();
+            alert("Bot is currently offline for maintenance.");
+        };
+    } else {
+        btn.onclick = function () {
+            location.href = this.getAttribute("data-href");
+        };
+    }
+});
+/* ================= FILTER & SEARCH ================= */
 function filterCards() {
-  let filter = document.getElementById('categoryFilter').value;
-  let cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
-    card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'block' : 'none';
-  });
+    let filter = document.getElementById('categoryFilter').value;
+    let cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'block' : 'none';
+    });
 }
 
 function searchCards() {
-  let input = document.getElementById('searchBox').value.toLowerCase();
-  let cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
-    card.style.display = card.dataset.title.includes(input) ? 'block' : 'none';
-  });
+    let input = document.getElementById('searchBox').value.toLowerCase();
+    let cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.style.display = card.dataset.title.includes(input) ? 'block' : 'none';
+    });
 }
-
-// Back to top button
-const backToTopButton = document.querySelector(".back-to-top");
-window.onscroll = function() {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        backToTopButton.style.display = "block";
-    } else {
-        backToTopButton.style.display = "none";
-    }
-};
-function topFunction() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
- 
-// === BOT OFFLINE PROTECTION ===
-const botStatus = document.getElementById("bot-status");
-const isOffline = botStatus.classList.contains("bot-online");
-
-document.querySelectorAll(".download-btn").forEach(btn => {
-  if (isOffline) {
-    btn.disabled = true;
-    btn.style.opacity = "0.6";
-    btn.style.cursor = "not-allowed";
-    btn.onclick = function(e) {
-      e.preventDefault();
-      alert("Bot is currently offline for maintenance. Please try again later.");
-    };
-  } else {
-    btn.onclick = function() {
-      location.href = this.getAttribute("data-href");
-    };
-  }
-});
-//bot status
-document.getElementById("bot-status").classList.add(""); 
 </script>
 
 </body>
