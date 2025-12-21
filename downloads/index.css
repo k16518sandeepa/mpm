@@ -1,4 +1,4 @@
-/* MAIN INDEX PAGE CSS */
+/* MAIN INDEX PAGE CSS - UPDATED FOR ADSENSE STABILITY */
 
 /* Global */
 body {
@@ -29,13 +29,39 @@ header h1 {
   to   { text-shadow: 0 0 20px #ff0000; }
 }
 
-/* Filters */
-.filters {
+/* Navigation */
+nav {
+  background: #2b2b2b;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  transition: background 0.3s;
+}
+nav a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+nav a:hover {
+  color: #ff4757;
+}
+nav a.active {
+  color: #ff4757;
+  border-bottom: 2px solid #ff4757;
+}
+.link {
+  color:#dcdcdc;
+}
+
+/* Filters & Search */
+.filters, .search-bar {
   width: 90%;
   max-width: 600px;
-  margin: 20px auto 10px;
+  margin: 20px auto;
 }
-.filters select {
+.filters select, .search-bar input {
   width: 100%;
   padding: 12px;
   border-radius: 10px;
@@ -47,28 +73,16 @@ header h1 {
   box-shadow: 0 0 10px rgba(255,0,0,0.2);
 }
 
-/* Search */
-.search-bar {
-  width: 90%;
-  max-width: 600px;
-  margin: 10px auto 25px;
-}
-.search-bar input {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-}
-
-/* Grid */
+/* Grid - Anti-Injection Rules */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   padding: 20px;
+  /* Signals AdSense to ignore this container for auto-insertion */
+  google-auto-ads: ignore;
 }
+
 @media(max-width: 800px) {
   .grid {
     grid-template-columns: 1fr;
@@ -77,23 +91,43 @@ header h1 {
 
 /* Cards */
 .card {
+  position: relative;
   background: #141414;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(255,0,0,0.2);
   transition: transform 0.3s, box-shadow 0.3s;
+  /* contain: layout prevents ads from resizing the card */
+  contain: layout;
 }
+
 .card:hover {
   transform: translateY(-8px) scale(1.03);
   box-shadow: 0 0 20px rgba(255,0,0,0.4);
 }
+
 .card img {
   width: 100%;
   height: 270px;
   object-fit: cover;
 }
+
 .card .info {
   padding: 15px;
+}
+
+/* Latest Badge */
+.latest-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff3d00;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 5; /* Higher z-index to stay above injected elements */
 }
 
 /* Button */
@@ -113,93 +147,44 @@ header h1 {
   background: #ff0000;
 }
 
-/* ===== Back to Top ===== */
+/* Back to Top */
 .back-to-top {
- position: fixed;
- bottom: 30px;
- right: 30px;
- background: #ff4757;
- color: #fff;
- border: none;
- padding: 10px 15px;
- border-radius: 50px;
- cursor: pointer;
- font-size: 16px;
- opacity: 0.7;
- transition: opacity 0.3s;
-}
-.back-to-top:hover {
- opacity: 1;
-}
-
-/* Bot status*/
-#bot-status {
- background-color: #ff4d4d;
- color: white;
- text-align: center;
- padding: 10px;
- font-weight: bold;
- display: none;
-}
-
-#bot-status.active {
- display: block;
-}
-
-.bot-offline {
-animation: blink 1.5s infinite;
-}
-
-@keyframes blink {
- 50% { opacity: 0.6; }
-}
-
-/* Navigation */
-nav {
- background: #2b2b2b;
- display: flex;
- justify-content: center;
- gap: 20px;
- padding: 10px;
- transition: background 0.3s;
-}
-body.light-theme nav {
- background: #dcdcdc;
-}
-nav a {
- text-decoration: none;
- color: #fff;
- font-weight: bold;
- transition: color 0.3s;
-}
-body.light-theme nav a {
- color: #121212;
-}
-nav a:hover {
- color: #ff4757;
-}
-nav a.active {
- color: #ff4757;
- border-bottom: 2px solid #ff4757;
-}
-.link{
-  color:#dcdcdc;
-}
-
-/* Latest */
-.card {
-  position: relative;
-}
-
-.latest-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #ff3d00;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #ff4757;
   color: #fff;
-  font-size: 12px;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  z-index: 100;
+}
+
+/* Bot status */
+#bot-status {
+  background-color: #ff4d4d;
+  color: white;
+  text-align: center;
+  padding: 1px;
   font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 6px;
-  z-index: 2;
+}
+.bot-offline {
+  animation: blink 1.5s infinite;
+}
+@keyframes blink {
+  50% { opacity: 0.6; }
+}
+
+/* FORCE HIDE AUTO-ADS INSIDE CARDS 
+   This prevents Google from injecting ads between the image and title 
+*/
+.card ins.adsbygoogle, 
+.card .google-auto-placed {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
 }

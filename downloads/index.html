@@ -48,7 +48,7 @@
 </head>
 
 <body>
-
+<div id="bot-status" class="bot-online"></div>
 <header>
    <h1><a href="https://motionpicturemafia.com/" class="link">Motion Picture Mafia</a></h1>
 </header>
@@ -57,11 +57,6 @@
   <a href="https://motionpicturemafia.com/subtitle-download/">Subtitles</a>
   <a href="index.html" class="active">Downloads</a>
 </nav>
-
-<!-- BOT STATUS MESSAGE -->
-<div id="bot-status" class="bot-offline">
-  ⚠️ Our Files Share bot is currently offline for updates. Please try again later.
-</div>
  
 <!-- CATEGORY FILTER -->
 <div class="filters">
@@ -91,6 +86,33 @@
       <button onclick="location.href='tv-series/breaking-bad.html'">Download</button>
     </div>
   </div>-->
+      <div class="card" data-category="anime" data-title="mieruko chan" data-updated="2025-12-21">
+    <img src="https://m.media-amazon.com/images/S/pv-target-images/46244e4b87472ad80b2d5760cfeba9df29e0e4ae17e3cf09feddd58c7c9598db.jpg" alt="mieruko chan">
+    <div class="info">
+      <h3>Mieruko-chan</h3>
+      <p>Body Horror · Dark Comedy · Seinen · 2021</p>
+      <button class="download-btn" data-href="anime/mieruko-chan.html">Download</button>
+    </div>
+  </div> 
+
+      <div class="card" data-category="movie" data-title="the great flood daehongsu" data-updated="2025-12-21">
+    <img src="https://www.whats-on-netflix.com/wp-content/uploads/2024/01/great-flood-netflix-k-drama-disaster-movie-q4-2025-release.jpg" alt="the great flood">
+    <div class="info">
+      <h3>The Great Flood</h3>
+      <p>Disater · Action · Adventure · 2025</p>
+      <button class="download-btn" data-href="movies/the-great-flood.html">Download</button>
+    </div>
+  </div> 
+
+      <div class="card" data-category="tv" data-title="blue eye samurai" data-updated="2025-12-21">
+    <img src="https://www.hollywoodreporter.com/wp-content/uploads/2023/10/BLUE_EYE_SAMURAI_u_S1_E2_00_37_26_13.jpg?w=1296&h=730&crop=1" alt="blue eye samurai">
+    <div class="info">
+      <h3>Blue Eye Samurai</h3>
+      <p>Samurai · Action · Adventure · 2023</p>
+      <button class="download-btn" data-href="tv-series/blue-eye-samurai.html">Download</button>
+    </div>
+  </div> 
+
 <div class="card"
      data-category="asian-drama"
      data-title="moon river the moon flows through the river"
@@ -103,7 +125,7 @@
     </div>
   </div>
 
-      <div class="card" data-category="anime" data-title="scissor seven">
+      <div class="card" data-category="anime" data-title="scissor seven" data-updated="2025-12-21">
     <img src="https://occ-0-8407-2218.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABcHTZw-TkvZ246LjpJuSu3SEZ--_5bkpRjqCxvRxRjN-DxbEO12rqZFeH5pegey637TlZieYz3EL2gqn1FMEHEYYYO8GvPSaYLna.jpg?r=bd7" alt="scissor seven">
     <div class="info">
       <h3>Scissor Seven</h3>
@@ -112,7 +134,7 @@
     </div>
   </div>
 
-      <div class="card" data-category="anime" data-title="black butler">
+      <div class="card" data-category="anime" data-title="black butler" data-updated="2025-12-21">
     <img src="https://i.ytimg.com/vi/S8j5iEklHyI/maxresdefault.jpg" alt="black butler">
     <div class="info">
       <h3>Black Butler</h3>
@@ -655,6 +677,18 @@ function searchCards() {
         card.style.display = card.dataset.title.includes(input) ? 'block' : 'none';
     });
 }
+// Back to top button
+  const backToTopButton = document.querySelector(".back-to-top");
+  window.onscroll = function() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      backToTopButton.style.display = "block";
+    } else {
+      backToTopButton.style.display = "none";
+    }
+  };
+  function topFunction() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 </script>
 
 </body>
