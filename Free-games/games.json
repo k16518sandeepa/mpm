@@ -1,5 +1,25 @@
 [
     {
+    "id": "bloodstained",
+    "platform": "epic",
+    "title": "Bloodstained: Ritual of the Night",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/692850/header.jpg?t=1750409671",
+    "description": "Igavania Returns! Play as Miriam, an orphan scarred by an alchemist's curse which slowly crystallizes her body.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/bloodstained-f3f575",
+    "startDate": "2025-12-23T21:30:00",
+    "endDate": "2025-12-24T21:30:00"
+  },
+  {
+    "id": "train-sim-world-dlc",
+    "platform": "steam",
+    "title": "Train Sim World® 6: Spirit of Steam: Liverpool Lime Street - Crewe Route Add-On",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3662830/0b96c668a9ed285f233a68297b1b86aaf96eefe0/header.jpg?t=1764616402",
+    "description": "This content requires the base game Train Sim World® 6 on Steam in order to play.",
+    "claimUrl": "https://store.steampowered.com/app/3662830/Train_Sim_World_6_Spirit_of_Steam_Liverpool_Lime_Street__Crewe_Route_AddOn/",
+    "startDate": "2025-12-22T23:30:00",
+    "endDate": "2026-01-05T23:30:00"
+  },
+  {
     "id": "paradise-killer",
     "platform": "epic",
     "title": "Paradise Killer",
