@@ -1,5 +1,15 @@
 [
     {
+    "id": "the-callisto-protocol",
+    "platform": "epic",
+    "title": "The Callisto Protocol",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1544020/header.jpg?t=1760331403",
+    "description": "Survive to escape the horrors of Callisto. Using a unique blend of shooting and close-quarters combat, players will need to combat rapidly evolving creatures while scavenging to unlock new weapons and gear to outrun the growing threat of Jupiter's Dead Moon.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/the-callisto-protocol",
+    "startDate": "2025-12-24T21:30:00",
+    "endDate": "2025-12-25T21:30:00"
+  },
+  {
     "id": "bloodstained",
     "platform": "epic",
     "title": "Bloodstained: Ritual of the Night",
