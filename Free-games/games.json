@@ -10,6 +10,16 @@
     "endDate": "2025-12-25T21:30:00"
   },
   {
+    "id": "snk-40th-anniversary-collection",
+    "platform": "epic",
+    "title": "SNK 40th Anniversary Collection",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/865940/header.jpg?t=1718093041",
+    "description": "SNK 40th Anniversary Collection is the ultimate collection of classic arcade games from SNK's golden age with 24 different nostalgic titles back from the 1980s",
+    "claimUrl": "https://store.onstove.com/en/games/4334",
+    "startDate": "2025-12-25T06:30:00",
+    "endDate": "2026-01-01T01:59:00"
+  },
+  {
     "id": "bloodstained",
     "platform": "epic",
     "title": "Bloodstained: Ritual of the Night",
