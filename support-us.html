@@ -233,18 +233,78 @@
         transform: translateY(0);
       }
     }
+    .menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #ff3c3c;
+}
+
+/* MOBILE VIEW */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-buttons {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(10px);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    animation: slideDown 0.3s ease;
+  }
+
+  .nav-buttons a {
+    margin: 10px 0;
+    width: 80%;
+    text-align: center;
+  }
+
+  .nav-buttons.active {
+    display: flex;
+  }
+}
+
+/* Animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
   </style>
 </head>
 <body>
 
   <!-- NAVBAR -->
-  <div class="navbar">
+<div class="navbar">
+  <div class="logo">Motion Picture Mafia</div>
 
-    <div class="nav-buttons">
-      <a href="index.html" class="btn-outline">Home</a>
-      <a href="" class="btn-outline">Donor Login</a>
-    </div>
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  <div class="nav-buttons" id="navMenu">
+    <a href="index.html" class="btn-outline">Home</a>
+    <a href="" class="btn-outline">Donor Login</a>
+    <a href="" class="btn-fill">Become a Donor</a>
   </div>
+</div>
+
 
   <!-- HEADER -->
   <section class="header">
@@ -314,6 +374,12 @@
     <a href="https://wa.link/mwj2n8" class="btn-fill">Contact Us</a>
     <a href="" class="btn-outline">Donor Login</a>
   </section>
+  
+<script>
+  function toggleMenu() {
+    document.getElementById("navMenu").classList.toggle("active");
+  }
+</script>
 
 </body>
 </html>
