@@ -1,5 +1,15 @@
 [
     {
+    "id": "viewfinder",
+    "platform": "epic",
+    "title": "Viewfinder",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1382070/a69eb56f73446624325dec8a4fe74dc4ae09fb96/header.jpg?t=1764842475",
+    "description": "Challenge perception, redefine reality, and reshape the world around you with an instant camera.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/viewfinder-61691c",
+    "startDate": "2025-12-29T21:30:00",
+    "endDate": "2025-12-30T21:30:00"
+  },
+  {
     "id": "skald-against-the-black-priory",
     "platform": "epic",
     "title": "SKALD: Against the Black Priory",
