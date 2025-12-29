@@ -1,311 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-<meta property="og:title" content="Support-Us | Motion Picture Mafia">
-<meta property="og:description" content="We run Motion Picture Mafia to bring you the latest Gaming, Anime, Movies and Tv Series news and entertainment reviews — ad-free whenever possible. Your support helps us keep the site online and improve your experience">
-<meta property="og:image" content="https://i.imgur.com/JbmemAc.jpeg">
-<meta property="og:url" content="https://motionpicturemafia.com/support-us">
-<meta property="og:type" content="article">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Support Motion Picture Mafia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <title>Support Us | Motion Picture Mafia</title>
+  <meta property="og:title" content="Support Us | Motion Picture Mafia">
+  <meta property="og:description" content="Support Motion Picture Mafia by becoming a donor. Choose from various tiers to enjoy exclusive benefits and help us continue providing quality content.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="Images/mpm logo.png">
-  <style>
-    :root {
-      --primary: #ff1e56;
-      --secondary: #ff5f6d;
-      --bg-dark: #0a0a0a;
-      --card-bg: #111;
-      --text-light: #eee;
-      --text-gray: #bbb;
-    }
 
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      scroll-behavior: smooth;
+      background: radial-gradient(circle at top, #111 0%, #000 60%);
+      color: #fff;
+      min-height: 100vh;
     }
 
-    /* ===== NAVIGATION ===== */
-    nav {
-      background: rgba(10, 10, 10, 0.9);
-      padding: 15px 25px;
+    /* NAVBAR */
+    .navbar {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       position: sticky;
       top: 0;
-      z-index: 999;
-      box-shadow: 0 0 20px rgba(255, 0, 50, 0.2);
-      backdrop-filter: blur(5px);
+      z-index: 10;
     }
 
-    nav .logo {
-      font-size: 22px;
+    .logo {
+      font-size: 1.4rem;
       font-weight: 700;
-      color: var(--primary);
-      text-decoration: none;
+      color: #ff3c3c;
       letter-spacing: 1px;
     }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-    }
-
-    nav ul li a {
+    .nav-buttons a {
+      margin-left: 15px;
       text-decoration: none;
-      color: #eee;
-      font-weight: 500;
-      transition: 0.3s;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
     }
 
-    nav ul li a:hover {
-      color: var(--primary);
-      text-shadow: 0 0 10px var(--primary);
+    .btn-outline {
+      border: 1px solid #ff3c3c;
+      color: #ff3c3c;
     }
 
-    /* ===== MAIN CONTENT ===== */
-    .container {
+    .btn-outline:hover {
+      background: #ff3c3c;
+      color: #000;
+    }
+
+    .btn-fill {
+      background: linear-gradient(135deg, #ff3c3c, #ff7b00);
+      color: #000;
+      font-weight: 600;
+    }
+
+    .btn-fill:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255,60,60,0.6);
+    }
+
+    /* HEADER */
+    .header {
       text-align: center;
-      padding: 70px 20px;
-      max-width: 1100px;
-      margin: auto;
+      padding: 80px 20px 50px;
+      animation: fadeUp 1s ease;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    .header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #ff3c3c, #ffb347);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 15px;
-      text-shadow: 0 0 15px rgba(255, 0, 50, 0.4);
     }
 
-    .container p {
-      max-width: 700px;
-      margin: 0 auto 50px;
-      color: var(--text-gray);
+    .header p {
+      max-width: 800px;
+      margin: auto;
+      font-size: 1rem;
+      color: #ccc;
       line-height: 1.7;
     }
 
-    /* ===== DONATION CARDS ===== */
-    .donation-options {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 30px;
+    /* TIERS */
+    .tiers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      padding: 50px 40px 80px;
     }
 
-    .donation-box {
-      background: var(--card-bg);
-      padding: 25px 20px;
-      border-radius: 16px;
-      width: 290px;
-      box-shadow: 0 0 25px rgba(255, 0, 50, 0.15);
+    .tier {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 30px;
       text-align: center;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 0, 50, 0.1);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .donation-box:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 45px rgba(255, 0, 50, 0.3);
+    .tier::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.12), transparent);
+      transform: translateX(-100%);
+      transition: 0.6s;
     }
 
-    .donation-box img {
-      border-radius: 8px;
-      margin-bottom: 15px;
+    .tier:hover::before {
+      transform: translateX(100%);
     }
 
-    .donation-box h3 {
-      color: var(--secondary);
-      margin-bottom: 8px;
-      font-size: 1.2rem;
+    .tier:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.7);
     }
 
-    .donation-box p {
-      color: var(--text-gray);
-      font-size: 14px;
-      margin-bottom: 15px;
+    .tier h2 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
     }
 
-    .donation-box button {
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      color: #fff;
-      border: none;
-      padding: 10px 22px;
-      border-radius: 50px;
+    .price {
+      font-size: 1.3rem;
       font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 0 15px rgba(255, 0, 50, 0.3);
-    }
-
-    .donation-box button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(255, 0, 50, 0.6);
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: #090909;
-      padding: 40px 20px;
-      text-align: center;
-      color: #ccc;
-      border-top: 1px solid #222;
-    }
-
-    .socials {
       margin-bottom: 20px;
+      color: #ffb347;
     }
 
-    .socials a {
-      margin: 0 10px;
-      text-decoration: none;
-      font-size: 20px;
-      color: #eee;
+    .tier ul {
+      list-style: none;
+      margin-bottom: 25px;
+      text-align: left;
+    }
+
+    .tier ul li {
+      margin-bottom: 10px;
+      color: #ddd;
+      font-size: 0.95rem;
+    }
+
+    .tier button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff3c3c, #ff7b00);
+      color: #000;
+      font-weight: 600;
       transition: 0.3s;
     }
 
-    .socials a:hover {
-      color: var(--primary);
-      text-shadow: 0 0 10px var(--secondary);
+    .tier button:hover {
+      box-shadow: 0 0 25px rgba(255,60,60,0.7);
+      transform: scale(1.05);
     }
 
-    .footer-links {
+    .donor-btn {
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  text-align: center;
+  background: linear-gradient(135deg, #ff3c3c, #ff7b00);
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.donor-btn:hover {
+  box-shadow: 0 0 25px rgba(255,60,60,0.7);
+  transform: scale(1.05);
+}
+
+    /* FOOTER CTA */
+    .footer-cta {
+      text-align: center;
+      padding: 40px 20px 60px;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.05));
+    }
+
+    .footer-cta h3 {
+      font-size: 1.5rem;
       margin-bottom: 15px;
     }
 
-    .footer-links a {
-      color: var(--secondary);
+    .footer-cta p {
+      color: #ccc;
+      margin-bottom: 25px;
+    }
+
+    .footer-cta a {
       margin: 0 10px;
       text-decoration: none;
-      transition: 0.3s;
+      padding: 10px 22px;
+      border-radius: 25px;
+      font-weight: 600;
+      display: inline-block;
     }
 
-    .footer-links a:hover {
-      text-shadow: 0 0 10px var(--secondary);
-    }
-
-    footer p {
-      font-size: 13px;
-      color: #999;
-    }
-
-    @media (max-width: 768px) {
-      nav ul {
-        display: none;
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
       }
-
-      .donation-options {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .container {
-        padding: 60px 15px;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
-    .social-icons a {
-    margin: 0 8px;
-    display: inline-block;
-  }
-  .social-icons img {
-    width: 28px;
-    height: 28px;
-    
-    transition: 0.3s;
-  }
-  .social-icons img:hover {
-    filter: none; /* show original colors on hover */
-    transform: scale(1.1);
-  }
-  .whatsapp {
-  color: hwb(123 4% 3%);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.whatsapp:hover {
-  text-decoration: underline;
-}
-
-.facebook {
-  color: oklab(50.827% 0.00712 -0.27622);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.facebook:hover {
-  text-decoration: underline;
-}
   </style>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-89MY1C4M73"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-89MY1C4M73');
-</script>
 </head>
 <body>
 
-  <!-- ===== NAVIGATION ===== -->
-  <nav>
-    <a href="https://motionpicturemafia.com/" class="logo">Motion Picture Mafia Studio</a>
-    <ul>
-      <li><a href="https://motionpicturemafia.com/">Home</a></li>
-      <li><a href="https://motionpicturemafia.com/updates/updates">Updates</a></li>
-      <li><a href="https://motionpicturemafia.com/contact-us">Contact Us</a></li>
-    </ul>
-  </nav>
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="logo">Motion Picture Mafia</div>
+    <div class="nav-buttons">
+      <a href="index.html" class="btn-outline">Home</a>
+      <a href="" class="btn-outline">Donor Login</a>
+      <a href="" class="btn-fill">Become a Donor</a>
+    </div>
+  </div>
 
-  <!-- ===== SUPPORT SECTION ===== -->
-  <section class="container">
-    <h1>💖 Support Motion Picture Mafia</h1>
-    <p>We run Motion Picture Mafia to bring you the latest Gaming, Anime, Movies and Tv Series news and entertainment reviews — ad-free whenever possible.<br>
-    Your support helps us keep the site online and improve your experience 🔥</p>
-
-    <p style="margin-top:50px;">Want to showcase your brand, product, or event to thousands of passionate gamers and entertainment fans?. We offer affordable ad placements, sponsored posts, and partnership opportunities directly on Motion Picture Mafia Studio. <br>📩 For advertising inquiries, contact us at <a href="mailto:admin@motionpicturemafia.com" style="color:var(--secondary);">admin@motionpicturemafia.com</a> or reach us through our social media.</p>
+  <!-- HEADER -->
+  <section class="header">
+    <h1>Support Motion Picture Mafia</h1>
+    <p>
+      පසුගිය ටිකේ ටිකක් වැඩිපුර PC Games වැටෙනවා දකින්න ඇති ඔයාල. මොකද අපි ටිකක් පරන ක්‍රමයක් නැවත හදාගත්තා PC Games upload කරන්න. නමුත් මේ trick එක නොමිලේ කරන්න බෑ, සරලවම කිව්වොත් මේකට අපි අතින් සල්ලි දාල දැනට කරන්නේ. ඉතින් අපි අපේ groups මාසෙකට පොඩි ගානකට VIP කරන එක ගැන හිතුවා. නමුත් මෙච්චර කාලයක් නොමිලේ කරන් ආපු නිසාත්, Free ගන්න පුලුවන් දේවල් සල්ලි වලට විකුනන්න තියෙන අකමැත්ත නිසාත් එහෙම නොකරන්න අපි තීරනය කලා. නමුත් අපේ සල්ලි වලින් PC Games upload කරන්නත්, අපේ site එකට hosting ගෙවන්නත් අමාරු බව අපිට හොදටම තේරෙනවා. ඉතින් අපි තීරණය කලා ඔයාලගෙන් donations බාරගන්න.
+    </p>
+    <p>
+      මේ දේ කරන්නෙ ඔයාල සහ අපි යන දෙගොල්ලොගෙම යහපත ගැන හිතලා. නැත්තන් අපිට පුලුවන් අනික් ගොඩක් අය වගේ Group එකක් ගැම්මට පටන් අරන් ටික කාලයක් කරල නවත්තලා දාන්න. අපි හොදට හිතල ගත්ත තීරණයක් මේක.
+    </p>
+    <p>ඒ වගේම ඒ සමගම අපි Donorsලට විශේෂ වරප්‍රසාද දෙන්න තීරනය කලා. මේ ඒවායින් කීපයක්:</p>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="social-icons">
-    <a href="https://web.facebook.com/groups/721197248262091" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" alt="Facebook Group 1">
-    </a>
-    
-    <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp Channel 1">
-    </a>
-    
-    <a href="https://discord.gg/KS8anqchac" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord Server">
-    </a>
+  <!-- TIERS -->
+  <section class="tiers" id="tiers">
 
-    <a href="https://t.me/whatsappgang" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram">
-    </a>
-    <div class="footer-links">
-      <a href="about-us.html">About Us</a> |
-      <a href="privacy-policy.html">Privacy Policy</a> |
-      <a href="contact-us.html">Contact Us</a>
+    <div class="tier">
+      <h2>Basic</h2>
+      <div class="price">LKR:150 / Month</div>
+      <ul>
+        <li>✔ MPM Gaming telegram communities වලට Direct Access දෙනවා.</li>
+        <li>✔ Internet එකෙන් හොයාගන්න පුලුවන් අවශ්‍ය ඕනෑම movie එකක් series එකක් පැය 24ක් ඇතුලත WhatsApp හෝ අත්‍යවශ්‍ය නම් Telegram, upload කරදීම. (විශාල series සදහා වඩා වැඩි කාලයක් ගත ගතවිය හැක. ඒ වගේම විශාල series සදහා සීමා සහිතයි.)</li>
+        <li>✔ 2 GB ට අඩු Softwares, Files  WhatsApp හෝ Telegram upload කරදීම හෝ අවශ්‍ය නම් Direct Link එකක්  ලබාදීම.</li>
+      </ul>
+      <a href="https://mpm-donor.free.nf/donors/index.php" class="donor-btn">Become Basic Donor</a>
     </div>
-    <p>© 2025 Motion Picture Mafia. All Rights Reserved.</p>
-  </footer>
+
+    <div class="tier">
+      <h2>Silver</h2>
+      <div class="price">LKR:300 / Month</div>
+      <ul>
+        <li>✔ Basic මට්ටමේ වාසි සියල්ල සමග</li>
+        <li>✔ FitGirl හා DODI sites දෙකේ පවතින අවශ්‍ය ඕනෑම game එකක් දින කිහිපයක් ඇතුලත WhatsApp හෝ අත්‍යවශ්‍ය නම් Telegram, upload කරදීම.</li>
+        <li>✔ ඔබට අවශ්‍ය telegram files සදහා දිගු කාලයක් online පවතින direct link එකක් පැය 24ක් ඇතුලත ලබාදීම.</li>
+        <li>✔ 8 GB ට අඩු Softwares, Files  WhatsApp හෝ Telegram upload කරදීම හෝ අවශ්‍ය නම් Direct Link එකක්  ලබාදීම.</li>
+      </ul>
+      <a href="https://mpm-donor.free.nf/donors/index.php" class="donor-btn">Become Silver Donor</a>
+    </div>
+
+    <div class="tier">
+      <h2>Gold</h2>
+      <div class="price">LKR:500 / Month</div>
+      <ul>
+        <li>✔ Silver මට්ටමේ වාසි සියල්ල සමග</li>
+        <li>✔ Internet එකේ පවතින ඕනෑම file එකක් (NSFW දේවල් අදාල නොවේ.) WhatsApp හෝ අත්‍යවශ්‍ය නම් Telegram, upload කරදීම. (files පිලිබද වගකීමක් අපි දරන්නේ නැත.)</li>
+      </ul>
+      <a href="https://mpm-donor.free.nf/donors/index.php" class="donor-btn">Become Gold Donor</a>
+    </div>
+
+    <div class="tier">
+      <h2>Platinum</h2>
+      <div class="price">LKR:700 / Month</div>
+      <ul>
+        <li>✔ Gold මට්ටමේ වාසි සියල්ල සමග</li>
+        <li>✔ ඔබට අවශ්‍ය ඕනෑම movie / series එකක සිංහල subtitles අප විසින් නිර්මාණය කරදීම. (විශාල series සදහා ගතවන කාලය වැඩි විය විය හැක.)</li>
+        <li>✔ තව මෙතන නැති ඒත් අපෙන් සේවාවක් විදියට ගන්න පුලුවන් දේවල් තියෙනවා කියල හිතනවනම් අපිට msg එකක් දාල ඒ ගැන අහන්න ඔයාලට පුලුවන්!</li>
+      </ul>
+      <a href="https://mpm-donor.free.nf/donors/index.php" class="donor-btn">Become Platinum Donor</a>
+    </div>
+
+  </section>
+
+  <!-- FOOTER CTA -->
+  <section class="footer-cta">
+    <h3>Want to Become a Donor?</h3>
+    <p>Contact us for custom plans, lifetime access, or partnership opportunities.</p>
+    <a href="https://wa.link/mwj2n8" class="btn-fill">Contact Us</a>
+    <a href="" class="btn-outline">Donor Login</a>
+  </section>
 
 </body>
 </html>
