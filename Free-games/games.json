@@ -1,5 +1,16 @@
 [
     {
+    "id": "trine-classic-collection",
+    "platform": "epic",
+    "title": "Trine Classic Collection",
+    "image": "https://cdn2.unrealengine.com/trine-classic-collection-1920x1080-w-games-1920x1080-f6f11a5dd68b.png?resize=1&w=1920&h=1080&quality=medium",
+    "description": "
+Experience the magic of the puzzle-platforming Trine series with Trine Classic Collection. Includes four titles: Trine Enchanted Edition, Trine 2: Complete Story, Trine 3: Artifacts of Power and Trine 4: Definitive Edition.",
+    "claimUrl": "https://store.epicgames.com/en-US/bundles/trine-classic-collection",
+    "startDate": "2025-12-30T21:30:00",
+    "endDate": "2025-12-31T21:30:00"
+  },
+  {
     "id": "viewfinder",
     "platform": "epic",
     "title": "Viewfinder",
