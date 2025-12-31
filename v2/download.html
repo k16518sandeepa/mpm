@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloads - Motion Picture Mafia</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-black/90 backdrop-blur z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-orange-500">Motion Picture Mafia</h1>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="hover:text-orange-500 transition">Home</a>
+                <a href="#" class="hover:text-orange-500 transition">Movies</a>
+                <a href="#" class="hover:text-orange-500 transition">Anime</a>
+                <a href="#" class="hover:text-orange-500 transition">TV Series</a>
+                <a href="#" class="hover:text-orange-500 transition">Gaming</a>
+                <a href="#" class="hover:text-orange-500 transition">Updates</a>
+                <a href="#" class="hover:text-orange-500 transition">Downloads</a>
+                <a href="#" class="hover:text-orange-500 transition">Subtitles</a>
+            </nav>
+            <button class="md:hidden text-3xl" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">&#9776;</button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95">
+            <nav class="flex flex-col space-y-4 py-4 px-8">
+                <a href="#" class="hover:text-orange-500">Home</a>
+                <a href="#" class="hover:text-orange-500">Movies</a>
+                <!-- Add others -->
+            </nav>
+        </div>
+    </header>
+
+    <section class="container mx-auto px-4 py-24">
+        <h1 class="text-4xl font-bold text-center mb-12">Downloads</h1>
+        <div class="flex flex-col md:flex-row gap-8 mb-12">
+            <input type="text" placeholder="Search by title..." class="flex-1 bg-gray-800 p-4 rounded-lg">
+            <select class="bg-gray-800 p-4 rounded-lg">
+                <option>All Categories</option>
+                <option>Movies</option>
+                <option>Anime</option>
+            </select>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="bg-gray-800 rounded-lg overflow-hidden">
+                <img src="https://mir-s3-cdn-cf.behance.net/projects/404/b55b38236029139.Y3JvcCwyNTMxLDE5ODAsNDk1LDA.jpg" alt="Download" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold">Movie Title 2025</h3>
+                    <p class="text-sm text-gray-400">1080p | Sinhala Subs</p>
+                    <a href="#" class="mt-4 inline-block bg-orange-600 px-6 py-2 rounded hover:bg-orange-700">Download</a>
+                </div>
+            </div>
+            <!-- Repeat cards -->
+        </div>
+    </section>
+
+    <footer class="bg-black py-8 text-center">
+        <p>&copy; 2025 Motion Picture Mafia. All rights reserved.</p>
+    </footer>
+</body>
+</html>

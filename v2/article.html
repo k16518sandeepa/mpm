@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Title - Motion Picture Mafia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-black/90 backdrop-blur z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-orange-500">Motion Picture Mafia</h1>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="hover:text-orange-500 transition">Home</a>
+                <a href="#" class="hover:text-orange-500 transition">Movies</a>
+                <a href="#" class="hover:text-orange-500 transition">Anime</a>
+                <a href="#" class="hover:text-orange-500 transition">TV Series</a>
+                <a href="#" class="hover:text-orange-500 transition">Gaming</a>
+                <a href="#" class="hover:text-orange-500 transition">Updates</a>
+                <a href="#" class="hover:text-orange-500 transition">Downloads</a>
+                <a href="#" class="hover:text-orange-500 transition">Subtitles</a>
+            </nav>
+            <button class="md:hidden text-3xl" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">&#9776;</button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95">
+            <nav class="flex flex-col space-y-4 py-4 px-8">
+                <a href="#" class="hover:text-orange-500">Home</a>
+                <a href="#" class="hover:text-orange-500">Movies</a>
+                <!-- Add others -->
+            </nav>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-4 py-24 grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="md:col-span-2">
+            <h1 class="text-4xl font-bold mb-4">Exciting New Movie: Inception Sequel Announced</h1>
+            <p class="text-gray-400 mb-8">By Admin | December 31, 2025 | Movies</p>
+            <img src="https://static-cse.canva.com/blob/1100687/Movie_Poster_Maker_Lead2x.jpg" alt="Movie Poster" class="w-full rounded-lg mb-8">
+            <p class="leading-relaxed text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Detailed review and news here...</p>
+            <!-- Add more paragraphs, images, lists -->
+            <div class="mt-12">
+                <h2 class="text-2xl font-bold mb-4">Related Articles</h2>
+                <div class="grid grid-cols-1 gap-6">
+                    <a href="#" class="flex gap-4">
+                        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/9a7c5e213963659.Y3JvcCw4MTAsNjMzLDAsNA.png" class="w-32 h-32 object-cover rounded">
+                        <div><h3 class="font-semibold">Another Great Movie</h3><p class="text-sm text-gray-400">Short teaser...</p></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <aside class="space-y-8">
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl font-bold mb-4">Trending</h3>
+                <ul class="space-y-4">
+                    <li><a href="#" class="hover:text-orange-500">Top Anime 2025</a></li>
+                    <!-- More -->
+                </ul>
+            </div>
+        </aside>
+    </article>
+
+    <footer class="bg-black py-8 text-center">
+        <p>&copy; 2025 Motion Picture Mafia. All rights reserved.</p>
+    </footer>
+</body>
+</html>
