@@ -1,5 +1,35 @@
 [
     {
+    "id": "bloons-td-6",
+    "platform": "epic",
+    "title": "Bloons TD 6",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/960090/header.jpg?t=1761619015",
+    "description": "Mega Popular Tower Defense Game",
+    "claimUrl": "https://store.epicgames.com/en-US/p/bloons-td-6-bf95a0",
+    "startDate": "2026-01-08T21:30:00",
+    "endDate": "2026-01-15T21:30:00"
+  },
+   {
+    "id": "wildgate-standard-edition",
+    "platform": "epic",
+    "title": "Wildgate",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3504780/d8303ff52c1f79704e32bb91e104cea36bda1dcb/header_alt_assets_8.jpg?t=1766083161",
+    "description": "Wildgate is a PvPvE multiplayer shooter that blends tactical ship-to-ship combat with fast-paced first-person action.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/wildgate-standard-edition-b886b5",
+    "startDate": "2026-01-01T21:30:00",
+    "endDate": "2026-01-08T21:30:00"
+  },
+  {
+    "id": "total-war-three-kingdoms",
+    "platform": "epic",
+    "title": "Total War: THREE KINGDOMS",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/779340/header.jpg?t=1763646247",
+    "description": "Total War: THREE KINGDOMS recreates epic conflict across ancient China in an age of heroes and legends, combining gripping empire-building, statecraft and conquest with stunning real-time battles.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/total-war-three-kingdoms-d3bb7a",
+    "startDate": "2026-01-01T21:30:00",
+    "endDate": "2026-01-08T21:30:00"
+  },
+  {
     "id": "chivalry-2",
     "platform": "epic",
     "title": "Chivalry 2",
