@@ -1,55 +1,72 @@
 <?php
 include "auth.php";
 include "../config.php";
-$id = $_GET['id'];
+
+$id = (int)$_GET['id'];
 $donor = $conn->query("SELECT * FROM donors WHERE id=$id")->fetch_assoc();
-if(isset($_POST['update'])){
+
+if(isset($_POST['save'])){
+    $name = $_POST['name'];
     $tier = $_POST['tier'];
     $total = $_POST['total'];
     $used = $_POST['used'];
-    $conn->query("UPDATE donors SET tier='$tier', total_quota_gb=$total, used_quota_gb=$used WHERE id=$id");
-    header("Location: dashboard.php"); exit;
+    $note = $_POST['note'];
+
+    $stmt = $conn->prepare(
+        "UPDATE donors 
+         SET name=?, tier=?, total_quota_gb=?, used_quota_gb=?, special_note=? 
+         WHERE id=?"
+    );
+    $stmt->bind_param("ssiisi", $name, $tier, $total, $used, $note, $id);
+    $stmt->execute();
+
+    header("Location: dashboard.php");
+    exit;
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Edit Donor</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body { background-color:#121212; color:#f1f1f1; }
-.card { border-radius:15px; margin-top:30px; }
-</style>
 </head>
-<body>
-<div class="container d-flex justify-content-center">
-<div class="col-md-5">
-<div class="card bg-dark p-4 shadow">
-<h3 class="text-center mb-4">Edit Donor: <?= $donor['username'] ?></h3>
-<form method="post">
-<div class="mb-3">
+<body class="bg-dark text-light">
+
+<div class="container col-md-4 py-5">
+<h3 class="mb-4">Edit Donor</h3>
+
+<form method="POST">
+
+<label>Name</label>
+<input class="form-control mb-3" name="name"
+       value="<?= htmlspecialchars($donor['name']) ?>" required>
+
 <label>Tier</label>
-<select class="form-select" name="tier" required>
-<option value="basic" <?= $donor['tier']=='basic'?'selected':'' ?>>Basic</option>
-<option value="silver" <?= $donor['tier']=='silver'?'selected':'' ?>>Silver</option>
-<option value="gold" <?= $donor['tier']=='gold'?'selected':'' ?>>Gold</option>
-<option value="platinum" <?= $donor['tier']=='platinum'?'selected':'' ?>>Platinum</option>
+<select name="tier" class="form-control mb-3">
+<?php foreach(['basic','silver','gold','platinum'] as $t): ?>
+<option value="<?= $t ?>" <?= $donor['tier']==$t?'selected':'' ?>>
+<?= strtoupper($t) ?>
+</option>
+<?php endforeach; ?>
 </select>
-</div>
-<div class="mb-3">
-<label>Total Quota GB</label>
-<input type="number" name="total" class="form-control" value="<?= $donor['total_quota_gb'] ?>" required>
-</div>
-<div class="mb-3">
-<label>Used Quota GB</label>
-<input type="number" name="used" class="form-control" value="<?= $donor['used_quota_gb'] ?>" required>
-</div>
-<button class="btn btn-warning w-100" type="submit" name="update">Update</button>
-<a href="dashboard.php" class="btn btn-secondary w-100 mt-2">Back</a>
+
+<label>Total Quota (GB)</label>
+<input type="number" class="form-control mb-3" name="total"
+       value="<?= $donor['total_quota_gb'] ?>" required>
+
+<label>Used Quota (GB)</label>
+<input type="number" step="0.01" class="form-control mb-3" name="used"
+       value="<?= $donor['used_quota_gb'] ?>" required>
+
+<label>Special Note (Admin only)</label>
+<textarea class="form-control mb-3" name="note" rows="4"><?= htmlspecialchars($donor['special_note']) ?></textarea>
+
+<button class="btn btn-warning w-100" name="save">Save Changes</button>
+
+<a href="dashboard.php" class="btn btn-secondary w-100 mt-2">Cancel</a>
 </form>
 </div>
-</div>
-</div>
+
 </body>
 </html>

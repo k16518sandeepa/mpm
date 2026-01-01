@@ -1,51 +1,45 @@
 <?php
 include "../config.php";
-session_start();
+
 if(isset($_POST['login'])){
-    $u = trim($_POST['username']);
+    $u = $_POST['username'];
     $p = $_POST['password'];
-    $stmt = $conn->prepare("SELECT * FROM donors WHERE username=? AND role='admin'");
-    $stmt->bind_param("s",$u);
-    $stmt->execute();
-    $admin = $stmt->get_result()->fetch_assoc();
-    if($admin && password_verify($p,$admin['password'])){
-        $_SESSION['admin_id'] = $admin['id'];
-        header("Location: dashboard.php"); exit;
-    } else {
-        $error = "Invalid login";
+
+    $q = $conn->prepare("SELECT * FROM donors WHERE username=? AND role='admin'");
+    $q->bind_param("s",$u);
+    $q->execute();
+    $a = $q->get_result()->fetch_assoc();
+
+    if($a && password_verify($p,$a['password'])){
+        $_SESSION['admin_id'] = $a['id'];
+        header("Location: dashboard.php");
+        exit;
     }
+    $error = "Invalid admin login";
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Admin Login</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body { background-color:#121212; color:#f1f1f1; }
-.card { border-radius:15px; }
-</style>
+<link rel="icon" type="image/png" href="mpm logo.png">
 </head>
-<body>
-<div class="container d-flex justify-content-center align-items-center vh-100">
-<div class="col-md-5">
-<div class="card bg-dark p-4 shadow">
-<h3 class="text-center mb-4">Admin Login</h3>
-<?php if(isset($error)): ?>
-<div class="alert alert-danger"><?= $error ?></div>
-<?php endif; ?>
-<form method="post">
-<div class="mb-3">
-<input type="text" name="username" class="form-control" placeholder="Username" required>
-</div>
-<div class="mb-3">
-<input type="password" name="password" class="form-control" placeholder="Password" required>
-</div>
-<button class="btn btn-primary w-100" type="submit">Login</button>
+<body class="bg-dark text-light">
+
+<div class="container col-md-4 py-5">
+<h3 class="text-center">Admin Login</h3>
+
+<?php if(isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
+
+<form method="POST">
+<input class="form-control mb-3" name="username" placeholder="Username" required>
+<input class="form-control mb-3" type="password" name="password" placeholder="Password" required>
+<button class="btn btn-warning w-100" name="login">Login</button>
 </form>
 </div>
-</div>
-</div>
+
 </body>
 </html>
