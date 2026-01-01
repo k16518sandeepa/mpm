@@ -1,5 +1,21 @@
 const subtitles = [
       {
+        id: "Blue_Lock_S1",
+        title: "Blue Lock Season 01",
+        plot: "The Japan Football Union summons Ego Jinpachi to lead the Japanese national football team to victory. He designs a training regimen to produce the world's best and most egoistic striker.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/8cf72626a1ff4d712d472c9c6f3a427cdfcef0ecd3b057591a7c6bc6367c1061.jpg",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+      {
+        id: "Blue_Lock_Nagi",
+        title: "Blue Lock the Movie: Episode Nagi",
+        plot: "After demonstrating his overwhelming soccer talent, high school sophomore Seishiro Nagi receives an invitation to the Blue Lock Project and meets strikers from all over the country.'s best and most egoistic striker.",
+        img: "https://static0.srcdn.com/wordpress/wp-content/uploads/2024/04/blue-lock-the-movie-episode-nagi-north-american-theatrical-poster.jpg",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+      {
         id: "Miss_Nagatoro",
         title: "Don't Toy With Me, Miss Nagatoro",
         plot: "Don't Toy with Me, Miss Nagatoro is a Japanese web manga series written and illustrated by Nanashi, also known as 774, about a high-schooler and art club member who is frequently annoyed by his junior Nagatoro,...",
