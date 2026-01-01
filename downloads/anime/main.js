@@ -111,30 +111,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-// === Download Counter System ===
-document.querySelectorAll('.download-btn[data-key]').forEach(btn => {
-  const key = btn.getAttribute('data-key');
-  const countSpan = btn.querySelector('.download-count');
-  const originalHref = `https://t.me/mpmfilessharebot?start=${key}`;
-
-  // Load current count
-  db.ref('downloads/' + key).on('value', (snapshot) => {
-    const count = snapshot.val() || 0;
-    const formatted = count.toLocaleString();
-    countSpan.textContent = `(${formatted} downloads)`;
-  });
-
-  // Override click to count first
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    // Increment counter
-    db.ref('downloads/' + key).transaction((current) => {
-      return (current || 0) + 1;
-    });
-
-    // Then redirect
-    window.open(originalHref, '_blank');
-  });
-});

@@ -20,26 +20,6 @@
    <!--Google Ads-->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8377794585544932"
      crossorigin="anonymous"></script>
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
-<script>
-  // Your Firebase config (replace with your own)
-  const firebaseConfig = {
-    apiKey: "AIzaSyDXbn4Xy4Ey_ONs4P6Ah0qigIr9rhAE3Ew",
-    authDomain: "mpm-downloads.firebaseapp.com",
-    databaseURL: "https://mpm-downloads-default-rtdb.firebaseio.com",
-    projectId: "mpm-downloads",
-    storageBucket: "mpm-downloads.firebasestorage.app",
-    messagingSenderId: "110864950784",
-    appId: "1:110864950784:web:c5b13efe9fa2814c759ae5"
-  };
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-</script>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body { background:#000; color:#fff; font-family:Arial,sans-serif; overflow-x:hidden; min-height:100vh; position:relative; }
@@ -192,18 +172,6 @@
       .hamburger { display:block; }
       .nav-links { display:none; }
     }
-    .download-btn {
-  flex-direction: column;
-  gap: 8px;
-}
-.btn-text {
-  font-size: clamp(17px, 5vw, 20px);
-}
-.download-count {
-  font-size: 14px;
-  opacity: 0.9;
-  font-weight: normal;
-}
   </style>
 </head>
 <body>
@@ -271,25 +239,11 @@
   </div>
 
 <div class="download-section">
-  <div class="download-buttons">
-    <a class="download-btn" data-key="Blue_Lock_S1">
-      <span class="btn-text">Download S1 24EPs • 720p HD</span>
-      <span class="download-count">(loading...)</span>
-    </a>
-    <a class="download-btn" data-key="Blue_Lock_Nagi">
-      <span class="btn-text">Download Blue Lock Nagi The Movie • 720p HD</span>
-      <span class="download-count">(loading...)</span>
-    </a>
-    <a class="download-btn" data-key="Blue_Lock_S2">
-      <span class="btn-text">Download S2 14EPs • 720p HD</span>
-      <span class="download-count">(loading...)</span>
-    </a>
-    <a class="download-btn" href="https://motionpicturemafia.com/subtitle-download/">
-      <span class="btn-text">Sinhala Subtitles</span>
-      <span class="download-count"></span> <!-- No count for external -->
-    </a>
+    <div class="download-buttons">
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=Eighty_Six_Season_01">Download S1 25EPs • 720p HD</a>
+      <a class="download-btn" href="https://motionpicturemafia.com/subtitle-download/">Sinhala Subtitles</a>
+    </div>
   </div>
-</div>
 
   <footer>
     <div class="social-links">
