@@ -1,5 +1,13 @@
 const subtitles = [
       {
+        id: "Record_of_Ragnarok",
+        title: "Record of Ragnarok",
+        plot: "Every 1000 years, the Gods' Council assemble to decide the fate of humanity. After 7 million years of human history, the gods come to the decision that humans are irredeemable and must be extinct.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/3c6cc2f1d8c6196d0694ee0a6ac3e64c6fb1e4777c9fbe27d9d3f04a7f8f7641.jpg",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+      {
         id: "Blue_Lock_S1",
         title: "Blue Lock Season 01",
         plot: "The Japan Football Union summons Ego Jinpachi to lead the Japanese national football team to victory. He designs a training regimen to produce the world's best and most egoistic striker.",
