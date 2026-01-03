@@ -1,5 +1,15 @@
 [
     {
+    "id": "Billies_Wheelie",
+    "platform": "steam",
+    "title": "Billie's Wheelie",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3180310/dd4e9730698b83c29b291372dbc3720722d271f4/header.jpg?t=1764700610",
+    "description": "Billie's Wheelie is an adventure racing platformer game, You can play it with up to 8 players Co-op/PvP, Playing as a hamster in his ball trying to beat all challenges, Collecting all cheese pieces for rewards, And beating your friend's time records.",
+    "claimUrl": "https://store.steampowered.com/app/3180310/Billies_Wheelie/",
+    "startDate": "2026-01-03T23:30:00",
+    "endDate": "2026-01-10T23:30:00"
+  },
+   {
     "id": "bloons-td-6",
     "platform": "epic",
     "title": "Bloons TD 6",
