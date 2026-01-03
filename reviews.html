@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donor Reviews | Motion Picture Mafia</title>
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Loading Animation */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-logo {
+      font-size: clamp(2.5rem, 10vw, 4rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff3c3c, #ffb347, #ff7b00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 30px;
+      animation: pulse 2s infinite;
+    }
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 6px solid rgba(255,60,60,0.2);
+      border-top: 6px solid #ff3c3c;
+      border-radius: 50%;
+      animation: spin 1.2s linear infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:0.7;transform:scale(1)} 50%{opacity:1;transform:scale(1.05)} }
+    @keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+
+    .main-content { opacity: 0; transition: opacity 1.2s ease; }
+    .main-content.loaded { opacity: 1; }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff3c3c, #ffb347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: #ff3c3c; }
+    .nav-buttons a {
+      margin-left: 15px;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.4s ease;
+    }
+    .btn-outline { border: 2px solid #ff3c3c; color: #ff3c3c; }
+    .btn-outline:hover { background: #ff3c3c; color: #000; box-shadow: 0 0 20px rgba(255,60,60,0.6); }
+    .btn-fill { background: linear-gradient(135deg, #ff3c3c, #ff7b00); color: #000; }
+    .btn-fill:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,60,60,0.7); }
+
+    /* Reviews Container */
+    .reviews-container {
+      max-width: 1200px;
+      margin: 140px auto 100px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .reviews-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .reviews-header h1 {
+      font-size: clamp(2.5rem, 8vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff3c3c, #ffb347, #ff7b00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+    .reviews-header p {
+      font-size: 1.2rem;
+      color: #ccc;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Reviews Grid */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 30px;
+      margin-bottom: 80px;
+    }
+    .review-card {
+      background: rgba(15,15,15,0.75);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      transition: all 0.5s ease;
+      animation: fadeUp 0.8s ease forwards;
+      opacity: 0;
+    }
+    .review-card:nth-child(1) { animation-delay: 0.2s; }
+    .review-card:nth-child(2) { animation-delay: 0.4s; }
+    .review-card:nth-child(3) { animation-delay: 0.6s; }
+    .review-card:nth-child(4) { animation-delay: 0.8s; }
+
+    .review-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 30px 70px rgba(255,60,60,0.3);
+      border-color: rgba(255,60,60,0.4);
+    }
+
+    .review-photo {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .review-content {
+      padding: 25px;
+    }
+    .review-text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #eee;
+      margin-bottom: 20px;
+    }
+    .review-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+    .donor-name {
+      font-weight: 600;
+      color: #ffb347;
+    }
+    .stars {
+      color: #ff7b00;
+      letter-spacing: 4px;
+      font-size: 1.2rem;
+    }
+
+    /* CTA Buttons */
+    .reviews-cta {
+      text-align: center;
+      margin: 80px 0 100px;
+    }
+    .reviews-cta h3 {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg,#ffb347,#ff7b00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .reviews-cta .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .reviews-cta a {
+      padding: 15px 35px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.4s;
+      min-width: 220px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(60px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Background */
+    #particle-canvas, .background-animation {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .background-animation::before,
+    .background-animation::after {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 45% 55% 60% 40%;
+      background: linear-gradient(135deg, #ff3c3c, #ff7b00, #7b00ff, #ff3c3c);
+      opacity: 0.15;
+      animation: float 25s infinite linear;
+    }
+    .background-animation::before { top: -200px; left: -200px; }
+    .background-animation::after { bottom: -300px; right: -200px; width: 1000px; height: 1000px; animation-delay: -12s; animation-duration: 30s; }
+    .orb { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #ff7b00, transparent); opacity: 0.1; filter: blur(40px); animation: drift linear infinite; }
+    .orb:nth-child(1) { width: 400px; height: 400px; top: 10%; left: 15%; animation-duration: 40s; }
+    .orb:nth-child(2) { width: 600px; height: 600px; bottom: 10%; right: 10%; background: radial-gradient(circle at 30% 30%, #7b00ff, transparent); animation-duration: 50s; animation-delay: -15s; }
+    .orb:nth-child(3) { width: 300px; height: 300px; top: 50%; left: 70%; background: radial-gradient(circle at 30% 30%, #ff3c3c, transparent); animation-duration: 35s; animation-delay: -8s; }
+    @keyframes float { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(100px,100px) rotate(360deg); } }
+    @keyframes drift { 0% { transform: translate(0,0); } 50% { transform: translate(150px,-100px); } 100% { transform: translate(0,0); } }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .navbar { padding: 15px 20px; }
+      .menu-toggle { display: block; }
+      .nav-buttons {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.95);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        display: none;
+        padding: 20px 0;
+      }
+      .nav-buttons.active { display: flex; }
+      .nav-buttons a { margin: 10px 0; width: 80%; text-align: center; }
+
+      .reviews-container { margin: 120px auto 80px; padding: 0 15px; }
+      .reviews-grid { gap: 25px; }
+      .review-photo { height: 180px; }
+      .reviews-cta .btn-group { flex-direction: column; align-items: center; }
+      .reviews-cta a { width: 80%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loader">
+  <div class="loader-logo">MPM</div>
+  <div class="loader-spinner"></div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <canvas id="particle-canvas"></canvas>
+  <div class="background-animation">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">Motion Picture Mafia</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="nav-buttons" id="navMenu">
+      <a href="index.html" class="btn-outline">Home</a>
+      <a href="https://mpm-donor.free.nf/donors/login.php" class="btn-outline">Donor Login</a>
+      <a href="https://mpm-donor.free.nf/donors/index.php" class="btn-fill">Become a Donor</a>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
+  <div class="reviews-container">
+    <div class="reviews-header">
+      <h1>Donor Reviews</h1>
+      <p>Hear from our amazing donors about their experience with Motion Picture Mafia.</p>
+    </div>
+
+    <div class="reviews-grid">
+      <!-- Review with Photo -->
+      <div class="review-card">
+        <img src="https://via.placeholder.com/600x400/111/ffb347?text=Donor+Photo+1" alt="Donor Photo" class="review-photo">
+        <div class="review-content">
+          <div class="review-text">
+            "Best decision ever! The priority requests and direct links save me so much time. Games and movies arrive super fast. Worth every rupee!"
+          </div>
+          <div class="review-meta">
+            <div>
+              <div class="donor-name">Sahan Perera</div>
+              <div>Platinum Donor • January 2026</div>
+            </div>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+<div class="reviews-grid" id="reviewsGrid"></div>
+      <!--
+      <div class="review-card">
+        <div class="review-content" style="padding-top: 40px;">
+          <div class="review-text">
+            "As a Gold donor, getting any file uploaded quickly is a game-changer. The video encoding feature makes files so much smaller — perfect for mobile. Highly recommended!"
+          </div>
+          <div class="review-meta">
+            <div>
+              <div class="donor-name">Nipun Fernando</div>
+              <div>Gold Donor • December 2025</div>
+            </div>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="review-card">
+        <img src="https://via.placeholder.com/600x400/111/ffb347?text=Donor+Photo+2" alt="Donor Photo" class="review-photo">
+        <div class="review-content">
+          <div class="review-text">
+            "The Sinhala subtitles service is incredible! Finally watching latest series with proper subs. Team is very responsive and helpful."
+          </div>
+          <div class="review-meta">
+            <div>
+              <div class="donor-name">Tharushi Silva</div>
+              <div>Platinum Donor • January 2026</div>
+            </div>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+   
+      <div class="review-card">
+        <div class="review-content" style="padding-top: 40px;">
+          <div class="review-text">
+            "Started with Basic, now on Silver. The FitGirl game uploads are lightning fast. Great value and excellent support from the team."
+          </div>
+          <div class="review-meta">
+            <div>
+              <div class="donor-name">Kavinda Rajapaksha</div>
+              <div>Silver Donor • November 2025</div>
+            </div>
+            <div class="stars">★★★★☆</div>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <!-- CTA Buttons -->
+    <div class="reviews-cta">
+      <h3>Join Our Happy Donors Today!</h3>
+      <div class="btn-group">
+        <a href="https://mpm-donor.free.nf/donors/index.php" class="btn-fill">Become a Donor</a>
+        <a href="https://wa.link/mwj2n8" class="btn-fill">Contact Us</a>
+        <a href="faq.html" class="btn-outline">View FAQ</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+fetch("reviews/get_reviews.php")
+  .then(res => res.json())
+  .then(data => {
+    const grid = document.getElementById("reviewsGrid");
+
+    data.forEach(r => {
+      let stars = "★★★★★☆☆☆☆☆".slice(5 - r.rating, 10 - r.rating);
+
+      grid.innerHTML += `
+      <div class="review-card">
+        ${r.photo ? `<img src="reviews/${r.photo}" class="review-photo">` : ``}
+        <div class="review-content">
+          <div class="review-text">"${r.review_text}"</div>
+          <div class="review-meta">
+            <div>
+              <div class="donor-name">${r.donor_name}</div>
+              <div>${r.tier} Donor • ${new Date(r.created_at).toLocaleDateString()}</div>
+            </div>
+            <div class="stars">${stars}</div>
+          </div>
+        </div>
+      </div>`;
+    });
+  });
+</script>
+
+<script>
+document.getElementById('reviewForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  let formData = new FormData(this);
+
+  fetch("reviews/submit_review.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.text())
+  .then(res => {
+    if (res.trim() === "success") {
+      document.getElementById('successMessage').style.display = 'block';
+      this.reset();
+    } else {
+      alert("Submission failed");
+    }
+  })
+  .catch(() => alert("Server error"));
+});
+
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const particles = [];
+const particleCount = window.innerWidth < 768 ? 50 : 80;
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = Math.random() * 1 - 0.5;
+    this.speedY = Math.random() * 1 - 0.5;
+    this.color = Math.random() > 0.5 ? '#ff3c3c' : '#ff7b00';
+    this.opacity = Math.random() * 0.4 + 0.1;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+  }
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.opacity;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function initParticles() {
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+  animate();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
+}
+</script>
+
+</body>
+</html>

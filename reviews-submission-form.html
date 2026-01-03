@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Your Review | Motion Picture Mafia</title>
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Loading Animation */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-logo {
+      font-size: clamp(2.5rem, 10vw, 4rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff3c3c, #ffb347, #ff7b00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 30px;
+      animation: pulse 2s infinite;
+    }
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 6px solid rgba(255,60,60,0.2);
+      border-top: 6px solid #ff3c3c;
+      border-radius: 50%;
+      animation: spin 1.2s linear infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:0.7;transform:scale(1)} 50%{opacity:1;transform:scale(1.05)} }
+    @keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+
+    .main-content { opacity: 0; transition: opacity 1.2s ease; }
+    .main-content.loaded { opacity: 1; }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff3c3c, #ffb347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: #ff3c3c; }
+    .nav-buttons a {
+      margin-left: 15px;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.4s ease;
+    }
+    .btn-outline { border: 2px solid #ff3c3c; color: #ff3c3c; }
+    .btn-outline:hover { background: #ff3c3c; color: #000; box-shadow: 0 0 20px rgba(255,60,60,0.6); }
+    .btn-fill { background: linear-gradient(135deg, #ff3c3c, #ff7b00); color: #000; }
+    .btn-fill:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,60,60,0.7); }
+
+    /* Form Container */
+    .form-container {
+      max-width: 900px;
+      margin: 140px auto 120px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .form-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .form-header h1 {
+      font-size: clamp(2.5rem, 8vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff3c3c, #ffb347, #ff7b00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+    .form-header p {
+      font-size: 1.2rem;
+      color: #ccc;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Review Form */
+    .review-form {
+      background: rgba(15,15,15,0.75);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 30px;
+      padding: 50px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.8);
+    }
+    .form-group {
+      margin-bottom: 30px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #ffb347;
+      font-size: 1.1rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-size: 1.05rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #ff7b00;
+      box-shadow: 0 0 20px rgba(255,123,0,0.3);
+    }
+    .form-group textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+    .form-group input[type="file"] {
+      padding: 10px;
+      background: transparent;
+    }
+
+    /* Star Rating */
+    .rating-group {
+      margin-bottom: 30px;
+    }
+    .rating-stars {
+      display: flex;
+      gap: 12px;
+      direction: rtl;
+      unicode-bidi: bidi-override;
+      justify-content: center;
+    }
+    .rating-stars input {
+      display: none;
+    }
+    .rating-stars label {
+      font-size: 2.8rem;
+      color: #444;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .rating-stars label:hover,
+    .rating-stars label:hover ~ label,
+    .rating-stars input:checked ~ label {
+      color: #ff7b00;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      border-radius: 30px;
+      border: none;
+      background: linear-gradient(135deg, #ff3c3c, #ff7b00);
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.5s ease;
+      box-shadow: 0 10px 30px rgba(255,60,60,0.5);
+    }
+    .submit-btn:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(255,60,60,0.7);
+    }
+
+    /* Success/Error Message */
+    .message {
+      text-align: center;
+      padding: 20px;
+      border-radius: 18px;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      display: none;
+    }
+    .success {
+      background: rgba(0,180,0,0.2);
+      border: 1px solid rgba(0,255,0,0.4);
+      color: #0f0;
+    }
+    .error {
+      background: rgba(180,0,0,0.2);
+      border: 1px solid rgba(255,0,0,0.4);
+      color: #fcc;
+    }
+
+    /* CTA Buttons */
+    .form-cta {
+      text-align: center;
+      margin: 100px 0;
+    }
+    .form-cta h3 {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg,#ffb347,#ff7b00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .form-cta .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .form-cta a {
+      padding: 15px 35px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.4s;
+      min-width: 220px;
+    }
+
+    /* Background */
+    #particle-canvas, .background-animation {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .background-animation::before,
+    .background-animation::after {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 45% 55% 60% 40%;
+      background: linear-gradient(135deg, #ff3c3c, #ff7b00, #7b00ff, #ff3c3c);
+      opacity: 0.15;
+      animation: float 25s infinite linear;
+    }
+    .background-animation::before { top: -200px; left: -200px; }
+    .background-animation::after { bottom: -300px; right: -200px; width: 1000px; height: 1000px; animation-delay: -12s; animation-duration: 30s; }
+    .orb { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #ff7b00, transparent); opacity: 0.1; filter: blur(40px); animation: drift linear infinite; }
+    .orb:nth-child(1) { width: 400px; height: 400px; top: 10%; left: 15%; animation-duration: 40s; }
+    .orb:nth-child(2) { width: 600px; height: 600px; bottom: 10%; right: 10%; background: radial-gradient(circle at 30% 30%, #7b00ff, transparent); animation-duration: 50s; animation-delay: -15s; }
+    .orb:nth-child(3) { width: 300px; height: 300px; top: 50%; left: 70%; background: radial-gradient(circle at 30% 30%, #ff3c3c, transparent); animation-duration: 35s; animation-delay: -8s; }
+    @keyframes float { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(100px,100px) rotate(360deg); } }
+    @keyframes drift { 0% { transform: translate(0,0); } 50% { transform: translate(150px,-100px); } 100% { transform: translate(0,0); } }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .navbar { padding: 15px 20px; }
+      .menu-toggle { display: block; }
+      .nav-buttons {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.95);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        display: none;
+        padding: 20px 0;
+      }
+      .nav-buttons.active { display: flex; }
+      .nav-buttons a { margin: 10px 0; width: 80%; text-align: center; }
+
+      .form-container { margin: 120px auto 80px; padding: 0 15px; }
+      .review-form { padding: 40px 25px; }
+      .rating-stars label { font-size: 2.2rem; }
+      .form-cta .btn-group { flex-direction: column; align-items: center; }
+      .form-cta a { width: 80%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loader">
+  <div class="loader-logo">MPM</div>
+  <div class="loader-spinner"></div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <canvas id="particle-canvas"></canvas>
+  <div class="background-animation">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">Motion Picture Mafia</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="nav-buttons" id="navMenu">
+      <a href="../index.html" class="btn-outline">Home</a>
+      <a href="login.php" class="btn-outline">Donor Login</a>
+      <a href="index.php" class="btn-fill">Become a Donor</a>
+    </div>
+  </div>
+
+  <!-- Submission Form -->
+  <div class="form-container">
+    <div class="form-header">
+      <h1>Submit Your Review</h1>
+      <p>Share your experience as a donor and help others discover the benefits of supporting Motion Picture Mafia.</p>
+    </div>
+
+    <form class="review-form" id="reviewForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="donorName">Your Name *</label>
+        <input type="text" id="donorName" name="donorName" required placeholder="Enter your name">
+      </div>
+
+      <div class="form-group">
+        <label for="tier">Your Donor Tier *</label>
+        <select id="tier" name="tier" required>
+          <option value="" disabled selected>Select your tier</option>
+          <option value="Basic">Basic</option>
+          <option value="Silver">Silver</option>
+          <option value="Gold">Gold</option>
+          <option value="Platinum">Platinum</option>
+        </select>
+      </div>
+
+      <div class="rating-group">
+        <label>Your Rating *</label>
+        <div class="rating-stars">
+          <input type="radio" name="rating" value="5" id="star5" required><label for="star5">★</label>
+          <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
+          <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
+          <input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label>
+          <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="reviewText">Your Review *</label>
+        <textarea id="reviewText" name="reviewText" required placeholder="Tell us about your experience with MPM donor benefits..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="photo">Add a Photo (optional)</label>
+        <input type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/webp">
+        <small style="color:#aaa; display:block; margin-top:8px;">Max 5MB • JPG, PNG, WebP</small>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Review</button>
+
+      <div class="message" id="formMessage"></div>
+    </form>
+
+    <!-- CTA Buttons -->
+    <div class="form-cta">
+      <h3>Explore More</h3>
+      <div class="btn-group">
+        <a href="reviews.php" class="btn-fill">View All Reviews</a>
+        <a href="https://mpm-donor.free.nf/donors/index.php" class="btn-fill">Become a Donor</a>
+        <a href="faq.html" class="btn-outline">View FAQ</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Mobile Menu
+function toggleMenu() {
+  document.getElementById("navMenu").classList.toggle("active");
+}
+
+// Form Submission with AJAX
+document.getElementById('reviewForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+  const messageDiv = document.getElementById('formMessage');
+
+  fetch('submit_review.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    messageDiv.style.display = 'block';
+    messageDiv.textContent = data.message;
+    messageDiv.className = 'message ' + (data.success ? 'success' : 'error');
+
+    if (data.success) {
+      this.reset();
+      document.querySelectorAll('.rating-stars input').forEach(i => i.checked = false);
+    }
+
+    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  })
+  .catch(() => {
+    messageDiv.style.display = 'block';
+    messageDiv.textContent = 'Network error. Please try again later.';
+    messageDiv.className = 'message error';
+  });
+});
+
+// Loading + Particles
+const loader = document.getElementById('loader');
+const mainContent = document.querySelector('.main-content');
+
+window.addEventListener('load', () => {
+  initParticles();
+  setTimeout(() => {
+    loader.classList.add('hidden');
+    mainContent.classList.add('loaded');
+  }, 800);
+});
+
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const particles = [];
+const particleCount = window.innerWidth < 768 ? 50 : 80;
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = Math.random() * 1 - 0.5;
+    this.speedY = Math.random() * 1 - 0.5;
+    this.color = Math.random() > 0.5 ? '#ff3c3c' : '#ff7b00';
+    this.opacity = Math.random() * 0.4 + 0.1;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+  }
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.opacity;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function initParticles() {
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+  animate();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
+}
+</script>
+
+</body>
+</html>

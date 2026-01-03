@@ -1,5 +1,13 @@
 const subtitles = [
       {
+        id: "Fire_Force",
+        title: "Fire Force S1",
+        plot: "A superhuman firefighter force is formed to deal with supernatural fire incidents.",
+        img: "https://res.cloudinary.com/jerrick/image/upload/v1589914137/5ec42a19c359ef001ca988cd.jpg",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+      {
         id: "Record_of_Ragnarok",
         title: "Record of Ragnarok",
         plot: "Every 1000 years, the Gods' Council assemble to decide the fate of humanity. After 7 million years of human history, the gods come to the decision that humans are irredeemable and must be extinct.",
