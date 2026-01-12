@@ -1,5 +1,37 @@
 const subtitles = [
       {
+        id: "Hells_Paradise",
+        title: "Hell's Paradise: Jigokuraku",
+        plot: "A squad of prisoners and their guards are sent to investigate a mysterious island. They get stranded there and must rely on each other to survive the island's mysterious and monstrous residents.",
+        img: "https://www.denofgeek.com/wp-content/uploads/2023/05/Hells-Paradise-Gabimaru-and-Yamada-Asaemon-Ready-For-Battle.jpg?fit=1920%2C1080",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+       {
+        id: "Uzumaki",
+        title: "Uzumaki",
+        plot: "Hair twisting, bodies intertwining, and spirals are developing all over the town of Kurouzu.",
+        img: "https://m.media-amazon.com/images/M/MV5BMzljZmQzYzMtYWM5MC00ZjMwLWIzYWQtY2UyMGM2ZjljMmFkXkEyXkFqcGc@._V1_.jpg",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+      {
+        id: "Boarding_School_Juliet",
+        title: "Boarding School Juliet",
+        plot: "To Love, or not to Love Juliet Percia and Inuzuka Romio are archenemies. They lead two high-school dormitories the Black Dogs and the White Cats from two rivaling countries.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/9d4f44a07742259b0b42d478603bd93bd160902142b9576721ea0b2ebd6d1949.jpg",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+      {
+        id: "Chained_Soldier",
+        title: "Chained Soldier S1",
+        plot: "In a world dominated by female superhumans, a young male is recruited into a squad of monster hunters.",
+        img: "https://img10.hotstar.com/image/upload/f_auto,q_auto/sources/r1/cms/prod/4150/1734430974150-i",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+      {
         id: "Fire_Force",
         title: "Fire Force S1",
         plot: "A superhuman firefighter force is formed to deal with supernatural fire incidents.",
