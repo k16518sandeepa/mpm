@@ -1,5 +1,15 @@
 [
     {
+    "id": "initial_drift_online",
+    "platform": "steam",
+    "title": "Initial Drift Online",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1456200/header.jpg?t=1767030563",
+    "description": "Drift over some of Japan's most legendary mountain passes, compete against your friends or players from around the world in epic battles, make deliveries, buy new cars and set records in the world rankings!",
+    "claimUrl": "https://store.steampowered.com/app/1456200/Initial_Drift_Online/",
+    "startDate": "2026-01-13T23:30:00",
+    "endDate": "2026-01-28T23:30:00"
+  },
+   {
     "id": "styx-shards-of-darkness",
     "platform": "epic",
     "title": "Styx: Shards of Darkness",
