@@ -83,7 +83,7 @@
     <div class="info">
       <h3>Boruto: Naruto Next Generations</h3>
       <p>Fantasy · Adventure · Action · 2017</p>
-      <button class="download-btn" data-href="anime/boruto.html">Download</button>
+      <button class="download-btn" data-href="anime/boruto.html" data-id="boruto">Download<span class="dl-count">(o)</span></button>
     </div>
   </div>
 
@@ -676,89 +676,164 @@
 <button onclick="topFunction()" class="back-to-top" title="Go to top">↑ Top</button>
 
 <script>
+/* ================= CONFIG ================= */
+const API_BASE = "https://mpm-donor.free.nf/api"; // InfinityFree API base
+
 /* ================= LATEST SYSTEM ================= */
 document.addEventListener("DOMContentLoaded", () => {
-    const LATEST_DAYS = 3;
-    const now = new Date();
-    const grid = document.getElementById("gridContainer");
-    const cards = Array.from(grid.querySelectorAll(".card"));
+  const LATEST_DAYS = 3;
+  const now = new Date();
+  const grid = document.getElementById("gridContainer");
+  const cards = Array.from(grid.querySelectorAll(".card"));
 
-    cards.forEach(card => {
-        const updated = card.dataset.updated;
-        if (!updated) return;
+  cards.forEach(card => {
+    const updated = card.dataset.updated;
+    if (!updated) return;
 
-        // Parse date (YYYY-MM-DD)
-        const updatedDate = new Date(updated + "T00:00:00");
-        const diffTime = now - updatedDate;
-        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+    const updatedDate = new Date(updated + "T00:00:00");
+    const diffTime = now - updatedDate;
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
 
-        // Show badge if updated within the last 3 days
-        if (diffDays >= 0 && diffDays <= LATEST_DAYS) {
-            const badge = document.createElement("span");
-            badge.className = "latest-badge";
-            badge.textContent = "LATEST";
-            card.prepend(badge); // Use prepend to put it at the top of the card div
-            card.dataset.latest = "true";
-        }
-    });
-
-    /* ===== SORT LATEST TO TOP ===== */
-    cards.sort((a, b) => {
-        const aLatest = a.dataset.latest === "true" ? 1 : 0;
-        const bLatest = b.dataset.latest === "true" ? 1 : 0;
-        return bLatest - aLatest;
-    });
-
-    cards.forEach(card => grid.appendChild(card));
-});
-
-/* ================= BOT & DOWNLOAD LOGIC ================= */
-// Check if the bot is offline based on the class actually present in your HTML
-const botStatus = document.getElementById("bot-status");
-const isActuallyOffline = botStatus.classList.contains("bot-offline");
-
-document.querySelectorAll(".download-btn").forEach(btn => {
-    if (isActuallyOffline) {
-        btn.style.opacity = "0.6";
-        btn.style.cursor = "not-allowed";
-        btn.onclick = function (e) {
-            e.preventDefault();
-            alert("Bot is currently offline for maintenance.");
-        };
-    } else {
-        btn.onclick = function () {
-            location.href = this.getAttribute("data-href");
-        };
+    if (diffDays >= 0 && diffDays <= LATEST_DAYS) {
+      const badge = document.createElement("span");
+      badge.className = "latest-badge";
+      badge.textContent = "LATEST";
+      card.prepend(badge);
+      card.dataset.latest = "true";
     }
+  });
+
+  // Sort latest to top
+  cards.sort((a, b) => {
+    const aLatest = a.dataset.latest === "true" ? 1 : 0;
+    const bLatest = b.dataset.latest === "true" ? 1 : 0;
+    return bLatest - aLatest;
+  });
+
+  cards.forEach(card => grid.appendChild(card));
 });
+
+/* ================= DOWNLOAD COUNT HELPERS ================= */
+async function loadDownloadCounts() {
+  const btns = Array.from(document.querySelectorAll(".download-btn[data-id]"));
+  if (!btns.length) return;
+
+  const ids = btns.map(b => b.dataset.id).join(",");
+
+  try {
+    const res = await fetch(`${API_BASE}/counts.php?ids=${encodeURIComponent(ids)}`, {
+      method: "GET",
+      cache: "no-store"
+    });
+    const data = await res.json();
+    if (!data.ok) return;
+
+    btns.forEach(btn => {
+      const id = btn.dataset.id;
+      const count = (data.counts && data.counts[id]) ? data.counts[id] : 0;
+      const span = btn.querySelector(".dl-count");
+      if (span) span.textContent = `(${count})`;
+    });
+  } catch (e) {
+    // ignore
+  }
+}
+
+async function incrementCount(itemId) {
+  const form = new URLSearchParams();
+  form.append("item_id", itemId);
+
+  const res = await fetch(`${API_BASE}/download.php`, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: form.toString()
+  });
+
+  return await res.json();
+}
+
+/* ================= BOT & DOWNLOAD LOGIC + COUNTS ================= */
+document.addEventListener("DOMContentLoaded", () => {
+  // Load counts on page load
+  loadDownloadCounts();
+
+  // Check if the bot is offline based on the class actually present in your HTML
+  const botStatus = document.getElementById("bot-status");
+  const isActuallyOffline = botStatus.classList.contains("bot-offline");
+
+  document.querySelectorAll(".download-btn").forEach(btn => {
+    if (isActuallyOffline) {
+      btn.style.opacity = "0.6";
+      btn.style.cursor = "not-allowed";
+      btn.onclick = function (e) {
+        e.preventDefault();
+        alert("Bot is currently offline for maintenance.");
+      };
+      return;
+    }
+
+    btn.onclick = async function (e) {
+      e.preventDefault();
+
+      const href = this.getAttribute("data-href");
+      const id = this.dataset.id; // REQUIRED for counting
+
+      // If no ID, just navigate (keeps old behavior)
+      if (!id) {
+        location.href = href;
+        return;
+      }
+
+      // Optimistic UI (+1 instantly)
+      const span = this.querySelector(".dl-count");
+      if (span) {
+        const current = parseInt(span.textContent.replace(/[^\d]/g, ""), 10) || 0;
+        span.textContent = `(${current + 1})`;
+      }
+
+      // Update server count
+      try {
+        const data = await incrementCount(id);
+        if (data.ok && span) span.textContent = `(${data.count})`;
+      } catch (err) {
+        // ignore
+      }
+
+      // Go to download page
+      location.href = href;
+    };
+  });
+});
+
 /* ================= FILTER & SEARCH ================= */
 function filterCards() {
-    let filter = document.getElementById('categoryFilter').value;
-    let cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'block' : 'none';
-    });
+  let filter = document.getElementById('categoryFilter').value;
+  let cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'block' : 'none';
+  });
 }
 
 function searchCards() {
-    let input = document.getElementById('searchBox').value.toLowerCase();
-    let cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.style.display = card.dataset.title.includes(input) ? 'block' : 'none';
-    });
+  let input = document.getElementById('searchBox').value.toLowerCase();
+  let cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.style.display = card.dataset.title.includes(input) ? 'block' : 'none';
+  });
 }
-// Back to top button
-  const backToTopButton = document.querySelector(".back-to-top");
-  window.onscroll = function() {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-      backToTopButton.style.display = "block";
-    } else {
-      backToTopButton.style.display = "none";
-    }
-  };
-  function topFunction() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+/* ================= BACK TO TOP ================= */
+const backToTopButton = document.querySelector(".back-to-top");
+window.onscroll = function() {
+  if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+    backToTopButton.style.display = "block";
+  } else {
+    backToTopButton.style.display = "none";
   }
+};
+function topFunction() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
 
 </body>
