@@ -677,7 +677,9 @@
 
 <script>
 /* ================= CONFIG ================= */
-const API_BASE = "https://mpm-donor.free.nf/api"; // InfinityFree API base
+// ✅ Netlify Functions (same origin) - NO CORS issues
+const API_COUNTS = "/.netlify/functions/counts";
+const API_DOWNLOAD = "/.netlify/functions/download";
 
 /* ================= LATEST SYSTEM ================= */
 document.addEventListener("DOMContentLoaded", () => {
@@ -714,14 +716,28 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ================= DOWNLOAD COUNT HELPERS ================= */
+
+// Optional: auto-generate data-id if missing using data-href filename
+// e.g. anime/boruto.html -> boruto
+function ensureDataIds() {
+  document.querySelectorAll(".download-btn").forEach(btn => {
+    if (btn.dataset.id) return;
+    const href = btn.getAttribute("data-href") || "";
+    const m = href.match(/\/?([^\/?#]+)\.html(?:[?#].*)?$/i);
+    if (m && m[1]) btn.dataset.id = m[1].toLowerCase().replace(/[^a-z0-9\-_]/g, "-");
+  });
+}
+
 async function loadDownloadCounts() {
+  ensureDataIds();
+
   const btns = Array.from(document.querySelectorAll(".download-btn[data-id]"));
   if (!btns.length) return;
 
-  const ids = btns.map(b => b.dataset.id).join(",");
+  const ids = btns.map(b => b.dataset.id);
 
   try {
-    const res = await fetch(`${API_BASE}/counts.php?ids=${encodeURIComponent(ids)}`, {
+    const res = await fetch(`${API_COUNTS}?ids=${encodeURIComponent(ids.join(","))}`, {
       method: "GET",
       cache: "no-store"
     });
@@ -730,7 +746,7 @@ async function loadDownloadCounts() {
 
     btns.forEach(btn => {
       const id = btn.dataset.id;
-      const count = (data.counts && data.counts[id]) ? data.counts[id] : 0;
+      const count = (data.counts && typeof data.counts[id] !== "undefined") ? data.counts[id] : 0;
       const span = btn.querySelector(".dl-count");
       if (span) span.textContent = `(${count})`;
     });
@@ -743,7 +759,7 @@ async function incrementCount(itemId) {
   const form = new URLSearchParams();
   form.append("item_id", itemId);
 
-  const res = await fetch(`${API_BASE}/download.php`, {
+  const res = await fetch(API_DOWNLOAD, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: form.toString()
@@ -759,7 +775,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Check if the bot is offline based on the class actually present in your HTML
   const botStatus = document.getElementById("bot-status");
-  const isActuallyOffline = botStatus.classList.contains("bot-offline");
+  const isActuallyOffline = botStatus && botStatus.classList.contains("bot-offline");
 
   document.querySelectorAll(".download-btn").forEach(btn => {
     if (isActuallyOffline) {
@@ -776,7 +792,10 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
 
       const href = this.getAttribute("data-href");
-      const id = this.dataset.id; // REQUIRED for counting
+      const id = this.dataset.id; // auto-filled by ensureDataIds()
+
+      // If no href, stop
+      if (!href) return;
 
       // If no ID, just navigate (keeps old behavior)
       if (!id) {
@@ -791,7 +810,7 @@ document.addEventListener("DOMContentLoaded", () => {
         span.textContent = `(${current + 1})`;
       }
 
-      // Update server count
+      // Update server count (Netlify Functions)
       try {
         const data = await incrementCount(id);
         if (data.ok && span) span.textContent = `(${data.count})`;
@@ -835,6 +854,7 @@ function topFunction() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
+
 
 </body>
 </html>
