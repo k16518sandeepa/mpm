@@ -1,5 +1,13 @@
 const subtitles = [
       {
+        id: "dark_gathering",
+        title: "Dark Gathering",
+        plot: "A withdrawn college kid with psychic powers teams up with a strange little girl who's searching for her dead mother's abducted soul.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/29db8562a932c5020f1848e1c6636eeca2466a3d74f5cb8111e1534e8858c287.jpg",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+      {
         id: "Hells_Paradise",
         title: "Hell's Paradise: Jigokuraku",
         plot: "A squad of prisoners and their guards are sent to investigate a mysterious island. They get stranded there and must rely on each other to survive the island's mysterious and monstrous residents.",
