@@ -1,0 +1,7 @@
+[[edge_functions]]
+function = "geo-block"
+path = "/downloads/*"
+
+[[edge_functions]]
+function = "geo-block"
+path = "/subtitle-download/*"
