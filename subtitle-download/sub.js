@@ -1,5 +1,13 @@
 const subtitles = [
       {
+        id: "frieren_s1",
+        title: "Frieren: Beyond Journey's End",
+        plot: "Elf mage Frieren and her fellow adventurers have defeated the Demon King and brought peace to the land. But Frieren will long outlive the rest of her former party. How will she come to understand what life means to the people around her?",
+        img: "https://occ-0-8407-2218.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABTOQQyuGFkQDY8PNLgKcnyVYGBjCouOKB7sHskCFRlGo1WsBf8ATaMn2EkuSb0aUlqhzA6Hwt1PvcjRF3XgQYPjEK9Sz85VP44xZ.jpg?r=e24",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+       {
         id: "dark_gathering",
         title: "Dark Gathering",
         plot: "A withdrawn college kid with psychic powers teams up with a strange little girl who's searching for her dead mother's abducted soul.",
