@@ -1,5 +1,15 @@
 [
     {
+    "id": "rustler-grand-theft-horse",
+    "platform": "epic",
+    "title": "Rustler (Grand Theft Horse)",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/844260/header.jpg?t=1754054367",
+    "description": "Become a medieval thug in a crazy open-world action game, full of pop-culture references. Complete insane quests, kill heroes, steal horses, fight guards, rob peasants, listen to some bard music, and much more! All packed in old-school gameplay style!",
+    "claimUrl": "https://store.epicgames.com/en-US/p/rustler-grand-theft-horse-21a7ca",
+    "startDate": "2026-01-22T21:30:00",
+    "endDate": "2026-01-29T21:30:00"
+  },
+    {
     "id": "initial_drift_online",
     "platform": "steam",
     "title": "Initial Drift Online",
