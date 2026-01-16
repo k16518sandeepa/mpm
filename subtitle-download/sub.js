@@ -1,5 +1,13 @@
 const subtitles = [
       {
+        id: "black_clover",
+        title: "Black Clover",
+        plot: "Asta and Yuno were abandoned together at the same church and have been inseparable since. As children, they promised that they would compete against each other to see who would become the next Emperor Magus.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/64cc3b13061fdecd5fd97d00c0cef7ef9be6f7f4d1466e89724da9d01d289629.png",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+       {
         id: "frieren_s1",
         title: "Frieren: Beyond Journey's End",
         plot: "Elf mage Frieren and her fellow adventurers have defeated the Demon King and brought peace to the land. But Frieren will long outlive the rest of her former party. How will she come to understand what life means to the people around her?",
