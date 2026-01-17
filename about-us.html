@@ -49,8 +49,13 @@
     </ul>
   </div>
 
-  <footer>
-    <p>&copy; 2026 Motion Picture Mafia Studio</p>
-  </footer>
+<footer>
+  <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>

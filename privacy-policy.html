@@ -55,8 +55,13 @@
     <p>If you have any questions, please <a href="contact-us.html">contact us here</a>.</p>
   </div>
 
-  <footer>
-    <p>&copy; 2025 Motion Picture Mafia Studio</p>
-  </footer>
+<footer>
+  <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>

@@ -47,9 +47,14 @@
     <p>Or email us directly at <a href="mailto:admin@motionpicturemafia.com">admin@motionpicturemafia.com</a></p>
   </div>
 
-  <footer>
-    <p>&copy; 2026 Motion Picture Mafia Studio</p>
-  </footer>
+<footer>
+  <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
   <script>
   const form = document.querySelector("form");
   form.addEventListener("submit", async function(e) {

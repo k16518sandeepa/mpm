@@ -111,8 +111,13 @@
 <button onclick="topFunction()" class="back-to-top" title="Go to top">↑ Top</button>
 
 <footer>
-  <p>© 2026 Motion Picture Mafia Studio | Designed by SANA</p>
+  <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
 </footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 
 <!-- Share Button -->
 <div class="share-container">

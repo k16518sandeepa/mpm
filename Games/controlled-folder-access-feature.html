@@ -102,8 +102,13 @@ Geminiට අනූව Windows 10 Fall Creators Update (Version 1709) (officiall
 
 
 <footer>
-  <p>© 2026 Motion Picture Mafia Studio | Designed by SANA</p>
+  <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
 </footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 
 <!-- Share Button -->
 <div class="share-container">

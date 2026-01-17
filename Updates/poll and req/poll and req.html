@@ -102,8 +102,11 @@
       <img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram">
     </a>
   </div>
-    <p>© 2026 Motion Picture Mafia Studio | Designed by SANA</p>
+     <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
   </footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
   <script type="module" src="poll and req.js"></script>
 </body>
