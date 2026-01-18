@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // === Christmas Snow ===
   const snowContainer = document.getElementById("snow");
-  const symbols = ["❄", "❅", "❆", "✵", "★", "✻", "✽"];
+  // const symbols = ["❄", "❅", "❆", "✵", "★", "✻", "✽"];
 
   function createSnowflake() {
     const f = document.createElement("div");
