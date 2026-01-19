@@ -171,6 +171,11 @@
       .poster { transform:rotateY(-8deg) rotateX(5deg); }
       .poster:hover { transform:rotateY(-4deg) rotateX(2deg) scale(1.06); }
     }
+    footer { background:rgba(0,0,0,0.95); padding:40px 20px; text-align:center;
+      margin-top:80px; border-top:1px solid rgba(255,255,255,0.1); }
+    .social-links a { color:#fff; font-size:20px; margin:0 12px; transition:0.3s; }
+    .social-links a:hover { color:#e50914; transform:translateY(-4px); }
+    .footer-text { margin-top:16px; font-size:13px; opacity:0.7; }
   </style>
 </head>
 <body>
@@ -251,7 +256,17 @@
 
   <audio id="themeSong" src="" loop preload="auto"></audio>
   <audio id="thunderSound" src="https://assets.mixkit.co/sfx/preview/mixkit-thunderstorm-with-lightning-1270.mp3" preload="auto"></audio>
-
+  <footer>
+    <div class="social-links">
+      <a href="https://t.me/whatsappgang" target="_blank">Telegram</a>
+      <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i" target="_blank">Whatsapp</a>
+      <a href="https://web.facebook.com/groups/721197248262091" target="_blank">Facebook</a>
+    </div>
+    <div class="footer-text">© <span id=year></span> Motion Picture Mafia • Fast • Free • Forever</div>
+  </footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
   <script>
     // RED CIRCLE PARTICLES (no lines)
  particlesJS('particles-js', {

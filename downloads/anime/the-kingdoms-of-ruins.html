@@ -255,8 +255,11 @@
       <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i" target="_blank">Whatsapp</a>
       <a href="https://web.facebook.com/groups/721197248262091" target="_blank">Facebook</a>
     </div>
-    <div class="footer-text">© 2025 Motion Picture Mafia • Fast • Free • Forever</div>
+    <div class="footer-text">© <span id=year></span> Motion Picture Mafia • Fast • Free • Forever</div>
   </footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
   <audio id="themeSong" src="theme.mp3" loop preload="auto"></audio>
 
