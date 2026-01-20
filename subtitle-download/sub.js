@@ -1,5 +1,13 @@
 const subtitles = [
       {
+        id: "the_legend_of_the_legendary_heroes",
+        title: "The Legend of the Legendary Heroes",
+        plot: "Three protagonists: a woman obsessed with the dongo, a peace-crazed half-nobleman and a lazy, napping magician.",
+        img: "https://m.media-amazon.com/images/S/pv-target-images/befa896003a491850ee675d0ac80a39de6622396985dda04e0c7090f69e0ed6c.jpg",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+       {
         id: "black_clover",
         title: "Black Clover",
         plot: "Asta and Yuno were abandoned together at the same church and have been inseparable since. As children, they promised that they would compete against each other to see who would become the next Emperor Magus.",
