@@ -260,6 +260,96 @@ body.light-theme footer {
   text-decoration: underline;
 }
 
+/* Video container (responsive) */
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.video-container iframe,
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+/* ===== Table of Contents ===== */
+.toc {
+  background: #111;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.toc h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #e50914; /* red theme */
+  padding-bottom: 5px;
+}
+
+/* Only affect the TOC, not your game lists */
+.toc ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.toc li {
+  background: #222;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.toc li:hover {
+  background: #e50914;
+}
+
+.toc a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 8px 12px;
+  font-weight: 500;
+}
+
+/* ===== Month Sections ===== */
+.month-section {
+  margin: 50px 0;
+}
+
+.month-section h3 {
+  color: #e50914;
+  border-bottom: 2px solid #e50914;
+  padding-bottom: 4px;
+  margin-bottom: 10px;
+}
+
+/* Keep numbering visible for your game lists */
+.month-section ol {
+  list-style-type: decimal;
+  padding-left: 25px;
+}
+
+.month-section li {
+  margin-bottom: 6px;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
 /* Ad Slot Styling */
 .ad-slot {
   text-align: center;
