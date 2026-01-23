@@ -31,50 +31,35 @@ header h1 {
 
 
 /* ==============================
-   ✅ Premium Glass Mobile Hamburger Navigation
+   ✅ Mobile Hamburger Navigation
 ================================= */
 
-/* ✅ Top Navbar (Glass + Sticky) */
 .main-nav {
-  position: sticky;
-  top: 0;
-  z-index: 1001;
-
+  background: #2b2b2b;
+  padding: 10px 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  padding: 10px 12px;
-  transition: 0.25s ease;
-
-  /* Glass effect */
-  background: rgba(25, 25, 25, 0.55);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  position: relative;
+  transition: background 0.3s;
+  z-index: 1001;
 }
 
 body.light-theme .main-nav {
-  background: rgba(240, 240, 240, 0.65);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background: #dcdcdc;
 }
 
-/* ✅ Desktop Links */
 .nav-desktop {
   display: flex;
-  gap: 18px;
+  gap: 20px;
   align-items: center;
 }
 
 .nav-desktop a {
   text-decoration: none;
   color: #fff;
-  font-weight: 800;
-  padding: 8px 12px;
-  border-radius: 14px;
-  transition: 0.25s ease;
-  white-space: nowrap;
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
 body.light-theme .nav-desktop a {
@@ -82,103 +67,73 @@ body.light-theme .nav-desktop a {
 }
 
 .nav-desktop a:hover {
-  background: rgba(255, 255, 255, 0.07);
-  transform: translateY(-1px);
-}
-
-body.light-theme .nav-desktop a:hover {
-  background: rgba(0, 0, 0, 0.06);
-}
-
-.nav-desktop a.active {
-  background: rgba(255, 71, 87, 0.20);
   color: #ff4757;
 }
 
-/* ✅ Hamburger button (hidden on desktop) */
+.nav-desktop a.active {
+  color: #ff4757;
+  border-bottom: 2px solid #ff4757;
+}
+
+/* Hamburger button (hidden on desktop) */
 .nav-toggle {
   display: none;
   position: absolute;
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-
   border: none;
-  cursor: pointer;
-
-  font-size: 22px;
-  font-weight: 900;
-
-  padding: 8px 12px;
-  border-radius: 14px;
-
+  background: transparent;
   color: #fff;
-  background: rgba(255, 255, 255, 0.08);
-
-  transition: 0.25s ease;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 10px;
 }
 
 body.light-theme .nav-toggle {
   color: #121212;
-  background: rgba(0, 0, 0, 0.06);
 }
 
 .nav-toggle:hover {
-  transform: translateY(-50%) scale(1.04);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-/* ==============================
-   ✅ Drawer Menu (Premium Glass)
-================================= */
-
+/* Drawer */
 .nav-drawer {
   position: fixed;
   top: 0;
   left: 0;
-
-  width: 290px;
+  width: 280px;
   height: 100vh;
-  padding: 14px;
-
-  /* Glass drawer */
-  background: rgba(15, 15, 15, 0.55);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-
-  border-right: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.55);
-
-  transform: translateX(-110%);
-  transition: transform 0.28s ease;
+  background: rgba(0, 0, 0, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  transform: translateX(-105%);
+  transition: transform 0.25s ease;
   z-index: 2000;
+  padding: 12px;
 }
 
 body.light-theme .nav-drawer {
-  background: rgba(255, 255, 255, 0.65);
-  border-right: 1px solid rgba(0, 0, 0, 0.10);
-  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.18);
+  background: rgba(245, 245, 245, 0.98);
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-/* ✅ Drawer Header */
 .nav-drawer-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 10px 6px 14px;
-  margin-bottom: 8px;
-
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 body.light-theme .nav-drawer-header {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .nav-title {
-  font-weight: 900;
+  font-weight: 800;
   font-size: 16px;
-  letter-spacing: 0.3px;
   color: #fff;
 }
 
@@ -186,83 +141,59 @@ body.light-theme .nav-title {
   color: #121212;
 }
 
-/* ✅ Close button */
 .nav-close {
   border: none;
-  cursor: pointer;
-
-  font-size: 18px;
-  padding: 8px 12px;
-  border-radius: 14px;
-
+  background: transparent;
   color: #fff;
-  background: rgba(255, 255, 255, 0.08);
-
-  transition: 0.25s ease;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 10px;
 }
 
 body.light-theme .nav-close {
   color: #121212;
-  background: rgba(0, 0, 0, 0.06);
 }
 
-.nav-close:hover {
-  transform: scale(1.05);
-}
-
-/* ✅ Drawer Links */
 .nav-drawer-links {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   margin-top: 14px;
 }
 
 .nav-drawer-links a {
   text-decoration: none;
   color: #fff;
-  font-weight: 800;
-
-  padding: 12px 14px;
-  border-radius: 16px;
-
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-
-  transition: 0.25s ease;
+  font-weight: 700;
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: background 0.25s, color 0.25s;
 }
 
 body.light-theme .nav-drawer-links a {
   color: #121212;
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .nav-drawer-links a:hover {
-  transform: translateX(4px);
-  border-color: rgba(255, 71, 87, 0.35);
-  background: rgba(255, 71, 87, 0.14);
+  background: rgba(255, 71, 87, 0.20);
 }
 
 .nav-drawer-links a.active {
-  background: rgba(255, 71, 87, 0.22);
-  border-color: rgba(255, 71, 87, 0.40);
+  background: rgba(255, 71, 87, 0.25);
   color: #ff4757;
 }
 
-/* ✅ Backdrop overlay (Blur) */
+/* Backdrop overlay */
 .nav-backdrop {
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 1500;
-
   background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  z-index: 1500;
 }
 
-/* ✅ Open states */
+/* Open states */
 body.nav-open .nav-drawer {
   transform: translateX(0);
 }
@@ -272,10 +203,10 @@ body.nav-open .nav-backdrop {
 }
 
 body.nav-open {
-  overflow: hidden;
+  overflow: hidden; /* block scroll behind drawer */
 }
 
-/* ✅ Mobile mode */
+/* ✅ Mobile mode: show hamburger + hide desktop menu */
 @media (max-width: 768px) {
   .nav-toggle {
     display: inline-flex;
@@ -289,10 +220,9 @@ body.nav-open {
 
   .main-nav {
     justify-content: flex-start;
-    padding-left: 56px; /* space for ☰ */
+    padding-left: 52px; /* space for ☰ */
   }
 }
-
 
 
 /* ===== Theme Switch ===== */
