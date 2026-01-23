@@ -383,6 +383,23 @@ setInterval(() => {
 }, 5000);
   </script>
 <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("#articleList .card").forEach(card => {
+      const readMore = card.querySelector("a.read-more");
+      if (!readMore) return;
+
+      const link = readMore.getAttribute("href");
+      card.style.cursor = "pointer";
+
+      card.addEventListener("click", (e) => {
+        // ✅ Don't redirect if user clicks a button/link inside the card
+        if (e.target.closest("a") || e.target.closest("button")) return;
+
+        window.location.href = link;
+      });
+    });
+  });
+</script>
     <!-- Floating Support Us Button -->
 <a href="https://motionpicturemafia.com/support-us" class="floating-support-btn" title="Keep online Motion Picture Mafia">💖 Support Us</a>
 </body>

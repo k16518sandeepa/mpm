@@ -30,200 +30,34 @@ header h1 {
 }
 
 
-/* ==============================
-   ✅ Mobile Hamburger Navigation
-================================= */
-
-.main-nav {
+/* Navigation */
+nav {
   background: #2b2b2b;
-  padding: 10px 12px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  position: relative;
+  gap: 20px;
+  padding: 10px;
   transition: background 0.3s;
-  z-index: 1001;
 }
-
-body.light-theme .main-nav {
+body.light-theme nav {
   background: #dcdcdc;
 }
-
-.nav-desktop {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.nav-desktop a {
+nav a {
   text-decoration: none;
   color: #fff;
   font-weight: bold;
   transition: color 0.3s;
 }
-
-body.light-theme .nav-desktop a {
+body.light-theme nav a {
   color: #121212;
 }
-
-.nav-desktop a:hover {
+nav a:hover {
   color: #ff4757;
 }
-
-.nav-desktop a.active {
+nav a.active {
   color: #ff4757;
   border-bottom: 2px solid #ff4757;
 }
-
-/* Hamburger button (hidden on desktop) */
-.nav-toggle {
-  display: none;
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background: transparent;
-  color: #fff;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 10px;
-}
-
-body.light-theme .nav-toggle {
-  color: #121212;
-}
-
-.nav-toggle:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-/* Drawer */
-.nav-drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 280px;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.95);
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
-  transform: translateX(-105%);
-  transition: transform 0.25s ease;
-  z-index: 2000;
-  padding: 12px;
-}
-
-body.light-theme .nav-drawer {
-  background: rgba(245, 245, 245, 0.98);
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
-}
-
-.nav-drawer-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 6px 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-body.light-theme .nav-drawer-header {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-}
-
-.nav-title {
-  font-weight: 800;
-  font-size: 16px;
-  color: #fff;
-}
-
-body.light-theme .nav-title {
-  color: #121212;
-}
-
-.nav-close {
-  border: none;
-  background: transparent;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 10px;
-}
-
-body.light-theme .nav-close {
-  color: #121212;
-}
-
-.nav-drawer-links {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.nav-drawer-links a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: 700;
-  padding: 10px 12px;
-  border-radius: 12px;
-  transition: background 0.25s, color 0.25s;
-}
-
-body.light-theme .nav-drawer-links a {
-  color: #121212;
-}
-
-.nav-drawer-links a:hover {
-  background: rgba(255, 71, 87, 0.20);
-}
-
-.nav-drawer-links a.active {
-  background: rgba(255, 71, 87, 0.25);
-  color: #ff4757;
-}
-
-/* Backdrop overlay */
-.nav-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  z-index: 1500;
-}
-
-/* Open states */
-body.nav-open .nav-drawer {
-  transform: translateX(0);
-}
-
-body.nav-open .nav-backdrop {
-  display: block;
-}
-
-body.nav-open {
-  overflow: hidden; /* block scroll behind drawer */
-}
-
-/* ✅ Mobile mode: show hamburger + hide desktop menu */
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .nav-desktop {
-    display: none;
-  }
-
-  .main-nav {
-    justify-content: flex-start;
-    padding-left: 52px; /* space for ☰ */
-  }
-}
-
 
 /* ===== Theme Switch ===== */
 .theme-switch {

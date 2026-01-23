@@ -68,6 +68,16 @@
 
       <!-- Article 1 -->
               <div class="card">
+        <img src="https://imgur.com/96Obsdk.jpeg" alt="A Knight of the Seven Kingdoms">
+        <div class="article-card" data-time="2026-01-17T18:30:00">
+        <h2>A Knight of the Seven Kingdoms (2026) – Westeros වල අලුත්ම පිස්සුව!</h2>
+        <p class="time"></p>
+        </div>
+        <p class="author">By SANA</p>
+        <p>ඔන්න Westeros පිස්සන්ට 2026 වසරේ ලැබෙන සුපිරිම තෑග්ග තමයි මේ. GOT (Game of Thrones) සහ HOTD (House of the Dragon) බැලුවට පස්සේ අපි හැමෝම මග බලන් හිටපු ඒ ලෝකයේම තවත් පැත්තක් මේ කතාවෙන් බලාගන්න පුළුවන්...</p>
+        <a href="a-knight-of-the-seven-kingdoms.html" class="read-more">Read More</a>
+      </div>
+              <div class="card">
         <img src="https://imgur.com/PTEgk1t.jpeg" alt="The X files">
         <div class="article-card" data-time="2026-01-17T18:30:00">
         <h2>📺 | The X-Files | (The Truth Is Out There).</h2>
@@ -253,6 +263,24 @@ setInterval(() => {
   }, 1000);
 }, 5000);
   </script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("#articleList .card").forEach(card => {
+      const readMore = card.querySelector("a.read-more");
+      if (!readMore) return;
+
+      const link = readMore.getAttribute("href");
+      card.style.cursor = "pointer";
+
+      card.addEventListener("click", (e) => {
+        // ✅ Don't redirect if user clicks a button/link inside the card
+        if (e.target.closest("a") || e.target.closest("button")) return;
+
+        window.location.href = link;
+      });
+    });
+  });
+</script>
     <!--Support Us Button -->
 <a href="https://motionpicturemafia.com/support-us" class="floating-support-btn" title="Keep online Motion Picture Mafia">💖 Support Us</a>
 </body>
