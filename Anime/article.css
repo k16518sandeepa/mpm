@@ -31,10 +31,10 @@ header h1 {
 
 
 /* ==============================
-   ✅ Premium Glass Navigation
+   ✅ Premium Glass Mobile Hamburger Navigation
 ================================= */
 
-/* Top bar glass */
+/* ✅ Top Navbar (Glass + Sticky) */
 .main-nav {
   position: sticky;
   top: 0;
@@ -45,7 +45,9 @@ header h1 {
   align-items: center;
 
   padding: 10px 12px;
+  transition: 0.25s ease;
 
+  /* Glass effect */
   background: rgba(25, 25, 25, 0.55);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -58,7 +60,7 @@ body.light-theme .main-nav {
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Desktop menu */
+/* ✅ Desktop Links */
 .nav-desktop {
   display: flex;
   gap: 18px;
@@ -72,6 +74,7 @@ body.light-theme .main-nav {
   padding: 8px 12px;
   border-radius: 14px;
   transition: 0.25s ease;
+  white-space: nowrap;
 }
 
 body.light-theme .nav-desktop a {
@@ -92,20 +95,26 @@ body.light-theme .nav-desktop a:hover {
   color: #ff4757;
 }
 
-/* Hamburger button (hidden on desktop) */
+/* ✅ Hamburger button (hidden on desktop) */
 .nav-toggle {
   display: none;
   position: absolute;
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
+
   border: none;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  font-size: 22px;
   cursor: pointer;
+
+  font-size: 22px;
+  font-weight: 900;
+
   padding: 8px 12px;
   border-radius: 14px;
+
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+
   transition: 0.25s ease;
 }
 
@@ -119,18 +128,19 @@ body.light-theme .nav-toggle {
 }
 
 /* ==============================
-   ✅ Premium Glass Drawer
+   ✅ Drawer Menu (Premium Glass)
 ================================= */
 
 .nav-drawer {
   position: fixed;
   top: 0;
   left: 0;
+
   width: 290px;
   height: 100vh;
   padding: 14px;
 
-  /* ✅ glass */
+  /* Glass drawer */
   background: rgba(15, 15, 15, 0.55);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
@@ -149,11 +159,12 @@ body.light-theme .nav-drawer {
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.18);
 }
 
-/* Drawer header */
+/* ✅ Drawer Header */
 .nav-drawer-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 10px 6px 14px;
   margin-bottom: 8px;
 
@@ -167,22 +178,26 @@ body.light-theme .nav-drawer-header {
 .nav-title {
   font-weight: 900;
   font-size: 16px;
-  color: #fff;
   letter-spacing: 0.3px;
+  color: #fff;
 }
 
 body.light-theme .nav-title {
   color: #121212;
 }
 
+/* ✅ Close button */
 .nav-close {
   border: none;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  font-size: 18px;
   cursor: pointer;
+
+  font-size: 18px;
   padding: 8px 12px;
   border-radius: 14px;
+
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+
   transition: 0.25s ease;
 }
 
@@ -195,7 +210,7 @@ body.light-theme .nav-close {
   transform: scale(1.05);
 }
 
-/* Drawer links */
+/* ✅ Drawer Links */
 .nav-drawer-links {
   display: flex;
   flex-direction: column;
@@ -207,12 +222,14 @@ body.light-theme .nav-close {
   text-decoration: none;
   color: #fff;
   font-weight: 800;
+
   padding: 12px 14px;
   border-radius: 16px;
-  transition: 0.25s ease;
 
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.10);
+
+  transition: 0.25s ease;
 }
 
 body.light-theme .nav-drawer-links a {
@@ -233,20 +250,19 @@ body.light-theme .nav-drawer-links a {
   color: #ff4757;
 }
 
-/* Backdrop overlay */
+/* ✅ Backdrop overlay (Blur) */
 .nav-backdrop {
   display: none;
   position: fixed;
   inset: 0;
   z-index: 1500;
 
-  /* ✅ premium dim + blur */
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
 
-/* Open states */
+/* ✅ Open states */
 body.nav-open .nav-drawer {
   transform: translateX(0);
 }
@@ -277,46 +293,6 @@ body.nav-open {
   }
 }
 
-
-/* Backdrop overlay */
-.nav-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  z-index: 1500;
-}
-
-/* Open states */
-body.nav-open .nav-drawer {
-  transform: translateX(0);
-}
-
-body.nav-open .nav-backdrop {
-  display: block;
-}
-
-body.nav-open {
-  overflow: hidden; /* block scroll behind drawer */
-}
-
-/* ✅ Mobile mode: show hamburger + hide desktop menu */
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .nav-desktop {
-    display: none;
-  }
-
-  .main-nav {
-    justify-content: flex-start;
-    padding-left: 52px; /* space for ☰ */
-  }
-}
 
 
 /* ===== Theme Switch ===== */
