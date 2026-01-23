@@ -45,13 +45,44 @@
 </div>
 </header>
 
-<nav>
-  <a href="https://motionpicturemafia.com/">Home</a>
-  <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
-  <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
-  <a href="https://motionpicturemafia.com/anime/anime" class="active">Anime</a>
-  <a href="https://motionpicturemafia.com/games/games">Games</a>
-  <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+<nav class="main-nav">
+  <!-- Mobile Hamburger -->
+  <button class="nav-toggle" id="navToggle"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="navDrawer">
+    ☰
+  </button>
+
+  <!-- Desktop Menu -->
+  <div class="nav-desktop">
+    <a href="https://motionpicturemafia.com/">Home</a>
+    <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+    <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+    <a href="https://motionpicturemafia.com/anime/anime" class="active">Anime</a>
+    <a href="https://motionpicturemafia.com/games/games">Games</a>
+    <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+    <div class="nav-drawer-header">
+      <span class="nav-title">Menu</span>
+      <button class="nav-close" id="navClose" aria-label="Close menu">✕</button>
+    </div>
+
+    <div class="nav-drawer-links">
+      <a href="https://motionpicturemafia.com/">Home</a>
+      <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+      <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+      <a href="https://motionpicturemafia.com/anime/anime" class="active">Anime</a>
+      <a href="https://motionpicturemafia.com/games/games">Games</a>
+      <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+    </div>
+  </div>
+
+  <!-- Backdrop -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
 </nav>
 
 <!-- Theme Switch -->

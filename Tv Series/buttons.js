@@ -110,3 +110,38 @@ setInterval(() => {
     adImg.style.opacity = 1;
   }, 1000);
 }, 5000);
+
+const navToggle = document.getElementById("navToggle");
+  const navDrawer = document.getElementById("navDrawer");
+  const navBackdrop = document.getElementById("navBackdrop");
+  const navClose = document.getElementById("navClose");
+
+  function openNav() {
+    document.body.classList.add("nav-open");
+    navToggle.setAttribute("aria-expanded", "true");
+    navDrawer.setAttribute("aria-hidden", "false");
+  }
+
+  function closeNav() {
+    document.body.classList.remove("nav-open");
+    navToggle.setAttribute("aria-expanded", "false");
+    navDrawer.setAttribute("aria-hidden", "true");
+  }
+
+  navToggle.addEventListener("click", () => {
+    if (document.body.classList.contains("nav-open")) closeNav();
+    else openNav();
+  });
+
+  navClose.addEventListener("click", closeNav);
+  navBackdrop.addEventListener("click", closeNav);
+
+  // Close when clicking a link
+  navDrawer.addEventListener("click", (e) => {
+    if (e.target.tagName === "A") closeNav();
+  });
+
+  // Close on ESC key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeNav();
+  });
