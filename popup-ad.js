@@ -2,8 +2,8 @@
   // ================================
   // ✅ POPUP AD SETTINGS (EDIT HERE)
   // ================================
-  const AD_IMAGE = "hhttps://imgur.com/RK4F0LF.jpg";
-  const AD_LINK  = "motionpicturemafia.com";
+  const AD_IMAGE = "https://motionpicturemafia.com/assets/ads/hera-player.jpg";
+  const AD_LINK  = "https://motionpicturemafia.com/";
 
   // Show popup after 2.5 seconds
   const SHOW_DELAY = 2500;
