@@ -1,36 +1,42 @@
 (function () {
-  // ================================
-  // ✅ POPUP AD SETTINGS (EDIT HERE)
-  // ================================
-  const AD_IMAGE = "https://motionpicturemafia.com/assets/ads/hera-player.jpg";
+  // ✅ SETTINGS (EDIT THESE)
+  const AD_IMAGE = "https://motionpicturemafia.com/assets/ads/hera-player.jpg"; // your uploaded image path
   const AD_LINK  = "https://motionpicturemafia.com/";
 
-  // Show popup after 2.5 seconds
-  const SHOW_DELAY = 2500;
+  // ✅ Popup behavior
+  const SHOW_DELAY   = 2500; // 2.5 seconds
+  const EXPIRE_HOURS = 24;   // show once per day
 
-  // Show once per 24 hours
-  const EXPIRE_HOURS = 24;
+  // ✅ Campaign auto-disable (NEW)
+  // Popup will stop showing automatically after 30 days from FIRST time it was shown
+  const CAMPAIGN_DAYS = 30;
 
-  // ================================
-  // ✅ INTERNAL (DO NOT EDIT)
-  // ================================
-  const STORAGE_KEY = "mpm_popup_ad_last";
+  // ✅ Optional: show only on homepage (uncomment if needed)
+  // if (location.pathname !== "/" && !location.pathname.includes("index")) return;
 
-  function hoursSince(ts) {
-    return (Date.now() - ts) / (1000 * 60 * 60);
+  const KEY_LAST_SHOWN = "mpm_popup_ad_last";
+  const KEY_CAMPAIGN_START = "mpm_popup_campaign_start";
+
+  function daysBetween(nowMs, pastMs) {
+    return (nowMs - pastMs) / (1000 * 60 * 60 * 24);
+  }
+
+  function isCampaignExpired() {
+    const start = localStorage.getItem(KEY_CAMPAIGN_START);
+    if (!start) return false; // not started yet
+    return daysBetween(Date.now(), parseInt(start, 10)) >= CAMPAIGN_DAYS;
   }
 
   function shouldShowPopup() {
-    try {
-      const lastShown = localStorage.getItem(STORAGE_KEY);
-      if (!lastShown) return true;
-      const last = parseInt(lastShown, 10);
-      if (Number.isNaN(last)) return true;
-      return hoursSince(last) >= EXPIRE_HOURS;
-    } catch (e) {
-      // If localStorage blocked, still show (safer fallback)
-      return true;
-    }
+    // 🚫 Campaign ended
+    if (isCampaignExpired()) return false;
+
+    const lastShown = localStorage.getItem(KEY_LAST_SHOWN);
+    if (!lastShown) return true;
+
+    const diff = Date.now() - parseInt(lastShown, 10);
+    const hoursPassed = diff / (1000 * 60 * 60);
+    return hoursPassed >= EXPIRE_HOURS;
   }
 
   function addStyles() {
@@ -38,29 +44,30 @@
 
     const style = document.createElement("style");
     style.id = "mpmPopupAdStyles";
-    style.textContent = `
+    style.innerHTML = `
       #mpmPopupAdOverlay{
         position:fixed;
         inset:0;
         display:flex;
         justify-content:center;
         align-items:center;
-        background:rgba(0,0,0,0.72);
-        z-index:999999;
-        padding:18px;
-        animation:mpmOverlayFade .25s ease;
+        background:rgba(0,0,0,0.70);
+        z-index:99999;
+        padding:20px;
+        animation:mpmFade 0.25s ease;
       }
       .mpm-popup-box{
         position:relative;
-        width:min(540px, 100%);
+        width:100%;
+        max-width:520px;
         border-radius:18px;
         padding:14px;
         background:rgba(255,255,255,0.08);
         border:1px solid rgba(255,255,255,0.18);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        box-shadow: 0 18px 55px rgba(0,0,0,0.45);
-        animation:mpmPopupPop .28s ease;
+        box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+        animation:mpmPop 0.30s ease;
       }
       .mpm-popup-img{
         width:100%;
@@ -81,27 +88,27 @@
         cursor:pointer;
         color:#fff;
         background:rgba(0,0,0,0.55);
+        transition:0.2s ease;
         display:flex;
         align-items:center;
         justify-content:center;
-        transition:.2s ease;
       }
       .mpm-popup-close:hover{
         transform:scale(1.06);
         background:rgba(255,0,0,0.65);
       }
       .mpm-popup-label{
-        margin:10px 0 2px;
+        margin-top:10px;
         text-align:center;
         font-size:13px;
-        color:rgba(255,255,255,0.78);
+        color:rgba(255,255,255,0.75);
         font-family: Arial, sans-serif;
       }
-      @keyframes mpmPopupPop{
-        from{ transform:scale(.96); opacity:0; }
+      @keyframes mpmPop{
+        from{ transform:scale(0.95); opacity:0; }
         to{ transform:scale(1); opacity:1; }
       }
-      @keyframes mpmOverlayFade{
+      @keyframes mpmFade{
         from{ opacity:0; }
         to{ opacity:1; }
       }
@@ -110,20 +117,21 @@
   }
 
   function createPopup() {
+    // prevent duplicate popup
     if (document.getElementById("mpmPopupAdOverlay")) return;
 
     const overlay = document.createElement("div");
     overlay.id = "mpmPopupAdOverlay";
 
     overlay.innerHTML = `
-      <div class="mpm-popup-box" role="dialog" aria-label="Sponsored popup">
+      <div class="mpm-popup-box" role="dialog" aria-label="Sponsored Ad Popup">
         <button class="mpm-popup-close" id="mpmPopupCloseBtn" aria-label="Close popup">×</button>
 
-        <a href="${AD_LINK}" target="_blank" rel="noopener noreferrer">
-          <img class="mpm-popup-img" src="${AD_IMAGE}" alt="Sponsored ad">
+        <a href="${AD_LINK}" target="_blank" rel="noopener">
+          <img src="${AD_IMAGE}" alt="Sponsored Ad" class="mpm-popup-img">
         </a>
 
-        <div class="mpm-popup-label">Sponsored</div>
+        <p class="mpm-popup-label">Sponsored</p>
       </div>
     `;
 
@@ -133,15 +141,15 @@
       overlay.remove();
     }
 
-    // Close button
-    overlay.querySelector("#mpmPopupCloseBtn").addEventListener("click", closePopup);
+    // close button
+    document.getElementById("mpmPopupCloseBtn").addEventListener("click", closePopup);
 
-    // Click outside
+    // close when clicking outside
     overlay.addEventListener("click", (e) => {
       if (e.target === overlay) closePopup();
     });
 
-    // Esc key
+    // close by ESC key
     document.addEventListener("keydown", function escClose(e) {
       if (e.key === "Escape") {
         closePopup();
@@ -150,26 +158,23 @@
     });
   }
 
-  function markShown() {
-    try {
-      localStorage.setItem(STORAGE_KEY, String(Date.now()));
-    } catch (e) {}
-  }
+  window.addEventListener("load", () => {
+    // 🚫 if campaign expired, do nothing
+    if (isCampaignExpired()) return;
 
-  function run() {
     if (!shouldShowPopup()) return;
 
     setTimeout(() => {
+      // Set campaign start time only at FIRST show
+      if (!localStorage.getItem(KEY_CAMPAIGN_START)) {
+        localStorage.setItem(KEY_CAMPAIGN_START, Date.now());
+      }
+
       addStyles();
       createPopup();
-      markShown();
-    }, SHOW_DELAY);
-  }
 
-  // Run as soon as DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", run);
-  } else {
-    run();
-  }
+      // Save last shown time (daily frequency)
+      localStorage.setItem(KEY_LAST_SHOWN, Date.now());
+    }, SHOW_DELAY);
+  });
 })();
