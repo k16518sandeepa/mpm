@@ -1,5 +1,15 @@
 [
     {
+    "id": "cursedland",
+    "platform": "steam",
+    "title": "Cursedland",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3447170/header.jpg?t=1769159562",
+    "description": "Step into Cursedland, a 2D indie action platformer where every jump, movement, and decision truly matters. This is a game built around precision, reflexes, and mastery, challenging players to push their skills to the limit while navigating a world filled with chaos, humor, and surreal surprises.",
+    "claimUrl": "https://store.steampowered.com/app/3447170/Cursedland/",
+    "startDate": "2026-01-26T23:30:00",
+    "endDate": "2026-02-01T21:30:00"
+  },
+   {
     "id": "Kiki",
     "platform": "steam",
     "title": "Kiki",
