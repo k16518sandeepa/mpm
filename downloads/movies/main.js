@@ -2,20 +2,22 @@
 document.addEventListener("DOMContentLoaded", () => {
   // === Christmas Snow ===
   const snowContainer = document.getElementById("snow");
-  // const symbols = ["❄", "❅", "❆", "✵", "★", "✻", "✽"];
+  //const symbols = ["❄", "❅", "❆", "✵", "★", "✻", "✽"];
 
-  function createSnowflake() {
-    const f = document.createElement("div");
-    f.className = "snowflake";
-    f.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    f.style.left = Math.random() * 100 + "vw";
-    f.style.animationDuration = Math.random() * 8 + 10 + "s";
-    f.style.fontSize = Math.random() * 15 + 12 + "px";
-    f.style.opacity = Math.random() * 0.6 + 0.4;
-    snowContainer.appendChild(f);
-    setTimeout(() => f.remove(), 20000);
+  if (snowContainer) {
+    function createSnowflake() {
+      const f = document.createElement("div");
+      f.className = "snowflake";
+      f.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      f.style.left = Math.random() * 100 + "vw";
+      f.style.animationDuration = Math.random() * 8 + 10 + "s";
+      f.style.fontSize = Math.random() * 15 + 12 + "px";
+      f.style.opacity = Math.random() * 0.6 + 0.4;
+      snowContainer.appendChild(f);
+      setTimeout(() => f.remove(), 20000);
+    }
+    setInterval(createSnowflake, 350);
   }
-  setInterval(createSnowflake, 350);
 
   // === Theme Music ===
   const themeSong = document.getElementById("themeSong");
@@ -110,4 +112,80 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 300);
     });
   }
+  // === Download Tabs (Telegram / Direct) ===
+  const tabsWrap = document.querySelector(".download-tabs");
+  if (tabsWrap) {
+    const tabButtons = Array.from(tabsWrap.querySelectorAll(".tab-btn[data-tab]"));
+    const panels = Array.from(tabsWrap.querySelectorAll(".tab-panel[data-panel]"));
+    // Auto-hide Direct tab if no direct links are set
+    const directBtn = tabButtons.find((b) => b.dataset.tab === "direct");
+    const directPanel = panels.find((p) => p.dataset.panel === "direct");
+    if (directBtn && directPanel) {
+      const directLinks = Array.from(directPanel.querySelectorAll("a.direct-link[href]"));
+      const hasDirect = directLinks.some((a) => {
+        const href = (a.getAttribute("href") || "").trim();
+        return href && href !== "#" && !href.toLowerCase().startsWith("javascript:");
+      });
+
+      if (!hasDirect) {
+        // Hide Direct option completely
+        directBtn.style.display = "none";
+        directPanel.style.display = "none";
+
+        // If user previously selected direct, force telegram and clean storage
+        const savedTab = localStorage.getItem("mpm_download_tab");
+        if (savedTab === "direct") localStorage.removeItem("mpm_download_tab");
+      }
+    }
+
+    // If only one tab visible, hide the tab header for a cleaner UI
+    const tabsHeader = tabsWrap.querySelector(".tab-buttons");
+    const visibleButtons = tabButtons.filter((b) => b.style.display !== "none");
+    if (tabsHeader && visibleButtons.length <= 1) {
+      tabsHeader.style.display = "none";
+    }
+
+
+    const activateTab = (name, save = true) => {
+      tabButtons.forEach((btn) => {
+        const isActive = btn.dataset.tab === name;
+        btn.classList.toggle("active", isActive);
+        btn.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+
+      panels.forEach((panel) => {
+        panel.classList.toggle("active", panel.dataset.panel === name);
+      });
+
+      if (save) localStorage.setItem("mpm_download_tab", name);
+    };
+
+    // Restore last selected tab
+    const saved = localStorage.getItem("mpm_download_tab");
+    if (saved && ["telegram", "direct"].includes(saved)) activateTab(saved, false);
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => activateTab(btn.dataset.tab));
+    });
+
+    // Mobile swipe between tabs (optional nice touch)
+    let startX = 0;
+    tabsWrap.addEventListener("touchstart", (e) => {
+      startX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    tabsWrap.addEventListener("touchend", (e) => {
+      if (!startX) return;
+      const endX = e.changedTouches[0].screenX;
+      const diff = endX - startX;
+
+      if (Math.abs(diff) > 70) {
+        const current = tabButtons.find((b) => b.classList.contains("active"))?.dataset.tab || "telegram";
+        const next = diff < 0 ? "direct" : "telegram"; // swipe left -> direct, right -> telegram
+        if (current !== next) activateTab(next);
+      }
+      startX = 0;
+    }, { passive: true });
+  }
+
 });
