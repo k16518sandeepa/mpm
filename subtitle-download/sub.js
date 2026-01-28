@@ -1,5 +1,13 @@
 const subtitles = [
       {
+        id: "boruto",
+        title: "Boruto: Naruto Next Generations",
+        plot: "Son of Naruto Uzumaki, Boruto, follows his father's footsteps along with his friends to become great ninja.",
+        img: "https://occ-0-8407-2218.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABaIRe3L5SYmYapc0zayNc4gu-9h5VIYyemcbUT9f-_a0Ie2Ug5gSh6SpnHXl-ga4dw_7gI0gWFMaMDZNZdbiU_SpwEUIfiPgdAUB.jpg?r=35f",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+       {
         id: "the_legend_of_the_legendary_heroes",
         title: "The Legend of the Legendary Heroes",
         plot: "Three protagonists: a woman obsessed with the dongo, a peace-crazed half-nobleman and a lazy, napping magician.",
