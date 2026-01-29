@@ -1,5 +1,25 @@
 [
     {
+    "id": "pixel-gun-3d-poison-retro-set",
+    "platform": "epic",
+    "title": "Pixel Gun 3D - Poison Retro Set [DLC]",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2869440/0905fab1749618b4559864e8465648f037055317/header.jpg?t=1747218601",
+    "description": "This content requires the base game Pixel Gun 3D: PC Edition on Epic in order to play.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/pixel-gun-3d-poison-retro-set-55a7dd",
+    "startDate": "2026-02-05T21:30:00",
+    "endDate": "2026-02-12T21:30:00"
+  },
+   {
+    "id": "botany-manor",
+    "platform": "epic",
+    "title": "Botany Manor",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1425350/header.jpg?t=1763652620",
+    "description": "Welcome to Botany Manor, a stately home in 19th century England. You play as inhabitant Arabella Greene, a retired botanist.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/botany-manor-e7c456",
+    "startDate": "2026-02-05T21:30:00",
+    "endDate": "2026-02-12T21:30:00"
+  },
+  {
     "id": "along-the-edge",
     "platform": "steam",
     "title": "Along the Edge",
