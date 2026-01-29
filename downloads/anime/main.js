@@ -146,6 +146,86 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+
+
+// === Season Filter (Direct only) ===
+const directPanelForSeason = panels.find((p) => p.dataset.panel === "direct");
+if (directPanelForSeason) {
+  const directLinksAll = Array.from(directPanelForSeason.querySelectorAll("a.direct-link[href]"));
+
+  if (directLinksAll.length) {
+    // Ensure every link has a season; default -> s1
+    directLinksAll.forEach((a) => {
+      if (!a.dataset.season) a.dataset.season = "s1";
+      a.dataset.season = String(a.dataset.season).toLowerCase().trim();
+    });
+
+    // Build seasons from data-season
+    const seasons = [...new Set(directLinksAll.map((a) => a.dataset.season))]
+      .filter((s) => s && s !== "all")
+      .sort((a, b) => {
+        const na = parseInt(a.replace(/\D/g, ""), 10) || 0;
+        const nb = parseInt(b.replace(/\D/g, ""), 10) || 0;
+        return na - nb;
+      });
+
+    // Find or create filter UI (Direct panel only)
+    let filterWrap = directPanelForSeason.querySelector("[data-season-filter]");
+    if (!filterWrap) {
+      filterWrap = document.createElement("div");
+      filterWrap.className = "season-filter";
+      filterWrap.setAttribute("data-season-filter", "");
+
+      filterWrap.innerHTML = `
+        <label class="season-label" for="seasonSelect">Select Season</label>
+        <div class="season-control">
+          <select id="seasonSelect" class="season-select"></select>
+          <span id="seasonCount" class="season-count"></span>
+        </div>
+      `;
+      directPanelForSeason.insertBefore(filterWrap, directPanelForSeason.firstChild);
+    }
+
+    const select = filterWrap.querySelector("#seasonSelect");
+    const countEl = filterWrap.querySelector("#seasonCount");
+
+    if (select) {
+      // Populate select
+      select.innerHTML = "";
+      select.appendChild(new Option("All Seasons", "all"));
+      seasons.forEach((s) => {
+        const n = (s.match(/\d+/) || [""])[0];
+        select.appendChild(new Option(`Season ${n || s.toUpperCase()}`, s));
+      });
+
+      // Restore selection
+      const savedSeason = localStorage.getItem("mpm_direct_season");
+      if (savedSeason && (savedSeason === "all" || seasons.includes(savedSeason))) {
+        select.value = savedSeason;
+      } else {
+        select.value = "all";
+      }
+
+      const applySeasonFilter = () => {
+        const selected = select.value;
+        localStorage.setItem("mpm_direct_season", selected);
+
+        let visible = 0;
+        directLinksAll.forEach((a) => {
+          const match = (selected === "all") || (a.dataset.season === selected);
+          a.style.display = match ? "" : "none";
+          if (match) visible++;
+        });
+
+        if (countEl) countEl.textContent = `${visible} links`;
+      };
+
+      select.addEventListener("change", applySeasonFilter);
+      applySeasonFilter();
+    }
+  }
+}
+
     const activateTab = (name, save = true) => {
       tabButtons.forEach((btn) => {
         const isActive = btn.dataset.tab === name;

@@ -158,6 +158,57 @@
     0%, 100% { box-shadow: 0 0 25px #FD133B; } 
     50% { box-shadow: 0 0 40px #b80926; } 
 }
+/* ==============================
+   ✅ Season Filter (Direct only)
+================================= */
+.season-filter{
+  max-width: 520px;
+  margin: 0 auto 14px;
+  padding: 14px 14px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+  text-align: left;
+}
+.season-label{
+  display:block;
+  font-weight: 900;
+  margin-bottom: 10px;
+  letter-spacing: .2px;
+}
+.season-control{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content: space-between;
+}
+.season-select{
+  width: 100%;
+  max-width: 320px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  outline: none;
+  font-weight: 800;
+}
+.season-select option{
+  background: #111;
+  color: #fff;
+}
+.season-count{
+  font-size: 13px;
+  opacity: .85;
+  white-space: nowrap;
+}
+@media (max-width: 480px){
+  .season-control{ flex-direction: column; align-items: stretch; }
+  .season-select{ max-width: 100%; }
+  .season-count{ text-align:right; }
+}
 
     footer { background:rgba(0,0,0,0.95); padding:40px 20px; text-align:center;
       margin-top:80px; border-top:1px solid rgba(255,255,255,0.1); }
