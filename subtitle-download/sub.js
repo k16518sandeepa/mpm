@@ -1,5 +1,21 @@
 const subtitles = [
       {
+        id: "serial_experiments_lain",
+        title: "Serial Experiments Lain",
+        plot: "Strange things start happening when a withdrawn girl named Lain becomes obsessed with an interconnected virtual realm known as The Wired.",
+        img: "https://scrmbl.imgix.net/posts-images/2025/08/Screenshot-2025-08-22-at-11.12.40.png",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+       {
+        id: "gachiakuta",
+        title: "Gachiakuta",
+        plot: "In a floating city, a young boy is framed for the death of his father and exiled. He ends up in a junkyard zone, and swears to return for revenge.",
+        img: "https://comic-watch.com/wp-content/uploads/2025/10/image.png",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+       {
         id: "boruto",
         title: "Boruto: Naruto Next Generations",
         plot: "Son of Naruto Uzumaki, Boruto, follows his father's footsteps along with his friends to become great ninja.",
