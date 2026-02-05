@@ -1,5 +1,35 @@
 [
     {
+    "id": "the-darkside-detective-a-fumble-in-the-dark",
+    "platform": "epic",
+    "title": "The Darkside Detective: A Fumble in the Dark",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/795420/3baf01c4fca026d6037d5c6e2749f6246a7b355c/header.jpg?t=1769536320",
+    "description": "Delouse your room with sage and pack up your travel-sized ouija board, it’s time to re-enter Twin Lakes - America’s 34th most haunted city.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/the-darkside-detective-a-fumble-in-the-dark-174fcf",
+    "startDate": "2026-02-12T21:30:00",
+    "endDate": "2026-02-19T21:30:00"
+  },
+   {
+    "id": "nobody-wants-to-die",
+    "platform": "epic",
+    "title": "Nobody Wants to Die",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1939970/header.jpg?t=1749822103",
+    "description": "Lose yourself in the dystopian world of New York, 2329; immortality comes at a price that someone has to pay. In this interactive noir story, lead the investigation using advanced technology, as Detective James Karra who risks it all in pursuit of a serial killer targeting the city’s elite.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/nobody-wants-to-die-fe21cd",
+    "startDate": "2026-02-12T21:30:00",
+    "endDate": "2026-02-19T21:30:00"
+  },
+    {
+    "id": "arabian_gulf",
+    "platform": "steam",
+    "title": "Arabian Gulf",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3744480/efb96c296ba8c4832eb4a39b26f108527e92fae5/header.jpg?t=1770243842",
+    "description": "Arabian Gulf is a single-player survival action game set in a harsh desert. Face relentless enemies, endure tough conditions, and fight through dangerous terrain using basic tools and weapons.",
+    "claimUrl": "https://store.steampowered.com/app/3744480/Arabian_Gulf/",
+    "startDate": "2026-02-05T23:30:00",
+    "endDate": "2026-02-08T23:30:00"
+  },
+   {
     "id": "alone_in_the_dark_the_trilogy_123",
     "platform": "gog",
     "title": "Alone in the Dark: The Trilogy 1+2+3",
