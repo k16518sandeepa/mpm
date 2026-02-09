@@ -1,5 +1,13 @@
 const subtitles = [
       {
+        id: "neon_genesis_evangelion",
+        title: "Neon Genesis Evangelion",
+        plot: "In a post-cataclysmic future, reluctant teen Shinji Ikari is called by his estranged father to pilot an Evangelion for NERV, humanity's last defense against invading Angels threatening Tokyo-3.",
+        img: "https://anibproductions.wordpress.com/wp-content/uploads/2017/02/maxresdefault.jpg?w=1200",
+        hasVideoDownload: true, 
+        videoDownloadLink: "https://motionpicturemafia.com/downloads"
+      },
+      {
         id: "serial_experiments_lain",
         title: "Serial Experiments Lain",
         plot: "Strange things start happening when a withdrawn girl named Lain becomes obsessed with an interconnected virtual realm known as The Wired.",
