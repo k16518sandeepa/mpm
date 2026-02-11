@@ -1,5 +1,15 @@
 [
     {
+    "id": "lost_in_anomaly",
+    "platform": "steam",
+    "title": "Lost in Anomaly",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3312020/header.jpg?t=1770324875",
+    "description": "In Lost in Anomaly, you wake up on the 9th floor of an unknown building.",
+    "claimUrl": "https://store.steampowered.com/app/3312020/Lost_in_Anomaly/",
+    "startDate": "2026-02-11T23:30:00",
+    "endDate": "2026-02-16T23:30:00"
+  },
+   {
     "id": "magellania",
     "platform": "steam",
     "title": "Magellania",
