@@ -471,79 +471,55 @@ body.light-theme .speed {
 <script src="buttons.js"></script>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { 
-  getFirestore, 
-  collection, 
-  addDoc, 
-  query, 
-  orderBy, 
-  onSnapshot, 
-  doc, 
-  updateDoc, 
-  deleteDoc,
-  increment 
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } 
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const firebaseConfig = {
+  const firebaseConfig = {
   apiKey: "AIzaSyC5bvfVb6PdCj69mForrS-_Momc1cAnLrQ",
   authDomain: "motionpicturemafia-471cc.firebaseapp.com",
-  projectId: "motionpicturemafia-471cc",
-};
+  projectId: "motionpicturemafia-471cc", 
+  };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-const articleId = "supernatural";
-const ADMIN_PASSWORD = "mpmadmin123"; 
+  const articleId = "supernatural"; // Change per article
 
-// POST COMMENT
-window.postComment = async function () {
-  const name = document.getElementById("name").value;
-  const comment = document.getElementById("comment").value;
+  window.postComment = async function () {
+    const name = document.getElementById("name").value;
+    const comment = document.getElementById("comment").value;
 
-  if (!name || !comment) return alert("Fill all fields");
+    if (!name || !comment) return alert("Fill all fields");
 
-  await addDoc(collection(db, "comments"), {
-    articleId,
-    name,
-    comment,
-    likes: 0,
-    created: new Date()
-  });
+    await addDoc(collection(db, "comments"), {
+      articleId,
+      name,
+      comment,
+      created: new Date()
+    });
 
-  document.getElementById("comment").value = "";
-};
-// LOAD COMMENTS
-const q = query(collection(db, "comments"), orderBy("created", "desc"));
+    document.getElementById("comment").value = "";
+  };
 
-onSnapshot(q, (snapshot) => {
-  const commentsList = document.getElementById("commentsList");
-  commentsList.innerHTML = "";
+  const q = query(collection(db, "comments"), orderBy("created", "desc"));
 
-  snapshot.forEach((documentData) => {
-    const data = documentData.data();
-    const id = documentData.id;
+  onSnapshot(q, (snapshot) => {
+    const commentsList = document.getElementById("commentsList");
+    commentsList.innerHTML = "";
 
-    if (data.articleId === articleId) {
-      commentsList.innerHTML += `
-        <div class="comment-box">
-          <strong>${data.name}</strong>
-          <p>${data.comment}</p>
-          <div style="margin-top:8px;">
-            <button onclick="likeComment('${id}')">
-              👍 ${data.likes || 0}
-            </button>
-            <button onclick="deleteComment('${id}')"
-              style="margin-left:10px;color:red;">
-              🗑 Delete
-            </button>
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.articleId === articleId) {
+        commentsList.innerHTML += `
+          <div class="comment-box">
+            <strong>${data.name}</strong>
+            <p>${data.comment}</p>
           </div>
-        </div>
-      `;
-    }
+        `;
+      }
+    });
   });
-});
 </script>
 </body>
 </html>
