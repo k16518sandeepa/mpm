@@ -12,9 +12,7 @@
       padding: 20px;
     }
 
-    h1 {
-      text-align: center;
-    }
+    h1 { text-align: center; }
 
     .login-box {
       max-width: 400px;
@@ -34,7 +32,11 @@
       border: none;
       color: white;
       cursor: pointer;
+      margin-top: 6px;
     }
+
+    .approve-btn { background: green; }
+    .delete-btn { background: red; }
 
     .comment-card {
       background: #222;
@@ -48,14 +50,7 @@
       opacity: 0.7;
     }
 
-    .delete-btn {
-      background: red;
-      margin-top: 8px;
-    }
-
-    #dashboard {
-      display: none;
-    }
+    #dashboard { display: none; }
   </style>
 </head>
 <body>
@@ -82,20 +77,22 @@ import {
   orderBy, 
   onSnapshot, 
   doc, 
-  deleteDoc 
+  deleteDoc,
+  updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC5bvfVb6PdCj69mForrS-_Momc1cAnLrQ",
-  authDomain: "motionpicturemafia-471cc.firebaseapp.com",
-  projectId: "motionpicturemafia-471cc",
+  apiKey: "YOUR_NEW_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const ADMIN_PASSWORD = "mpmadmin123";
+const ADMIN_PASSWORD = "CHANGE_THIS_PASSWORD";
 
+// Simple login
 window.login = function () {
   const pass = document.getElementById("adminPass").value;
 
@@ -122,19 +119,33 @@ onSnapshot(q, (snapshot) => {
         <div class="meta">
           <strong>Article:</strong> ${data.articleId}<br>
           <strong>Name:</strong> ${data.name}<br>
+          <strong>Status:</strong> ${data.approved ? "✅ Approved" : "⏳ Pending"}<br>
           <strong>Likes:</strong> ${data.likes || 0}
         </div>
         <p>${data.comment}</p>
+
+        ${
+          !data.approved 
+          ? `<button class="approve-btn" onclick="approveComment('${id}')">Approve</button>` 
+          : ""
+        }
+
         <button class="delete-btn" onclick="deleteComment('${id}')">
-          Delete Comment
+          Delete
         </button>
       </div>
     `;
   });
 });
 
+window.approveComment = async function (id) {
+  await updateDoc(doc(db, "comments", id), {
+    approved: true
+  });
+};
+
 window.deleteComment = async function (id) {
-  if (confirm("Are you sure you want to delete this comment?")) {
+  if (confirm("Delete this comment?")) {
     await deleteDoc(doc(db, "comments", id));
   }
 };

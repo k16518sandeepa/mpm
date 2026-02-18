@@ -472,13 +472,20 @@ body.light-theme .speed {
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } 
-  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { 
+    getFirestore, 
+    collection, 
+    addDoc, 
+    query, 
+    orderBy, 
+    onSnapshot,
+    where
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   const firebaseConfig = {
-  apiKey: "AIzaSyA4RmyLaQd2425U3h0H2OBDAO5F9HXN5cE",
-  authDomain: "motionpicturemafia-471cc.firebaseapp.com",
-  projectId: "motionpicturemafia-471cc", 
+    apiKey: "AIzaSyAn-e_eb4FG5qVLHWWpk5dLd9iprgqh0Fw",
+    authDomain: "motionpicturemafia-471cc.firebaseapp.com",
+    projectId: "motionpicturemafia-471cc",
   };
 
   const app = initializeApp(firebaseConfig);
@@ -486,38 +493,49 @@ body.light-theme .speed {
 
   const articleId = "supernatural"; // Change per article
 
+  // POST COMMENT (Pending by default)
   window.postComment = async function () {
-    const name = document.getElementById("name").value;
-    const comment = document.getElementById("comment").value;
+    const name = document.getElementById("name").value.trim();
+    const comment = document.getElementById("comment").value.trim();
 
-    if (!name || !comment) return alert("Fill all fields");
+    if (!name || !comment) {
+      alert("Fill all fields");
+      return;
+    }
 
     await addDoc(collection(db, "comments"), {
       articleId,
       name,
       comment,
+      approved: false, // 👈 Important (approval system)
       created: new Date()
     });
 
     document.getElementById("comment").value = "";
+    alert("Comment submitted! Waiting for approval.");
   };
 
-  const q = query(collection(db, "comments"), orderBy("created", "desc"));
+  // LOAD ONLY APPROVED COMMENTS
+  const q = query(
+    collection(db, "comments"),
+    where("articleId", "==", articleId),
+    where("approved", "==", true),
+    orderBy("created", "desc")
+  );
 
   onSnapshot(q, (snapshot) => {
     const commentsList = document.getElementById("commentsList");
     commentsList.innerHTML = "";
 
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      if (data.articleId === articleId) {
-        commentsList.innerHTML += `
-          <div class="comment-box">
-            <strong>${data.name}</strong>
-            <p>${data.comment}</p>
-          </div>
-        `;
-      }
+    snapshot.forEach((docData) => {
+      const data = docData.data();
+
+      commentsList.innerHTML += `
+        <div class="comment-box">
+          <strong>${data.name}</strong>
+          <p>${data.comment}</p>
+        </div>
+      `;
     });
   });
 </script>
