@@ -514,26 +514,6 @@ window.postComment = async function () {
 
   document.getElementById("comment").value = "";
 };
-
-// LIKE COMMENT
-window.likeComment = async function (id) {
-  const ref = doc(db, "comments", id);
-  await updateDoc(ref, {
-    likes: increment(1)
-  });
-};
-
-// DELETE COMMENT (ADMIN ONLY)
-window.deleteComment = async function (id) {
-  const password = prompt("Enter admin password to delete:");
-
-  if (password === ADMIN_PASSWORD) {
-    await deleteDoc(doc(db, "comments", id));
-  } else {
-    alert("Wrong password!");
-  }
-};
-
 // LOAD COMMENTS
 const q = query(collection(db, "comments"), orderBy("created", "desc"));
 
