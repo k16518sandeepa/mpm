@@ -1,5 +1,15 @@
 [
     {
+    "id": "save_him",
+    "platform": "steam",
+    "title": "BROTHER!!! Save him! - Hardcore Platformer",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1286560/header.jpg?t=1771456167",
+    "description": "The legendary game is now on Steam! Can you prove that you are a good player, go through a difficult path and save your brother? This challenge is not for wimps!",
+    "claimUrl": "https://store.steampowered.com/app/1286560/BROTHER_Save_him__Hardcore_Platformer/",
+    "startDate": "2026-02-19T23:30:00",
+    "endDate": "2026-02-24T23:30:00"
+  },
+   {
     "id": "my-night-job",
     "platform": "epic",
     "title": "My Night Job",
