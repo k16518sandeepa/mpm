@@ -1,5 +1,15 @@
 [
     {
+    "id": "paragnosia",
+    "platform": "steam",
+    "title": "Paragnosia",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3017580/header.jpg?t=1768573764",
+    "description": "Observe every corner of your apartment by moving your camera along a rail that runs through the rooms. Find and take pictures of paranormal anomalies to exorcise them.",
+    "claimUrl": "https://store.steampowered.com/app/3017580/Paragnosia/",
+    "startDate": "2026-02-19T21:30:00",
+    "endDate": "2026-02-23T13:30:00"
+  },
+  {
     "id": "stalcraft-x-stalcraft-x-starter-edition",
     "platform": "epic",
     "title": "STALCRAFT: X Starter Edition [ADD-Ons]",
