@@ -145,3 +145,30 @@ const navToggle = document.getElementById("navToggle");
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeNav();
   });
+  //img popup
+document.querySelectorAll('.popup-word').forEach(word => {
+  const imgUrl = word.getAttribute('data-img');
+  if (imgUrl) {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .popup-word[data-img="${imgUrl}"]::after {
+        background-image: url(${imgUrl});
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // For mobile: tap to toggle popup
+  word.addEventListener('click', e => {
+    e.stopPropagation();
+    document.querySelectorAll('.popup-word.active').forEach(el => {
+      if (el !== word) el.classList.remove('active');
+    });
+    word.classList.toggle('active');
+  });
+});
+
+// Close popup when tapping outside
+document.addEventListener('click', () => {
+  document.querySelectorAll('.popup-word.active').forEach(el => el.classList.remove('active'));
+});

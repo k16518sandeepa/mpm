@@ -467,3 +467,79 @@ body.light-theme footer {
   border-radius: 8px;
   transition: opacity 1s ease-in-out;
 }
+/* popup img */
+
+/* ==== Popup Word with Image Effect ==== */
+
+.popup-word {
+  position: relative;
+  color: #ff3c3c;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  -webkit-tap-highlight-color: transparent; /* disable blue tap flash */
+}
+
+.popup-word:hover {
+  color: #ff7b7b;
+}
+
+/* Hidden popup image */
+.popup-word::after {
+  content: "";
+  position: absolute;
+  top: -180px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  width: 160px;
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Hover/Active Show */
+.popup-word:hover::after,
+.popup-word.active::after {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* Caption */
+.popup-word::before {
+  content: attr(data-caption);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.popup-word:hover::before,
+.popup-word.active::before {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* 🔹 Mobile optimization */
+@media (max-width: 768px) {
+  .popup-word::after {
+    top: -140px;
+    width: 140px;
+    height: 140px;
+  }
+}
