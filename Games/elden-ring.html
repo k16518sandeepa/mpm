@@ -118,7 +118,7 @@
         <h2>අවසාන වශයෙන්...</h2>
         <p>Elden Ring කියන්නේ අතින් අල්ලලා පාර පෙන්වන්නේ නැති ගේම් එකක්. හැමදේම ඔයාටම ඉගෙන ගන්න වෙනවා. ඒක නිසා මේක ටිකක් අමාරු වුණත්, ඒකේ තියෙන නිදහස සහ අභියෝගය නිසා මේක ලෝකයේ හොඳම ගේම්ස් අතරට එකතු වෙලා තියෙනවා.</p>
 
-        <p><em><strong>ඔයා ලෑස්තිද Lands Between ලෝකයට ගිහින් Elden Lord කෙනෙක් වෙන්න? එහෙනම් අදම මේ ගමන පටන් ගන්න.</strong></em></p>
+        <p><em><strong>ඔයා ලෑස්තිද Lands Between ලෝකයට ගිහින් Elden Lord කෙනෙක් වෙන්න? එහෙනම් අදම මේ ගමන පටන් ගන්න. ඔයා මේ game එකේ ගොඩක්ම කැමති මොකටද කියලා අනිත් අයටත් දැනගන්න comment එකක් දාන්න අමතක කරන්න එපා.</strong></em></p>
     <p class="author">By <strong>SANA</strong></p>
         <img src="https://p325k7wa.twic.pics/high/elden-ring/elden-ring/00-page-setup/ER-Notes-920x160.jpg?twic=v1/resize=920/step=10/quality=80" alt="elden-ring">
         <img src="https://p325k7wa.twic.pics/high/elden-ring/elden-ring/00-page-setup/ER-award-banner_2023.png?twic=v1/step=10/quality=95" alt="elden-ring">
@@ -210,9 +210,11 @@
     query, 
     orderBy, 
     onSnapshot,
-    where
+    where,
+    serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+  // --- Firebase config (keep as-is for your project) ---
   const firebaseConfig = {
     apiKey: "AIzaSyAUZac8QN9CML2rC4kFtAosmVGZqTjB0gM",
     authDomain: "mpm-studio-aa7df.firebaseapp.com",
@@ -224,24 +226,58 @@
 
   const articleId = "elden-ring";
 
+  const TELEGRAM_BOT_TOKEN = "8029455511:AAE4IGHXCUhk6Z1oQu9sK9yjSgSQCKPJRwY";
+  const TELEGRAM_CHAT_ID = "1455650122";
+  // -------------------------------------------------------------
+
   window.postComment = async function () {
     const name = document.getElementById("name").value.trim();
     const comment = document.getElementById("comment").value.trim();
 
-    if (!name || !comment) return alert("Fill all fields");
+    if (!name || !comment) {
+      alert("Fill all fields");
+      return;
+    }
 
-    await addDoc(collection(db, "comments"), {
-      articleId,
-      name,
-      comment,
-      approved: false, // 👈 approval system
-      created: new Date()
-    });
+    try {
+      // 1) Save comment (pending approval)
+      await addDoc(collection(db, "comments"), {
+        articleId,
+        name,
+        comment,
+        approved: false,
+        created: serverTimestamp()
+      });
 
-    document.getElementById("comment").value = "";
-    alert("Comment submitted! Waiting for approval.");
+      // 2) Send Telegram notification (quick method)
+      // Build message — keep it short to avoid Telegram rate limits
+      const message = `🆕 New comment on MotionPictureMafia
+Article: ${articleId}
+Name: ${name}
+Comment: ${comment}
+Page: ${window.location.href}`;
+
+      // call Telegram API
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message
+        })
+      });
+
+      // UI feedback
+      document.getElementById("comment").value = "";
+      alert("Comment submitted! Waiting for approval.");
+
+    } catch (err) {
+      console.error("postComment error:", err);
+      alert("Error submitting comment. Check console for details.");
+    }
   };
 
+  // load only approved comments for this article
   const q = query(
     collection(db, "comments"),
     where("articleId", "==", articleId),
