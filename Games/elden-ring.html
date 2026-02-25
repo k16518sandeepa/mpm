@@ -136,21 +136,48 @@
     allowfullscreen>
   </iframe>
 </div>
+</div>
+<!-- =========================
+     COMMENT SECTION
+========================= -->
+<div class="comment-section">
+  <h2>💬 Comments</h2>
 
-<div style="margin-top: 50px; padding: 20px; background: #1a1a1a; border-radius: 8px;">
-    <h3 style="color: #fff; margin-bottom: 20px;">අදහස් දක්වන්න (Comments)</h3>
-    
-    <div id="cusdis_thread"
-      data-host="https://cusdis.com"
-      data-app-id="062623a1-9e29-4e2d-adb9-3dbe067a1eb7"
-      data-page-id="elden-ring-article" 
-      data-page-url="https://motionpicturemafia.com/games/elden-ring.html"
-      data-page-title="Elden Ring Game Explained in Sinhala - Lands Between අබිරහස | MPM"
-    ></div>
-    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+  <div class="comment-form">
+    <input type="text" id="name" placeholder="Your name" required>
+    <textarea id="comment" placeholder="Write a comment..." required></textarea>
+    <button onclick="postComment()">Post Comment</button>
+  </div>
 
+  <div id="commentsList"></div>
 </div>
 
+<style>
+.comment-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.comment-form button {
+  background: #ff4757;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+.comment-box {
+  background: rgba(255,255,255,0.08);
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+</style>
 
 
 <button onclick="topFunction()" class="back-to-top" title="Go to top">↑ Top</button>
@@ -174,6 +201,56 @@
 </div>
 
 <script src="buttons.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } 
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyAUZac8QN9CML2rC4kFtAosmVGZqTjB0gM",
+    authDomain: "mpm-studio-aa7df.firebaseapp.com",
+    projectId: "mpm-studio-aa7df",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const articleId = "elden-ring"; // Change per article
+
+  window.postComment = async function () {
+    const name = document.getElementById("name").value;
+    const comment = document.getElementById("comment").value;
+
+    if (!name || !comment) return alert("Fill all fields");
+
+    await addDoc(collection(db, "comments"), {
+      articleId,
+      name,
+      comment,
+      created: new Date()
+    });
+
+    document.getElementById("comment").value = "";
+  };
+
+  const q = query(collection(db, "comments"), orderBy("created", "desc"));
+
+  onSnapshot(q, (snapshot) => {
+    const commentsList = document.getElementById("commentsList");
+    commentsList.innerHTML = "";
+
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.articleId === articleId) {
+        commentsList.innerHTML += `
+          <div class="comment-box">
+            <strong>${data.name}</strong>
+            <p>${data.comment}</p>
+          </div>
+        `;
+      }
+    });
+  });
+</script>
 </body>
 </html>
