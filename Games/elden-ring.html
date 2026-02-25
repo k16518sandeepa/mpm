@@ -223,17 +223,26 @@
 
     if (!name || !comment) return alert("Fill all fields");
 
-    await addDoc(collection(db, "comments"), {
-      articleId,
-      name,
-      comment,
-      created: new Date()
-    });
+ await addDoc(collection(db, "comments"), {
+  articleId,
+  name,
+  comment,
+  created: new Date(),
+  approved: false
+});
 
     document.getElementById("comment").value = "";
   };
 
-  const q = query(collection(db, "comments"), orderBy("created", "desc"));
+  import { where } from 
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const q = query(
+  collection(db, "comments"),
+  where("articleId", "==", articleId),
+  where("approved", "==", true),
+  orderBy("created", "desc")
+);
 
   onSnapshot(q, (snapshot) => {
     const commentsList = document.getElementById("commentsList");

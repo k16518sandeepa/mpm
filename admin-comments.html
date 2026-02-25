@@ -1,154 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MPM Admin - Manage Comments</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      font-family: Arial;
-      background: #111;
-      color: white;
-      padding: 20px;
-    }
-
-    h1 { text-align: center; }
-
-    .login-box {
-      max-width: 400px;
-      margin: 80px auto;
-      text-align: center;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-    }
-
-    button {
-      padding: 8px 15px;
-      background: #ff4757;
-      border: none;
-      color: white;
-      cursor: pointer;
-      margin-top: 6px;
-    }
-
-    .approve-btn { background: green; }
-    .delete-btn { background: red; }
-
-    .comment-card {
-      background: #222;
-      padding: 15px;
-      margin-top: 15px;
-      border-radius: 8px;
-    }
-
-    .meta {
-      font-size: 13px;
-      opacity: 0.7;
-    }
-
-    #dashboard { display: none; }
-  </style>
+  <title>Admin - Comment Approval</title>
 </head>
 <body>
 
-<h1>MPM Comment Management</h1>
-
-<div class="login-box" id="loginBox">
-  <h3>Admin Login</h3>
-  <input type="password" id="adminPass" placeholder="Enter Admin Password">
-  <button onclick="login()">Login</button>
-</div>
-
-<div id="dashboard">
-  <h2>All Comments</h2>
-  <div id="commentsContainer"></div>
-</div>
+<h2>Pending Comments</h2>
+<div id="pendingList"></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from 
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 import { 
-  getFirestore, 
-  collection, 
-  query, 
-  orderBy, 
-  onSnapshot, 
-  doc, 
-  deleteDoc,
-  updateDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  getFirestore, collection, query, where, 
+  onSnapshot, updateDoc, doc 
+} from 
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDGmr14fH5_eIhRzaQ985TFExk3OnFI_To",
-  authDomain: "motionpicturemafia-471cc.firebaseapp.com",
-  projectId: "motionpicturemafia-471cc",
+    apiKey: "AIzaSyAUZac8QN9CML2rC4kFtAosmVGZqTjB0gM",
+    authDomain: "mpm-studio-aa7df.firebaseapp.com",
+    projectId: "mpm-studio-aa7df",
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const ADMIN_PASSWORD = "mpmadmin123";
-
-// Simple login
-window.login = function () {
-  const pass = document.getElementById("adminPass").value;
-
-  if (pass === ADMIN_PASSWORD) {
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
-  } else {
-    alert("Wrong password!");
-  }
-};
-
-const q = query(collection(db, "comments"), orderBy("created", "desc"));
+const q = query(
+  collection(db, "comments"),
+  where("approved", "==", false)
+);
 
 onSnapshot(q, (snapshot) => {
-  const container = document.getElementById("commentsContainer");
-  container.innerHTML = "";
+  const list = document.getElementById("pendingList");
+  list.innerHTML = "";
 
-  snapshot.forEach((docData) => {
-    const data = docData.data();
-    const id = docData.id;
-
-    container.innerHTML += `
-      <div class="comment-card">
-        <div class="meta">
-          <strong>Article:</strong> ${data.articleId}<br>
-          <strong>Name:</strong> ${data.name}<br>
-          <strong>Status:</strong> ${data.approved ? "✅ Approved" : "⏳ Pending"}<br>
-          <strong>Likes:</strong> ${data.likes || 0}
-        </div>
+  snapshot.forEach((d) => {
+    const data = d.data();
+    list.innerHTML += `
+      <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <strong>${data.name}</strong>
         <p>${data.comment}</p>
-
-        ${
-          !data.approved 
-          ? `<button class="approve-btn" onclick="approveComment('${id}')">Approve</button>` 
-          : ""
-        }
-
-        <button class="delete-btn" onclick="deleteComment('${id}')">
-          Delete
-        </button>
+        <button onclick="approve('${d.id}')">Approve</button>
       </div>
     `;
   });
 });
 
-window.approveComment = async function (id) {
+window.approve = async function(id) {
   await updateDoc(doc(db, "comments", id), {
     approved: true
   });
 };
 
-window.deleteComment = async function (id) {
-  if (confirm("Delete this comment?")) {
-    await deleteDoc(doc(db, "comments", id));
-  }
-};
 </script>
 
 </body>
