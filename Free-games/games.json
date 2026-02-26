@@ -1,5 +1,15 @@
 [
     {
+    "id": "turnip_boy_robs_a_bank",
+    "platform": "epic",
+    "title": "Turnip Boy Robs a Bank",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2097230/header.jpg?t=1758386170",
+    "description": "Turnip Boy is back! This time he’s teaming up with the fearsome Pickled Gang to plan and execute the weirdest heist of all time.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/turnip-boy-robs-a-bank-3fae0e",
+    "startDate": "2026-03-05T21:30:00",
+    "endDate": "2026-03-12T21:30:00"
+  },
+    {
     "id": "save_him",
     "platform": "steam",
     "title": "BROTHER!!! Save him! - Hardcore Platformer",
