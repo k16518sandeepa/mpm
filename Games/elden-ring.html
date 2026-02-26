@@ -214,7 +214,7 @@
     serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  // --- Firebase config (keep as-is for your project) ---
+  // --- Firebase config---
   const firebaseConfig = {
     apiKey: "AIzaSyAUZac8QN9CML2rC4kFtAosmVGZqTjB0gM",
     authDomain: "mpm-studio-aa7df.firebaseapp.com",
@@ -249,7 +249,7 @@
         created: serverTimestamp()
       });
 
-      // 2) Send Telegram notification (quick method)
+      // 2) Send Telegram notification
       // Build message — keep it short to avoid Telegram rate limits
       const message = `🆕 New comment on MotionPictureMafia
 Article: ${articleId}
