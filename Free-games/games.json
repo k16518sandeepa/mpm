@@ -1,5 +1,15 @@
 [
     {
+    "id": "sJust_MoveClean_City_Messy_Battle",
+    "platform": "steam",
+    "title": "Just Move:Clean City Messy Battle",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3414900/header.jpg?t=1771955544",
+    "description": "Faced with difficult tasks, try to challenge the limits.Sometimes need luck to win.",
+    "claimUrl": "http://store.steampowered.com/app/3414900/Just_MoveClean_City_Messy_Battle/",
+    "startDate": "2026-02-27T23:30:00",
+    "endDate": "2026-03-04T23:30:00"
+  },
+    {
     "id": "turnip_boy_robs_a_bank",
     "platform": "epic",
     "title": "Turnip Boy Robs a Bank",
