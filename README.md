@@ -81,5 +81,5 @@ Want to publish your **ads or content** through Motion Picture Mafia?
 
 ---
 
-### © 2025 Motion Picture Mafia Studio
+### © 2026 Motion Picture Mafia Studio
 *Created with ❤️ by SANA (Sandeepa Thennakoon)*
