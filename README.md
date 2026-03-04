@@ -42,7 +42,7 @@ It’s built with simplicity, speed, and style — designed to engage global aud
 | **Frontend** | HTML, CSS, JavaScript |
 | **Database** | Firebase Firestore |
 | **Hosting** | Netlify |
-| **Comments** | Giscus (GitHub Discussions) |
+| **Comments** | Firebase Firestore |
 | **Analytics** | Google Analytics |
 | **Monetization** | Adsterra / Google AdSense |
 | **Version Control** | Git + GitHub |
