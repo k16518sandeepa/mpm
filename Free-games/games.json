@@ -1,5 +1,25 @@
 [
     {
+    "id": "isonzo",
+    "platform": "epic",
+    "title": "Isonzo",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1556790/header.jpg?t=1770380091",
+    "description": "Ferocious Alpine warfare will test your tactical skills in this authentic WW1 FPS.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/isonzo",
+    "startDate": "2026-03-12T21:30:00",
+    "endDate": "2026-03-19T21:30:00"
+  },
+    {
+    "id": "cozy-grove",
+    "platform": "epic",
+    "title": "Cozy Grove",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1458100/header.jpg?t=1764788370",
+    "description": "Welcome to Cozy Grove, a game about camping on a haunted, ever-changing island.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/cozy-grove",
+    "startDate": "2026-03-12T21:30:00",
+    "endDate": "2026-03-19T21:30:00"
+  },
+    {
     "id": "World_Crafter_TD",
     "platform": "steam",
     "title": "World Crafter TD",
