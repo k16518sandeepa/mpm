@@ -1,5 +1,15 @@
 [
     {
+    "id": "Deponia",
+    "platform": "steam",
+    "title": "Deponia",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/214340/header.jpg?t=1772651228",
+    "description": "In Deponia, the world has degenerated into a vast garbage dump, in which the crotchety Rufus ekes out his sorry existence.",
+    "claimUrl": "https://store.steampowered.com/app/214340/Deponia/",
+    "startDate": "2026-03-09T22:30:00",
+    "endDate": "2026-03-16T22:30:00"
+  },
+   {
     "id": "Crowalt_Traces_of_the_Lost_Colony",
     "platform": "steam",
     "title": "Crowalt: Traces of the Lost Colony",
