@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Graphics cards (GPU) වැඩ කරන හැටි සිංහලෙන් | How a Graphics Card Works | MPM">
+    <meta name="description" content="GPU සහ CPU අතර වෙනස මොකක්ද? Graphics Card එකක් තත්පරයකට ගණනය කිරීම් කීයක් කරනවාද? මේ හැමදේම සරල සිංහලෙන් දැනගන්න.">
+  <meta name="keywords" content="GPU working Sinhala, Graphics card explained Sinhala, CPU vs GPU Sinhala, CUDA cores, Ray tracing Sinhala, Gaming technology Sinhala, Motion Picture Mafia,MPM.">
+  <meta name="robots" content="index, follow">
+
+  <title>Graphics cards (GPU) වැඩ කරන හැටි සිංහලෙන් | How a Graphics Card Works | MPM</title>
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <link rel="stylesheet" href="article.css">
+
+  <meta property="og:title" content="Graphics cards (GPU) වැඩ කරන හැටි සිංහලෙන් | How a Graphics Card Works | MPM">
+<meta property="og:description" content="GPU සහ CPU අතර වෙනස මොකක්ද? Graphics Card එකක් තත්පරයකට ගණනය කිරීම් කීයක් කරනවාද? මේ හැමදේම සරල සිංහලෙන් දැනගන්න.">
+<meta property="og:image" content="https://imgur.com/jsNlxVR.jpeg"> 
+<meta property="og:url" content="https://motionpicturemafia.com/the-lab/how-graphics-cards-works">
+<meta property="og:type" content="article">
+
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6KK47Q2PLX');
+</script> 
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff4757">
+<!--Google Ads-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8377794585544932"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <h1>Motion Picture Mafia Studio</h1>
+      <!-- Header Ad -->
+<div class="ad-rotator" id="ad-rotator">
+  <a href="#" target="_blank">
+    <img src="https://i.imgur.com/oa0eAKM.jpeg" alt="Ad 1">
+  </a>
+</div>
+</header>
+
+<nav class="main-nav">
+  <!-- Mobile Hamburger -->
+  <button class="nav-toggle" id="navToggle"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="navDrawer">
+    ☰
+  </button>
+
+  <!-- Desktop Menu -->
+  <div class="nav-desktop">
+    <a href="https://motionpicturemafia.com/">Home</a>
+    <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+    <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+    <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+    <a href="https://motionpicturemafia.com/games/games">Games</a>
+    <a href="https://motionpicturemafia.com/the-lab/" class="active">The Lab</a>
+    <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+    <div class="nav-drawer-header">
+      <span class="nav-title">Menu</span>
+      <button class="nav-close" id="navClose" aria-label="Close menu">✕</button>
+    </div>
+
+    <div class="nav-drawer-links">
+      <a href="https://motionpicturemafia.com/">Home</a>
+      <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+      <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+      <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+      <a href="https://motionpicturemafia.com/games/games">Games</a>
+      <a href="https://motionpicturemafia.com/the-lab/" class="active">The Lab</a>
+      <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+    </div>
+  </div>
+
+  <!-- Backdrop -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
+</nav>
+
+
+
+<!-- Theme Switch -->
+<div class="theme-switch">
+  <span class="moon">🌙</span>
+  <input type="checkbox" id="themeToggle">
+  <label for="themeToggle"></label>
+  <span class="sun">☀️</span>
+</div>
+
+<div class="container">
+  <div class="article">
+    <h1>Graphics cards (GPU) වැඩ කරන හැටි සිංහලෙන් | How a Graphics Card Works</h1>
+    <div class="article-card" data-time="2026-03-04T16:20:00">
+      <p class="time"></p>
+        </div>
+    <img src="https://imgur.com/jsNlxVR.jpeg" alt="post">
+
+    <h2>Graphics Card එකක් ඇත්තටම වැඩ කරන්නේ කොහොමද? (The Magic of GPUs)</h2>
+    <p>ඔයා හිතනවාද ඔයා ගේම් එකක් play කරන එක තත්පරයක් ඇතුළත ඔයාගේ Graphics Card එක ගණනය කිරීම් (Calculations) කීයක් විතර කරනවා ඇති කියලා? මිලියන 100ක්?</p>
+    <p>ඇත්තටම 1996 ආපු Mario 64 වගේ ගේම් එකක් රන් කරන්න තමයි තත්පරයට මිලියන 100ක ගණනය කිරීම් ඕන වෙන්නේ. හැබැයි අද කාලේ තියෙන Cyberpunk 2077 වගේ ගේම් එකක් සුපිරියට play කරන්න නම්, ඔයාගේ Graphics Card එක තත්පරයකට ට්‍රිලියන 36ක් (36 Trillion) විතර ගණනය කිරීම් කරන්න ඕනේ!</p>
+    <p>මේක කොච්චර ලොකු ප්‍රමාණයක්ද කියලා හිතන්න, මුළු ලෝකෙම ඉන්න හැම මනුස්සයෙක්ම තත්පරයකට එක ගණිත ගැටලුව බැගින් හැදුවොත්, මේ Graphics Card එකේ වේගයට සමාන වෙන්න මිනිස්සු පිරුණු පෘථිවිය වගේ ග්‍රහලෝක 4,400ක් ඕන වෙනවා. හිතාගන්නත් අමාරුයි නේද?</p>
+
+    <h2>1. CPU සහ GPU අතර වෙනස</h2>
+    <p>Graphics Card එකක් ඇතුළත තියෙන GPU එකට Cores 10,000කට වඩා තියෙනවා. හැබැයි අපේ පරිගණකයේ ප්‍රධාන මොළය වෙන CPU එකට තියෙන්නේ cores 24ක් වගේ පොඩි ගණනක්.</p>
+    <img src="https://imgur.com/CGShYZQ.jpeg" alt="cpu vs gpu">
+    <p>මේ දෙකේ වෙනස තේරුම් ගන්න හොඳ උදාහරණයක් තියෙනවා:</p>
+    <ul>
+      <li>CPU එක හරියට ජම්බෝ ජෙට් එකක් වගේ: ඒක වේගවත්, ඕනෑම තැනකට යන්න පුළුවන් (Flexible), හැබැයි අරන් යන්න පුළුවන් බඩු ප්‍රමාණය අඩුයි.</li>
+      <li>GPU එක හරියට ලොකු භාණ්ඩ ප්‍රවාහන නැවක් වගේ: ඒක ජෙට් එක වගේ වේගවත් නැහැ, හැබැයි එකපාර අතිවිශාල බඩු ප්‍රමාණයක් (Data) අරන් යන්න පුළුවන්.</li>
+    </ul>
+    <p>සරලවම කිව්වොත්, සංකීර්ණ වැඩ ඉක්මනට කරන්න CPU එක හොඳයි. හැබැයි එක වගේ වැඩ ගොඩක් එකපාර කරන්න GPU එක තමයි සුපිරි.</p>
+
+    <h2>2. ග්‍රැෆික් කාඩ් එකක් ඇතුළේ මොනවද තියෙන්නේ?</h2>
+    <p>අපි ග්‍රැෆික් කාඩ් එකක් ගලවලා බැලුවොත්, ඒක මැද තියෙන ප්‍රධාන චිප් එකට කියන්නේ <strong>GA102</strong> කියලා. මේ පුංචි චිප් එක ඇතුළේ ට්‍රාන්සිස්ටර් (Transistors) බිලියන 28කට වඩා තියෙනවා!</p>
+    <p>මේ චිප් එක ඇතුළේ ප්‍රධාන කෝර් වර්ග 3ක් තියෙනවා:</p>
+    <ol>
+      <li>CUDA Cores: ගේම්ස් play කරද්දී වැඩිපුරම වැඩ කරන්නේ මේවා. මේවා හරියට පුංචි කැල්කියුලේටර් වගේ.</li>
+      <li>Tensor Cores: මේවා AI වැඩවලට සහ ගණිතමය පරාසයන් (Matrix math) හදන්න පාවිච්චි කරනවා.</li>
+      <li>Ray Tracing Cores: ගේම්ස්වල ආලෝකය සහ හෙවනැලි ඇත්තටම පේන විදිහට හදන්නේ මේවායින්.</li>
+    </ol>
+
+    <h2>3. වීඩියෝ ගේම් එකක් මැවෙන්නේ කොහොමද? (SIMD තාක්ෂණය)</h2>
+    <p>ගේම් එකක තියෙන හැම රූපයක්ම හැදෙන්නේ කුඩා ත්‍රිකෝණ (Triangles) මිලියන ගණනක් එකතු වෙලා. උදාහරණයක් විදිහට, ගේම් එකක තියෙන තොප්පියක් හදන්න ත්‍රිකෝණ 28,000ක් විතර ඕන වෙනවා.</p>
+    <p>GPU එක කරන්නේ මේ හැම ත්‍රිකෝණයකම තියෙන ලක්ෂ්‍ය (Vertices) World එකේ කොතනද තියෙන්න ඕනේ කියලා එකපාර ගණනය කරන එකයි. මේකට කියන්නේ SIMD (Single Instruction Multiple Data) කියලා. ඒ කියන්නේ එකම නියෝගයක් දත්ත විශාල ප්‍රමාණයකට එකවර ක්‍රියාත්මක කරනවා. මේ නිසා තමයි අපිට ගේම් එකක් play කරද්දී visuals smoothව පේන්නේ.</p>
+
+    <h2>4. වීඩියෝ Memory (VRAM)</h2>
+
+    <p>GPU එක මෙච්චර ගණනය කිරීම් කරද්දී ඒකට ඕන දත්ත (Data) ලබාදෙන්න වේගවත් මතකයක් ඕනේ. ඒක තමයි GDDR6X හෝ GDDR7 කියලා හඳුන්වන වීඩියෝ මෙමරිය.</p>
+    <p>මේ මෙමරිය හරියට නැවකට බඩු පටවන යෝධ ක්‍රේන් (Cranes) ගොඩක් වගේ. තත්පරයකට ටෙරාබයිට් එකකට වඩා වැඩි දත්ත ප්‍රමාණයක් මේ හරහා GPU එකට යවන්න පුළුවන්.</p>
+
+    <h2>5. ඇයි GPU එකක් Bitcoin සහ AI වලට වැදගත් වෙන්නේ?</h2>
+    <p>Bitcoin මයිනින් (Mining) කරද්දී කරන්න තියෙන්නේ ලොතරැයි අංකයක් දිනනවා වගේ එක දිගට ගණිත ගැටලුවක් විසඳන එකයි. GPU එකට එකපාර දහස් ගණනක් ගැටලු විසඳන්න පුළුවන් නිසා මේ වැඩේට ඒක ගොඩක් දක්ෂයි. ඒ වගේම තමයි අද කාලේ ජනප්‍රිය ChatGPT වගේ AI මොඩල් පුහුණු කරන්නත් මේ GPU වල තියෙන Tensor Cores අත්‍යවශ්‍ය වෙනවා.</p>
+
+    <p><em><strong>ඉතින් ඊළඟ වතාවේ ඔයා ගේම් එකක් ප්ලේ කරද්දී මතක් කරගන්න, ඔයාගේ අතේ තියෙන ඒ පුංචි ග්‍රැෆික් කාඩ් එක, පෘථිවි දහස් ගණනක මිනිස්සුන්ට කරන්න බැරි තරම් වැඩක් තත්පරයක් ඇතුළත කරලා ඉවර කරනවා කියලා!</strong></em></p>
+        
+
+    <p class="author">By <strong>SANA</strong></p>
+
+  </div>
+</div>
+<!-- =========================
+     COMMENT SECTION
+========================= -->
+<div class="comment-section">
+  <h2>💬 Comments</h2>
+
+  <div class="comment-form">
+    <input type="text" id="name" placeholder="Your name" required>
+    <textarea id="comment" placeholder="Write a comment..." required></textarea>
+    <button onclick="postComment()">Post Comment</button>
+  </div>
+
+  <div id="commentsList"></div>
+</div>
+
+<style>
+.comment-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.comment-form button {
+  background: #ff4757;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+.comment-box {
+  background: rgba(255,255,255,0.08);
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+</style>
+
+
+<button onclick="topFunction()" class="back-to-top" title="Go to top">↑ Top</button>
+
+<footer>
+  <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+
+<!-- Share Button -->
+<div class="share-container">
+  <div class="social-btns" id="socialBtns">
+    <a href="#" class="whatsapp" target="_blank">WhatsApp</a>
+    <a href="#" class="facebook" target="_blank">Facebook</a>
+  </div>
+  <button class="share-btn" id="mainShareBtn">Share</button>
+</div>
+
+<script src="buttons.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { 
+    getFirestore, 
+    collection, 
+    addDoc, 
+    query, 
+    orderBy, 
+    onSnapshot,
+    where,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // --- Firebase config---
+  const firebaseConfig = {
+    apiKey: "AIzaSyAUZac8QN9CML2rC4kFtAosmVGZqTjB0gM",
+    authDomain: "mpm-studio-aa7df.firebaseapp.com",
+    projectId: "mpm-studio-aa7df",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const articleId = "how-gpu-works";
+
+  const TELEGRAM_BOT_TOKEN = "8029455511:AAE4IGHXCUhk6Z1oQu9sK9yjSgSQCKPJRwY";
+  const TELEGRAM_CHAT_ID = "1455650122";
+  // -------------------------------------------------------------
+
+  window.postComment = async function () {
+    const name = document.getElementById("name").value.trim();
+    const comment = document.getElementById("comment").value.trim();
+
+    if (!name || !comment) {
+      alert("Fill all fields");
+      return;
+    }
+
+    try {
+      // 1) Save comment (pending approval)
+      await addDoc(collection(db, "comments"), {
+        articleId,
+        name,
+        comment,
+        approved: false,
+        created: serverTimestamp()
+      });
+
+      // 2) Send Telegram notification
+      // Build message — keep it short to avoid Telegram rate limits
+      const message = `🆕 New comment on MotionPictureMafia
+Article: ${articleId}
+Name: ${name}
+Comment: ${comment}
+Page: ${window.location.href}`;
+
+      // call Telegram API
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message
+        })
+      });
+
+      // UI feedback
+      document.getElementById("comment").value = "";
+      alert("Comment submitted! Waiting for approval.");
+
+    } catch (err) {
+      console.error("postComment error:", err);
+      alert("Error submitting comment. Check console for details.");
+    }
+  };
+
+  // load only approved comments for this article
+  const q = query(
+    collection(db, "comments"),
+    where("articleId", "==", articleId),
+    where("approved", "==", true),
+    orderBy("created", "desc")
+  );
+
+  onSnapshot(q, (snapshot) => {
+    const commentsList = document.getElementById("commentsList");
+    commentsList.innerHTML = "";
+
+    snapshot.forEach((docData) => {
+      const data = docData.data();
+
+      commentsList.innerHTML += `
+        <div class="comment-box">
+          <strong>${data.name}</strong>
+          <p>${data.comment}</p>
+        </div>
+      `;
+    });
+  });
+</script>
+</body>
+</html>
