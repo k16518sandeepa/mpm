@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="DGX Spark: මැලේසියාවේ AI සුපිරි පරිගණකය ගැන සරලව | NVIDIA DGX Spark Sinhala | MPM">
+    <meta name="description" content="DGX H100 chips, InfiniBand Networking, සහ YTL Power සමඟ එකතු වෙලා NVIDIA මැලේසියාවේ නිර්මාණය කරන DGX Spark සුපිරි පරිගණකය ගැන සිංහලෙන් දැනගන්න">
+  <meta name="keywords" content="DGX Spark Sinhala, NVIDIA H100 Sinhala, Supercomputer explanation Sinhala, DGX H100 clusters, AI networking Sinhala, Sovereign AI Sinhala, Green AI data center Sinhala, Motion Picture Mafia,MPM.">
+  <meta name="robots" content="index, follow">
+
+  <title>DGX Spark: මැලේසියාවේ AI සුපිරි පරිගණකය ගැන සරලව | NVIDIA DGX Spark Sinhala | MPM</title>
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <link rel="stylesheet" href="article.css">
+
+  <meta property="og:title" content="DGX Spark: මැලේසියාවේ AI සුපිරි පරිගණකය ගැන සරලව | NVIDIA DGX Spark Sinhala | MPM">
+<meta property="og:description" content="DGX H100 chips, InfiniBand Networking, සහ YTL Power සමඟ එකතු වෙලා NVIDIA මැලේසියාවේ නිර්මාණය කරන DGX Spark සුපිරි පරිගණකය ගැන සිංහලෙන් දැනගන්න">
+<meta property="og:image" content="https://imgur.com/HhiG8ex.jpeg"> 
+<meta property="og:url" content="https://motionpicturemafia.com/the-lab/nvidia-dgx-spark">
+<meta property="og:type" content="article">
+
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6KK47Q2PLX');
+</script> 
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff4757">
+<!--Google Ads-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8377794585544932"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <h1>Motion Picture Mafia Studio</h1>
+      <!-- Header Ad -->
+<div class="ad-rotator" id="ad-rotator">
+  <a href="#" target="_blank">
+    <img src="https://i.imgur.com/oa0eAKM.jpeg" alt="Ad 1">
+  </a>
+</div>
+</header>
+
+<nav class="main-nav">
+  <!-- Mobile Hamburger -->
+  <button class="nav-toggle" id="navToggle"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="navDrawer">
+    ☰
+  </button>
+
+  <!-- Desktop Menu -->
+  <div class="nav-desktop">
+    <a href="https://motionpicturemafia.com/">Home</a>
+    <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+    <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+    <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+    <a href="https://motionpicturemafia.com/games/games">Games</a>
+    <a href="https://motionpicturemafia.com/the-lab/" class="active">The Lab</a>
+    <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+    <div class="nav-drawer-header">
+      <span class="nav-title">Menu</span>
+      <button class="nav-close" id="navClose" aria-label="Close menu">✕</button>
+    </div>
+
+    <div class="nav-drawer-links">
+      <a href="https://motionpicturemafia.com/">Home</a>
+      <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+      <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+      <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+      <a href="https://motionpicturemafia.com/games/games">Games</a>
+      <a href="https://motionpicturemafia.com/the-lab/" class="active">The Lab</a>
+      <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+    </div>
+  </div>
+
+  <!-- Backdrop -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
+</nav>
+
+
+
+<!-- Theme Switch -->
+<div class="theme-switch">
+  <span class="moon">🌙</span>
+  <input type="checkbox" id="themeToggle">
+  <label for="themeToggle"></label>
+  <span class="sun">☀️</span>
+</div>
+
+<div class="container">
+  <div class="article">
+    <h1>DGX Spark: මැලේසියාවේ AI සුපිරි පරිගණකය ගැන සරලව | NVIDIA DGX Spark Sinhala</h1>
+    <div class="article-card" data-time="2026-03-15T12:40:00">
+      <p class="time"></p>
+        </div>
+    <img src="https://imgur.com/HhiG8ex.jpeg" alt="post">
+
+    <h2>NVIDIA DGX Spark: අග්නිදිග ආසියාවේ AI හෙට දවස</h2>   
+    <p>අපි කලින් article එකෙන් කතා කළානේ එක graphics කාඩ් එකක් (NVIDIA RTX 3090 වගේ) කොහොමද තත්පරයකට ට්‍රිලියන ගණනක ගණනය කිරීම් කරන්නේ කියලා. දැන් හිතන්න අන්න ඒ වගේ සුපිරි graphics කාඩ්, එහෙමත් නැත්නම් AI chips දහස් ගණනක් එකට එකතු කළොත් මොකද වෙන්නේ කියලා. අන්න එතැනදී තමයි DGX Spark වගේ "සුපිරි පරිගණකයක්" උපදින්නේ.</p>
+
+    <p>NVIDIA සමාගම මැලේසියාවේ <a href="https://www.ytlpowerinternational.com/" class="link" target="_blank">YTL Power International</a> යන දැවැන්ත යටිතල පහසුකම් සමාගම සමඟ එකතු වෙලා මැලේසියාවේ තමයි මේ දැවැන්ත AI සුපිරි පරිගණකය නිර්මාණය කරන්නේ. මේක නිකන්ම තවත් සුපිරි පරිගණකයක් නෙවෙයි, මේක අග්නිදිග ආසියාවේම AI තාක්ෂණය වෙනස් කරන "දේශීය AI" (Sovereign AI) බිහි කරන්න හදන පදනමයි.</p>
+
+    <h2>1. DGX Spark කියන්නේ මොකද්ද?</h2>
+    <p>සරලවම කිව්වොත්, DGX Spark කියන්නේ NVIDIA සමාගමේ අතිනවීන AI chips සහ තාක්ෂණය එකතු කරලා නිර්මාණය කරපු, ලෝකයේ ප්‍රබලම AI සුපිරි පරිගණක වලින් එකක්. මේකේ ප්‍රධානම අරමුණ තමයි ඉතාමත් දැවැන්ත දත්ත ප්‍රමාණයක් (Data) උපයෝගී කරගෙන, ඉතාමත් කෙටි කාලයකින් සංකීර්ණ AI model පුහුණු කරන එක.</p>
+    <p>මේක නිර්මාණය කරන්න මූලිකවම පාවිච්චි කරන්නේ NVIDIA සමාගමේ DGX H100 කියන "Nodes" දහස් ගණනක්. අපි දැන් බලමු මේ DGX H100 කියන්නේ මොකක්ද කියලා.</p>
+
+    <h2>2. DGX Spark හි මොළය: NVIDIA HGX H100</h2>
+    <p>අපි කලින් article එකේ කතා කළානේ GA102 කියන එක GPU චිප් එකක් ගැන. දැන් හිතන්න ඒ වගේ, හැබැයි ඊට වඩා සිය ගුණයකින් ප්‍රබල H100 Tensor Core GPU චිප් අටක් එකට එකතු කළොත් මොකද වෙන්නේ කියලා. අන්න ඒක තමයි NVIDIA HGX H100 කියලා හඳුන්වන්නේ.</p>
+    <p>එක HGX H100 unit එකක් ඇතුළේ:</p>
+    <ul>
+      <li>H100 Tensor Core GPU: අටක් තියෙනවා.</li>
+      <li>GPU Memory (HBM3e): GPU අටටම එකතු වෙලා අතිවිශාල මතකයක් (ටෙරාබයිට් ගණනක්) තියෙනවා, දත්ත ඉතාමත් වේගයෙන් ලබාදෙන්න.</li>
+      <li>NVLink Switch: මේ GPU චිප් අටම එකිනෙකා සමඟ තත්පරයකට ටෙරාබයිට් ගණනක වේගයෙන් දත්ත බෙදාගන්න පාවිච්චි කරන වේගවත් දත්ත "route" වගේ එකක්.</li>
+    </ul>
+    <p>ඉතින් මේ වගේ HGX H100 units දහස් ගණනක් එකට එකතු කරලා තමයි DGX Spark නිර්මාණය වෙන්නේ. ඒ කියන්නේ මේකේ මුළු AI චිප් ගණන දහස් ගණනක්!</p>
+
+    <h2>3. DGX Spark හි Networking Technology එක</h2>
+    <p>අපි කලින් ලිපියේ කතා කළානේ නැවකට බඩු පටවන ක්‍රේන් ගොඩක් ගැන. දැන් හිතන්න, මේ සුපිරි පරිගණකය ඇතුළේ තියෙන හැම AI චිප් එකක්ම එකිනෙකා සමඟ දත්ත බෙදාගන්න ඕනේ කියලා. අන්න ඒකට ඉතාමත් වේගවත් සහ smooth ස්නායු පද්ධතියක්, එහෙමත් නැත්නම් Networking System එකක් ඕනේ.</p>
+    <p>DGX Spark වලදී NVIDIA සමාගමේ අතිනවීන Networking තාක්ෂණයන් දෙකක් පාවිච්චි කරනවා:</p>
+    <ol>
+      <li><strong>InfiniBand (NVIDIA Quantum-2):</strong> මේක තමයි මේ චිප්ස් දහස් ගණනක් එකිනෙකා සමඟ සම්බන්ධ කරන දත්ත "සුපිරි අධිවේගී මාර්ගය". මේකේ වේගය සහ දත්ත ගමන් කිරීමට ගතවන කාලය (Latency) සාමාන්‍ය Ethernet වලට වඩා සිය ගුණයකින් අඩුයි.</li>
+      <li><strong>Spectrum-X (NVIDIA Quantum-2 Ethernet):</strong> මේක AI-optimized Ethernet තාක්ෂණයක්. මේක පාවිච්චි කරලා DGX H100 units දහස් ගණනක් එකට එකතු කරලා දැවැන්ත AI clusters නිර්මාණය කරනවා.</li>
+    </ol>
+    <p>මේ තාක්ෂණයන් දෙක නිසා, DGX H100 units දහස් ගණනක් එකම මොළයක් වගේ, එකම වෙලාවක, එකම ගැටලුවක් විසඳන්න වැඩ කරනවා. ඒ කියන්නේ මේකේ මුළු වේගය එක චිප් එකක වේගයට වඩා සිය දහස් ගුණයකින් වැඩි වෙනවා.</p>
+
+    <h2>4. DGX Spark හි Software Technology එක</h2>
+    <p>hardware විතරක් තිබුණට මදි, සුපිරි පරිගණකය වැඩ කරන්න හොඳ software ඕනේ. ඒකට NVIDIA සමාගමේ NVIDIA AI Enterprise කියන software ප්ලැට්ෆෝම් එක පාවිච්චි කරනවා.</p>
+    <p>NVIDIA AI Enterprise ඇතුළේ:</p>
+    <ul>
+      <li><strong>Pre-trained AI Models:</strong> ChatGPT, Gemini වගේ දැවැන්ත AI මොඩල් පුහුණු කරන්න අවශ්‍ය පූර්ව-පුහුණු මොඩල් තියෙනවා.</li>
+      <li><strong>AI Toolkits:</strong> AI පර්යේෂකයන්ට තමන්ගේම AI මොඩල් නිර්මාණය කරන්න, පුහුණු කරන්න සහ ඒවා පද්ධතිවලට ඇතුළත් කරන්න අවශ්‍ය සියලුම ටූල්ස් තියෙනවා.</li>
+      <li><strong>Job Scheduler:</strong> DGX H100 units දහස් ගණනක් කාර්යක්ෂමව පාවිච්චි කරලා, එකිනෙකාට වැඩ බෙදලා දෙන ප්‍රධාන "විධාන මධ්‍යස්ථානය" වගේ සොෆ්ට්වෙයාර් එකක්.</li>
+    </ul>
+
+    <h2>5. DGX Spark හි power එක conceptualize කරන්නේ කොහොමද?</h2>
+    <p>අපි කලින් article එකේ 3090 චිප් එකක වේගය conceptualize කරන්න "පෘථිවි වගේ ග්‍රහලෝක 4,400ක්" ගැන කිව්වානේ. දැන් හිතන්න, DGX Spark එකේ තියෙන AI චිප්ස් දහස් ගණනක බලය කොච්චරද කියලා!</p>
+    <p>මේක real "Exascale" මට්ටමේ සුපිරි පරිගණකයක්. ඒ කියන්නේ මේකේ වේගය Petaflops (තත්පරයකට Quadrillion (ක්වොඩ්‍රිලියන/1,000,000,000,000,000) ගණනක ගණනය කිරීම්) වලින් මැනලා, Petaflops 1000ක් එකතු වුණාම හැදෙන Exaflops (තත්පරයකට Quintillion (ක්වොන්ටිලියන/1,000,000,000,000,000,000) ගණනක ගණනය කිරීම්) මට්ටමට යනවා. මේක හිතාගන්නවත් බැරි තරම් දැවැන්ත වේගයක්.</p>
+    <p>ඔයා ChatGPT වලට "ආයුබෝවන්" කියලා ප්‍රශ්නයක් ඇහුවම, ඒකට උත්තරයක් දෙන්න ChatGPT මොඩල් එකක් පුහුණු කරන්න මාස ගණනක් DGX H100 වගේ units දහස් ගණනක් run වෙන්න ඕනේ. ඉතින් DGX Spark එකක් තියෙනවා නම්, මැලේසියාවේ මිනිස්සුන්ට තමන්ගේම ChatGPT එකක් මාස ගණනක් වෙනුවට දවස් කිහිපයකින් පුහුණු කරලා හදන්න පුළුවන්!</p>
+
+    <h2>6. DGX Spark මැලේසියාවට සහ අග්නිදිග ආසියාවට වැදගත් වෙන්නේ ඇයි?</h2>
+    <p>මේක නිකන්ම තවත් සුපිරි පරිගණකයක් නෙවෙයි, මේක මැලේසියාවේ AI අධිරාජ්‍යයේ පදනමයි. මේක මැලේසියාවට වැදගත් වෙන හේතු කිහිපයක් තියෙනවා:</p>
+    <ul>
+      <li>Desiyan AI (Sovereign AI): මැලේසියාවට තමන්ගේම භාෂාවෙන්, තමන්ගේම සංස්කෘතියට ගැලපෙන, තමන්ගේම දත්ත පාවිච්චි කරලා AI මොඩල් නිර්මාණය කරන්න පුළුවන්. ඒ කියන්නේ ඇමරිකාවේ හෝ චීනයේ AI මොඩල් මත යැපෙන්න ඕනේ නැහැ.</li>
+      <li>Economic Growth: AI තාක්ෂණය පාවිච්චි කරලා සෞඛ්‍යය, කෘෂිකර්මය, නිෂ්පාදනය වගේ ක්ෂේත්‍ර දියුණු කරලා රටේ ආර්ථිකය වේගයෙන් වර්ධනය කරන්න පුළුවන්.</li>
+      <li>Green AI Data Center: YTL සමාගම මේ සුපිරි පරිගණකය තියෙන ඩේටා සෙන්ටර් එක සම්පූර්ණයෙන්ම සූර්ය බලශක්තියෙන් ක්‍රියාත්මක කරනවා. ඒ නිසා මේක පරිසර හිතකාමී සුපිරි පරිගණකයක්.</li>
+    </ul>
+
+    <p>NVIDIA DGX Spark කියන්නේ අග්නිදිග ආසියාවේ AI හෙට දවසයි. මේක NVIDIA සමාගමේ අතිනවීන හාඩ්වෙයාර්, Networking සහ සොෆ්ට්වෙයාර් තාක්ෂණයන් මහා පරිමාණයෙන් එකතු වෙලා නිර්මාණය වුණු දැවැන්ත AI brain එකක්. මේක හරහා මැලේසියාවට තමන්ගේම AI අධිරාජ්‍යයක් බිහි කරලා, මුළු කලාපයේම AI තාක්ෂණය පෙරළියක් කරන්න පුළුවන්.</p>
+    <p>ඒ වගේම ලංකාවෙත් මන් දන්න තරමින් ABSOL X එකෙනුත් DGX Spark use කරලා research කරනවා. මේ ගැන වැඩි විස්තර දන්න කෙනෙක් ඉන්නවානන් comment එකක් දාන්න අනිත් අයටත් දැන ගන්න.</p>
+
+    <p class="author">By <strong>SANA</strong></p>
+
+  </div>
+</div>
+<!-- =========================
+     COMMENT SECTION
+========================= -->
+<div class="comment-section">
+  <h2>💬 Comments</h2>
+
+  <div class="comment-form">
+    <input type="text" id="name" placeholder="Your name" required>
+    <textarea id="comment" placeholder="Write a comment..." required></textarea>
+    <button onclick="postComment()">Post Comment</button>
+  </div>
+
+  <div id="commentsList"></div>
+</div>
+
+<style>
+.comment-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.comment-form button {
+  background: #ff4757;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+.comment-box {
+  background: rgba(255,255,255,0.08);
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+</style>
+
+
+<button onclick="topFunction()" class="back-to-top" title="Go to top">↑ Top</button>
+
+<footer>
+  <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+
+<!-- Share Button -->
+<div class="share-container">
+  <div class="social-btns" id="socialBtns">
+    <a href="#" class="whatsapp" target="_blank">WhatsApp</a>
+    <a href="#" class="facebook" target="_blank">Facebook</a>
+  </div>
+  <button class="share-btn" id="mainShareBtn">Share</button>
+</div>
+
+<script src="buttons.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { 
+    getFirestore, 
+    collection, 
+    addDoc, 
+    query, 
+    orderBy, 
+    onSnapshot,
+    where,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // --- Firebase config---
+  const firebaseConfig = {
+    apiKey: "AIzaSyAUZac8QN9CML2rC4kFtAosmVGZqTjB0gM",
+    authDomain: "mpm-studio-aa7df.firebaseapp.com",
+    projectId: "mpm-studio-aa7df",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const articleId = "nvidia-dgx-spark";
+
+  const TELEGRAM_BOT_TOKEN = "8029455511:AAE4IGHXCUhk6Z1oQu9sK9yjSgSQCKPJRwY";
+  const TELEGRAM_CHAT_ID = "1455650122";
+  // -------------------------------------------------------------
+
+  window.postComment = async function () {
+    const name = document.getElementById("name").value.trim();
+    const comment = document.getElementById("comment").value.trim();
+
+    if (!name || !comment) {
+      alert("Fill all fields");
+      return;
+    }
+
+    try {
+      // 1) Save comment (pending approval)
+      await addDoc(collection(db, "comments"), {
+        articleId,
+        name,
+        comment,
+        approved: false,
+        created: serverTimestamp()
+      });
+
+      // 2) Send Telegram notification
+      // Build message — keep it short to avoid Telegram rate limits
+      const message = `🆕 New comment on MotionPictureMafia
+Article: ${articleId}
+Name: ${name}
+Comment: ${comment}
+Page: ${window.location.href}`;
+
+      // call Telegram API
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message
+        })
+      });
+
+      // UI feedback
+      document.getElementById("comment").value = "";
+      alert("Comment submitted! Waiting for approval.");
+
+    } catch (err) {
+      console.error("postComment error:", err);
+      alert("Error submitting comment. Check console for details.");
+    }
+  };
+
+  // load only approved comments for this article
+  const q = query(
+    collection(db, "comments"),
+    where("articleId", "==", articleId),
+    where("approved", "==", true),
+    orderBy("created", "desc")
+  );
+
+  onSnapshot(q, (snapshot) => {
+    const commentsList = document.getElementById("commentsList");
+    commentsList.innerHTML = "";
+
+    snapshot.forEach((docData) => {
+      const data = docData.data();
+
+      commentsList.innerHTML += `
+        <div class="comment-box">
+          <strong>${data.name}</strong>
+          <p>${data.comment}</p>
+        </div>
+      `;
+    });
+  });
+</script>
+</body>
+</html>
