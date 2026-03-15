@@ -1,5 +1,15 @@
 [
-    {
+   {
+    "id": "electrician_simulator",
+    "platform": "epic",
+    "title": "Electrician Simulator",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1080020/header.jpg?t=1773420811",
+    "description": "Take on the electrician role and learn the profession's basics! Install sockets, repair worn-out equipment, assemble broken appliances, replace light bulbs, and lay wires at your customers' homes.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/electrician-simulator-164e9f",
+    "startDate": "2026-03-19T21:30:00",
+    "endDate": "2026-03-26T21:30:00"
+  },
+   {
     "id": "Deponia",
     "platform": "steam",
     "title": "Deponia",
