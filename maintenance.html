@@ -1,285 +1,369 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>We'll be back soon — Maintenance</title>
-<meta name="description" content="Site under maintenance — we'll be back soon." />
-<link rel="icon" type="image/png" href="Images/mpm logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Under Maintenance | Motion Picture Mafia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
- /* Reset */
- *{box-sizing:border-box;margin:0;padding:0}
- html,body{height:100%}
- body{
- font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans",sans-serif;
- background: linear-gradient(180deg,#0f172a 0%, #071026 60%);
- color:#e6eef8;
- -webkit-font-smoothing:antialiased;
- -moz-osx-font-smoothing:grayscale;
- display:flex;align-items:center;justify-content:center;
- padding:32px;
- }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #080808; --gold: #c9a84c; --gold-dim: #7a6230; --gold-pale: #f0dfa0;
+    --red: #8b1a1a; --red-bright: #c0392b; --cream: #e8dfc8;
+    /* ── SET YOUR MAINTENANCE END TIME HERE ──
+       Format: 'YYYY-MM-DDTHH:MM:SS' in your local time            */
+    --finish: '2025-04-15T18:00:00';
+  }
+  html, body { min-height: 100%; background: var(--black); color: var(--cream); font-family: 'Special Elite', cursive; overflow-x: hidden; }
 
- /* Card */
- .card{
- width:min(980px,96%);
- background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
- border:1px solid rgba(255,255,255,0.04);
- border-radius:16px;
- padding:36px;
- position:relative;
- overflow:hidden;
- box-shadow:0 10px 30px rgba(2,6,23,0.6);
- backdrop-filter: blur(6px) saturate(120%);
- }
+  /* GRAIN */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: 100; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    opacity: 0.3; mix-blend-mode: overlay; animation: grain .12s steps(1) infinite;
+  }
+  @keyframes grain {
+    0%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}20%{transform:translate(3%,1%)}
+    30%{transform:translate(-1%,4%)}40%{transform:translate(4%,-2%)}50%{transform:translate(-3%,3%)}
+    60%{transform:translate(1%,-4%)}70%{transform:translate(-4%,2%)}80%{transform:translate(2%,3%)}
+    90%{transform:translate(3%,-1%)}100%{transform:translate(-2%,4%)}
+  }
+  body::after { content: ''; position: fixed; inset: 0; z-index: 99; pointer-events: none; background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px); }
+  .vignette { position: fixed; inset: 0; z-index: 98; pointer-events: none; background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.85) 100%); }
 
- /* Decorative floating circles */
- .floaters{position:absolute;inset:0;pointer-events:none}
- .floater{
- position:absolute;border-radius:50%;opacity:0.12;mix-blend-mode:screen;filter:blur(18px);
- animation:float 8s ease-in-out infinite;
- }
- .floater.a{width:260px;height:260px;background:#7dd3fc;left:-80px;top:-40px}
- .floater.b{width:180px;height:180px;background:#a78bfa;right:-50px;bottom:-60px;animation-duration:10s}
- .floater.c{width:120px;height:120px;background:#34d399;left:40%;top:-60px;animation-duration:12s}
- @keyframes float{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-18px) rotate(6deg)}100%{transform:translateY(0) rotate(0)}}
+  /* BURN / FLICKER */
+  .burn { position: fixed; inset: 0; z-index: 200; pointer-events: none; background: radial-gradient(ellipse at 70% 30%, #c9a84c33 0%, transparent 55%); opacity: 0; animation: burnFlash 6s ease 0s infinite; }
+  @keyframes burnFlash { 0%,100%{opacity:0} 3%{opacity:.6} 5%{opacity:.1} 7%{opacity:.4} 9%,55%{opacity:0} 57%{opacity:.2} 59%{opacity:0} }
+  .flicker-line { position: fixed; z-index: 201; pointer-events: none; left: 0; right: 0; height: 2px; background: rgba(201,168,76,.12); animation: flickerLine 7s steps(1) 2s infinite; top: 40%; }
+  @keyframes flickerLine { 0%,100%{opacity:0;top:40%} 20%{opacity:1;top:40%} 20.5%{opacity:0} 65%{opacity:0;top:72%} 65.5%{opacity:1} 66%{opacity:0} }
 
- /* Layout */
- .row{display:flex;gap:28px;align-items:center}
- .left{flex:1;min-width:260px}
- .right{width:320px;display:flex;flex-direction:column;gap:18px;align-items:center}
+  /* FILM STRIPS */
+  .strip { position: fixed; top: 0; bottom: 0; width: 40px; background: #0d0d0d; border-right: 2px solid #1a1a1a; z-index: 50; display: flex; flex-direction: column; overflow: hidden; animation: stripScroll 2.5s linear infinite; }
+  .strip.right { right: 0; left: auto; border-right: none; border-left: 2px solid #1a1a1a; animation-direction: reverse; }
+  .strip-hole { flex-shrink: 0; width: 22px; height: 15px; margin: 8px auto; background: #000; border: 1.5px solid #222; border-radius: 2px; }
+  @keyframes stripScroll { from{transform:translateY(0)} to{transform:translateY(62px)} }
 
- h1{font-size:2.05rem;line-height:1.05;margin-bottom:10px;letter-spacing:-0.02em}
- p.lead{color:rgba(230,238,248,0.9);opacity:0.95;margin-bottom:8px}
- .muted{color:rgba(230,238,248,0.65);font-size:0.95rem}
+  /* LOGO */
+  .logo-mark { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: .35em; color: var(--gold-dim); text-transform: uppercase; white-space: nowrap; animation: fadeIn 1s ease .2s both; z-index: 10; }
+  .logo-mark span { color: var(--gold); font-size: 13px; vertical-align: middle; margin: 0 6px; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
- /* Animated gear (SVG) */
- .gear-wrap{width:170px;height:170px;display:grid;place-items:center;padding:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px}
- .gear{width:120px;height:120px;animation:spin 3.8s linear infinite}
- @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+  /* SCENE */
+  .scene { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px clamp(52px,10vw,110px) 48px; z-index: 10; text-align: center; }
 
- /* Neon text effect */
- .status{display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 6px 30px rgba(120,180,255,0.04)}
- .status strong{color:#a5f3fc;text-shadow:0 6px 30px rgba(165,243,252,0.06)}
+  /* PROJECTOR REEL SVG ICON */
+  .reel-wrap { margin-bottom: clamp(18px,4vw,30px); animation: fadeUp .7s ease .3s both; }
+  .reel-svg { width: clamp(70px,16vw,100px); height: clamp(70px,16vw,100px); animation: reelSpin 3s linear infinite; filter: drop-shadow(0 0 12px rgba(201,168,76,.25)); }
+  @keyframes reelSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
- /* Progress + pulse */
- .progress-wrap{width:100%;background:rgba(255,255,255,0.03);border-radius:12px;padding:10px}
- .progress{height:12px;background:linear-gradient(90deg,#0891b2,#7c3aed);border-radius:10px;width:0%;box-shadow:0 6px 20px rgba(12,74,110,0.12);transition:width 900ms cubic-bezier(.2,.9,.25,1)}
- .eta{font-size:0.92rem;color:rgba(230,238,248,0.75);margin-top:8px}
+  /* BIG TITLE */
+  .main-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(38px,10vw,80px); line-height: 1; color: var(--gold); letter-spacing: .04em; animation: fadeUp .6s ease .45s both; margin-bottom: 4px; }
+  .main-sub { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(13px,3.5vw,20px); color: rgba(232,223,200,.7); letter-spacing: .06em; animation: fadeUp .6s ease .55s both; margin-bottom: clamp(24px,5vw,38px); }
 
- /* Buttons */
- .btn{display:inline-flex;gap:10px;align-items:center;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit;cursor:pointer;text-decoration:none}
- .btn.primary{background:linear-gradient(90deg,#06b6d4,#7c3aed);color:white;box-shadow:0 8px 30px rgba(124,58,237,0.14)}
- .btn.ghost{border-style:dashed}
+  /* ORNAMENT */
+  .ornament { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 480px; margin-bottom: clamp(20px,4vw,32px); animation: fadeUp .6s ease .6s both; }
+  .ornament-line { flex: 1; height: 1px; background: linear-gradient(90deg,transparent,var(--gold-dim)); }
+  .ornament-line.r { background: linear-gradient(90deg,var(--gold-dim),transparent); }
+  .ornament-diamond { width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
 
- /* Small features */
- ul.features{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:8px;margin-top:8px}
- ul.features li{display:flex;gap:8px;align-items:center}
- .dot{width:10px;height:10px;border-radius:50%;background:#34d399;box-shadow:0 6px 18px rgba(52,211,153,0.08)}
+  /* COUNTDOWN TIMER */
+  .countdown-wrap { animation: fadeUp .6s ease .7s both; margin-bottom: clamp(22px,4.5vw,34px); }
+  .countdown-label { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 10px; }
+  .countdown { display: flex; gap: clamp(10px,3vw,20px); justify-content: center; align-items: flex-start; }
+  .cd-unit { display: flex; flex-direction: column; align-items: center; min-width: clamp(48px,13vw,72px); }
+  .cd-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px,10vw,64px);
+    line-height: 1;
+    color: var(--cream);
+    background: #111;
+    border: 1px solid #2a2a2a;
+    width: 100%; text-align: center;
+    padding: 6px 4px 2px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,.6), inset 0 1px 0 #222;
+    transition: color .3s;
+  }
+  /* flip line */
+  .cd-num::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(0,0,0,.5); }
+  .cd-lbl { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dim); margin-top: 5px; }
+  .cd-sep { font-family: 'Bebas Neue', sans-serif; font-size: clamp(30px,8vw,52px); color: var(--gold-dim); margin-top: 2px; line-height: 1.1; align-self: flex-start; padding-top: 4px; }
 
- /* Countdown */
- .countdown{display:flex;gap:10px;margin-top:8px}
- .countdown .cell{min-width:56px;background:rgba(255,255,255,0.02);border-radius:8px;padding:8px;text-align:center}
- .cell .num{font-weight:700;font-size:1.05rem}
- .cell .lbl{font-size:0.8rem;color:rgba(230,238,248,0.7)}
+  /* PROGRESS BAR */
+  .progress-wrap { width: 100%; max-width: 480px; animation: fadeUp .6s ease .85s both; margin-bottom: clamp(22px,4.5vw,34px); }
+  .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .progress-header span { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dim); }
+  .progress-header strong { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--gold); }
+  .progress-track { width: 100%; height: 6px; background: #1a1a1a; border: 1px solid #2a2a2a; position: relative; overflow: hidden; }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-pale));
+    width: 0%; transition: width 1s ease;
+    position: relative;
+    box-shadow: 0 0 10px rgba(201,168,76,.4);
+  }
+  /* shimmer */
+  .progress-fill::after { content: ''; position: absolute; top: 0; right: -40px; width: 40px; height: 100%; background: linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent); animation: shimmer 2s ease infinite; }
+  @keyframes shimmer { 0%{transform:translateX(-200%)} 100%{transform:translateX(500%)} }
+  .progress-ticks { display: flex; justify-content: space-between; margin-top: 5px; }
+  .progress-ticks span { font-size: 7px; color: #333; letter-spacing: .05em; }
 
- /* Footer small */
- .footer{font-size:0.85rem;color:rgba(230,238,248,0.6);margin-top:16px;text-align:center}
+  /* STATUS BOX */
+  .status-box { background: rgba(255,255,255,.02); border: 1px solid #1e1e1e; padding: clamp(12px,3vw,18px) clamp(16px,4vw,24px); max-width: 420px; width: 100%; margin-bottom: clamp(22px,4.5vw,34px); animation: fadeUp .6s ease 1s both; }
+  .status-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .status-row:last-child { margin-bottom: 0; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .dot-active { background: #f0c040; animation: pulse 1.5s ease infinite; }
+  .dot-done   { background: #4caf50; }
+  .dot-wait   { background: #333; }
+  @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(240,192,64,.4)} 50%{opacity:.8;box-shadow:0 0 0 5px rgba(240,192,64,0)} }
+  .status-text { font-size: clamp(10px,2.5vw,11px); letter-spacing: .12em; text-transform: uppercase; color: rgba(232,223,200,.6); }
+  .status-text.active { color: var(--gold); }
 
- /* Responsive tweaks */
- @media (max-width:880px){
- .row{flex-direction:column}
- .right{width:100%;order:2}
- .left{order:1}
- .gear-wrap{margin:0 auto}
- }
+  /* FINISH TIME */
+  .finish-time { font-size: clamp(9px,2.2vw,10px); letter-spacing: .15em; text-transform: uppercase; color: rgba(232,223,200,.35); margin-bottom: clamp(22px,4.5vw,34px); animation: fadeUp .6s ease 1.05s both; }
+  .finish-time strong { color: var(--gold-dim); }
 
- </style>
+  /* BUTTONS */
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; animation: fadeUp .6s ease 1.15s both; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Special Elite', cursive; font-size: clamp(10px,2.5vw,12px); letter-spacing: .15em; text-transform: uppercase; text-decoration: none; padding: clamp(11px,2.5vw,13px) clamp(18px,5vw,26px); border: 1px solid var(--gold); color: var(--black); background: var(--gold); cursor: pointer; position: relative; overflow: hidden; transition: color .3s, transform .2s; white-space: nowrap; }
+  .btn::before { content: ''; position: absolute; inset: 0; background: var(--red-bright); transform: translateX(-105%); transition: transform .35s cubic-bezier(.77,0,.175,1); z-index: 0; }
+  .btn:hover::before { transform: translateX(0); }
+  .btn:hover { color: #fff; border-color: var(--red-bright); }
+  .btn:active { transform: scale(.97); }
+  .btn span { position: relative; z-index: 1; }
+  .btn-ghost { background: transparent; color: var(--gold); }
+  .btn-ghost:hover { color: #fff; }
+  .btn-icon { font-size: 14px; position: relative; z-index: 1; }
+
+  /* DONE STATE */
+  .done-msg { display: none; font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(14px,3.5vw,18px); color: var(--gold); letter-spacing: .04em; animation: fadeUp .6s ease both; margin-bottom: 24px; }
+
+  /* MOBILE */
+  @media (max-width: 480px) {
+    .strip { display: none; }
+    .scene { padding: 64px 20px 36px; }
+  }
+  @media (max-width: 360px) {
+    .actions { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; }
+    .countdown { gap: 6px; }
+    .cd-sep { display: none; }
+  }
+</style>
 </head>
 <body>
- <main class="card" role="main" aria-labelledby="title">
- <div class="floaters" aria-hidden="true">
- <div class="floater a"></div>
- <div class="floater b"></div>
- <div class="floater c"></div>
- </div>
+<div class="burn"></div>
+<div class="flicker-line"></div>
+<div class="vignette"></div>
+<div class="strip left">
+  <div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div>
+  <div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div>
+  <div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div>
+  <div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div>
+</div>
+<div class="strip right">
+  <div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div>
+  <div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div>
+  <div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div>
+  <div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div><div class="strip-hole"></div>
+</div>
 
- <div class="row">
- <section class="left" aria-labelledby="title">
- <h1 id="title">We&rsquo;re making improvements ✨</h1>
- <p class="lead">Thanks for visiting — we&rsquo;re updating a few things to make the site better and faster. You can still reach us via email if you need help.</p>
+<div class="scene">
+  <div class="logo-mark">Motion Picture<span>✦</span>Mafia</div>
 
- <div class="status" aria-live="polite"><strong>Under maintenance</strong> — scheduled upgrade in progress</div>
+  <!-- Projector reel SVG -->
+  <div class="reel-wrap">
+    <svg class="reel-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="46" stroke="#2a2a2a" stroke-width="2"/>
+      <circle cx="50" cy="50" r="38" stroke="#1e1e1e" stroke-width="1"/>
+      <!-- spokes -->
+      <g stroke="#c9a84c" stroke-width="1.5" opacity="0.7">
+        <line x1="50" y1="12" x2="50" y2="30"/>
+        <line x1="50" y1="70" x2="50" y2="88"/>
+        <line x1="12" y1="50" x2="30" y2="50"/>
+        <line x1="70" y1="50" x2="88" y2="50"/>
+        <line x1="22.7" y1="22.7" x2="35.4" y2="35.4"/>
+        <line x1="64.6" y1="64.6" x2="77.3" y2="77.3"/>
+        <line x1="77.3" y1="22.7" x2="64.6" y2="35.4"/>
+        <line x1="35.4" y1="64.6" x2="22.7" y2="77.3"/>
+      </g>
+      <!-- sprocket holes -->
+      <circle cx="50" cy="16" r="4" fill="#111" stroke="#333" stroke-width="1"/>
+      <circle cx="50" cy="84" r="4" fill="#111" stroke="#333" stroke-width="1"/>
+      <circle cx="16" cy="50" r="4" fill="#111" stroke="#333" stroke-width="1"/>
+      <circle cx="84" cy="50" r="4" fill="#111" stroke="#333" stroke-width="1"/>
+      <circle cx="27.6" cy="27.6" r="3.5" fill="#111" stroke="#333" stroke-width="1"/>
+      <circle cx="72.4" cy="72.4" r="3.5" fill="#111" stroke="#333" stroke-width="1"/>
+      <circle cx="72.4" cy="27.6" r="3.5" fill="#111" stroke="#333" stroke-width="1"/>
+      <circle cx="27.6" cy="72.4" r="3.5" fill="#111" stroke="#333" stroke-width="1"/>
+      <!-- center hub -->
+      <circle cx="50" cy="50" r="10" fill="#111" stroke="#c9a84c" stroke-width="1.5"/>
+      <circle cx="50" cy="50" r="4" fill="#c9a84c" opacity="0.7"/>
+    </svg>
+  </div>
 
- <div style="height:18px"></div>
+  <div class="main-title">Intermission</div>
+  <div class="main-sub">The picture will resume shortly.</div>
 
- <div class="progress-wrap" aria-hidden="true">
- <div id="progress" class="progress" style="width:0%"></div>
- </div>
- <div class="eta" id="eta">Initializing…</div>
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line r"></div>
+  </div>
 
- <div class="countdown" id="countdown" aria-hidden="false" style="margin-top:14px"></div>
+  <!-- COUNTDOWN -->
+  <div class="countdown-wrap">
+    <div class="countdown-label">Back on screen in</div>
+    <div class="countdown">
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-d">00</div>
+        <div class="cd-lbl">Days</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-h">00</div>
+        <div class="cd-lbl">Hours</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-m">00</div>
+        <div class="cd-lbl">Mins</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-s">00</div>
+        <div class="cd-lbl">Secs</div>
+      </div>
+    </div>
+  </div>
 
- <ul class="features" aria-hidden="true">
- <li><span class="dot" aria-hidden="true"></span> New UI</li>
- <li><span class="dot" aria-hidden="true"></span> Uploading new files to Server</li>
- <li><span class="dot" aria-hidden="true"></span> Improved search</li>
- <li><span class="dot" aria-hidden="true"></span> Bug fixes</li>
- </ul>
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-header">
+      <span>Restoration Progress</span>
+      <strong id="pct-lbl">0%</strong>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <div class="progress-ticks">
+      <span>Start</span><span>25%</span><span>50%</span><span>75%</span><span>Done</span>
+    </div>
+  </div>
 
- <div style="height:10px"></div>
+  <!-- STATUS CHECKLIST -->
+  <div class="status-box">
+    <div class="status-row">
+      <div class="status-dot dot-done"></div>
+      <div class="status-text">Database backup complete</div>
+    </div>
+    <div class="status-row">
+      <div class="status-dot dot-done"></div>
+      <div class="status-text">Server infrastructure upgrade</div>
+    </div>
+    <div class="status-row">
+      <div class="status-dot dot-active"></div>
+      <div class="status-text active">Deploying new release — in progress</div>
+    </div>
+    <div class="status-row">
+      <div class="status-dot dot-wait"></div>
+      <div class="status-text">Final QA &amp; smoke tests</div>
+    </div>
+    <div class="status-row">
+      <div class="status-dot dot-wait"></div>
+      <div class="status-text">Going live</div>
+    </div>
+  </div>
 
- <p class="muted">Need help? <a href="mailto:admin@motionpicturemafia.com" class="btn" style="text-decoration:underline">Contact support</a></p>
+  <!-- FINISH TIME DISPLAY -->
+  <div class="finish-time">
+    Scheduled return: <strong id="finish-display">—</strong>
+  </div>
 
- <p class="footer">If you're seeing this after the scheduled time, try clearing your cache or contact support.</p>
- </section>
+  <div class="done-msg" id="done-msg">🎬 We're back! Refreshing the scene…</div>
 
- <aside class="right" aria-label="Maintenance status">
- <div class="gear-wrap" role="img" aria-label="Animated maintenance gear">
- <svg class="gear" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
- <defs>
- <linearGradient id="g1" x1="0" x2="1">
- <stop offset="0%" stop-color="#06b6d4"/>
- <stop offset="100%" stop-color="#7c3aed"/>
- </linearGradient>
- </defs>
- <g transform="translate(50,50)">
- <path d="M-14-36 L14-36 L18-22 L32-18 L36 0 L32 18 L18 22 L14 36 L-14 36 L-18 22 L-32 18 L-36 0 L-32 -18 L-18 -22 Z" fill="url(#g1)" opacity="0.15"></path>
- <circle r="26" fill="none" stroke="url(#g1)" stroke-width="6" stroke-linecap="round"/>
- <circle r="10" fill="#071026" stroke="url(#g1)" stroke-width="3"/>
- </g>
- </svg>
- </div>
+  <!-- BUTTONS -->
+  <div class="actions">
+    <a class="btn" href="/">
+      <span class="btn-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a class="btn btn-ghost" href="mailto:support@motionpicturemafia.com">
+      <span class="btn-icon">✉</span>
+      <span>Contact Support</span>
+    </a>
+  </div>
 
- <div style="text-align:center">
- <a id="refreshBtn" class="btn primary" role="button">Check status</a>
- <a href="/" class="btn" style="margin-left:8px">Return home</a>
- </div>
+</div>
 
- <p class="muted" style="text-align:center;margin-top:8px">Last update: <span id="lastUpdate">—</span></p>
- </aside>
- </div>
+<script>
+  // ─────────────────────────────────────────────────
+  //  CONFIGURE: set your maintenance end date/time
+  // ─────────────────────────────────────────────────
+  const FINISH_DATE = new Date('2026-03-29T18:00:00'); // ← change this
+  const START_DATE  = new Date('2026-03-21T10:00:00'); // ← change this (when maintenance began)
+  // ─────────────────────────────────────────────────
 
- </main>
+  const cdD  = document.getElementById('cd-d');
+  const cdH  = document.getElementById('cd-h');
+  const cdM  = document.getElementById('cd-m');
+  const cdS  = document.getElementById('cd-s');
+  const fill = document.getElementById('progress-fill');
+  const pctLbl = document.getElementById('pct-lbl');
+  const doneMsg = document.getElementById('done-msg');
+  const finishEl = document.getElementById('finish-display');
 
- <script>
-  /* ====== Configuration ====== */
+  // Format finish date for display
+  finishEl.textContent = FINISH_DATE.toLocaleString('en-US', {
+    month: 'short', day: 'numeric', year: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  });
 
- const expectedStartISO = '2025-12-07T10:10:00+05:30'; // Maintenance start time
- const expectedReturnISO = '2025-12-07T14:00:00+05:30'; // Planned finish time
+  const pad = n => String(Math.floor(n)).padStart(2, '0');
 
+  function tick() {
+    const now    = Date.now();
+    const end    = FINISH_DATE.getTime();
+    const start  = START_DATE.getTime();
+    const diff   = end - now;
 
- const simulate = false; 
+    // Progress bar: percentage of time elapsed from start→end
+    const total   = end - start;
+    const elapsed = Math.max(0, now - start);
+    const pct     = Math.min(100, Math.round((elapsed / total) * 100));
+    fill.style.width = pct + '%';
+    pctLbl.textContent = pct + '%';
 
- /* ====== Small helpers ====== */
- const progressEl = document.getElementById('progress');
- const etaEl = document.getElementById('eta');
- const countdownEl = document.getElementById('countdown');
- const lastUpdateEl = document.getElementById('lastUpdate');
- let progressInterval; // Declare interval globally for clarity
+    if (diff <= 0) {
+      // Done!
+      cdD.textContent = '00'; cdH.textContent = '00';
+      cdM.textContent = '00'; cdS.textContent = '00';
+      fill.style.width = '100%';
+      pctLbl.textContent = '100%';
+      doneMsg.style.display = 'block';
+      setTimeout(() => location.reload(), 3000);
+      return;
+    }
 
- function setProgress(p){
- // Ensure progress is between 0% and 100%
- const clampedP = Math.max(2, Math.min(100, p));
- progressEl.style.width = clampedP + '%';
- 
- if (p < 0) {
- etaEl.textContent = 'Maintenance scheduled to start soon.';
- } else if (p >= 100) {
- etaEl.textContent = 'Completed — refreshing shortly';
- } else {
- etaEl.textContent = `Upgrade progress: ${Math.round(p)}%`;
- }
- lastUpdateEl.textContent = new Date().toLocaleString();
- }
+    const days  = diff / 86400000;
+    const hours = (diff % 86400000) / 3600000;
+    const mins  = (diff % 3600000)  / 60000;
+    const secs  = (diff % 60000)    / 1000;
 
- /* Time-based progress calculation */
- const start = expectedStartISO ? new Date(expectedStartISO).getTime() : 0;
- const end = expectedReturnISO ? new Date(expectedReturnISO).getTime() : 0;
- const totalDuration = end - start;
- 
- function updateTimeProgress() {
- if (totalDuration <= 0) {
- 
- setProgress(end > 0 && new Date().getTime() > end ? 100 : 0);
- return;
- }
+    cdD.textContent = pad(days);
+    cdH.textContent = pad(hours);
+    cdM.textContent = pad(mins);
+    cdS.textContent = pad(secs);
 
- const now = new Date().getTime();
- const elapsed = now - start;
- let percentage = (elapsed / totalDuration) * 100;
+    // Pulse red when < 1 hour
+    const urgent = diff < 3600000;
+    [cdD,cdH,cdM,cdS].forEach(el => el.style.color = urgent ? '#c0392b' : '');
+  }
 
- // Clamp the percentage between 0 and 100
- percentage = Math.max(0, Math.min(100, percentage));
- setProgress(percentage);
-
- if (percentage >= 100) {
- clearInterval(progressInterval);
- progressEl.style.transition = 'width 600ms ease-out';
- 
- // Attempt auto-refresh after completion
- setTimeout(()=>{
- try{ if('navigation' in window) window.location.reload(); else window.location.href = window.location.href; }catch(e){}
- }, 1400);
- }
- }
-
- // Start time-based progress updates
- updateTimeProgress();
- progressInterval = setInterval(updateTimeProgress, 1000);
-
- /* Countdown display (if configured) */
- function renderCountdown(iso){
- if(!iso) return;
- const target = new Date(iso);
- if(isNaN(target)) return;
-
- function update(){
- const diff = Math.max(0, target - new Date());
- const days = Math.floor(diff / (1000*60*60*24));
- const hrs = Math.floor((diff / (1000*60*60)) % 24);
- const mins = Math.floor((diff / (1000*60)) % 60);
- const secs = Math.floor((diff / 1000) % 60);
-
- countdownEl.innerHTML = `
- <div class="cell" aria-hidden="false"><div class="num">${days}</div><div class="lbl">days</div></div>
- <div class="cell" aria-hidden="false"><div class="num">${hrs}</div><div class="lbl">hrs</div></div>
- <div class="cell" aria-hidden="false"><div class="num">${mins}</div><div class="lbl">mins</div></div>
- <div class="cell" aria-hidden="false"><div class="num">${secs}</div><div class="lbl">secs</div></div>
-`;
-
- if(diff <= 0){
- countdownEl.innerHTML = '<div class="muted">Maintenance window ended — reloading status…</div>';
- clearInterval(iv);
- setTimeout(()=>location.reload(),1200);
- }
- }
- update();
- const iv = setInterval(update, 1000);
- }
-
- // Start countdown if date set
- renderCountdown(expectedReturnISO);
-
- // Manual check button
- document.getElementById('refreshBtn').addEventListener('click', ()=>{
- updateTimeProgress();
- lastUpdateEl.textContent = new Date().toLocaleString();
- });
-
- // Accessibility: announce when progress reaches 100
- const obs = new MutationObserver(()=>{
- if(parseFloat(progressEl.style.width) >= 100){
- etaEl.setAttribute('aria-live','polite');
- }
- });
- obs.observe(progressEl,{attributes:true,attributeFilter:['style']});
-
- // Small entrance animation
- document.querySelector('.card').animate([
- {transform:'translateY(14px)',opacity:0},
- {transform:'translateY(0)',opacity:1}
- ],{duration:700,easing:'cubic-bezier(.2,.9,.25,1)'});
-
- </script>
+  tick();
+  setInterval(tick, 1000);
+</script>
 </body>
 </html>
