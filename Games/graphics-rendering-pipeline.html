@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="3D Graphics වැඩ කරන්නේ කොහොමද? | Graphics Rendering Pipeline Sinhala | MPM">
+    <meta name="description" content="වීඩියෝ ගේම් එකක graphics 0 සහ 1 වලින් රියලිස්ටික් රූප බවට පත් වෙන හැටි සරලව. Vertex Shading, Rasterization සහ Fragment Shading ගැන සම්පූර්ණ විස්තරය.">
+  <meta name="keywords" content="How 3D graphics work Sinhala, Graphics rendering pipeline, GPU vs CPU graphics, Rasterization explained, Shading in video games, Ray tracing vs DLSS Sinhala, Motion Picture Mafia,MPM, MPM Studio">
+  <meta name="robots" content="index, follow">
+
+  <title>3D Graphics වැඩ කරන්නේ කොහොමද? | Graphics Rendering Pipeline Sinhala | MPM</title>
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <link rel="stylesheet" href="article.css">
+
+  <meta property="og:title" content="3D Graphics වැඩ කරන්නේ කොහොමද? | Graphics Rendering Pipeline Sinhala | MPM">
+<meta property="og:description" content="වීඩියෝ ගේම් එකක graphics 0 සහ 1 වලින් රියලිස්ටික් රූප බවට පත් වෙන හැටි සරලව. Vertex Shading, Rasterization සහ Fragment Shading ගැන සම්පූර්ණ විස්තරය.">
+<meta property="og:image" content="https://imgur.com/3AByEv6.jpeg"> 
+<meta property="og:url" content="https://motionpicturemafia.com/games/graphics-rendering-pipeline">
+<meta property="og:type" content="article">
+
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6KK47Q2PLX');
+</script> 
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff4757">
+<!--Google Ads-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8377794585544932"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <h1>Motion Picture Mafia Studio</h1>
+      <!-- Header Ad -->
+<div class="ad-rotator" id="ad-rotator">
+  <a href="#" target="_blank">
+    <img src="https://i.imgur.com/oa0eAKM.jpeg" alt="Ad 1">
+  </a>
+</div>
+</header>
+
+<nav class="main-nav">
+  <!-- Mobile Hamburger -->
+  <button class="nav-toggle" id="navToggle"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="navDrawer">
+    ☰
+  </button>
+
+  <!-- Desktop Menu -->
+  <div class="nav-desktop">
+    <a href="https://motionpicturemafia.com/">Home</a>
+    <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+    <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+    <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+    <a href="https://motionpicturemafia.com/games/games" class="active">Games</a>
+    <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+    <div class="nav-drawer-header">
+      <span class="nav-title">Menu</span>
+      <button class="nav-close" id="navClose" aria-label="Close menu">✕</button>
+    </div>
+
+    <div class="nav-drawer-links">
+      <a href="https://motionpicturemafia.com/">Home</a>
+      <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+      <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+      <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+      <a href="https://motionpicturemafia.com/games/games" class="active">Games</a>
+      <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+    </div>
+  </div>
+
+  <!-- Backdrop -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
+</nav>
+
+
+
+<!-- Theme Switch -->
+<div class="theme-switch">
+  <span class="moon">🌙</span>
+  <input type="checkbox" id="themeToggle">
+  <label for="themeToggle"></label>
+  <span class="sun">☀️</span>
+</div>
+
+<div class="container">
+  <div class="article">
+    <h1>3D Graphics වැඩ කරන්නේ කොහොමද? | Graphics Rendering Pipeline Sinhala</h1>
+    <div class="article-card" data-time="2026-03-22T18:30:00">
+      <p class="time"></p>
+        </div>
+    <img src="https://imgur.com/3AByEv6.jpeg" alt="post">
+
+    <h2>වීඩියෝ ගේම්ස්වල 3D graphics මැවෙන්නේ කොහොමද? (The Rendering Pipeline)</h2>
+    <p>ඔයාලා කවදාහරි හිතලා තියෙනවාද Red Dead Redemption 2 වගේ ගේම් එකක තියෙන ඒ realistic environment එක, ගොඩනැගිලි, සහ මිනිස්සු ඇත්තටම හැදෙන්නේ කොහොමද කියලා? මේ හැමදේම ඇත්තටම graphics කාඩ් එක ඇතුළේ දුවන බිලියන ගණනක බිංදු සහ එක (0 and 1) විතරයි.</p>
+    <p>අද අපි බලමු මේ 0 සහ 1 කොහොමද ඔයාගේ screen එකේ ලස්සන රූප බවට පත් වෙන්නේ කියලා. මේ වැඩේ ප්‍රධාන පියවර තුනකින් සිද්ධ වෙනවා: <strong>Vertex Shading</strong>, <strong>Rasterization</strong>, සහ <strong>Fragment Shading</strong>.</p>
+
+    <h2>1. Vertex Shading: 3D ලෝකය 2D screen එකට ගේන හැටි</h2>
+    <p>අපි දකින ඕනෑම 3D වස්තුවක් හැදිලා තියෙන්නේ පුංචි ත්‍රිකෝණ (Triangles) දහස් ගණනක් එකතු වෙලා. මේ ත්‍රිකෝණ එකතු වෙලා තමයි "Mesh" එකක් හැදෙන්නේ.</p>
+    <p>Vertex Shading වලදී කරන්නේ, මේ 3D අවකාශයේ තියෙන ලක්ෂ්‍ය (Vertices) ඔයාගේ 2D මොනිටර් එකේ පේන්න ඕනේ කොතනද කියලා ගණනය කරන එකයි. මේක කරන්නේ හරිම සංකීර්ණ "Matrix Math" පාවිච්චි කරලා.</p>
+    <ul>
+      <li>Model Space</li>
+      <li>World Space</li>
+      <li>Camera Space</li>
+    </ul>
+    <p>ඔයාගේ graphics කාඩ් එකේ තියෙන Cores දහස් ගණනක් එකපාර මේ ගණනය කිරීම් ට්‍රිලියන ගණනක් කරන නිසා තමයි, තත්පරයකට ෆ්‍රේම්ස් (Frames) 120කට වඩා වැඩි වේගයකින් අපිට ගේම් එකක් පේන්නේ.</p>
+
+    <h2>2. Rasterization: ත්‍රිකෝණ පික්සල් බවට පත් කිරීම</h2>
+    <p>දැන් අපේ ත්‍රිකෝණ ටික 2D ස්ක්‍රීන් එකේ තියෙන තැන් අපි දන්නවා. හැබැයි මොනිටර් එකක් හැදිලා තියෙන්නේ කුඩා කොටු, ඒ කියන්නේ පික්සල් (Pixels) වලින්. 4K මොනිටර් එකක පික්සල් මිලියන 8.3ක් විතර තියෙනවා.</p>
+    <p>Rasterization පියවරේදී කරන්නේ, අර ත්‍රිකෝණ වැහිලා තියෙන පික්සල් මොනවාද කියලා හොයාගන්න එකයි. එතකොට ඒ පික්සල් වලට අදාළ පාට සහ Textures ලබා දෙන්න පුළුවන්.</p>
+    <h3>කවුද ඉස්සරහින් ඉන්නේ? (Z-Buffer)</h3>
+    <p>ගේම් එකක එක වස්තුවක් පිටිපස්සේ තවත් වස්තුවක් තියෙන්න පුළුවන්. එතකොට මොකක්ද පේන්න ඕනේ? මේක විසඳන්න Z-Buffer එහෙමත් නැත්නම් Depth Buffer එකක් පාවිච්චි කරනවා. මෙතැනදී හැම පික්සල් එකකටම "ගැඹුරක්" (Depth) ලබා දෙනවා. කැමරාවට ළඟම තියෙන දේ විතරක් ස්ක්‍රීන් එකේ පෙන්නලා, පිටිපස්සෙන් තියෙන දේවල් GPU එක මගින් අයින් කරනවා.</p>
+
+    <h3>කටුක දාර නැති කිරීම (Anti-Aliasing)</h3>
+    <p>ත්‍රිකෝණ පික්සල් බවට හරවද්දී දාරවල "කටුක" (Jagged edges) ස්වභාවයක් එන්න පුළුවන්. මේක නැති කරන්න Super Sampling Anti-Aliasing (SSAA) වගේ තාක්ෂණයන් පාවිච්චි කරනවා. මෙතැනදී එක පික්සල් එකක් ඇතුළේ තවත් පොඩි ලක්ෂ්‍ය කිහිපයක් පරීක්ෂා කරලා, පාටවල් මෘදු (Smooth) විදිහට මිශ්‍ර කරනවා.</p>
+
+    <h2>3. Fragment Shading: ආලෝකය සහ සෙවනැලි මැවීම</h2>
+    <p>මේක තමයි ගේම් එකක් realistic කරන්න තියෙන වැදගත්ම පියවර. පික්සල් වලට නිකන්ම පාටක් දාලා මදි, ඒ මතට ආලෝකය වැටෙන්නේ කොහොමද කියලා බලන්න ඕනේ.</p>
+    <p>Fragment Shading වලදී ආලෝකය එන දිශාව සහ වස්තුවේ මතුපිට හැරිලා තියෙන දිශාව (Surface Normal) අතර කෝණය ගණනය කරනවා.</p>
+    <ul>
+      <li>ආලෝකයට කෙළින්ම මුහුණ දීලා තියෙනවා නම් පාට ගොඩක් දීප්තිමත් වෙනවා.</li>
+      <li>පැත්තකට හැරිලා තියෙනවා නම් ඒක අඳුරු වෙනවා.</li>
+    </ul>
+    <p>මේ විදිහට තමයි ලෝහ වස්තුවක් දිලිසෙන විදිහ හෝ හෙවනැලි වැටෙන විදිහ ඇත්තටම වගේ අපිට පේන්නේ.</p>
+
+    <h2>අනාගතයේ graphics: Ray Tracing සහ DLSS</h2>
+    <p>අද කාලේ එන අලුත්ම ගේම්ස් වල මේ පියවර වලට අමතරව තවත් දේවල් කෙරෙනවා.</p>
+    <ul>
+      <li>Ray Tracing: ආලෝක කිරණ ඇත්තටම ගමන් කරන විදිහ ගණනය කරලා, ඉතාමත් නිවැරදි රිෆ්ලෙක්ෂන්ස් (Reflections) ලබා දෙනවා.</li>
+      <li>DLSS: අඩු resolution එකකින් ගේම් එක රන් කරලා, AI (Neural Networks) පාවිච්චි කරලා ඒක 4K වලට වඩා සුපිරි මට්ටමකට අප්ස්කේල් (Upscale) කරනවා.</li>
+    </ul>
+    <p>මේ හැම වැඩක්ම ඔයාගේ ග්‍රැෆික් කාඩ් එක තත්පරයකින් දහයෙන් පංගුවකටත් වඩා අඩු කාලයකදී කරලා ඉවර කරනවා. ඒකයි අපිට මෙච්චර smooth ව ගේම් එකක් play කරන්න පුළුවන් වෙලා තියෙන්නේ.</p>
+    <p>Graphics Cards වැඩ කරන්නේ කොහොමද කියලා දැනගන්න කැමති අය මේ <a href="https://motionpicturemafia.com/the-lab/how-graphics-cards-works" class="link" target="_self">link</a> එකෙන් ගිහින් බලන්න.</p>
+        
+
+    <p class="author">By <strong>SANA</strong></p>
+
+  </div>
+</div>
+<!-- =========================
+     COMMENT SECTION
+========================= -->
+<div class="comment-section">
+  <h2>💬 Comments</h2>
+
+  <div class="comment-form">
+    <input type="text" id="name" placeholder="Your name" required>
+    <textarea id="comment" placeholder="Write a comment..." required></textarea>
+    <button onclick="postComment()">Post Comment</button>
+  </div>
+
+  <div id="commentsList"></div>
+</div>
+
+<style>
+.comment-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.comment-form button {
+  background: #ff4757;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+.comment-box {
+  background: rgba(255,255,255,0.08);
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+</style>
+
+
+<button onclick="topFunction()" class="back-to-top" title="Go to top">↑ Top</button>
+
+<footer>
+  <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+
+<!-- Share Button -->
+<div class="share-container">
+  <div class="social-btns" id="socialBtns">
+    <a href="#" class="whatsapp" target="_blank">WhatsApp</a>
+    <a href="#" class="facebook" target="_blank">Facebook</a>
+  </div>
+  <button class="share-btn" id="mainShareBtn">Share</button>
+</div>
+
+<script src="buttons.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { 
+    getFirestore, 
+    collection, 
+    addDoc, 
+    query, 
+    orderBy, 
+    onSnapshot,
+    where,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // --- Firebase config---
+  const firebaseConfig = {
+    apiKey: "AIzaSyAUZac8QN9CML2rC4kFtAosmVGZqTjB0gM",
+    authDomain: "mpm-studio-aa7df.firebaseapp.com",
+    projectId: "mpm-studio-aa7df",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const articleId = "game-graphics";
+
+  const TELEGRAM_BOT_TOKEN = "8029455511:AAE4IGHXCUhk6Z1oQu9sK9yjSgSQCKPJRwY";
+  const TELEGRAM_CHAT_ID = "1455650122";
+  // -------------------------------------------------------------
+
+  window.postComment = async function () {
+    const name = document.getElementById("name").value.trim();
+    const comment = document.getElementById("comment").value.trim();
+
+    if (!name || !comment) {
+      alert("Fill all fields");
+      return;
+    }
+
+    try {
+      // 1) Save comment (pending approval)
+      await addDoc(collection(db, "comments"), {
+        articleId,
+        name,
+        comment,
+        approved: false,
+        created: serverTimestamp()
+      });
+
+      // 2) Send Telegram notification
+      // Build message — keep it short to avoid Telegram rate limits
+      const message = `🆕 New comment on MotionPictureMafia
+Article: ${articleId}
+Name: ${name}
+Comment: ${comment}
+Page: ${window.location.href}`;
+
+      // call Telegram API
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message
+        })
+      });
+
+      // UI feedback
+      document.getElementById("comment").value = "";
+      alert("Comment submitted! Waiting for approval.");
+
+    } catch (err) {
+      console.error("postComment error:", err);
+      alert("Error submitting comment. Check console for details.");
+    }
+  };
+
+  // load only approved comments for this article
+  const q = query(
+    collection(db, "comments"),
+    where("articleId", "==", articleId),
+    where("approved", "==", true),
+    orderBy("created", "desc")
+  );
+
+  onSnapshot(q, (snapshot) => {
+    const commentsList = document.getElementById("commentsList");
+    commentsList.innerHTML = "";
+
+    snapshot.forEach((docData) => {
+      const data = docData.data();
+
+      commentsList.innerHTML += `
+        <div class="comment-box">
+          <strong>${data.name}</strong>
+          <p>${data.comment}</p>
+        </div>
+      `;
+    });
+  });
+</script>
+</body>
+</html>
