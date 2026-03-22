@@ -1,5 +1,25 @@
 [
    {
+    "id": "hyper-echelon",
+    "platform": "epic",
+    "title": "Hyper Echelon",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/953330/header.jpg?t=1765231177",
+    "description": "The Cyan Galaxy is in peril! Your trusty little star fighter and rag tag squad of wingmen are the only hope against the evil EXODON! Level up from a pea shooter to an offensive powerhouse as you engage in frantic combat across many wondrous locales.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/hyper-echelon-2d23ff",
+    "startDate": "2026-03-26T21:30:00",
+    "endDate": "2026-04-02T21:30:00"
+  },
+   {
+    "id": "havendock",
+    "platform": "epic",
+    "title": "Havendock",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2020710/7236297d57d5bcd8aec47450661b912dcb3de8ce/header.jpg?t=1773056724",
+    "description": "Breathe easy and thrive in this cozy colony sim. Build a haven for castaways, manage resources, live your best life on the ocean. Lead your humble settlement into a high-tech society.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/havendock-64983e",
+    "startDate": "2026-03-26T21:30:00",
+    "endDate": "2026-04-02T21:30:00"
+  },
+    {
     "id": "Pet_Lands",
     "platform": "steam",
     "title": "Pet Lands",
