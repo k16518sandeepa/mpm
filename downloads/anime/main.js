@@ -37,40 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("touchstart", play, { once: true });
   }
 
-  // === Mobile Menu + Swipe Gestures ===
-  const hamburger = document.querySelector(".hamburger");
-  const mobileMenu = document.querySelector(".mobile-menu");
-  const body = document.body;
-
-  function openMenu() { mobileMenu.classList.add("active"); body.style.overflow = "hidden"; }
-  function closeMenu() { mobileMenu.classList.remove("active"); body.style.overflow = ""; }
-
-  hamburger?.addEventListener("click", () => mobileMenu.classList.toggle("active"));
-
-  // Close when tapping outside
-  document.addEventListener("click", (e) => {
-    if (mobileMenu.classList.contains("active") && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
-      closeMenu();
-    }
-  });
-
-  // Touch Swipe Gestures
-  let touchStartX = 0;
-  document.addEventListener("touchstart", (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  });
-
-  document.addEventListener("touchend", (e) => {
-    if (!touchStartX) return;
-    let touchEndX = e.changedTouches[0].screenX;
-    let diff = touchEndX - touchStartX;
-
-    if (Math.abs(diff) > 70) {  // Minimum swipe distance
-      if (diff > 0) openMenu();     // Swipe right → open
-      else closeMenu();             // Swipe left → close
-    }
-    touchStartX = 0;
-  });
 
   // === Stranger Things Poster Effect ===
   const poster = document.querySelector(".poster");
