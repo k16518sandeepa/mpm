@@ -1212,7 +1212,28 @@ window.addEventListener("scroll", () => {
 function topFunction() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
+/* ================= MOBILE TAP-TO-REVEAL CARDS ================= */
+// Only on touch devices
+if (window.matchMedia("(pointer: coarse)").matches) {
+  document.getElementById("gridContainer").addEventListener("click", e => {
+    const card = e.target.closest(".card");
+    if (!card) return;
+
+    // If tapping the download button, let it fire normally
+    if (e.target.closest(".download-btn")) return;
+
+    const alreadyTapped = card.classList.contains("tapped");
+
+    // Untap all other cards
+    document.querySelectorAll(".card.tapped").forEach(c => c.classList.remove("tapped"));
+
+    // Toggle the tapped card
+    if (!alreadyTapped) card.classList.add("tapped");
+  });
+}
 </script>
+
 <script src="popup-ad.js"></script>
 </body>
 </html>

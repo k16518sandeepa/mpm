@@ -444,20 +444,27 @@ nav a.active {
   opacity: 0.8;
 }
 
-/* ── MOBILE — ALWAYS VISIBLE INFO ── */
-@media (pointer: coarse), (max-width: 600px) {
-  .card .info {
-    position: relative;
-    transform: none !important;
-    padding: 10px 10px 10px;
-    background: var(--surface);
+/* ── MOBILE — TAP TO REVEAL (poster overlay stays) ── */
+@media (pointer: coarse) {
+  /* Remove hover effects on touch — use .tapped class instead */
+  .card:hover {
+    transform: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   }
-  .card img {
-    aspect-ratio: 16 / 9;
+  .card:hover img { transform: none; }
+  .card:hover .info { transform: translateY(calc(100% - 54px)); }
+  .card:hover .info p { opacity: 0; transform: translateY(6px); }
+  .card:hover button { opacity: 0; transform: translateY(6px); }
+
+  /* .tapped = finger-revealed state */
+  .card.tapped {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 20px var(--red-glow);
+    z-index: 2;
   }
-  .card .info p { opacity: 1; transform: none; margin-bottom: 8px; }
-  .card button  { opacity: 1; transform: none; }
-  .card:hover { transform: none; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+  .card.tapped img { transform: scale(1.06); }
+  .card.tapped .info { transform: translateY(0); }
+  .card.tapped .info p { opacity: 1; transform: translateY(0); }
+  .card.tapped button { opacity: 1; transform: translateY(0); }
 }
 
 /* ── LATEST BADGE ── */
@@ -530,6 +537,10 @@ nav a.active {
 }
 
 .grid.list-view .card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5), -3px 0 0 var(--red);
+}
+.grid.list-view .card.tapped {
   transform: translateX(4px);
   box-shadow: 0 4px 20px rgba(0,0,0,0.5), -3px 0 0 var(--red);
 }
