@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="title" content="Flower of Evil | MPM">
-  <meta name="description" content="Although Baek Hee Sung is hiding a dark secret surrounding his true identity, he has established a happy family life. But his facade begins to crumble when his wife, a homicide detective, begins investigating murders from 15 years ago.">
-  <meta property="og:title" content="Flower of Evil | Motion Picture Mafia Studio">
-  <meta property="og:description" content="Although Baek Hee Sung is hiding a dark secret surrounding his true identity, he has established a happy family life. But his facade begins to crumble when his wife, a homicide detective, begins investigating murders from 15 years ago.">
-  <meta property="og:image" content="https://qqcdnpictest.mxplay.com/pic/ba5d59f46925d0e42e63b01ad3a4dfb1/hi/16x9/1600x900/test_pic1743006390060.jpg">
-  <meta property="og:url" content="https://motionpicturemafia.com/downloads/asian-drama/flower-of-evil.html">
+  <meta name="title" content="Fringe | MPM">
+  <meta name="description" content="An F.B.I. agent is forced to work with an institutionalized scientist and his son in order to rationalize a brewing storm of unexplained phenomena.">
+  <meta property="og:title" content="Fringe | Motion Picture Mafia Studio">
+  <meta property="og:description" content="An F.B.I. agent is forced to work with an institutionalized scientist and his son in order to rationalize a brewing storm of unexplained phenomena.">
+  <meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1200/1*e_VFR8-cUlwqIn7kawouiQ.jpeg">
+  <meta property="og:url" content="https://motionpicturemafia.com/downloads/tv-series/fringe.html">
   <link rel="icon" type="image/png" href="Images/mpm logo.png">
-  <title>Flower of Evil — MPM</title>
+  <title>Fringe — MPM</title>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
@@ -37,7 +37,7 @@
       --surface-2: #1c1c1c;
       --surface-3: #252525;
       --red:       #e50000;
-      --red-dark:  #a00000;
+      --red-Fringe:  #a00000;
       --red-glow:  rgba(229,0,0,0.28);
       --text:      #f0ece8;
       --text-muted:#888;
@@ -73,7 +73,7 @@
     /* ── BLURRED BACKDROP ── */
     .bg-blur {
       position: fixed; inset: 0;
-      background: url('https://qqcdnpictest.mxplay.com/pic/ba5d59f46925d0e42e63b01ad3a4dfb1/hi/16x9/1600x900/test_pic1743006390060.jpg') center/cover no-repeat;
+      background: url('https://miro.medium.com/v2/resize:fit:1200/1*e_VFR8-cUlwqIn7kawouiQ.jpeg') center/cover no-repeat;
       filter: blur(18px) brightness(0.3) saturate(0.6);
       z-index: -2;
       transform: scale(1.05); /* prevent blur edge artifacts */
@@ -118,7 +118,7 @@
       animation: logoGlow 3s ease-in-out infinite alternate;
     }
     @keyframes logoGlow {
-      from { text-shadow: 0 0 6px rgba(229,0,0,0.3); }
+      Fringe { text-shadow: 0 0 6px rgba(229,0,0,0.3); }
       to   { text-shadow: 0 0 16px rgba(229,0,0,0.7); }
     }
 
@@ -249,7 +249,7 @@
     }
 
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(24px); }
+      Fringe { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -367,7 +367,7 @@
     .download-btn::before {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      background: linear-gradient(135deg, var(--red), var(--red-Fringe));
       opacity: 0;
       transition: opacity var(--transition);
     }
@@ -462,7 +462,7 @@
     .back-to-top.visible { display: flex; animation: fadeInUp 0.3s var(--ease); }
     .back-to-top:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(229,0,0,0.5); }
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(10px); }
+      Fringe { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -470,7 +470,151 @@
     ::-webkit-scrollbar       { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--red-dark); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--red-Fringe); }
+
+    /* ── COUNTDOWN CARD ── */
+    .countdown-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 18px 22px 16px;
+      background: var(--surface);
+      border: 1px solid rgba(229,0,0,0.35);
+      border-radius: var(--radius-lg);
+      color: var(--text);
+      overflow: hidden;
+      cursor: default;
+      animation: cardPulse 3s ease-in-out infinite;
+    }
+    @keyframes cardPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(229,0,0,0), 0 4px 20px rgba(0,0,0,0.5); border-color: rgba(229,0,0,0.35); }
+      50%       { box-shadow: 0 0 18px 3px rgba(229,0,0,0.22), 0 4px 20px rgba(0,0,0,0.5); border-color: rgba(229,0,0,0.65); }
+    }
+
+    /* Animated diagonal stripe background */
+    .countdown-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(229,0,0,0.03) 0px,
+        rgba(229,0,0,0.03) 2px,
+        transparent 2px,
+        transparent 14px
+      );
+      pointer-events: none;
+    }
+
+    /* Scanline sweep */
+    .countdown-card::after {
+      content: '';
+      position: absolute; top: 0; left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(229,0,0,0.07), transparent);
+      animation: scanSweep 4s ease-in-out infinite;
+    }
+    @keyframes scanSweep {
+      0%   { left: -60%; }
+      100% { left: 160%; }
+    }
+
+    .countdown-badge {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(229,0,0,0.15);
+      border: 1px solid rgba(229,0,0,0.4);
+      color: var(--red);
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 4px;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: blink 1.2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.2; }
+    }
+
+    .countdown-title {
+      position: relative; z-index: 1;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; letter-spacing: 2px;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .countdown-date {
+      position: relative; z-index: 1;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+
+    .countdown-units {
+      position: relative; z-index: 1;
+      display: flex; gap: 6px; align-items: flex-start;
+      width: 100%;
+    }
+
+    .countdown-unit {
+      display: flex; flex-direction: column; align-items: center;
+      flex: 1;
+    }
+
+    .countdown-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(22px, 5vw, 32px);
+      line-height: 1;
+      color: var(--text);
+      background: var(--surface-2);
+      border: 1px solid rgba(229,0,0,0.18);
+      border-radius: 6px;
+      width: 100%;
+      text-align: center;
+      padding: 6px 4px 4px;
+      letter-spacing: 1px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .countdown-num.tick {
+      color: var(--red);
+      border-color: rgba(229,0,0,0.5);
+    }
+
+    .countdown-label {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    .countdown-sep {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      color: rgba(229,0,0,0.4);
+      padding-top: 6px;
+      line-height: 1;
+      flex: none;
+    }
+
+    /* When countdown ends */
+    .countdown-card.released {
+      border-color: rgba(229,0,0,0.6);
+      cursor: pointer;
+      animation: none;
+      box-shadow: 0 0 24px rgba(229,0,0,0.25);
+    }
+    .countdown-card.released:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(229,0,0,0.35);
+    }
   </style>
 </head>
 <body>
@@ -512,9 +656,9 @@
   <div class="breadcrumb">
     <a href="https://motionpicturemafia.com/downloads/">Downloads</a>
     <span>›</span>
-    <a href="https://motionpicturemafia.com/downloads/">Asian Dramas</a>
+    <a href="https://motionpicturemafia.com/downloads/">TV Series</a>
     <span>›</span>
-    <span>Flower of Evil</span>
+    <span>Fringe</span>
   </div>
 
   <!-- ── HERO ── -->
@@ -523,36 +667,35 @@
     <!-- Poster -->
     <div class="poster-wrap">
       <div class="poster" id="poster">
-        <img src="https://m.media-amazon.com/images/M/MV5BZDI2YTZmMmQtMGE5NS00YWU2LTk1MDktMDQxMDYzNGI5MDA5XkEyXkFqcGc@._V1_.jpg" alt="Flower of Evil Poster" loading="eager">
+        <img src="https://m.media-amazon.com/images/M/MV5BMWVlMmE1MmEtNjhjMC00MDdmLWIzZGMtNjc1YTZmNDc2MWExXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Fringe Poster" loading="eager">
       </div>
     </div>
 
     <!-- Info -->
     <div class="info-panel">
-      <div class="category-tag">🌸 Asian Dramas</div>
+      <div class="category-tag">📺 TV Series</div>
 
-      <h1 class="title">Flower of <br>Evil</h1>
+      <h1 class="title">Fringe</h1>
 
       <p class="synopsis">
-      Although Baek Hee Sung is hiding a dark secret surrounding his true identity, he has established a happy family life. But his facade begins to crumble when his wife, a homicide detective, begins investigating murders from 15 years ago.  
+      An F.B.I. agent is forced to work with an institutionalized scientist and his son in order to rationalize a brewing storm of unexplained phenomena.  
       </p>
 
       <div class="stats">
-        <span class="stat-chip highlight">2020</span>
-        <span class="stat-chip">⭐ IMDb 8.5</span>
-        <span class="stat-chip">Korean</span>
-        <span class="stat-chip">Romance</span>
-        <span class="stat-chip">Crime</span>
+        <span class="stat-chip highlight">2008 - 2013</span>
+        <span class="stat-chip">⭐ IMDb 8.4</span>
+        <span class="stat-chip">Suspense Mystery</span>
+        <span class="stat-chip">Sci-Fi</span>
         <span class="stat-chip">Thriller</span>
         <span class="stat-chip">TV-14</span>
-        <span class="stat-chip">16 Episodes</span>
-        <span class="stat-chip">1 Season(s)</span>
+        <span class="stat-chip">100 Episodes</span>
+        <span class="stat-chip">3 Season(s)</span>
       </div>
 
       <div class="trailer-wrap">
         <iframe
-          src="https://www.youtube.com/embed/QSmDCxfdiAA"
-          title="Flower of Evil Trailer"
+          src="https://www.youtube.com/embed/29bSzbqZ3xE"
+          title="Fringe Trailer"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
           loading="lazy">
@@ -569,9 +712,29 @@
 
     <div class="download-grid">
 
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=flower_of_evil">
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=fringe_s1">
         <div class="btn-label">⬇ Season 1</div>
-        <div class="btn-meta">16 Episodes · 720p WEB-DL</div>
+        <div class="btn-meta">20 Episodes · 720p</div>
+        <span class="btn-arrow">→</span>
+      </a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=fringe_s2">
+        <div class="btn-label">⬇ Season 2</div>
+        <div class="btn-meta">23 Episodes · 720p</div>
+        <span class="btn-arrow">→</span>
+      </a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=fringe_s3">
+        <div class="btn-label">⬇ Season 3</div>
+        <div class="btn-meta">22 Episodes · 720p</div>
+        <span class="btn-arrow">→</span>
+      </a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=fringe_s4">
+        <div class="btn-label">⬇ Season 4</div>
+        <div class="btn-meta">22 Episodes · 720p</div>
+        <span class="btn-arrow">→</span>
+      </a>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=fringe_s5">
+        <div class="btn-label">⬇ Season 5</div>
+        <div class="btn-meta">13 Episodes · 720p</div>
         <span class="btn-arrow">→</span>
       </a>
 
@@ -649,6 +812,65 @@
       btt.classList.toggle("visible", window.scrollY > 300);
     }, { passive: true });
     btt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+    /* ── SEASON 4 COUNTDOWN ── */
+    (function() {
+      const PREMIERE = new Date("2026-04-19T00:00:00").getTime();
+      const card  = document.getElementById("s4card");
+      const dEl   = document.getElementById("cd-days");
+      const hEl   = document.getElementById("cd-hours");
+      const mEl   = document.getElementById("cd-mins");
+      const sEl   = document.getElementById("cd-secs");
+
+      function pad(n) { return String(n).padStart(2, "0"); }
+
+      function flash(el) {
+        el.classList.add("tick");
+        setTimeout(() => el.classList.remove("tick"), 300);
+      }
+
+      let prevS = -1;
+
+      function tick() {
+        const now  = Date.now();
+        const diff = PREMIERE - now;
+
+        if (diff <= 0) {
+          // Countdown done — show "Out Now!" state
+          dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = "00";
+          card.classList.add("released");
+          card.querySelector(".countdown-badge").innerHTML = "✅ Out Now!";
+          card.querySelector(".countdown-title").textContent = "⬇ Season 4";
+          card.querySelector(".countdown-date").textContent = "Click to download";
+          card.style.cursor = "pointer";
+          card.onclick = () => { window.location.href = "https://t.me/mpmfilessharebot?start=Fringe_s4"; };
+          return; // stop ticking
+        }
+
+        const totalSec = Math.floor(diff / 1000);
+        const d = Math.floor(totalSec / 86400);
+        const h = Math.floor((totalSec % 86400) / 3600);
+        const m = Math.floor((totalSec % 3600) / 60);
+        const s = totalSec % 60;
+
+        dEl.textContent = pad(d);
+        hEl.textContent = pad(h);
+        mEl.textContent = pad(m);
+        sEl.textContent = pad(s);
+
+        if (s !== prevS) {
+          flash(sEl);
+          if (s === 59) { flash(mEl); }
+          if (s === 59 && m === 59) { flash(hEl); }
+          if (s === 59 && m === 59 && h === 23) { flash(dEl); }
+          prevS = s;
+        }
+
+        setTimeout(tick, 1000);
+      }
+
+      tick();
+    })();
 
 
   </script>
