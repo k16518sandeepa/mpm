@@ -1,5 +1,15 @@
 [
    {
+    "id": "deapths of horror",
+    "platform": "steam",
+    "title": "Depths Of Horror: Mushroom Day",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1590840/header.jpg?t=1775059568",
+    "description": "This is a 3D first-person adventure and horror game that lets you plunge deep into your fears.",
+    "claimUrl": "https://store.steampowered.com/app/1590840/Depths_Of_Horror_Mushroom_Day/",
+    "startDate": "2026-04-01T22:30:00",
+    "endDate": "2026-04-06T22:30:00"
+  },
+   {
     "id": "clone-drone-in-the-danger-zone",
     "platform": "epic",
     "title": "Clone Drone in the Danger Zone",
