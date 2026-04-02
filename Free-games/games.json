@@ -1,5 +1,15 @@
 [
    {
+    "id": "prop sump",
+    "platform": "epic",
+    "title": "Prop Sumo",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3089420/61bb501ec41d3bdd52f15558970f7cd80d48dbd7/header.jpg?t=1775143925",
+    "description": "Prop Sumo is a party fighting game that pits ordinary props together in extraordinary battles! Beat up your friends and dominate the scoreboard!",
+    "claimUrl": "https://store.epicgames.com/en-US/p/propsumo-ca8bd7",
+    "startDate": "2026-04-09T21:30:00",
+    "endDate": "2026-04-16T21:30:00"
+  },
+  {
     "id": "deapths of horror",
     "platform": "steam",
     "title": "Depths Of Horror: Mushroom Day",
@@ -8,6 +18,16 @@
     "claimUrl": "https://store.steampowered.com/app/1590840/Depths_Of_Horror_Mushroom_Day/",
     "startDate": "2026-04-01T22:30:00",
     "endDate": "2026-04-06T22:30:00"
+  },
+  {
+    "id": "tomak",
+    "platform": "epic",
+    "title": "TOMAK: Save the Earth Regeneration",
+    "image": "https://cdn1.epicgames.com/spt-assets/603c0097f96047c38bc199331b5cf95b/tomak--save-the-earth-regeneration-1cvou.png",
+    "description": "The legendary cult hit Tomak: Save the Earth arrives on the Epic Games Store! Nurture Evian, the Goddess of Love—trapped in a flowerpot—and save humanity from destruction.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/tomak-save-the-earth-regeneration-c1207c",
+    "startDate": "2026-04-02T20:30:00",
+    "endDate": "2026-04-16T20:30:00"
   },
    {
     "id": "clone-drone-in-the-danger-zone",
