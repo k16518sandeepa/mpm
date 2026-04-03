@@ -140,6 +140,137 @@
   </div>
 </div>
 <!-- =========================
+     RELATED ARTICLES
+========================= -->
+<div class="related-articles">
+  <div class="related-articles-inner">
+    <h2 class="related-title"><span class="related-title-bar"></span> Related Articles</h2>
+    <div class="related-grid">
+
+      <a href="https://motionpicturemafia.com/the-lab/how-repackers-shrink-60gb-games-to-10gb" class="related-card" target="_blank">
+        <div class="related-card-img-wrap">
+          <img src="https://imgur.com/cnNyPQf.jpeg" alt="fitgirl">
+          <span class="related-tag">The Lab</span>
+        </div>
+        <div class="related-card-body">
+          <h3>Repackers ලාගේ රහස: 60GB game එකක් 10GB කරන්නේ කොහොමද?</h3>
+          <p>ඔයාලා Computer Games (PC Games) play කරන කෙනෙක් නම්, අනිවාර්යයෙන්ම FitGirl හෝ DODI වගේ නම් අහලා ඇති. Internet එකෙන් games download කරද්දී ගොඩක් අය හොයන්නේ මේ අයගේ රිලීසස් (Releases).</p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<style>
+/* ── Related Articles ── */
+.related-articles {
+  background: #0d0d0d;
+  padding: 48px 20px;
+  margin-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.related-articles-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.related-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f0f0f0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.related-title-bar {
+  display: inline-block;
+  width: 4px;
+  height: 22px;
+  background: #ff4757;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+.related-card {
+  display: flex;
+  flex-direction: column;
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.related-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255,71,87,0.45);
+  box-shadow: 0 8px 28px rgba(255,71,87,0.12);
+}
+.related-card-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.related-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.related-card:hover .related-card-img-wrap img {
+  transform: scale(1.05);
+}
+.related-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff4757;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.related-card-body {
+  padding: 14px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.related-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f0f0f0;
+  line-height: 1.4;
+  margin: 0;
+}
+.related-card-body p {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.55;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+<!-- =========================
      COMMENT SECTION
 ========================= -->
 <div class="comment-section">
