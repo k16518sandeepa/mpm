@@ -1,552 +1,740 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support Us | Motion Picture Mafia</title>
-  <meta property="og:title" content="Support Us | Motion Picture Mafia">
-  <meta property="og:description" content="Support Motion Picture Mafia by becoming a donor. Choose from various tiers to enjoy exclusive benefits and help us continue providing quality content.">
-  <link rel="icon" type="image/png" href="Images/mpm logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-    body {
-      background: #000;
-      color: #fff;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Us | Motion Picture Mafia</title>
+<meta name="description" content="Support Motion Picture Mafia — your Sri Lanka's premier movie, TV, anime & gaming community.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Bebas+Neue&family=Special+Elite&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   RESET & ROOT
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:        #080808;
+  --surface:   #0f0f0f;
+  --surface2:  #141414;
+  --border:    #1e1e1e;
+  --border2:   #2a2a2a;
+  --gold:      #c9a84c;
+  --gold-dim:  #7a6230;
+  --gold-pale: #f0dfa0;
+  --red:       #c0392b;
+  --red-dim:   #7a1f18;
+  --cream:     #e8dfc8;
+  --muted:     rgba(232,223,200,0.45);
+  --body-font: 'DM Sans', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--body-font);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
 
-    /* === LOADING ANIMATION === */
-    #loader {
-      position: fixed;
-      inset: 0;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 1s ease, visibility 1s ease;
-    }
-    #loader.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-    .loader-logo {
-      font-size: clamp(2.5rem, 10vw, 4rem);
-      font-weight: 800;
-      background: linear-gradient(135deg, #ff3c3c, #ffb347, #ff7b00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 30px;
-      animation: pulse 2s infinite;
-    }
-    .loader-spinner {
-      width: 80px;
-      height: 80px;
-      border: 6px solid rgba(255,60,60,0.2);
-      border-top: 6px solid #ff3c3c;
-      border-radius: 50%;
-      animation: spin 1.2s linear infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.7; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.05); }
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+/* ═══════════════════════════════════════════
+   ATMOSPHERIC OVERLAYS
+═══════════════════════════════════════════ */
+.grain {
+  position: fixed; inset: 0; z-index: 200; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  opacity: 0.28; mix-blend-mode: overlay;
+  animation: grain .14s steps(1) infinite;
+}
+@keyframes grain {
+  0%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}20%{transform:translate(3%,1%)}
+  30%{transform:translate(-1%,4%)}40%{transform:translate(4%,-2%)}50%{transform:translate(-3%,3%)}
+  60%{transform:translate(1%,-4%)}70%{transform:translate(-4%,2%)}80%{transform:translate(2%,3%)}
+  90%{transform:translate(3%,-1%)}100%{transform:translate(-2%,4%)}
+}
+.scanlines {
+  position: fixed; inset: 0; z-index: 199; pointer-events: none;
+  background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.05) 2px,rgba(0,0,0,0.05) 4px);
+}
+.vignette {
+  position: fixed; inset: 0; z-index: 198; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.75) 100%);
+}
+/* subtle ambient light from top */
+.ambient {
+  position: fixed; top: -200px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 400px;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none; z-index: 1;
+}
 
-    /* Main Content */
-    .main-content {
-      opacity: 0;
-      transition: opacity 1.2s ease;
-    }
-    .main-content.loaded {
-      opacity: 1;
-    }
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 150;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px clamp(20px,5vw,60px);
+  background: linear-gradient(to bottom, rgba(8,8,8,0.95) 0%, transparent 100%);
+  border-bottom: 1px solid transparent;
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px; letter-spacing: .35em; color: var(--gold-dim);
+  text-decoration: none; text-transform: uppercase; white-space: nowrap;
+}
+.nav-logo strong { color: var(--gold); }
+.nav-back {
+  font-family: 'Special Elite', cursive;
+  font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  transition: color .2s;
+  display: flex; align-items: center; gap: 6px;
+}
+.nav-back:hover { color: var(--gold); }
 
-    /* NAVBAR */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(15px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 100;
-    }
-    .logo {
-      font-size: 1.6rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #ff3c3c, #ffb347);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .menu-toggle {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: #ff3c3c;
-    }
-    .nav-buttons a {
-      margin-left: 15px;
-      text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 25px;
-      font-weight: 600;
-      transition: all 0.4s ease;
-    }
-    .btn-outline {
-      border: 2px solid #ff3c3c;
-      color: #ff3c3c;
-    }
-    .btn-outline:hover {
-      background: #ff3c3c;
-      color: #000;
-      box-shadow: 0 0 20px rgba(255,60,60,0.6);
-    }
-    .btn-fill {
-      background: linear-gradient(135deg, #ff3c3c, #ff7b00);
-      color: #000;
-    }
-    .btn-fill:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(255,60,60,0.7);
-    }
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 100px clamp(20px,6vw,80px) 60px;
+  position: relative; z-index: 10;
+}
 
-    /* HEADER */
-    .header {
-      text-align: center;
-      padding: 140px 20px 60px;
-      max-width: 900px;
-      margin: 0 auto;
-      animation: fadeUp 1s ease;
-    }
-    .header h1 {
-      font-size: clamp(2.5rem, 8vw, 3.5rem);
-      margin-bottom: 25px;
-      background: linear-gradient(135deg, #ff3c3c, #ffb347, #ff7b00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
-    }
-    .header p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #ddd;
-      margin-bottom: 20px;
-    }
+/* decorative horizontal rule lines */
+.hero-rule {
+  width: clamp(180px,40vw,320px); height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  margin-bottom: 28px;
+  animation: fadeIn .8s ease .1s both;
+}
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 
-    /* PREMIUM TIERS */
-    .tiers {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 40px;
-      padding: 40px 20px 100px;
-      max-width: 1500px;
-      margin: 0 auto;
-    }
-    .tier {
-      position: relative;
-      background: rgba(15,15,15,0.75);
-      backdrop-filter: blur(20px);
-      border-radius: 30px;
-      padding: 50px 30px 40px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-      transition: all 0.5s cubic-bezier(0.25,0.8,0.25,1);
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      animation: fadeUp 0.8s ease forwards;
-      opacity: 0;
-    }
-    .tier:nth-child(1) { animation-delay: 0.3s; border-top: 5px solid #ff3c3c; }
-    .tier:nth-child(2) { animation-delay: 0.5s; border-top: 5px solid #ff7b00; }
-    .tier:nth-child(3) { animation-delay: 0.7s; border-top: 5px solid #ffb347; }
-    .tier:nth-child(4) { animation-delay: 0.9s; border-top: 5px solid #ffd700; }
+.hero-eyebrow {
+  font-family: 'Special Elite', cursive;
+  font-size: 11px; letter-spacing: .45em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 18px;
+  animation: fadeUp .6s ease .15s both;
+}
 
-    /* Ribbon Badge */
-    .tier::before {
-      content: attr(data-tier);
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg,#ff3c3c,#ff7b00);
-      color: #fff;
-      padding: 10px 35px;
-      border-radius: 0 0 20px 20px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      box-shadow: 0 10px 20px rgba(255,60,60,0.4);
-      z-index: 2;
-    }
-    .tier:nth-child(2)::before { background: linear-gradient(135deg,#ff7b00,#ffb347); }
-    .tier:nth-child(3)::before { background: linear-gradient(135deg,#ffb347,#ffd700); box-shadow: 0 10px 20px rgba(255,179,71,0.5); }
-    .tier:nth-child(4)::before { background: linear-gradient(135deg,#ffd700,#ffffff); color:#000; box-shadow: 0 10px 30px rgba(255,215,0,0.6); }
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 12vw, 110px);
+  line-height: .9; color: var(--gold);
+  letter-spacing: .03em;
+  animation: fadeUp .7s ease .25s both;
+  position: relative;
+}
+.hero-title em {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-weight: 400;
+  font-size: clamp(22px, 5vw, 48px);
+  color: var(--cream); letter-spacing: .06em;
+  margin-top: 6px;
+}
 
-    .tier:hover {
-      transform: translateY(-20px) scale(1.03);
-      box-shadow: 0 40px 100px rgba(255,60,60,0.4);
-    }
-    .tier:nth-child(3):hover { box-shadow: 0 40px 100px rgba(255,179,71,0.5); }
-    .tier:nth-child(4):hover { box-shadow: 0 40px 100px rgba(255,215,0,0.7); }
+.hero-ornament {
+  display: flex; align-items: center; gap: 14px;
+  width: 100%; max-width: 480px;
+  margin: 28px auto 24px;
+  animation: fadeUp .6s ease .4s both;
+}
+.orn-line { flex: 1; height: 1px; background: linear-gradient(90deg,transparent,var(--gold-dim)); }
+.orn-line.r { background: linear-gradient(90deg,var(--gold-dim),transparent); }
+.orn-diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); flex-shrink:0; }
 
-    .tier h2 {
-      text-align: center;
-      font-size: clamp(2rem, 6vw, 2.6rem);
-      margin: 20px 0 10px;
-      background: linear-gradient(135deg,#ff3c3c,#ffb347);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
-    }
-    .tier .price {
-      text-align: center;
-      font-size: clamp(1.8rem, 5vw, 2.2rem);
-      font-weight: 800;
-      color: #ffb347;
-      margin: 20px 0 30px;
-      padding: 15px;
-      background: rgba(255,179,71,0.15);
-      border-radius: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-    .tier .price::after {
-      content: '';
-      position: absolute;
-      top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-      transform: rotate(30deg);
-      animation: shine 5s infinite;
-    }
-    @keyframes shine {
-      0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
-      100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
-    }
+.hero-body {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.5vw, 19px);
+  color: rgba(232,223,200,.75);
+  max-width: 540px; line-height: 1.75;
+  animation: fadeUp .6s ease .5s both;
+  margin-bottom: 42px;
+}
 
-    .tier ul {
-      list-style: none;
-      padding: 0;
-      margin: 30px 0;
-    }
-    .tier ul li {
-      padding: 16px 0;
-      padding-left: 45px;
-      position: relative;
-      line-height: 1.7;
-      font-size: 1.05rem;
-      border-bottom: 1px dashed rgba(255,255,255,0.1);
-    }
-    .tier ul li:last-child { border-bottom: none; }
-    .tier ul li::before {
-      content: "✔";
-      position: absolute;
-      left: 0;
-      font-size: 1.6rem;
-      font-weight: bold;
-      background: linear-gradient(135deg,#ff3c3c,#ff7b00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.hero-scroll-hint {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: fadeIn 1s ease 1.2s both;
+}
+.scroll-label { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-dim); }
+.scroll-arrow { width: 1px; height: 36px; background: linear-gradient(to bottom, var(--gold-dim), transparent); animation: scrollPulse 1.5s ease infinite; }
+@keyframes scrollPulse { 0%,100%{opacity:.4} 50%{opacity:1} }
 
-    .donor-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 18px;
-      margin-top: 30px;
-      font-weight: 700;
-      font-size: 1.2rem;
-      border-radius: 30px;
-      text-decoration: none;
-      background: linear-gradient(135deg,#ff3c3c,#ff7b00);
-      color: #fff;
-      transition: all 0.5s ease;
-      box-shadow: 0 10px 30px rgba(255,60,60,0.5);
-      position: relative;
-      overflow: hidden;
-    }
-    .donor-btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 50px rgba(255,60,60,0.8);
-    }
-    .donor-btn::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, transparent, rgba(255,255,255,0.2), transparent);
-      transform: translateX(-100%);
-      transition: transform 0.6s;
-    }
-    .donor-btn:hover::before {
-      transform: translateX(100%);
-    }
+/* ═══════════════════════════════════════════
+   SECTION WRAPPER
+═══════════════════════════════════════════ */
+.section {
+  position: relative; z-index: 10;
+  padding: clamp(60px,10vw,100px) clamp(20px,6vw,80px);
+  max-width: 1100px; margin: 0 auto;
+}
+.section-label {
+  font-family: 'Special Elite', cursive;
+  font-size: 10px; letter-spacing: .4em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 6vw, 56px);
+  color: var(--cream); letter-spacing: .04em; line-height: 1;
+  margin-bottom: 12px;
+}
+.section-sub {
+  font-size: clamp(13px, 1.8vw, 15px);
+  color: var(--muted); max-width: 520px; line-height: 1.75;
+  margin-bottom: 48px;
+}
 
-    /* FOOTER CTA */
-    .footer-cta {
-      text-align: center;
-      padding: 80px 20px;
-      background: rgba(15,15,15,0.5);
-      backdrop-filter: blur(10px);
-    }
-    .footer-cta h3 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg,#ffb347,#ff7b00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .footer-cta p {
-      color: #ccc;
-      margin-bottom: 30px;
-      font-size: 1.1rem;
-    }
-    .footer-cta a {
-      margin: 0 15px;
-      padding: 14px 30px;
-      border-radius: 30px;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.4s;
-    }
+/* ═══════════════════════════════════════════
+   WHY SUPPORT — STATS ROW
+═══════════════════════════════════════════ */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 64px;
+}
+.stat-cell {
+  background: var(--surface);
+  padding: clamp(20px,4vw,32px) clamp(16px,3vw,28px);
+  text-align: center;
+  transition: background .25s;
+}
+.stat-cell:hover { background: var(--surface2); }
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 7vw, 56px);
+  color: var(--gold); line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-lbl {
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted);
+}
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(60px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+/* ═══════════════════════════════════════════
+   WHAT YOUR SUPPORT DOES — ITEMS
+═══════════════════════════════════════════ */
+.perks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 0;
+}
+.perk-item {
+  background: var(--surface);
+  padding: clamp(22px,4vw,32px);
+  position: relative; overflow: hidden;
+  transition: background .25s, transform .2s;
+}
+.perk-item:hover { background: var(--surface2); }
+.perk-item::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; width: 3px; height: 0;
+  background: var(--gold);
+  transition: height .4s cubic-bezier(.22,1,.36,1);
+}
+.perk-item:hover::before { height: 100%; }
+.perk-icon {
+  font-size: 26px; margin-bottom: 14px; display: block;
+  filter: grayscale(.3);
+}
+.perk-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: .06em; color: var(--cream);
+  margin-bottom: 8px;
+}
+.perk-desc {
+  font-size: 13px; color: var(--muted); line-height: 1.65;
+}
 
-    /* Background Animation */
-    #particle-canvas, .background-animation {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .background-animation::before,
-    .background-animation::after {
-      content: '';
-      position: absolute;
-      width: 800px;
-      height: 800px;
-      border-radius: 45% 55% 60% 40%;
-      background: linear-gradient(135deg, #ff3c3c, #ff7b00, #7b00ff, #ff3c3c);
-      opacity: 0.15;
-      animation: float 25s infinite linear;
-    }
-    .background-animation::before { top: -200px; left: -200px; }
-    .background-animation::after { bottom: -300px; right: -200px; width: 1000px; height: 1000px; animation-delay: -12s; animation-duration: 30s; }
-    .orb { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #ff7b00, transparent); opacity: 0.1; filter: blur(40px); animation: drift linear infinite; }
-    .orb:nth-child(1) { width: 400px; height: 400px; top: 10%; left: 15%; animation-duration: 40s; }
-    .orb:nth-child(2) { width: 600px; height: 600px; bottom: 10%; right: 10%; background: radial-gradient(circle at 30% 30%, #7b00ff, transparent); animation-duration: 50s; animation-delay: -15s; }
-    .orb:nth-child(3) { width: 300px; height: 300px; top: 50%; left: 70%; background: radial-gradient(circle at 30% 30%, #ff3c3c, transparent); animation-duration: 35s; animation-delay: -8s; }
-    @keyframes float { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(100px,100px) rotate(360deg); } }
-    @keyframes drift { 0% { transform: translate(0,0); } 50% { transform: translate(150px,-100px); } 100% { transform: translate(0,0); } }
+/* ═══════════════════════════════════════════
+   SUPPORT TIERS
+═══════════════════════════════════════════ */
+.tiers-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.tier-card {
+  background: var(--bg);
+  padding: clamp(28px,4vw,40px) clamp(22px,3.5vw,32px);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: background .25s;
+}
+.tier-card:hover { background: var(--surface); }
+.tier-card.featured {
+  background: linear-gradient(160deg, #100d06 0%, #0f0e09 100%);
+  border-top: 3px solid var(--gold);
+  margin-top: -3px;
+}
+.tier-card.featured:hover { background: linear-gradient(160deg, #141008 0%, #131109 100%); }
 
-    /* MOBILE RESPONSIVENESS */
-    @media (max-width: 768px) {
-      .navbar { padding: 15px 20px; }
-      .menu-toggle { display: block; }
-      .nav-buttons {
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: rgba(0,0,0,0.95);
-        backdrop-filter: blur(15px);
-        flex-direction: column;
-        display: none;
-        padding: 20px 0;
-      }
-      .nav-buttons.active { display: flex; }
-      .nav-buttons a { margin: 10px 0; width: 80%; text-align: center; }
-      .header { padding: 120px 15px 40px; }
-      .tiers { gap: 30px; padding: 20px 15px 80px; }
-      .tier { padding: 40px 25px 35px; }
-      .tier::before { font-size: 1rem; padding: 8px 30px; }
-      .footer-cta a { display: block; width: 80%; margin: 15px auto; }
-    }
-  </style>
+/* featured glow */
+.tier-card.featured::after {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.tier-badge {
+  position: absolute; top: 16px; right: 16px;
+  font-family: 'Special Elite', cursive;
+  font-size: 8px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--bg); background: var(--gold);
+  padding: 3px 8px;
+}
+.tier-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(26px, 5vw, 34px);
+  letter-spacing: .06em; color: var(--cream);
+  margin-bottom: 4px;
+}
+.tier-card.featured .tier-name { color: var(--gold); }
+
+.tier-price {
+  display: flex; align-items: baseline; gap: 4px;
+  margin-bottom: 20px;
+}
+.tier-currency {
+  font-family: 'Special Elite', cursive;
+  font-size: 14px; color: var(--gold-dim);
+}
+.tier-amount {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 8vw, 60px); line-height: 1;
+  color: var(--cream);
+}
+.tier-card.featured .tier-amount { color: var(--gold-pale); }
+.tier-period {
+  font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tier-divider {
+  height: 1px; background: var(--border);
+  margin-bottom: 20px;
+}
+
+.tier-perks { list-style: none; margin-bottom: 28px; flex: 1; }
+.tier-perks li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--muted);
+  padding: 7px 0; border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+}
+.tier-perks li:last-child { border-bottom: none; }
+.tier-perks li::before {
+  content: '✦'; color: var(--gold-dim);
+  font-size: 8px; flex-shrink: 0; margin-top: 4px;
+}
+.tier-card.featured .tier-perks li { color: rgba(232,223,200,.65); }
+.tier-card.featured .tier-perks li::before { color: var(--gold); }
+
+/* tier CTA */
+.tier-btn {
+  display: block; text-align: center; text-decoration: none;
+  font-family: 'Special Elite', cursive;
+  font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+  padding: 13px 20px;
+  border: 1px solid var(--border2); color: var(--muted);
+  position: relative; overflow: hidden;
+  transition: color .3s, border-color .3s, transform .2s;
+}
+.tier-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--surface2);
+  transform: translateX(-101%);
+  transition: transform .35s cubic-bezier(.77,0,.175,1);
+  z-index: 0;
+}
+.tier-btn:hover { color: var(--cream); border-color: var(--gold-dim); }
+.tier-btn:hover::before { transform: translateX(0); }
+.tier-btn:active { transform: scale(.98); }
+.tier-btn span { position: relative; z-index: 1; }
+
+.tier-btn.primary {
+  background: var(--gold); color: var(--bg);
+  border-color: var(--gold);
+}
+.tier-btn.primary::before { background: var(--red); }
+.tier-btn.primary:hover { color: #fff; border-color: var(--red); }
+
+/* ═══════════════════════════════════════════
+   ONE-TIME SUPPORT
+═══════════════════════════════════════════ */
+.onetime-section { position: relative; z-index: 10; }
+.onetime-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: clamp(60px,10vw,100px) clamp(20px,6vw,80px);
+}
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.method-card {
+  background: var(--surface);
+  padding: clamp(24px,4vw,36px) clamp(20px,3vw,28px);
+  text-align: center;
+  text-decoration: none;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  position: relative; overflow: hidden;
+  transition: background .25s, transform .2s;
+  cursor: pointer;
+}
+.method-card:hover { background: var(--surface2); transform: translateY(-2px); }
+.method-card::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--gold); transform: scaleX(0);
+  transition: transform .35s cubic-bezier(.22,1,.36,1);
+}
+.method-card:hover::after { transform: scaleX(1); }
+.method-logo { font-size: 32px; line-height: 1; }
+.method-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: .08em; color: var(--cream);
+}
+.method-desc { font-size: 11px; color: var(--muted); letter-spacing: .08em; line-height: 1.5; text-transform: uppercase; }
+
+/* ═══════════════════════════════════════════
+   QUOTE PULLOUT
+═══════════════════════════════════════════ */
+.quote-section {
+  position: relative; z-index: 10; overflow: hidden;
+  padding: clamp(60px,8vw,90px) clamp(20px,6vw,80px);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.quote-section::before {
+  content: '"';
+  position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 320px; line-height: 1;
+  color: rgba(201,168,76,0.03);
+  pointer-events: none; user-select: none;
+}
+.quote-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(18px, 3.5vw, 28px);
+  color: var(--cream); line-height: 1.6;
+  max-width: 680px; margin: 0 auto 16px;
+  position: relative;
+}
+.quote-author {
+  font-family: 'Special Elite', cursive;
+  font-size: 10px; letter-spacing: .35em; text-transform: uppercase;
+  color: var(--gold-dim);
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER STRIP
+═══════════════════════════════════════════ */
+footer {
+  position: relative; z-index: 10;
+  padding: clamp(32px,5vw,48px) clamp(20px,5vw,60px);
+  border-top: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 16px;
+}
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 12px; letter-spacing: .35em; color: var(--gold-dim);
+}
+.footer-logo strong { color: var(--gold); }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a {
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-copy {
+  font-size: 10px; color: rgba(255,255,255,.15);
+  letter-spacing: .1em; width: 100%;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE
+═══════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .tiers-grid { grid-template-columns: 1fr; }
+  .tier-card.featured { margin-top: 0; border-top: 3px solid var(--gold); }
+  .methods-grid { grid-template-columns: 1fr 1fr; }
+  .perks-grid { grid-template-columns: 1fr; }
+  nav { padding: 14px 20px; }
+}
+@media (max-width: 380px) {
+  .methods-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
 </head>
 <body>
 
-<!-- Loading Screen -->
-<div id="loader">
-  <div class="loader-logo">MPM</div>
-  <div class="loader-spinner"></div>
+<!-- Atmosphere -->
+<div class="grain"></div>
+<div class="scanlines"></div>
+<div class="vignette"></div>
+<div class="ambient"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">Motion Picture <strong>Mafia</strong></a>
+  <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-rule"></div>
+  <p class="hero-eyebrow">An Offer You Can't Refuse</p>
+  <h1 class="hero-title">
+    Support<br>the Mafia
+    <em>Keep the reels spinning.</em>
+  </h1>
+  <div class="hero-ornament">
+    <div class="orn-line"></div>
+    <div class="orn-diamond"></div>
+    <div class="orn-line r"></div>
+  </div>
+  <p class="hero-body">
+    Motion Picture Mafia is a passion project — built for film lovers,
+    anime fans &amp; gamers across Sri Lanka and beyond.
+    Every review, update, and late-night article runs on pure love
+    for the craft&hellip; and your generosity.
+  </p>
+  <div class="hero-scroll-hint">
+    <span class="scroll-label">Scroll</span>
+    <span class="scroll-arrow"></span>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<div class="section reveal">
+  <p class="section-label">By the Numbers</p>
+  <div class="stats-row">
+    <div class="stat-cell">
+      <div class="stat-num">60<span style="color:var(--gold-dim);font-size:.6em">+</span></div>
+      <div class="stat-lbl">Articles Published</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">2K<span style="color:var(--gold-dim);font-size:.6em">+</span></div>
+      <div class="stat-lbl">Monthly Readers</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">6<span style="color:var(--gold-dim);font-size:.6em">+</span></div>
+      <div class="stat-lbl">Years Running</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">0</div>
+      <div class="stat-lbl">Ads Served to You</div>
+    </div>
+  </div>
 </div>
 
-<!-- Main Content -->
-<div class="main-content">
-  <!-- Background Layers -->
-  <canvas id="particle-canvas"></canvas>
-  <div class="background-animation">
-    <div class="orb"></div>
-    <div class="orb"></div>
-    <div class="orb"></div>
-  </div>
-
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <div class="logo">Motion Picture Mafia</div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <div class="nav-buttons" id="navMenu">
-      <a href="index.html" class="btn-outline">Home</a>
-      <a href="https://mpm-donor.free.nf/donors/login.php" class="btn-outline">Donor Login</a>
-      <a href="https://mpm-donor.free.nf/donors/index.php" class="btn-fill">Become a Donor</a>
+<!-- ═══ WHAT YOUR SUPPORT DOES ═══ -->
+<div class="section reveal" style="padding-top:0">
+  <p class="section-label">What Your Support Does</p>
+  <h2 class="section-title">Where Every Rupee Goes</h2>
+  <p class="section-sub">We're independent, ad-light, and community-funded. Your support directly keeps this operation alive.</p>
+  <div class="perks-grid">
+    <div class="perk-item">
+      <span class="perk-icon">🖥️</span>
+      <div class="perk-title">Hosting &amp; Servers</div>
+      <p class="perk-desc">Keeping motionpicturemafia.com fast, reliable, and always online, no downtime, no excuses.</p>
+    </div>
+    <div class="perk-item">
+      <span class="perk-icon">🎬</span>
+      <div class="perk-title">New Content</div>
+      <p class="perk-desc">More reviews, deeper dives, anime roundups, gaming coverage — more fuel for the machine.</p>
+    </div>
+    <div class="perk-item">
+      <span class="perk-icon">⚙️</span>
+      <div class="perk-title">Tools &amp; Features</div>
+      <p class="perk-desc">Subtitle tools, bots, community features — the side-projects that make MPM more than a website.</p>
+    </div>
+    <div class="perk-item">
+      <span class="perk-icon">🇱🇰</span>
+      <div class="perk-title">Sri Lanka First</div>
+      <p class="perk-desc">Local perspective on global cinema. Sinhala support, local community events, and representation.</p>
     </div>
   </div>
-
-  <!-- HEADER -->
-  <section class="header">
-    <h1>Support Motion Picture Mafia</h1>
-    <p>පසුගිය ටිකේ ටිකක් වැඩිපුර PC Games වැටෙනවා දකින්න ඇති ඔයාල. මොකද අපි ටිකක් පරන ක්‍රමයක් නැවත හදාගත්තා PC Games upload කරන්න. නමුත් මේ trick එක නොමිලේ කරන්න බෑ, සරලවම කිව්වොත් මේකට අපි අතින් සල්ලි දාල දැනට කරන්නේ. ඉතින් අපි අපේ groups මාසෙකට පොඩි ගානකට VIP කරන එක ගැන හිතුවා. නමුත් මෙච්චර කාලයක් නොමිලේ කරන් ආපු නිසාත්, Free ගන්න පුලුවන් දේවල් සල්ලි වලට විකුනන්න තියෙන අකමැත්ත නිසාත් එහෙම නොකරන්න අපි තීරනය කලා. නමුත් අපේ සල්ලි වලින් PC Games upload කරන්නත්, අපේ site එකට hosting ගෙවන්නත් අමාරු බව අපිට හොදටම තේරෙනවා. ඉතින් අපි තීරණය කලා ඔයාලගෙන් donations බාරගන්න.</p>
-    <p>මේ දේ කරන්නෙ ඔයාල සහ අපි යන දෙගොල්ලොගෙම යහපත ගැන හිතලා. නැත්තන් අපිට පුලුවන් අනික් ගොඩක් අය වගේ Group එකක් ගැම්මට පටන් අරන් ටික කාලයක් කරල නවත්තලා දාන්න. අපි හොදට හිතල ගත්ත තීරණයක් මේක.</p>
-    <p>ඒ වගේම ඒ සමගම අපි Donorsලට විශේෂ වරප්‍රසාද දෙන්න තීරනය කලා. මේ ඒවායින් කීපයක්:</p>
-  </section>
-
-  <!-- TIERS -->
-  <section class="tiers" id="tiers">
-    <div class="tier" data-tier="Basic">
-      <h2>Basic</h2>
-      <div class="price">LKR 150 / Month</div>
-      <ul>
-        <li>MPM Gaming telegram communities වලට Direct Access දෙනවා.</li>
-        <li>MPM Bot Group Access - ඔයාට direct links WhatsApp Documents විදියට ගන්න පුලුවන්. ඊට අමතරව තව ගොඩක් ගොඩක් වැඩ කරන්න පුලුවන්.</li>
-        <li>Internet එකෙන් හොයාගන්න පුලුවන් අවශ්‍ය ඕනෑම movie එකක් series එකක් පැය 24ක් ඇතුලත WhatsApp හෝ අත්‍යවශ්‍ය නම් Telegram, upload කරදීම. (විශාල series සදහා වඩා වැඩි කාලයක් ගත ගතවිය හැක. ඒ වගේම විශාල series සදහා සීමා සහිතයි.)</li>
-        <li>2 GB ට අඩු Softwares, Files WhatsApp හෝ Telegram upload කරදීම හෝ අවශ්‍ය නම් Direct Link එකක් ලබාදීම.</li>
-      </ul>
-      <a href="https://mpm-donor.free.nf/donors/index.php" class="donor-btn">Become Basic Donor</a>
-    </div>
-
-    <div class="tier" data-tier="Silver">
-      <h2>Silver</h2>
-      <div class="price">LKR 300 / Month</div>
-      <ul>
-        <li>Basic මට්ටමේ වාසි සියල්ල සමග</li>
-        <li>FitGirl හා DODI sites දෙකේ පවතින අවශ්‍ය ඕනෑම game එකක් දින කිහිපයක් ඇතුලත WhatsApp හෝ අත්‍යවශ්‍ය නම් Telegram, upload කරදීම.</li>
-        <li>ඔබට අවශ්‍ය telegram files සදහා දිගු කාලයක් online පවතින direct link එකක් පැය 24ක් ඇතුලත ලබාදීම.</li>
-        <li>8 GB ට අඩු Softwares, Files WhatsApp හෝ Telegram upload කරදීම හෝ අවශ්‍ය නම් Direct Link එකක් ලබාදීම.</li>
-      </ul>
-      <a href="https://mpm-donor.free.nf/donors/index.php" class="donor-btn">Become Silver Donor</a>
-    </div>
-
-    <div class="tier" data-tier="Gold">
-      <h2>Gold</h2>
-      <div class="price">LKR 500 / Month</div>
-      <ul>
-        <li>Silver මට්ටමේ වාසි සියල්ල සමග</li>
-        <li>Internet එකේ පවතින ඕනෑම file එකක් (NSFW දේවල් අදාල නොවේ.) WhatsApp හෝ අත්‍යවශ්‍ය නම් Telegram, upload කරදීම. (files පිලිබද වගකීමක් අපි දරන්නේ නැත.)</li>
-        <li>ඔයාල Telegram එකෙන් එවන video files, size එක ගොඩක් අඩු වෙන විදියට encode කරල දෙනවා.</li>
-      </ul>
-      <a href="https://mpm-donor.free.nf/donors/index.php" class="donor-btn">Become Gold Donor</a>
-    </div>
-
-    <div class="tier" data-tier="Platinum">
-      <h2>Platinum</h2>
-      <div class="price">LKR 700 / Month</div>
-      <ul>
-        <li>Gold මට්ටමේ වාසි සියල්ල සමග</li>
-        <li>ඔබට අවශ්‍ය ඕනෑම movie / series එකක සිංහල subtitles අප විසින් නිර්මාණය කරදීම. (විශාල series සදහා ගතවන කාලය වැඩි විය හැක.)</li>
-        <li>තව මෙතන නැති ඒත් අපෙන් සේවාවක් විදියට ගන්න පුලුවන් දේවල් තියෙනවා කියල හිතනවනම් අපිට msg එකක් දාල ඒ ගැන අහන්න ඔයාලට පුලුවන්!</li>
-      </ul>
-      <a href="https://mpm-donor.free.nf/donors/index.php" class="donor-btn">Become Platinum Donor</a>
-    </div>
-  </section>
-
-  <!-- FOOTER CTA -->
-  <section class="footer-cta">
-    <h3>Want to Become a Donor?</h3>
-    <p>Contact us for custom plans, lifetime access, or partnership opportunities.</p>
-    <a href="https://wa.link/mwj2n8" class="btn-fill">Contact Us</a>
-    <a href="https://mpm-donor.free.nf/donors/login.php" class="btn-outline">Donor Login</a>
-    <a href="donation-faq.html" class="btn-outline">Donation FAQ</a>
-  </section>
 </div>
+
+<!-- ═══ QUOTE ═══ -->
+<div class="quote-section reveal">
+  <p class="quote-text">
+    "I'm gonna make him an offer he can't refuse&hellip;<br>
+    great cinema, no paywalls, forever."
+  </p>
+  <p class="quote-author">— The MPM Family</p>
+</div>
+
+<!-- ═══ TIERS ═══ -->
+<div class="tiers-section">
+  <div class="section reveal">
+    <p class="section-label">Choose Your Loyalty</p>
+    <h2 class="section-title">Monthly Support Tiers</h2>
+    <p class="section-sub">Pick your rank in the family. Cancel anytime — no hard feelings.</p>
+    <div class="tiers-grid">
+
+      <!-- TIER 1 -->
+      <div class="tier-card">
+        <div class="tier-name">Associate</div>
+        <div class="tier-price">
+          <span class="tier-currency">LKR</span>
+          <span class="tier-amount">250</span>
+          <span class="tier-period">/mo</span>
+        </div>
+        <div class="tier-divider"></div>
+        <ul class="tier-perks">
+          <li>Keep the lights on</li>
+          <li>Name in supporters wall</li>
+          <li>Our undying gratitude</li>
+          <li>Early access to articles</li>
+        </ul>
+        <a href="https://ko-fi.com/motionpicturemafia" target="_blank" rel="noopener" class="tier-btn"><span>Become an Associate</span></a>
+      </div>
+
+      <!-- TIER 2 — FEATURED -->
+      <div class="tier-card featured">
+        <div class="tier-badge">Most Popular</div>
+        <div class="tier-name">Capo</div>
+        <div class="tier-price">
+          <span class="tier-currency">LKR</span>
+          <span class="tier-amount">750</span>
+          <span class="tier-period">/mo</span>
+        </div>
+        <div class="tier-divider"></div>
+        <ul class="tier-perks">
+          <li>Everything in Associate</li>
+          <li>Discord VIP role + badge</li>
+          <li>Monthly movie pick vote</li>
+          <li>Behind-the-scenes updates</li>
+          <li>Ad-free browsing priority</li>
+        </ul>
+        <a href="https://ko-fi.com/motionpicturemafia" target="_blank" rel="noopener" class="tier-btn primary"><span>Become a Capo</span></a>
+      </div>
+
+      <!-- TIER 3 -->
+      <div class="tier-card">
+        <div class="tier-name">Don</div>
+        <div class="tier-price">
+          <span class="tier-currency">LKR</span>
+          <span class="tier-amount">2000</span>
+          <span class="tier-period">/mo</span>
+        </div>
+        <div class="tier-divider"></div>
+        <ul class="tier-perks">
+          <li>Everything in Capo</li>
+          <li>Direct line to the team</li>
+          <li>Request a review or feature</li>
+          <li>Co-credit on articles</li>
+          <li>Lifetime supporter badge</li>
+        </ul>
+        <a href="https://ko-fi.com/motionpicturemafia" target="_blank" rel="noopener" class="tier-btn"><span>Become the Don</span></a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ONE-TIME ═══ -->
+<div class="onetime-section">
+  <div class="onetime-inner reveal">
+    <p class="section-label">No Commitment</p>
+    <h2 class="section-title">One-Time Support</h2>
+    <p class="section-sub">Rather make a single contribution? We accept it all. Every bit counts.</p>
+    <div class="methods-grid">
+
+      <a href="https://ko-fi.com/motionpicturemafia" target="_blank" rel="noopener" class="method-card">
+        <div class="method-logo">☕</div>
+        <div class="method-name">Ko-fi</div>
+        <div class="method-desc">Buy us a coffee</div>
+      </a>
+
+      <a href="https://www.paypal.com/paypalme/" target="_blank" rel="noopener" class="method-card">
+        <div class="method-logo">💳</div>
+        <div class="method-name">PayPal</div>
+        <div class="method-desc">Quick & secure</div>
+      </a>
+
+      <a href="#bank" class="method-card">
+        <div class="method-logo">🏦</div>
+        <div class="method-name">Bank Transfer</div>
+        <div class="method-desc">Local LKR transfer</div>
+      </a>
+
+      <a href="https://www.patreon.com/" target="_blank" rel="noopener" class="method-card">
+        <div class="method-logo">🎖️</div>
+        <div class="method-name">Patreon</div>
+        <div class="method-desc">Recurring or one-time</div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">Motion Picture <strong>Mafia</strong></div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/contact-us.html">Contact</a>
+    <a href="/about-us.html">About</a>
+    <a href="/privacy-policy.html">Privacy</a>
+  </div>
+  <p class="footer-copy">© 2025 Motion Picture Mafia. All rights reserved. Made with ♥ in Sri Lanka.</p>
+</footer>
 
 <script>
-// Mobile Menu Toggle
-function toggleMenu() {
-  document.getElementById("navMenu").classList.toggle("active");
-}
-
-// Loading + Particles
-const loader = document.getElementById('loader');
-const mainContent = document.querySelector('.main-content');
-
-window.addEventListener('load', () => {
-  initParticles();
-  setTimeout(() => {
-    loader.classList.add('hidden');
-    mainContent.classList.add('loaded');
-  }, 800);
-});
-
-const canvas = document.getElementById('particle-canvas');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-const particles = [];
-const particleCount = window.innerWidth < 768 ? 50 : 80;
-
-class Particle {
-  constructor() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 3 + 1;
-    this.speedX = Math.random() * 1 - 0.5;
-    this.speedY = Math.random() * 1 - 0.5;
-    this.color = Math.random() > 0.5 ? '#ff3c3c' : '#ff7b00';
-    this.opacity = Math.random() * 0.4 + 0.1;
-  }
-  update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-  }
-  draw() {
-    ctx.fillStyle = this.color;
-    ctx.globalAlpha = this.opacity;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function initParticles() {
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-  }
-  animate();
-}
-
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach(p => { p.update(); p.draw(); });
-  requestAnimationFrame(animate);
-}
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => io.observe(el));
 </script>
 
 </body>
