@@ -1,585 +1,708 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Uploaded Game list | MPM</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uploaded Games List | Motion Picture Mafia</title>
   <link rel="icon" type="image/png" href="Images/mpm logo.png">
-  <link rel="stylesheet" href="article.css">
-
-  <meta property="og:title" content="Uploaded Game List| Motion Picture Mafia Studio">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta property="og:title" content="Uploaded Games List | Motion Picture Mafia Studio">
 <meta property="og:description" content="MPM PC GAMES UPLOADED GAMES LIST">
 <meta property="og:image" content="https://hips.hearstapps.com/hmg-prod/images/gridoffset-videogames-1-1585583517.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*">
-<meta property="og:url" content="https://motionpicturemafia.com/updates/update%20game%20list.html">
+<meta property="og:url" content="https://motionpicturemafia.com/updates/uploaded-games-list.html">
 <meta property="og:type" content="article">
-<!--Google Ads-->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8377794585544932"
-     crossorigin="anonymous"></script>
- <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletamanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-6KK47Q2PLX');
-</script> 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff4757">
-
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080808;--surface:#0f0f0f;--surface2:#141414;--border:#1e1e1e;--border2:#2a2a2a;--gold:#c9a84c;--gold-dim:#7a6230;--gold-pale:#f0dfa0;--red:#c0392b;--cream:#e8dfc8;--muted:rgba(232,223,200,0.45);--nav-h:58px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:300;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");opacity:0.2;mix-blend-mode:overlay;animation:grain .14s steps(1) infinite}
+@keyframes grain{0%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}20%{transform:translate(3%,1%)}30%{transform:translate(-1%,4%)}40%{transform:translate(4%,-2%)}50%{transform:translate(-3%,3%)}60%{transform:translate(1%,-4%)}70%{transform:translate(-4%,2%)}80%{transform:translate(2%,3%)}90%{transform:translate(3%,-1%)}100%{transform:translate(-2%,4%)}}
+.navbar{position:sticky;top:0;z-index:200;height:var(--nav-h);background:rgba(8,8,8,0.97);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 clamp(12px,4vw,28px);gap:10px;backdrop-filter:blur(8px)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.3em;color:var(--gold-dim);text-decoration:none;white-space:nowrap;flex-shrink:0}.nav-logo strong{color:var(--gold)}
+.nav-divider{width:1px;height:22px;background:var(--border2);flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.nav-btn{font-family:'Special Elite',cursive;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 10px;border:1px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap}
+.nav-btn:hover{color:var(--gold);border-color:var(--border2)}.nav-btn.active{color:var(--gold);border-color:var(--gold-dim)}
+.nav-spacer{flex:1}
+.year-jumps{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.jump-pill{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--muted);text-decoration:none;padding:3px 10px;border:1px solid var(--border);transition:color .2s,border-color .2s,background .2s;white-space:nowrap}
+.jump-pill:hover,.jump-pill:active{color:var(--gold);border-color:var(--gold-dim);background:rgba(201,168,76,.06)}
+/* Mobile year bar — sits below navbar, always visible */
+.year-bar-mobile{display:none;position:sticky;top:var(--nav-h);z-index:190;background:rgba(8,8,8,0.97);border-bottom:1px solid var(--border);padding:8px clamp(12px,4vw,20px);gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.year-bar-mobile::-webkit-scrollbar{display:none}
+.year-bar-mobile .jump-pill{font-size:14px;padding:5px 14px;border-color:var(--border2)}
+.page-header{padding:clamp(28px,6vw,52px) clamp(16px,5vw,40px) 0;text-align:center}
+.page-header h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,10vw,80px);letter-spacing:.06em;color:var(--gold);line-height:1;margin-bottom:6px}
+.page-header .sub{font-family:'Special Elite',cursive;font-size:clamp(10px,2vw,12px);letter-spacing:.35em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+.stats-bar{display:flex;flex-wrap:wrap;justify-content:center;gap:1px;background:var(--border);border:1px solid var(--border);margin:0 clamp(16px,5vw,40px) 0}
+.stat-item{background:var(--surface);padding:14px 24px;text-align:center;flex:1;min-width:120px;transition:background .2s}.stat-item:hover{background:var(--surface2)}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,5vw,32px);color:var(--gold);line-height:1}
+.stat-lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.search-wrap{padding:clamp(20px,4vw,32px) clamp(16px,5vw,40px) 0}
+.search-inner{position:relative;max-width:600px;margin:0 auto}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--gold-dim);font-size:15px;pointer-events:none}
+#searchInput{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;padding:13px 44px 13px 42px;outline:none;transition:border-color .25s,box-shadow .25s;-webkit-appearance:none;border-radius:0}
+#searchInput::placeholder{color:var(--muted)}
+#searchInput:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px rgba(201,168,76,.08)}
+.search-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px 6px;display:none;line-height:1;transition:color .2s}.search-clear:hover{color:var(--gold)}.search-clear.visible{display:block}
+.search-meta{max-width:600px;margin:8px auto 0;font-size:11px;color:var(--muted);letter-spacing:.08em;min-height:18px;padding-left:2px}
+.content{padding:clamp(16px,4vw,28px) clamp(16px,5vw,40px) 80px;max-width:960px;margin:0 auto}
+.year-group{margin-bottom:32px}.year-group.hidden{display:none}
+.year-heading{display:flex;align-items:center;gap:14px;margin-bottom:2px;padding-top:8px}
+.year-heading-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,6vw,40px);color:var(--gold);letter-spacing:.08em;line-height:1;flex-shrink:0}
+.year-heading-meta{flex:1;border-top:1px solid var(--border)}
+.year-heading-meta span{display:inline-block;font-family:'Special Elite',cursive;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-dim);background:var(--bg);padding-right:12px;position:relative;top:-7px}
+.game-list{list-style:none;background:var(--border);border:1px solid var(--border)}
+.game-list li{background:var(--surface);display:flex;align-items:stretch;margin-bottom:1px;transition:background .18s;position:relative;overflow:hidden}
+.game-list li:last-child{margin-bottom:0}.game-list li.hidden{display:none}.game-list li:hover{background:var(--surface2)}
+.game-list li::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);transform:scaleY(0);transition:transform .25s cubic-bezier(.22,1,.36,1);transform-origin:bottom}
+.game-list li:hover::before{transform:scaleY(1)}
+.game-num{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--gold-dim);padding:12px 10px 12px 16px;min-width:42px;text-align:right;flex-shrink:0;line-height:1.6;border-right:1px solid var(--border)}
+.game-body{flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.game-date{font-family:'Special Elite',cursive;font-size:9px;letter-spacing:.15em;color:var(--gold-dim)}
+.game-title{font-size:clamp(12px,3vw,14px);font-weight:500;color:var(--cream);line-height:1.45;word-break:break-word}
+.game-title mark{background:rgba(201,168,76,.25);color:var(--gold-pale);border-radius:2px;padding:0 2px}
+.game-repack{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.game-size{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--gold);padding:11px 14px;flex-shrink:0;display:flex;align-items:center;border-left:1px solid var(--border);letter-spacing:.04em;white-space:nowrap}
+.game-size.unknown{color:var(--border2);font-size:11px;letter-spacing:.1em}
+.no-results{display:none;text-align:center;padding:60px 20px;font-family:'Special Elite',cursive;color:var(--muted);font-size:14px;letter-spacing:.2em;text-transform:uppercase}.no-results.visible{display:block}
+.no-results-big{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--border2);line-height:1;margin-bottom:12px;display:block}
+#scrollTop{position:fixed;bottom:24px;right:20px;z-index:250;width:44px;height:44px;background:var(--gold);color:var(--bg);border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.6);opacity:0;transform:translateY(16px);transition:opacity .3s,transform .3s,background .2s;pointer-events:none}
+#scrollTop.visible{opacity:1;transform:translateY(0);pointer-events:all}#scrollTop:hover{background:var(--gold-pale)}#scrollTop:active{transform:scale(.95)}
+.page-footer{border-top:1px solid var(--border);padding:24px clamp(16px,5vw,40px);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.page-footer a{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}.page-footer a:hover{color:var(--gold)}
+.page-footer span{font-size:10px;color:rgba(255,255,255,.12);letter-spacing:.1em}
+@media(max-width:600px){.nav-links{display:none}.year-jumps{display:none}.year-bar-mobile{display:flex}.game-size{padding:10px 10px;font-size:13px}.game-num{padding:10px 7px 10px 10px;min-width:32px}}
+@media(max-width:420px){.stat-item{min-width:80px;padding:10px 8px}}
+</style>
 </head>
 <body>
-
-<header>
-  <h1>Motion Picture Mafia Studio</h1>
-      <!-- Header Ad -->
-<div class="ad-rotator" id="ad-rotator">
-  <a href="#" target="_blank">
-    <img src="https://i.imgur.com/oa0eAKM.jpeg" alt="Ad 1">
-  </a>
-</div>
-</header>
-
-<nav>
-    <a href="https://motionpicturemafia.com/">Home</a>
-    <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
-    <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
-    <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
-    <a href="https://motionpicturemafia.com/games/games">Games</a>
-    <a href="https://motionpicturemafia.com/updates/updates" class="active">Updates</a>
-</nav>
-
-<!-- Theme Switch -->
-<div class="theme-switch">
-  <span class="moon">🌙</span>
-  <input type="checkbox" id="themeToggle">
-  <label for="themeToggle"></label>
-  <span class="sun">☀️</span>
-</div>
-
-<div class="container">
-  <div class="article">
-    <h1>MPM PC GAMES UPLOADED GAMES LIST</h1>
-    <img src="https://hips.hearstapps.com/hmg-prod/images/gridoffset-videogames-1-1585583517.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*" alt="list">
-
-<!-- 🔍 Search Input -->
-    <input type="text" id="searchBox" placeholder="🔍 Search games...">
-
-<ol id="gameList">
-
-    <h2>2026</h2>
-<li>2026.04.06:- NARUTO X BORUTO Ultimate Ninja STORM CONNECTIONS [Fitgirl Repack]</li>
-<li>2026.04.04:- UNCHARTED™: Legacy of Thieves Collection [Fitgirl Repack]</li>
-<li>2026.04.02:- Death Stranding Director's Cut [Fitgirl Repack]</li>
-<li>2026.03.31:- Far Cry 3: Duology [GOG]</li>
-<li>2026.03.31:- Far Cry 2 [GOG]</li>
-<li>2026.03.31:- Far Cry 1 [GOG]</li>
-<li>2026.03.26:- RoadCraft [Fitgirl Repack]</li>
-<li>2026.03.25:- Going Medieval [Fitgirl Repack]</li>
-<li>2026.03.24:- Nioh 3 [Fitgirl Repack]</li>
-<li>2026.03.22:- Far Cry® 6 [Dodi Repack]</li>
-<li>2026.03.21:- Sherman Commander [Fitgirl Repack]</li>
-<li>2026.03.20:- Elden Ring Nightreign Deluxe Edition [Fitgirl Repack]</li>
-<li>2026.03.17:- Rise of the Tomb Raider [Fitgirl Repack]</li>
-<li>2026.03.17:- Maya Ek Pishachini [Gamedrive.org]</li>
-<li>2026.03.17:- Watch Dogs 2 Gold Edition [Fitgirl Repack]</li>
-<li>2026.03.16:- Minecraft Bedrock Edition [ElAmigos]</li>
-<li>2026.03.16:- Atomic Heart [Fitgirl Repack]</li>
-<li>2026.03.01:- Warhammer 40,000: Battlesector - Deluxe Edition [Fitgirl Repack]</li>
-<li>2026.02.24:- Resident Evil 4 Remake [DODI Repack]</li>
-<li>2026.02.23:- Call Of Duty: Ghosts [DODI Repack]</li>
-<li>2026.02.18:- REANIMAL [Fitgirl Repack]</li>
-<li>2026.02.15:- HumanitZ [Fitgirl Repack]</li>
-<li>2026.02.08:- Grounded: Fully Yoked Edition [Fitgirl Repack]</li>
-<li>2026.02.08:- Call Of Duty Black Ops 1 [Fitgirl Repack]</li>
-<li>2026.02.08:- Cronos: The New Dawn [Fitgirl Repack]</li>
-<li>2026.02.08:- Green Hell [Fitgirl Repack]</li>
-<li>2026.02.08:- Alien: Rogue Incursion Evolved Edition - Deluxe [Fitgirl Repack]</li>
-<li>2026.02.07:- The Spirit of the Samurai Deluxe Edition [Fitgirl Repack]</li>
-<li>2026.02.05:- Grand Theft Auto San Andreas [SteamRIP]</li>
-<li>2026.02.05:- Grand Theft Auto Vice City [SteamRIP]</li>
-<li>2026.02.05:- Grand Theft Auto III [SteamRIP]</li>
-<li>2026.02.02:- Avatar: The Game 2009 [DODI Repack]</li>
-<li>2026.02.01:- Grand Theft Auto V Enhanced [Fitgirl Repack]</li>
-<li>2026.01.30:- Days Gone [Fitgirl Repack]</li>
-<li>2026.01.30:- Hellmart [Fitgirl Repack]</li>
-<li>2026.01.24:- Watch Dogs [Fitgirl Repack]</li>
-<li>2026.01.23:- Rayman Legends [DODI Repack]</li>
-<li>2026.01.23:- Age of Empires 3: Complete Collection [Fitgirl Repack]</li>
-<li>2026.01.21:- Quarantine Zone: The Last Check [Fitgirl Repack]</li>
-<li>2026.01.18:- Need For Speed: Most Wanted 2005 [SteamRIP]</li> 
-<li>2026.01.18:- Spider-Man: Web of Shadows</li> 
-<li>2026.01.15:- Call of Duty: Modern Warfare 2 [Fitgirl Repack]</li>    
-<li>2026.01.14:- GTA San Andreas [DODI Repack]</li>    
-<li>2026.01.14:- GTA Vice City - 10 Year Anniversary [DODI Repack]</li>
-<li>2026.01.14:- Project IGI 2: Covert Strike [GOG]</li>
-<li>2026.01.13:- Need for Speed Most Wanted 2012 [Fitgirl Repack]</li>
-<li>2026.01.13:- Max Payne 3: Complete Edition [Fitgirl Repack]</li>
-<li>2026.01.13:- Stray [Fitgirl Repack]</li>
-<li>2026.01.11:- A Plague Tale: Requiem [Fitgirl Repack]</li>
-<li>2026.01.11:- A Plague Tale: Innocence [Fitgirl Repack]</li>
-<li>2026.01.11:- Brothers: A Tale of Two Sons [Fitgirl Repack]</li>
-<li>2026.01.11:- Dead Space Remake [Fitgirl Repack]</li>
-<li>2026.01.11:- Expeditions: A MudRunner Game [Fitgirl Repack]</li>
-<li>2026.01.10:- Crysis 3 [Fitgirl Repack]</li>
-<li>2026.01.10:- Crysis 2 [DODI Repack]</li>
-<li>2026.01.10:- Crysis 1 [Fitgirl Repack]</li>
-<li>2026.01.10:- Call of Duty 3: Modern Warfare [Fitgirl Repack]</li>
-<li>2026.01.10:- Call of Duty 4: Modern Warfare [DODI Repack]</li>
-<li>2026.01.08:- Lords of the Fallen [Fitgirl Repack]</li>
-<li>2026.01.08:- Gotham Knights [Fitgirl Repack]</li>
-<li>2026.01.07:- DIRT 5 [Fitgirl Repack]</li>
-<li>2026.01.07:- NERO [Fitgirl Repack]</li>
-<li>2026.01.07:- Forza Horizon 3 [Fitgirl Repack]</li>
-<li>2026.01.07:- Assassin's Creed III Remastered [Fitgirl Repack]</li>
-<li>2026.01.06:- ServiceIT: You Can Do It [Fitgirl Repack]</li>
-<li>2026.01.06:- Assassin's Creed Origins [Fitgirl Repack]</li>
-<li>2026.01.06:- Assassin's Creed IV: Black Flag [Fitgirl Repack]</li>
-<li>2026.01.06:- Assassin's Creed Mirage [Fitgirl Repack]</li>
-<li>2026.01.05:- Rise of the Rōnin [Fitgirl Repack]</li>
-<li>2026.01.05:- Sekiro™: Shadows Die Twice - GOTY Edition [Fitgirl Repack]</li>
-<li>2026.01.05:- Resident Evil 6 [Fitgirl Repack]</li>
-<li>2026.01.02:- FEROCIOUS [Fitgirl Repack]</li>
-<li>2026.01.02:- Resident Evil Village [Fitgirl Repack]</li>
-<li>2026.01.01:- Far Cry Primal [Fitgirl Repack]</li>
-<li>2026.01.01:- Far Cry New Dawn [Fitgirl Repack]</li>
-<ol id="gameList">
-<h2>2025</h2>
-<li>2025.12.31:- Tom Clancy's Ghost Recon: Future Soldier [Dodi Repack]</li>
-<li>2025.12.31:- The Crew 2 [Fitgirl Repack]</li>
-<li>2025.12.31:- Grand Theft Auto VI [Fitgirl Repack]</li>
-<li>2025.12.31:- Clair Obscur: Expedition 33 [Fitgirl Repack]</li>
-<li>2025.12.30:- Jurassic World Evolution 2 [Fitgirl Repack]</li>
-<li>2025.12.30:- Jurassic World Evolution [Fitgirl Repack]</li>
-<li>2025.12.30:- Read Dead Redemption [Fitgirl Repack]</li>
-<li>2025.12.29:- Grand Theft Auto 1 [Dodi Repack]</li>
-<li>2025.12.29:- Grand Theft Auto 2 [Dodi Repack]</li>
-<li>2025.12.29:- Grand Theft Auto 3 [Dodi Repack]</li>
-<li>2025.12.29:- Taxi Chaos 2 [Fitgirl Repack]</li>
-<li>2025.12.29:- Far Cry 3: Duology [Fitgirl Repack]</li>
-<li>2025.12.29:- Biped 2 [Fitgirl Repack]</li>
-<li>2025.12.29:- Battlefield 6 [Fitgirl Repack]</li>
-<li>2025.12.28:- Euro Truck Simulator 2 [Fitgirl Repack]</li>
-<li>2025.12.28:- Warhammer 40K: Space Marine [Fitgirl Repack]</li>
-<li>2025.12.28:- Life is Strange [Fitgirl Repack]</li>
-<li>2025.12.27:- Spider-Man 3 [Scene Release]</li>
-<li>2025.12.27:- Little Nightmares III [Fitgirl Repack]</li>
-<li>2025.12.26:- HELL IS US [Fitgirl Repack]</li>
-<li>2025.12.25:- Little Nightmares Enhanced II Edition [Fitgirl Repack]</li>
-<li>2025.12.25:- Little Nightmares Enhanced Edition [Fitgirl Repack]</li>
-<li>2025.12.25:- The Crew [Fitgirl Repack]</li>
-<li>2025.12.20:- Outlast Complete Edition [Dodi Repack]</li>
-<li>2025.12.20:- Far Cry 4 Gold Edition [Fitgirl Repack]</li>
-<li>2025.12.07:- Minecraft Bedrock Edition [ElAmigos]</li>
-<li>2025.12.06:- Dispatch [Fitgirl Repack]</li>
-<li>2025.12.06:- Age of Mythology: Retold [Fitgirl Repack]</li>
-<li>2025.11.30:- Call of Duty 4: Modern Warfare [Fitgirl Repack]</li>
-<li>2025.11.30:- Need for Speed Heat Deluxe Edition [Fitgirl Repack]</li>  
-<li>2025.11.30:- Borderlands 2 [Fitgirl Repack]</li>  
-<li>2025.11.30:- Need for Speed: Hot Pursuit Remastered [Fitgirl Repack]</li>  
-<li>2025.11.29:- Far Cry 3: Duology [Fitgirl Repack]</li>  
-<li>2025.11.11:- SILENT HILL f 2025 [Fitgirl Repack]</li>
-<li>2025.11.08:- The Gretlow Tapes [Fitgirl Repack]</li>
-<li>2025.11.07:- Unravel Two [Fitgirl Repack]</li>
-<li>2025.11.06:- Unravel [Fitgirl Repack]</li>
-<li>2025.10.25:- Far Cry 3: Duology [Fitgirl Repack]</li>
-<li>2025.10.17:- Dirtzone [Fitgirl Repack]</li>
-<li>2025.09.30:- Assassin’s Creed Mirage [Fitgirl Repack]</li> 
-<li>2025.09.26:- Dying Light The Beast Deluxe Edition [Fitgirl Repack]</li> 
-<li>2025.09.18:- Bendy Lone Wolf [Fitgirl Repack]</li>
-<li>2025.09.13:- Hollow Knight: Silksong [Fitgirl Repack]</li>
-<li>2025.09.13:- Hollow Knight [Fitgirl Repack]</li>
-<li>2025.09.09:- Call of Duty: Modern Warfare III [Fitgirl Repack]</li>
-<li>2025.09.05:- Need for Speed Most Wanted 2012 [Dodi Repack]</li>
-<li>2025.09.05:- Need for Speed Most Wanted 2005 [Dodi Repack]</li>
-<li>2025.09.04:- Granny Remake [Fitgirl Repack]</li>
-<li>2025.08.10:- Call of Duty: Black Ops 6 [Fitgirl Repack]</li>
-<li>2025.08.04:- Spelunky 2 [Fitgirl Repack]</li>
-<li>2025.06.07:- Command & Conquer 3 - Dilogy [Fitgirl Repack]</li>
-<li>2025.05.31:- Call of Duty: Modern Warfare 2 Campaign (Reboot) [Portable]</li>
-<li>2025.05.31:- Need for Speed Payback [Fitgirl Repack]</li>
-<li>2025.05.31:- Watch Dogs [Fitgirl Repack]</li>
-<li>2025.05.24:- Dark Souls 3 [Fitgirl Repack]</li>
-<li>2025.05.24:- Dark Souls 2 [Fitgirl Repack]</li>
-<li>2025.05.19:- Need for Speed Heat [DODI Repack]</li>
-<li>2025.05.18:- Medal of Honor: Warfighter [DODI Repack]</li>
-<li>2025.05.16:- Dark Souls Remastered [Fitgirl Repack]</li>
-<li>2025.05.14:- Elden Ring [Fitgirl Repack]</li>
-<li>2025.05.12:- Medal of Honor [DODI Repack]</li>
-<li>2025.05.10:- Onimusha Warlords [Fitgirl Repack]</li>
-<li>2025.05.06:- Red Dead Redemption 2 [Fitgirl Repack]</li>
-<li>2025.05.05:- Silent Hill 2 Enhanced Edition [DODI Repack]</li>
-<li>2025.05.04:- Silent Hill Homecoming [DODI Repack]</li>
-<li>2025.05.04:- Silent Hill 4: The Room [Fitgirl Repack]</li>
-<li>2025.05.03:- Silent Hill 2 Remake [Fitgirl Repack]</li>
-<li>2025.05.01:- Spider Man Shattered Dimensions [Fitgirl Repack]</li>
-<li>2025.05.01:- Red Dead Redemption (2024) [Fitgirl Repack]</li>
-<li>2025.04.29:- Just Cause 2 Enhanced Edition [DODI Repack]</li>
-<li>2025.04.29:- Just Cause 1 [DODI Repack]</li>
-<li>2025.04.29:- Inside [Fitgirl Repack]</li>
-<li>2025.04.28:- Mortal Kombat 1 [Fitgirl Repack] (Emulator Version)</li>
-<li>2025.04.28:- Need for Speed Undercover Remastered [DODI Repack]</li>
-<li>2025.04.28:- Need for Speed Carbon Remastered [DODI Repack]</li>
-<li>2025.04.28:- Need for Speed Underground 2 Real Remaster [DODI Repack]</li>
-<li>2025.04.28:- Need for Speed Underground Definitive Edition [DODI Repack]</li>
-<li>2025.04.27:- Mafia 3: Definitive Edition [Fitgirl Repack]</li>
-<li>2025.04.25:- Orphans [Fitgirl Repack]</li>
-<li>2025.04.23:- Tom Clancy's Ghost Recon: Wildlands [Fitgirl Repack]</li>
-<li>2025.04.22:- Battlefield V [Fitgirl Repack]</li>
-<li>2025.04.22:- God of War: Ragnarok (2024) [Fitgirl Repack]</li>
-<li>2025.04.20:- Lurking Danger [Fitgirl Repack]</li>
-<li>2025.04.20:- Haste [Fitgirl Repack]</li>
-<li>2025.04.19:- God of War (2022) [Fitgirl Repack]</li>
-<li>2025.04.19:- Batman Arkham City [Fitgirl Repack]</li>
-<li>2025.04.18:- Bully Scholarship Edition [DODI Repack]</li>
-<li>2025.04.17:- Drive Rally [Fitgirl Repack]</li>
-<li>2025.04.17:- Finding Frankie [Fitgirl Repack]</li>
-<li>2025.04.16:- Battlefield 1 Digital Deluxe Edition [DODI Repack]</li>
-<li>2025.04.16:- Need for Speed: Most Wanted (2005) [Steamrip]</li>
-<li>2025.04.16:- Harry Potter and the Half-Blood Prince [Razor1911]</li>
-<li>2025.04.15:- The Rise of Jaloliddin [Fitgirl Repack]</li>
-<li>2025.04.15:- Ravenlok [Fitgirl Repack]</li>
-<li>2025.04.15:- Atelier Lydie and Suelle - The Alchemists and the Mysterious Paintings [Fitgirl Repack]</li>
-<li>2025.04.14:- The Last of Us Part 2 Remastered [Fitgirl Repack]</li>
-<li>2025.04.13:- Cyberdimension Neptunia [Fitgirl Repack]</li>
-<li>2025.04.12:- Stalked 2 [Fitgirl Repack]</li>
-<li>2025.04.11:- ONE PIECE World Seeker [Fitgirl Repack]</li>
-<li>2025.04.10:- Raw Footage [Fitgirl Repack]</li>
-<li>2025.04.08:- Assassin's Creed Rogue [Fitgirl Repack]</li>
-<li>2025.04.06:- Assassin's Creed Black Flag [Fitgirl Repack]</li>
-<li>2025.04.07:- The Last of Us Part 1 Digital Deluxe Edition [Fitgirl Repack]</li>
-<li>2025.04.06:- The Elder Scrolls V: Skyrim Special Edition [Fitgirl Repack]</li>
-<li>2025.04.04:- Assassin's Creed III [DODI Repack]</li>
-<li>2025.04.04:- Call of Duty World At War [DODI Repack]</li>
-<li>2025.04.03:- Crysis III [Fitgirl Repack]</li>
-<li>2025.04.02:- Shadow of the Tomb Raider: Definitive Edition [Fitgirl Repack]</li>
-<li>2025.04.02:- Hellblade: Senua's Sacrifice Enhanced [Fitgirl Repack]</li>
-<li>2025.04.01:- Assassin's Creed: Revelations [DODI Repack]</li>
-<li>2025.03.31:- Battlefield Hardline [DODI Repack]</li>
-<li>2025.03.30:- Assassin's Creed brotherhood [DODI Repack]</li>
-<li>2025.03.30:- Strike Force 2 - Terrorist Hunt Enhanced Edition [Fitgirl Repack]</li>
-<li>2025.03.30:- Redemption of Liuyin [Fitgirl Repack]</li>
-<li>2025.03.29:- Battlefield 4 [DODI Repack]</li>
-<li>2025.03.29:- Crysis II [DODI Repack]</li>
-<li>2025.03.28:- Assassin's Creed II [DODI Repack]</li>
-<li>2025.03.28:- Assassin's Creed Director's Cut [DODI Repack]</li>
-<li>2025.03.28:- Farmer’s Life: Ultimate Bundle [Fitgirl Repack]</li>
-<li>2025.03.28:- Dying Light Platinum Edition [Fitgirl Repack]</li>
-<li>2025.03.26:- Home Sweet Home [Fitgirl Repack]</li>
-<li>2025.03.26:- Crysis Warhead [Fitgirl Repack]</li>
-<li>2025.03.26:- Call of Duty: Black Ops - Cold War [DODI Repack]</li>
-<li>2025.03.25:- Yasuke Simulator [Fitgirl Repack]</li>
-<li>2025.03.25:- Crysis 1 (2007) [Fitgirl Repack]</li>
-<li>2025.03.24:- Battlefield 3 - V1.4.0 + MULTi10 [DODI Repack]</li>
-<li>2025.03.24:- Far Cry 2 Fortune's Edition [GOG]</li>
-<li>2025.03.24:- Far Cry 1 (2004) [GOG]</li>
-<li>2025.03.24:- Xenoblade Chronicles X [Fitgirl Repack]</li>
-<li>2025.03.22:- X-Men Origins: Wolverine [DODI Repack]</li>
-<li>2025.03.22:- Prince of Persia: The Lost Crown [Fitgirl Repack]</li>
-<li>2025.03.22:- Prince of Persia (2008) [DODI Repack]</li>
-<li>2025.03.21:- The Rogue Prince of Persia [DODI Repack]</li>
-<li>2025.03.21:- Prince of Persia: The Forgotten Sands [DODI Repack]</li>
-<li>2025.03.21:- Prince of Persia: The Two Thrones [DODI Repack]</li>
-<li>2025.03.21:- Prince of Persia: Warrior Within [DODI Repack]</li>
-<li>2025.03.21:- Prince of Persia: The Sands of Time [DODI Repack]</li>
-<li>2025.03.20:- Burnout Paradise Remastered [Fitgirl Repack]</li>
-<li>2025.03.20:- Sniper Elite V2 [Fitgirl Repack]</li>
-<li>2025.03.19:- Rise of the Tomb Raider [Fitgirl Repack]</li>
-<li>2025.03.18:- Dungeons of Hinterberg [Fitgirl Repack]</li>
-<li>2025.03.18:- Robin Hood - Sherwood Defenders [Fitgirl Repack]</li>
-<li>2025.03.18:- Blade Abyss [Fitgirl Repack]</li>
-<li>2025.03.17:- World Racing 2 - Champion Edition [Fitgirl Repack]</li>
-<li>2025.03.17:- Ale & Tale Tavern [Fitgirl Repack]</li>
-<li>2025.03.16:- Need for Speed Most Wanted (2012) [Fitgirl Repack]</li>
-<li>2025.03.15:- Tomb Raider Definitive Edition [Fitgirl Repack]</li>
-<li>2025.03.15:- Elypse [Fitgirl Repack]</li>
-<li>2025.03.15:- Battlefield: Bad Company 2 [DODI Repack]</li>
-<li>2025.03.15:- Call of Duty Modern Warfare 3 [Fitgirl Repack]</li>
-<li>2025.03.15:- Tomb Raider IV-VI Remastered [Fitgirl Repack]</li>
-<li>2025.03.14:- Call of Duty Modern Warfare 2 [Fitgirl Repack]</li>
-<li>2025.03.13:- Call of Duty 4 Modern Warfare [DODI Repack]</li>
-<li>2025.03.13:- Call of Duty 2 [DODI Repack]</li>
-<li>2025.03.12:- Call of Duty: Deluxe Edition [DODI Repack]</li>
-<li>2025.03.12:- Gas Station Simulator [Fitgirl Repack]</li>
-<li>2025.03.10:- The Surge: Complete Edition [Fitgirl Repack]</li>
-<li>2025.03.10:- Prototype 2 [Fitgirl Repack]</li>
-<li>2025.03.09:- Tomb Raider: Underworld [DODI Repack]</li>
-<li>2025.03.09:- Prototype [Fitgirl Repack]</li>
-<li>2025.03.09:- I am Fish [Fitgirl Repack]</li>
-<li>2025.03.09:- Age of Mythology: Retold v100.18.9036.0+4 DLCs/Bonuses [Fitgirl Repack]</li>
-<li>2025.03.07:- Tomb Raider I-III Remastered [Fitgirl Repack]</li>
-<li>2025.03.07:- Nero [Fitgirl Repack]</li>
-<li>2025.03.06:- The Witcher 3: Wild Hunt - Complete Edition [Fitgirl Repack]</li>
-<li>2025.03.06:- Goat Simulator 3 [Fitgirl Repack]</li>
-<li>2025.03.05:- Far Cry 3 + Blood Dragon [Fitgirl Repack]</li>
-<li>2025.03.05:- Styx: Master of Shadows [DODI Repack]</li>
-<li>2025.03.04:- The Awesome Adventures of Captain Spirit [DODI Repack]</li>
-<li>2025.03.04:- Jurassic World Evolution 2 [Fitgirl Repack]</li>
-<li>2025.03.03:- Haydee 3 [Fitgirl Repack]</li>
-<li>2025.03.03:- Alan Wake [Fitgirl Repack]</li>
-<li>2025.03.03:- Jurassic World Evolution [Fitgirl Repack]</li>
-<li>2025.03.03:- Breathedge [Fitgirl Repack]</li>
-<li>2025.03.02:- The Thing Remastered [Fitgirl Repack]</li>
-<li>2025.03.02:- Marvel’s Guardians of the Galaxy [DODI Repack]</li>
-<li>2025.03.01:- Homefront [DODI Repack]</li>
-<li>2025.03.01:- UNDER NIGHT IN-BIRTH II [Fitgirl Repack]</li>
-<li>2025.02.28:- Grand Theft Auto V / GTA 5 v1.0.3411/1.70 + Bonus Content</li>
-<li>2025.02.28:- Terror of the Seven Seas [Fitgirl Repack]</li>
-<li>2025.02.28:- The Witcher 2 EE [Fitgirl Repack]</li>
-<li>2025.02.27:- Alan Wake American Nightmare [Fitgirl Repack]</li>
-<li>2025.02.26:- The Witcher EEDC [Fitgirl Repack]</li>
-<li>2025.02.26:- Mad Max [Fitgirl Repack]</li>
-<li>2025.02.25:- The Last Farmer [Fitgirl Repack]</li>
-<li>2025.02.25:- Matchbox Driving Adventures [Fitgirl Repack]</li>
-<li>2025.02.25:- Dream Cage [Fitgirl Repack]</li>
-<li>2025.02.24:- Bright Memory: Infinite [Fitgirl Repack]</li>
-<li>2025.02.23:- TMNT: Splintered Fate [Fitgirl Repack]</li>
-<li>2025.02.23:- Before They Wake [Fitgirl Repack]</li>
-<li>2025.02.22:- Bright Memory [Fitgirl Repack]</li>
-<li>2025.02.22:- Panic in the Woods [Fitgirl Repack]</li>
-<li>2025.02.22:- BIOMUTANT [FitGirl Repack]</li>
-<li>2025.02.21:- Need for Speed Hot Pursuit [DODI Repack]</li>
-<li>2025.02.21:- Soulbind Tales Of The Underworld [FitGirl Repack]</li>
-<li>2025.02.21:- Borderlands GotY Edition [FitGirl Repack]</li>
-<li>2025.02.19:- Artifice War Tactics [FitGirl Repack]</li>
-<li>2025.02.18:- AMENTI [FitGirl Repack]</li>
-<li>2025.02.14:- Harry Potter and the Order of the Phoenix [R.G.Catalyst]</li>
-<li>2025.02.10:- Kena - The Bridge Of Spirits [Fitgirl Repack]</li>
-<li>2025.02.07:- Hello Neighbor 2 [Fitgirl Repack]</li>
-<li>2025.02.07:- Hello Neighbor [Fitgirl Repack]</li>
-<li>2025.02.05:- Harry Potter and the Goblet of Fire [DEViANCE]</li>
-<li>2025.02.05:- Sid Meier's Civilization III Complete v2.0.0.7 [GOG]</li>
-<li>2025.02.05:- Fallout v2.1.0.18 [GOG]</li>
-<li>2025.02.04:- Marvel's Spider-Man 2 [Fitgirl Repack]</li>
-<li>2025.02.04:- Alien Isolation [Fitgirl Repack]</li>
-<li>2025.01.30:- Call Of Juarez Gunslinger [ElAmigos Repack]</li>
-<li>2025.01.28:- Dead Space 3 Limited Edition [Fitgirl Repack]</li>
-<li>2025.01.28:- Harry Potter and the Prisoner of Azkaban [DEViANCE]</li>
-<li>2025.01.27:- Dead Space 2 Collector's Edition [Fitgirl Repack]</li>
-<li>2025.01.27:- Dead Space 1 [Fitgirl Repack]</li>
-<li>2025.01.26:- Just Cause 3 XL Edition [Fitgirl Repack]</li>
-<li>2025.01.24:- Harry Potter and the Chamber of Secrets [DEViANCE]</li>
-<li>2025.01.23:- Hitman Go - Definitive Edition [Fitgirl Repack]</li>
-<li>2025.01.23:- Deadpool [Fitgirl Repack]</li>
-<li>2025.01.22:- Battlefield Bad Company 2 [DODI Repack]</li>
-<li>2025.01.21:- NIGHT IN THE WOODS [Fitgirl Repack]</li>
-<li>2025.01.21:- Inside [Fitgirl Repack]</li>
-<li>2025.01.21:- Harry Potter and the Philosopher's Stone [FLT]</li>
-<li>2025.01.19:- Tom Clancy’s Splinter Cell: Blacklist Digital Deluxe Edition [Fitgirl Repack]</li>
-<li>2025.01.17:- Age of Empires IV [Fitgirl Repack]</li>
-<li>2025.01.15:- Watch Dogs 2 Golden Edition [Fitgirl Repack]</li>
-<li>2025.01.13:- Sleeping Dogs Definitive Edition [Fitgirl Repack]</li>
-<li>2025.01.12:- Go Home Annie [Fitgirl Repack]</li>
-<li>2025.01.10:- DOOM [Fitgirl Repack]</li>
-<li>2025.01.10:- REYNATIS [Fitgirl Repack]</li>
-<li>2025.01.07:- Harry Potter and the Philosopher's Stone [FLT]</li>
-<li>2025.01.06:- Titanfall 2 [Fitgirl Repack]</li>
-<li>2025.01.04:- Galactic Civilizations 2 - Ultimate Edition v2.1.0.3 [GOG]</li>
-<li>2025.01.04:- Galactic Civilizations (2003) - Ultimate Edition v2.0.0.4 [GOG]</li>
-<li>2025.01.04:- Thief Simulator 2 [Fitgirl Repack]</li>
-<li>2025.01.01:- Shredders [Fitgirl Repack]</li>
-
-<h2>2024</h2>
-<ol id="gameList">
-<li>2024.12.30:- Slackers Carts of Glory [Fitgirl Repack]</li>
-<li>2024.12.28:- Grand Theft Auto IV - Complete Edition [Fitgirl Repack]</li>
-<li>2024.12.24:- Grand Theft Auto San Andreas [DODI Repack]</li>
-<li>2024.12.23:- Grand Theft Auto Vice City [DODI Repack]</li>
-<li>2024.12.23:- Grand Theft Auto III [DODI Repack]</li>
-<li>2024.12.22:- Grand Theft Auto II [DODI Repack]</li>
-<li>2024.12.22:- Grand Theft Auto [DODI Repack]</li>
-<li>2024.12.18:- Assassin's Creed Mirage [Fitgirl Repack]</li>
-<li>2024.12.15:- Shadows of the Damned Hella Remastered [Fitgirl Repack]</li>
-<li>2024.12.14:- Don't Be Afraid 2 [Fitgirl Repack]</li>
-<li>2024.12.14:- Sons Of The Forest [Fitgirl Repack]</li>
-<li>2024.12.13:- Medieval Dynasty [Fitgirl Repack]</li>
-<li>2024.12.12:- KitHack Model Club [Fitgirl Repack]</li>
-<li>2024.12.12:- Farewell North [Fitgirl Repack]</li>
-<li>2024.12.07:- DREDGE [Fitgirl Repack]</li>
-<li>2024.12.07:- Massacre At The Mirage [Fitgirl Repack]</li>
-<li>2024.11.19:- John Wick Hex v1.03 [FitGirl Repack]</li>
-<li>2024.11.19:- Age of Mythology: Retold v100.17.18697.0 + 3 DLCs/Bonuses [Fitgirl Repack]</li>
-<li>2024.11.19:- Outlast - Complete Edition v1.0.12046.0 + Whistleblower DLC [DODI Repack]</li>
-<li>2024.11.18:- Far Cry 2 Fortune's Edition [GOG]</li>
-<li>2024.11.18:- Far Cry 1 [GOG]</li>
-<li>2024.11.09:- Red Dead Redemption [Fitgirl Repack]</li>
-<li>2024.11.07:- Doom 64 [GOG]</li>
-<li>2024.11.05:- The Elder Scrolls: Arena [GOG]</li>
-<li>2024.11.01:- Escape The Garage [FitGirl Repack]</li>
-<li>2024.10.24:- Mortal Kombat 9 Komplete Edition v1.07</li>
-<li>2024.10.22:- Call of Duty: Ghosts – Deluxe Edition (Update 21) [DODI Repack]</li>
-<li>2024.10.21:- World of Goo 2 v12329W [FitGirl Repack]</li>
-<li>2024.09.06:- CarX Street: Deluxe Edition v1.0.4 [DODI Repack]</li>
-<li>2024.08.20:- Buckshot Roulette v1.2.2</li>
-<li>2024.08.19:- A Difficult Game About Climbing</li>
-<li>2024.08.18:- Assassin’s Creed IV: Black Flag – Jackdaw Edition v1.07 [FitGirl Repack]</li>
-<li>2024.07.27:- Ereban: Shadow Legacy v1.1.14 [FitGirl Repack]</li>
-<li>2024.07.27:- %Conflict_Desert_Storm%</li>
-<li>2024.07.23:- Far Cry: New Dawn – Deluxe Edition v1.0.5 [FitGirl Repack]</li>
-<li>2024.07.09:- Call of Duty: Deluxe Edition [DODI Repack]</li>
-<li>2024.07.06:- Sekiro: Shadows Die Twice – Game of the Year Edition v1.06 [FitGirl Repack]</li>
-<li>2024.07.06:- John Wick Hex [FitGirl Repack]</li>
-<li>2024.07.03:- Mullet MadJack [FitGirl Repack]</li>
-<li>2024.06.14:- God of War (2018) v1.0.12 [FitGirl Repack]</li>
-<li>2024.06.08:- World in Conflict Complete Edition [GOG] v2.0.0.3</li>
-<li>2024.05.30:- Far Cry 2: Fortune's Edition (2008) [GOG] v2.1.0.12</li>
-<li>2024.05.27:- Ghost of Tsushima DIRECTOR’S CUT v1053.0.0515.2048 [FitGirl Repack]</li>
-<li>2024.05.25:- Prototype 1 [FitGirl Repack]</li>
-<li>2024.05.15:- The Bridge Curse 2: The Extrication</li>
-<li>2024.05.13:- Far Cry (2004) v1.40 [GOG]</li>
-<li>2024.05.12:- Truck Driver [FitGirl Repack]</li>
-<li>2024.05.12:- Outlast 2 [FitGirl Repack]</li>
-<li>2024.04.30:- My Dream Setup [FitGirl Repack]</li>
-<li>2024.04.27:- Need For Speed Most Wanted (2012) [FitGirl Repack]</li>
-<li>2024.04.26:- Inside (2016) [FitGirl Repack]</li>
-<li>2024.04.23:- Outlast [DODI Repack]</li>
-<li>2024.04.21:- RimWorld v1.3.3066 [FitGirl Repack]</li>
-<li>2024.04.16:- Dead Space v1.0.0.222 GOG [Fitgirl Repack]</li>
-<li>2024.04.01:- Welcome to ParadiZe: Supporter Edition Build Feb 26 2024 [Fitgirl Repack]</li>
-<li>2024.03.28:- Far Cry 5 [Fitgirl Repack]</li>
-<li>2024.03.21:- Far Cry Primal - Apex Edition v1.3.3 [DODI Repack]</li>
-<li>2024.03.15:- Far Cry 4: Gold Edition v1.10 [FitGirl Repack]</li>
-<li>2024.03.13:- Far Cry 3 + Far Cry 3: Blood Dragon (2012) Digital Deluxe Edition v1.05/v1.02 [FitGirl Repack]</li>
-<li>2024.03.09:- Far Cry 2 v2.1.0.12 [GOG]</li>
-<li>2024.03.02:- Far Cry (2004) v1.40 [GOG]</li>
-<li>2024.03.02:- Far Cry (2004) [64 bit ver.]</li>
-<li>2024.03.01:- X-Men Origins: Wolverine [DODI Repack]</li>
-<li>2024.02.26:- Forza Horizon 5: Premium Edition v1.634.818.0 [FitGirl Repack]</li>
-<li>2024.02.25:- Resident Evil 6 v1.10/1.06 [FitGirl Repack]</li>
-<li>2024.02.23:- Tom Clancy’s Ghost Recon Future Soldier Complete Edition v1.8 [DODI Repack]</li>
-<li>2024.02.22:- Hollow Knight [FitGirl Repack] v1.5.68.11808</li>
-<li>2024.02.21:- Praetorians: HD Remaster [FitGirl Repack]</li>
-<li>2024.02.16:- Halo: Combat Evolved v1.010</li>
-<li>2024.02.16:- Grand Theft Auto IV: The Complete Edition [FitGirl Repack] v1.2.0.43</li>
-<li>2024.02.12:- The Sinking City - Deluxe Edition [FitGirl Repack] Build 13083473</li>
-<li>2024.02.09:- ELDEN RING: Deluxe Edition [FitGirl Repack] v1.06</li>
-<li>2024.02.08:- Spider-Man: Web of Shadows (2008) v1.1</li>
-<li>2024.02.05:- Max Payne 3 (2012) [FitGirl Repack] Complete Edition v1.0.0.216</li>
-<li>2024.02.03:- Max Payne 2: The Fall of Max Payne (2003) v1.01</li>
-<li>2024.02.02:- Max Payne (2001) v1.05</li>
-<li>2024.01.22:- Command & Conquer: Red Alert 2 + Yuri's Revenge [R.G. Mechanics Repack]</li>
-<li>2024.01.19:- Hollow Cocoon v1.09 [FitGirl Repack]</li>
-<li>2024.01.17:- Prince of Persia: The Lost Crown v1.0.2 [FitGirl Repack]</li>
-<li>2024.01.01:- The Witcher 2: Assassins of Kings – Enhanced Edition [FitGirl Repack]</li>
-<li>2024.01.01:- Dave The Diver: Deluxe Edition [FitGirl Repack]</li>
-
-<h2>2023</h2>
-<ol id="gameList">
-<li>2023.12.23:- The Elder Scrolls V: Skyrim – Anniversary Edition [FitGirl Repack]</li>
-<li>2023.12.18:- Batman: Arkham Origins The Complete Edition [FitGirl Repack]</li>
-<li>2023.12.17:- Assassin’s Creed: Rogue [DODI Repack]</li>
-<li>2023.12.15:- Batman Asylum GOTY Edition [FitGirl Repack]</li>
-<li>2023.12.10:- Sniper Ghost Warrior Contracts [DODI Repack]</li>
-<li>2023.12.07:- Assassin’s Creed: Odyssey – Ultimate Edition [FitGirl Repack]</li>
-<li>2023.12.06:- Tomb Raider GOTY Edition (2013) [DODI Repack]</li>
-<li>2023.12.02:- Minecraft Legends: Deluxe Edition [FitGirl Repack]</li>
-<li>2023.12.01:- Minecraft Dungeons: Ultimate Edition v1.12.0.0_7897191 [FitGirl Repack]</li>
-<li>2023.11.30:- Battlefield 4 [FitGirl Repack]</li>
-<li>2023.11.27:- Batman Arkham City [FitGirl Repack]</li>
-<li>2023.11.26:- Medal of Honor (2010) [DODI Repack]</li>
-<li>2023.11.25:- Crysis Warhead [FitGirl Repack]</li>
-<li>2023.11.24:- Crysis 2 [DODI Repack]</li>
-<li>2023.11.24:- Crysis [FitGirl Repack]</li>
-<li>2023.11.23:- Little Nightmares 1 [FitGirl Repack]</li>
-<li>2023.11.23:- Little Nightmares 2 [FitGirl Repack]</li>
-<li>2023.11.23:- SBK 22 [FitGirl Repack]</li>
-<li>2023.11.23:- Tintin Reporter: Cigars of the Pharaoh v1.0.34979.14384 [FitGirl Repack]</li>
-<li>2023.11.22:- Resident Evil 4: Ultimate HD Edition v1.1.0 [FitGirl Repack]</li>
-<li>2023.11.21:- Pro Cycling Manager 2023 [FitGirl Repack]</li>
-<li>2023.11.20:- Sniper Elite V2 [FitGirl Repack]</li>
-<li>2023.11.20:- Skull Island: Rise of Kong [DODI Repack]</li>
-<li>2023.11.20:- Assetto Corsa Competizione v1.9.0 [FitGirl Repack]</li>
-<li>2023.11.18:- Spintires - MudRunner [FitGirl Repack]</li>
-<li>2023.11.17:- Crysis 3 [FitGirl Repack]</li>
-<li>2023.11.16:- THIEF: Definitive Edition [FitGirl Repack]</li>
-<li>2023.11.16:- MotoGP 23 [FitGirl Repack]</li>
-<li>2023.11.13:- Grounded [FitGirl Repack]</li>
-<li>2023.11.12:- Watch Dogs [DODI Repack]</li>
-<li>2023.11.12:- Assassin’s Creed: Origins v1.5.1 [FitGirl Repack]</li>
-<li>2023.11.11:- MXGP 2021: The Official Motocross Videogame [FitGirl Repack]</li>
-<li>2023.11.10:- Euro Truck Simulator 2 [FitGirl Repack]</li>
-<li>2023.11.10:- Left 4 Dead 2 [FitGirl Repack]</li>
-<li>2023.11.10:- Alan Wake [FitGirl Repack]</li>
-<li>2023.11.09:- Prince of Persia: Warrior Within [DODI Repack]</li>
-<li>2023.11.09:- Prince of Persia: The Forgotten Sands [DODI Repack]</li>
-<li>2023.11.09:- Prince of Persia: The Two Thrones [DODI Repack]</li>
-<li>2023.11.09:- Prince of Persia: The Sands of Time [DODI Repack]</li>
-<li>2023.11.09:- James Bond 007 Blood Stone [DODI Repack]</li>
-<li>2023.11.09:- Left 4 Dead [DODI Repack]</li>
-<li>2023.11.08:- The Telephone [FitGirl Repack]</li>
-<li>2023.11.08:- Unholy [FitGirl Repack]</li>
-<li>2023.11.06:- Stray - SoundTrack Edition [FitGirl Repack]</li>
-<li>2023.11.06:- Cyberpunk 2077: Phantom Liberty [FitGirl Repack]</li>
-<li>2023.10.30:- Call of Duty Modern Warfare 3 [FitGirl Repack]</li>
-<li>2023.10.27:- Command & Conquer: Red Alert 2 + Yuri's Revenge [DODI Repack]</li>
-<li>2023.10.27:- Assassin’s Creed: II Deluxe Edition [DODI Repack]</li>
-<li>2023.10.23:- Assassin’s Creed: Director’s Cut [DODI Repack]</li>
-<li>2023.10.23:- Need for Speed: Most Wanted 2 (2012) – Limited Edition v.1.5.0.0 [FitGirl Repack]</li>
-<li>2023.10.22:- Assassin’s Creed Brotherhood [DODI Repack]</li>
-<li>2023.10.22:- Escape the Ayuwoki [FitGirl Repack]</li>
-<li>2023.10.21:- Spider-Man: Shattered Dimensions [FitGirl Repack]</li>
-<li>2023.10.20:- The Legend of Zelda: Skyward Sword HD [FitGirl Repack]</li>
-<li>2023.10.19:- Need For Speed: Payback (2017) [FitGirl Repack]</li>
-<li>2023.10.19:- Grand Theft Auto: Vice City 10th Anniversary Edition (2012) [DODI Repack]</li>
-<li>2023.10.18:- PC Building Simulator 2 [FitGirl Repack]</li>
-<li>2023.10.16:- Goat Simulator [FitGirl Repack]</li>
-<li>2023.10.16:- Dark Souls Remastered [FitGirl Repack]</li>
-<li>2023.10.15:- Green Hell v1.8.1 (2022)</li>
-<li>2023.10.15:- Need For Speed: Most Wanted (2005)</li>
-<li>2023.10.15:- Among The Sleep [R.G. Mechanics]</li>
-<li>2023.10.07:- StarCraft Remastered [FitGirl Repack]</li>
-<li>2023.10.02:- Red Dead Redemption 2 [FitGirl Repack]</li>
-<li>2023.09.18:- Dead Island: Riptide Definitive Edition</li>
-<li>2023.09.17:- The Conjuring House [FitGirl Repack]</li>
-<li>2023.09.15:- The Wolf Among Us</li>
-<li>2023.09.12:- PC Building Simulator</li>
-<li>2023.09.12:- Battlefield 3 [DODI Repack]</li>
-<li>2023.09.09:- God of War (2018) [DODI Repack]</li>
-<li>2023.08.29:- Call of Duty: Modern Warfare 2 [FitGirl Repack]</li>
-<li>2023.08.22:- The Bridge Curse: Road to Salvation v1.5.7 [FitGirl Repack]</li>
-<li>2023.08.22:- Batman: Arkham Knight – Premium Edition [FitGirl Repack]</li>
-<li>2023.08.19:- Mortal Kombat 9 Komplete Edition v1.07</li>
-<li>2023.08.15:- Aliens vs. Predator [FitGirl Repack]</li>
-<li>2023.08.08:- Tchia [FitGirl Repack]</li>
-<li>2023.08.07:- IGI 1</li>
-<li>2023.08.05:- Call of Duty 4 : Modern Warfare 1 (2007)</li>
-<li>2023.08.01:- GYLT [FitGirl Repack]</li>
-<li>2023.07.28:- Just Cause 3 [FitGirl Repack]</li>
-<li>2023.07.18:- Hogwarts Legacy [DODI Repack]</li>
-<li>2023.07.16:- Enter The Matrix (2003)</li>
-<li>2023.07.06:- Days Gone [FitGirl Repack]</li>
-<li>2023.06.23:- Sniper: Ghost Warrior 2</li>
-<li>2023.06.20:- Need for Speed 01-04 (Old Games Collection)</li>
-<li>2023.06.20:- Bramble: The Mountain King [FitGirl Repack]</li>
-<li>2023.06.19:- Far Cry 6 [DODI Repack]</li>
-</ol>
-
-
-    <p class="author">By <strong>MPM Admin Team</strong></p>
+<nav class="navbar">
+  <a href="https://motionpicturemafia.com/" class="nav-logo">MPM <strong>✦</strong></a>
+  <div class="nav-divider"></div>
+  <div class="nav-links">
+    <a href="https://motionpicturemafia.com/" class="nav-btn">Home</a>
+    <a href="https://motionpicturemafia.com/movies/movies" class="nav-btn">Movies</a>
+    <a href="https://motionpicturemafia.com/games/games" class="nav-btn active">Games</a>
+    <a href="https://motionpicturemafia.com/Tv%20Series/tv%20series.html" class="nav-btn">TV Series</a>
+    <a href="https://motionpicturemafia.com/downloads/" class="nav-btn">Downloads</a>
   </div>
+  <div class="nav-spacer"></div>
+  <div class="year-jumps" id="yearJumps"></div>
+</nav>
+<!-- Mobile year bar -->
+<div class="year-bar-mobile" id="yearBarMobile"></div>
+<div class="page-header">
+  <h1>🎮 MPM Game Catalog</h1>
+  <p class="sub">Everything We’ve Shared So Far</p>
 </div>
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num" id="stat-total-size">—</div><div class="stat-lbl">Total Uploaded</div></div>
+  <div class="stat-item"><div class="stat-num" id="stat-total-games">—</div><div class="stat-lbl">Games</div></div>
+  <div class="stat-item"><div class="stat-num" id="stat-years">—</div><div class="stat-lbl">Years</div></div>
+  <div class="stat-item"><div class="stat-num" id="stat-avg">—</div><div class="stat-lbl">Avg Size</div></div>
+</div>
+<div class="search-wrap">
+  <div class="search-inner">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="searchInput" placeholder="Search games, repacks, year…" autocomplete="off" autocorrect="off" spellcheck="false">
+    <button class="search-clear" id="searchClear" aria-label="Clear">✕</button>
+  </div>
+  <div class="search-meta" id="searchMeta"></div>
+</div>
+<div class="content" id="content">
+  <div class="no-results" id="noResults"><span class="no-results-big">0</span>No games found.</div>
+  <div class="year-group" id="y2026">
+    <div class="year-heading"><span class="year-heading-num">2026</span><div class="year-heading-meta"><span id="meta-2026"></span></div></div>
+    <ul class="game-list" id="list-2026">
+      <li data-date="2026.04.06" data-repack="Fitgirl Repack" data-size="13gb">Outlast 2</li>
+      <li data-date="2026.04.06" data-repack="Fitgirl Repack" data-size="15gb">NARUTO X BORUTO Ultimate Ninja STORM CONNECTIONS</li>
+      <li data-date="2026.04.04" data-repack="Fitgirl Repack" data-size="47gb">UNCHARTED™: Legacy of Thieves Collection</li>
+      <li data-date="2026.04.02" data-repack="Fitgirl Repack" data-size="45gb">Death Stranding Director's Cut</li>
+      <li data-date="2026.03.31" data-repack="GOG" data-size="4.7gb">Far Cry 3: Duology</li>
+      <li data-date="2026.03.31" data-repack="GOG" data-size="2.9gb">Far Cry 2</li>
+      <li data-date="2026.03.31" data-repack="GOG" data-size="2.95gb">Far Cry 1</li>
+      <li data-date="2026.03.26" data-repack="Fitgirl Repack" data-size="22.1gb">RoadCraft</li>
+      <li data-date="2026.03.25" data-repack="Fitgirl Repack" data-size="0.4gb">Going Medieval</li>
+      <li data-date="2026.03.24" data-repack="Fitgirl Repack" data-size="55.8gb">Nioh 3</li>
+      <li data-date="2026.03.22" data-repack="Dodi Repack" data-size="40.4gb">Far Cry® 6</li>
+      <li data-date="2026.03.21" data-repack="Fitgirl Repack" data-size="4.88gb">Sherman Commander</li>
+      <li data-date="2026.03.20" data-repack="Fitgirl Repack" data-size="20gb">Elden Ring Nightreign Deluxe Edition</li>
+      <li data-date="2026.03.17" data-repack="Fitgirl Repack" data-size="12.9gb">Rise of the Tomb Raider</li>
+      <li data-date="2026.03.17" data-repack="Gamedrive.org" data-size="1.3gb">Maya Ek Pishachini</li>
+      <li data-date="2026.03.17" data-repack="Fitgirl Repack" data-size="16.9gb">Watch Dogs 2 Gold Edition</li>
+      <li data-date="2026.03.16" data-repack="ElAmigos" data-size="0.7gb">Minecraft Bedrock Edition</li>
+      <li data-date="2026.03.16" data-repack="Fitgirl Repack" data-size="24.3gb">Atomic Heart</li>
+      <li data-date="2026.03.01" data-repack="Fitgirl Repack" data-size="7.8gb">Warhammer 40,000: Battlesector - Deluxe Edition</li>
+      <li data-date="2026.02.24" data-repack="DODI Repack" data-size="13.3gb">Resident Evil 4 Remake</li>
+      <li data-date="2026.02.23" data-repack="DODI Repack" data-size="23.5gb">Call Of Duty: Ghosts</li>
+      <li data-date="2026.02.18" data-repack="Fitgirl Repack" data-size="8.4gb">REANIMAL</li>
+      <li data-date="2026.02.15" data-repack="Fitgirl Repack" data-size="14gb">HumanitZ</li>
+      <li data-date="2026.02.08" data-repack="Fitgirl Repack" data-size="7.2gb">Grounded: Fully Yoked Edition</li>
+      <li data-date="2026.02.08" data-repack="Fitgirl Repack" data-size="7.2gb">Call Of Duty Black Ops 1</li>
+      <li data-date="2026.02.08" data-repack="Fitgirl Repack" data-size="17.2gb">Cronos: The New Dawn</li>
+      <li data-date="2026.02.08" data-repack="Fitgirl Repack" data-size="4.8gb">Green Hell</li>
+      <li data-date="2026.02.08" data-repack="Fitgirl Repack" data-size="13.9gb">Alien: Rogue Incursion Evolved Edition - Deluxe</li>
+      <li data-date="2026.02.07" data-repack="Fitgirl Repack" data-size="4.2gb">The Spirit of the Samurai Deluxe Edition</li>
+      <li data-date="2026.02.05" data-repack="SteamRIP" data-size="3.8gb">Grand Theft Auto San Andreas</li>
+      <li data-date="2026.02.05" data-repack="SteamRIP" data-size="6.2gb">Grand Theft Auto Vice City</li>
+      <li data-date="2026.02.05" data-repack="SteamRIP" data-size="1.6gb">Grand Theft Auto III</li>
+      <li data-date="2026.02.02" data-repack="DODI Repack" data-size="2.1gb">Avatar: The Game 2009</li>
+      <li data-date="2026.02.01" data-repack="Fitgirl Repack" data-size="39.5gb">Grand Theft Auto V Enhanced</li>
+      <li data-date="2026.01.30" data-repack="Fitgirl Repack" data-size="22.5gb">Days Gone</li>
+      <li data-date="2026.01.30" data-repack="Fitgirl Repack" data-size="2.8gb">Hellmart</li>
+      <li data-date="2026.01.24" data-repack="Fitgirl Repack" data-size="14gb">Watch Dogs</li>
+      <li data-date="2026.01.23" data-repack="DODI Repack" data-size="2.95gb">Rayman Legends</li>
+      <li data-date="2026.01.23" data-repack="Fitgirl Repack" data-size="1.3gb">Age of Empires 3: Complete Collection</li>
+      <li data-date="2026.01.21" data-repack="Fitgirl Repack" data-size="5.2gb">Quarantine Zone: The Last Check</li>
+      <li data-date="2026.01.18" data-repack="SteamRIP">Need For Speed: Most Wanted 2005</li>
+      <li data-date="2026.01.18">Spider-Man: Web of Shadows</li>
+      <li data-date="2026.01.15" data-repack="Fitgirl Repack" data-size="6.7gb">Call of Duty: Modern Warfare 2</li>
+      <li data-date="2026.01.14" data-repack="DODI Repack" data-size="3.8gb">GTA San Andreas</li>
+      <li data-date="2026.01.14" data-repack="DODI Repack" data-size="1.1gb">GTA Vice City - 10 Year Anniversary</li>
+      <li data-date="2026.01.14" data-repack="GOG">Project IGI 2: Covert Strike</li>
+      <li data-date="2026.01.13" data-repack="Fitgirl Repack" data-size="2.9gb">Need for Speed Most Wanted 2012</li>
+      <li data-date="2026.01.13" data-repack="Fitgirl Repack" data-size="13.9gb">Max Payne 3: Complete Edition</li>
+      <li data-date="2026.01.13" data-repack="Fitgirl Repack" data-size="3.8gb">Stray</li>
+      <li data-date="2026.01.11" data-repack="Fitgirl Repack" data-size="24.2gb">A Plague Tale: Requiem</li>
+      <li data-date="2026.01.11" data-repack="Fitgirl Repack" data-size="10.1gb">A Plague Tale: Innocence</li>
+      <li data-date="2026.01.11" data-repack="Fitgirl Repack" data-size="10.3gb">Brothers: A Tale of Two Sons</li>
+      <li data-date="2026.01.11" data-repack="Fitgirl Repack" data-size="24gb">Dead Space Remake</li>
+      <li data-date="2026.01.11" data-repack="Fitgirl Repack" data-size="19.4gb">Expeditions: A MudRunner Game</li>
+      <li data-date="2026.01.10" data-repack="Fitgirl Repack" data-size="6.2gb">Crysis 3</li>
+      <li data-date="2026.01.10" data-repack="DODI Repack" data-size="4.8gb">Crysis 2</li>
+      <li data-date="2026.01.10" data-repack="Fitgirl Repack" data-size="3.4gb">Crysis 1</li>
+      <li data-date="2026.01.10" data-repack="Fitgirl Repack" data-size="10.8gb">Call of Duty 3: Modern Warfare</li>
+      <li data-date="2026.01.10" data-repack="DODI Repack" data-size="4gb">Call of Duty 4: Modern Warfare</li>
+      <li data-date="2026.01.08" data-repack="Fitgirl Repack" data-size="23.2gb">Lords of the Fallen</li>
+      <li data-date="2026.01.08" data-repack="Fitgirl Repack" data-size="29.3gb">Gotham Knights</li>
+      <li data-date="2026.01.07" data-repack="Fitgirl Repack" data-size="18gb">DIRT 5</li>
+      <li data-date="2026.01.07" data-repack="Fitgirl Repack" data-size="8.5gb">NERO</li>
+      <li data-date="2026.01.07" data-repack="Fitgirl Repack" data-size="27.1gb">Forza Horizon 3</li>
+      <li data-date="2026.01.07" data-repack="Fitgirl Repack" data-size="9.1gb">Assassin's Creed III Remastered</li>
+      <li data-date="2026.01.06" data-repack="Fitgirl Repack" data-size="7.1gb">ServiceIT: You Can Do It</li>
+      <li data-date="2026.01.06" data-repack="Fitgirl Repack" data-size="28.1gb">Assassin's Creed Origins</li>
+      <li data-date="2026.01.06" data-repack="Fitgirl Repack" data-size="4.9gb">Assassin's Creed IV: Black Flag</li>
+      <li data-date="2026.01.06" data-repack="Fitgirl Repack" data-size="24gb">Assassin's Creed Mirage</li>
+      <li data-date="2026.01.05" data-repack="Fitgirl Repack" data-size="51.3gb">Rise of the Rōnin</li>
+      <li data-date="2026.01.05" data-repack="Fitgirl Repack" data-size="7.2gb">Sekiro™: Shadows Die Twice - GOTY Edition</li>
+      <li data-date="2026.01.05" data-repack="Fitgirl Repack" data-size="4.7gb">Resident Evil 6</li>
+      <li data-date="2026.01.02" data-repack="Fitgirl Repack" data-size="13.3gb">FEROCIOUS</li>
+      <li data-date="2026.01.02" data-repack="Fitgirl Repack" data-size="19.5gb">Resident Evil Village</li>
+      <li data-date="2026.01.01" data-repack="Fitgirl Repack" data-size="9.5gb">Far Cry Primal</li>
+      <li data-date="2026.01.01" data-repack="Fitgirl Repack" data-size="11.7gb">Far Cry New Dawn</li>
+    </ul>
+  </div>
 
-<button onclick="topFunction()" class="back-to-top" title="Go to top">↑ Top</button>
+  <div class="year-group" id="y2025">
+    <div class="year-heading"><span class="year-heading-num">2025</span><div class="year-heading-meta"><span id="meta-2025"></span></div></div>
+    <ul class="game-list" id="list-2025">
+      <li data-date="2025.12.31" data-repack="Dodi Repack" data-size="7.9gb">Tom Clancy's Ghost Recon: Future Soldier</li>
+      <li data-date="2025.12.31" data-repack="Fitgirl Repack" data-size="19.6gb">The Crew 2</li>
+      <li data-date="2025.12.31" data-repack="Fitgirl Repack" data-size="13.2gb">Grand Theft Auto VI</li>
+      <li data-date="2025.12.31" data-repack="Fitgirl Repack" data-size="33.3gb">Clair Obscur: Expedition 33</li>
+      <li data-date="2025.12.30" data-repack="Fitgirl Repack" data-size="4.2gb">Jurassic World Evolution 2</li>
+      <li data-date="2025.12.30" data-repack="Fitgirl Repack" data-size="2.3gb">Jurassic World Evolution</li>
+      <li data-date="2025.12.30" data-repack="Fitgirl Repack" data-size="5.4gb">Red Dead Redemption</li>
+      <li data-date="2025.12.29" data-repack="Dodi Repack" data-size="0.1gb">Grand Theft Auto 1</li>
+      <li data-date="2025.12.29" data-repack="Dodi Repack" data-size="0.2gb">Grand Theft Auto 2</li>
+      <li data-date="2025.12.29" data-repack="Dodi Repack" data-size="1.6gb">Grand Theft Auto 3</li>
+      <li data-date="2025.12.29" data-repack="Fitgirl Repack" data-size="4.1gb">Taxi Chaos 2</li>
+      <li data-date="2025.12.29" data-repack="Fitgirl Repack" data-size="4.7gb">Far Cry 3: Duology</li>
+      <li data-date="2025.12.29" data-repack="Fitgirl Repack" data-size="4.2gb">Biped 2</li>
+      <li data-date="2025.12.29" data-repack="Fitgirl Repack" data-size="35.8gb">Battlefield 6</li>
+      <li data-date="2025.12.28" data-repack="Fitgirl Repack" data-size="15.6gb">Euro Truck Simulator 2</li>
+      <li data-date="2025.12.28" data-repack="Fitgirl Repack" data-size="46.8gb">Warhammer 40K: Space Marine</li>
+      <li data-date="2025.12.28" data-repack="Fitgirl Repack" data-size="11.9gb">Life is Strange</li>
+      <li data-date="2025.12.27" data-repack="Scene Release">Spider-Man 3</li>
+      <li data-date="2025.12.27" data-repack="Fitgirl Repack" data-size="8.6gb">Little Nightmares III</li>
+      <li data-date="2025.12.26" data-repack="Fitgirl Repack" data-size="16.1gb">HELL IS US</li>
+      <li data-date="2025.12.25" data-repack="Fitgirl Repack" data-size="3.2gb">Little Nightmares Enhanced II Edition</li>
+      <li data-date="2025.12.25" data-repack="Fitgirl Repack" data-size="2.7gb">Little Nightmares Enhanced Edition</li>
+      <li data-date="2025.12.25" data-repack="Fitgirl Repack" data-size="12.9gb">The Crew</li>
+      <li data-date="2025.12.20" data-repack="Dodi Repack" data-size="2.4gb">Outlast Complete Edition</li>
+      <li data-date="2025.12.20" data-repack="Fitgirl Repack" data-size="10.8gb">Far Cry 4 Gold Edition</li>
+      <li data-date="2025.12.07" data-repack="ElAmigos" data-size="0.7gb">Minecraft Bedrock Edition</li>
+      <li data-date="2025.12.06" data-repack="Fitgirl Repack" data-size="11.7gb">Dispatch</li>
+      <li data-date="2025.12.06" data-repack="Fitgirl Repack" data-size="9.4gb">Age of Mythology: Retold</li>
+      <li data-date="2025.11.30" data-repack="Fitgirl Repack">Call of Duty 4: Modern Warfare</li>
+      <li data-date="2025.11.30" data-repack="Fitgirl Repack" data-size="18.4gb">Need for Speed Heat Deluxe Edition</li>
+      <li data-date="2025.11.30" data-repack="Fitgirl Repack" data-size="5.2gb">Borderlands 2</li>
+      <li data-date="2025.11.30" data-repack="Fitgirl Repack" data-size="8.5gb">Need for Speed: Hot Pursuit Remastered</li>
+      <li data-date="2025.11.29" data-repack="Fitgirl Repack" data-size="4.7gb">Far Cry 3: Duology</li>
+      <li data-date="2025.11.11" data-repack="Fitgirl Repack" data-size="29gb">SILENT HILL f 2025</li>
+      <li data-date="2025.11.08" data-repack="Fitgirl Repack" data-size="2.5gb">The Gretlow Tapes</li>
+      <li data-date="2025.11.07" data-repack="Fitgirl Repack" data-size="3.3gb">Unravel Two</li>
+      <li data-date="2025.11.06" data-repack="Fitgirl Repack" data-size="2gb">Unravel</li>
+      <li data-date="2025.10.25" data-repack="Fitgirl Repack" data-size="4.7gb">Far Cry 3: Duology</li>
+      <li data-date="2025.10.17" data-repack="Fitgirl Repack" data-size="0.5gb">Dirtzone</li>
+      <li data-date="2025.09.30" data-repack="Fitgirl Repack" data-size="24gb">Assassin’s Creed Mirage</li>
+      <li data-date="2025.09.26" data-repack="Fitgirl Repack" data-size="33.2gb">Dying Light The Beast Deluxe Edition</li>
+      <li data-date="2025.09.18" data-repack="Fitgirl Repack" data-size="1.3gb">Bendy Lone Wolf</li>
+      <li data-date="2025.09.13" data-repack="Fitgirl Repack" data-size="1.6gb">Hollow Knight: Silksong</li>
+      <li data-date="2025.09.13" data-repack="Fitgirl Repack" data-size="1gb">Hollow Knight</li>
+      <li data-date="2025.09.09" data-repack="Fitgirl Repack" data-size="38.7gb">Call of Duty: Modern Warfare III</li>
+      <li data-date="2025.09.05" data-repack="Dodi Repack" data-size="2.9gb">Need for Speed Most Wanted 2012</li>
+      <li data-date="2025.09.05" data-repack="Dodi Repack" data-size="2.5gb">Need for Speed Most Wanted 2005</li>
+      <li data-date="2025.09.04" data-repack="Fitgirl Repack">Granny Remake</li>
+      <li data-date="2025.08.10" data-repack="Fitgirl Repack" data-size="39.3gb">Call of Duty: Black Ops 6</li>
+      <li data-date="2025.08.04" data-repack="Fitgirl Repack" data-size="0.4gb">Spelunky 2</li>
+      <li data-date="2025.06.07" data-repack="Fitgirl Repack" data-size="6.4gb">Command &amp; Conquer 3 - Dilogy</li>
+      <li data-date="2025.05.31" data-repack="Portable" data-size="37.4gb">Call of Duty: Modern Warfare 2 Campaign (Reboot)</li>
+      <li data-date="2025.05.31" data-repack="Fitgirl Repack" data-size="13.2gb">Need for Speed Payback</li>
+      <li data-date="2025.05.31" data-repack="Fitgirl Repack" data-size="14gb">Watch Dogs</li>
+      <li data-date="2025.05.24" data-repack="Fitgirl Repack" data-size="14.8gb">Dark Souls 3</li>
+      <li data-date="2025.05.24" data-repack="Fitgirl Repack" data-size="6.9gb">Dark Souls 2</li>
+      <li data-date="2025.05.19" data-repack="DODI Repack" data-size="24.55gb">Need for Speed Heat</li>
+      <li data-date="2025.05.18" data-repack="DODI Repack" data-size="10.3gb">Medal of Honor: Warfighter</li>
+      <li data-date="2025.05.16" data-repack="Fitgirl Repack">Dark Souls Remastered</li>
+      <li data-date="2025.05.14" data-repack="Fitgirl Repack">Elden Ring</li>
+      <li data-date="2025.05.12" data-repack="DODI Repack" data-size="10.3gb">Medal of Honor</li>
+      <li data-date="2025.05.10" data-repack="Fitgirl Repack" data-size="3.7gb">Onimusha Warlords</li>
+      <li data-date="2025.05.06" data-repack="Fitgirl Repack" data-size="68.8gb">Red Dead Redemption 2</li>
+      <li data-date="2025.05.05" data-repack="DODI Repack">Silent Hill 2 Enhanced Edition - 25</li>
+      <li data-date="2025.05.04" data-repack="DODI Repack" data-size="2.1gb">Silent Hill Homecoming</li>
+      <li data-date="2025.05.04" data-repack="Fitgirl Repack" data-size="1.7gb">Silent Hill 4: The Room</li>
+      <li data-date="2025.05.03" data-repack="Fitgirl Repack" data-size="25.4gb">Silent Hill 2 Remake</li>
+      <li data-date="2025.05.01" data-repack="Fitgirl Repack" data-size="4.1gb">Spider Man Shattered Dimensions</li>
+      <li data-date="2025.05.01" data-repack="Fitgirl Repack" data-size="5.4gb">Red Dead Redemption (2024)</li>
+      <li data-date="2025.04.29" data-repack="DODI Repack" data-size="1.1gb">Just Cause 2 Enhanced Edition</li>
+      <li data-date="2025.04.29" data-repack="DODI Repack" data-size="2.5gb">Just Cause 1</li>
+      <li data-date="2025.04.29" data-repack="Fitgirl Repack">Inside</li>
+      <li data-date="2025.04.28" data-repack="Fitgirl Repack" data-size="60.6gb">Mortal Kombat 1 (Emulator Version)</li>
+      <li data-date="2025.04.28" data-repack="DODI Repack" data-size="3.3gb">Need for Speed Undercover Remastered</li>
+      <li data-date="2025.04.28" data-repack="DODI Repack" data-size="3.2gb">Need for Speed Carbon Remastered</li>
+      <li data-date="2025.04.28" data-repack="DODI Repack" data-size="1.1gb">Need for Speed Underground 2 Real Remaster</li>
+      <li data-date="2025.04.28" data-repack="DODI Repack" data-size="1gb">Need for Speed Underground Definitive Edition</li>
+      <li data-date="2025.04.27" data-repack="Fitgirl Repack" data-size="18.6gb">Mafia 3: Definitive Edition</li>
+      <li data-date="2025.04.25" data-repack="Fitgirl Repack" data-size="3.2gb">Orphans</li>
+      <li data-date="2025.04.23" data-repack="Fitgirl Repack" data-size="30.3gb">Tom Clancy's Ghost Recon: Wildlands</li>
+      <li data-date="2025.04.22" data-repack="Fitgirl Repack" data-size="33.2gb">Battlefield V</li>
+      <li data-date="2025.04.22" data-repack="Fitgirl Repack" data-size="65.1gb">God of War: Ragnarok (2024)</li>
+      <li data-date="2025.04.20" data-repack="Fitgirl Repack" data-size="4.7gb">Lurking Danger</li>
+      <li data-date="2025.04.20" data-repack="Fitgirl Repack" data-size="1.5gb">Haste</li>
+      <li data-date="2025.04.19" data-repack="Fitgirl Repack" data-size="64.4gb">God of War (2022)</li>
+      <li data-date="2025.04.19" data-repack="Fitgirl Repack" data-size="11.2gb">Batman Arkham City</li>
+      <li data-date="2025.04.18" data-repack="DODI Repack" data-size="2.6gb">Bully Scholarship Edition</li>
+      <li data-date="2025.04.17" data-repack="Fitgirl Repack" data-size="0.6gb">Drive Rally</li>
+      <li data-date="2025.04.17" data-repack="Fitgirl Repack" data-size="3.9gb">Finding Frankie</li>
+      <li data-date="2025.04.16" data-repack="DODI Repack" data-size="18.6gb">Battlefield 1 Digital Deluxe Edition</li>
+      <li data-date="2025.04.16" data-repack="Steamrip">Need for Speed: Most Wanted (2005)</li>
+      <li data-date="2025.04.16" data-repack="Razor1911">Harry Potter and the Half-Blood Prince</li>
+      <li data-date="2025.04.15" data-repack="Fitgirl Repack" data-size="3.3gb">The Rise of Jaloliddin</li>
+      <li data-date="2025.04.15" data-repack="Fitgirl Repack" data-size="1.3gb">Ravenlok</li>
+      <li data-date="2025.04.15" data-repack="Fitgirl Repack" data-size="4.5gb">Atelier Lydie and Suelle - The Alchemists and the Mysterious Paintings</li>
+      <li data-date="2025.04.14" data-repack="Fitgirl Repack" data-size="48.6gb">The Last of Us Part 2 Remastered</li>
+      <li data-date="2025.04.13" data-repack="Fitgirl Repack" data-size="2.7gb">Cyberdimension Neptunia</li>
+      <li data-date="2025.04.12" data-repack="Fitgirl Repack" data-size="2.3gb">Stalked 2</li>
+      <li data-date="2025.04.11" data-repack="Fitgirl Repack" data-size="7gb">ONE PIECE World Seeker</li>
+      <li data-date="2025.04.10" data-repack="Fitgirl Repack" data-size="2.4gb">Raw Footage</li>
+      <li data-date="2025.04.08" data-repack="Fitgirl Repack" data-size="3.9gb">Assassin's Creed Rogue</li>
+      <li data-date="2025.04.06" data-repack="Fitgirl Repack" data-size="4.9gb">Assassin's Creed Black Flag</li>
+      <li data-date="2025.04.07" data-repack="Fitgirl Repack" data-size="38.8gb">The Last of Us Part 1 Digital Deluxe Edition</li>
+      <li data-date="2025.04.06" data-repack="Fitgirl Repack" data-size="9.6gb">The Elder Scrolls V: Skyrim Special Edition</li>
+      <li data-date="2025.04.04" data-repack="DODI Repack">Assassin's Creed III</li>
+      <li data-date="2025.04.04" data-repack="DODI Repack" data-size="4.6gb">Call of Duty World At War</li>
+      <li data-date="2025.04.03" data-repack="Fitgirl Repack" data-size="6.2gb">Crysis III</li>
+      <li data-date="2025.04.02" data-repack="Fitgirl Repack" data-size="20.1gb">Shadow of the Tomb Raider: Definitive Edition</li>
+      <li data-date="2025.04.02" data-repack="Fitgirl Repack" data-size="7.3gb">Hellblade: Senua's Sacrifice Enhanced</li>
+      <li data-date="2025.04.01" data-repack="DODI Repack" data-size="3.2gb">Assassin's Creed: Revelations</li>
+      <li data-date="2025.03.31" data-repack="DODI Repack" data-size="26.7gb">Battlefield Hardline</li>
+      <li data-date="2025.03.30" data-repack="DODI Repack" data-size="11gb">Assassin's Creed brotherhood</li>
+      <li data-date="2025.03.30" data-repack="Fitgirl Repack" data-size="0.9gb">Strike Force 2 - Terrorist Hunt Enhanced Edition</li>
+      <li data-date="2025.03.30" data-repack="Fitgirl Repack" data-size="4.2gb">Redemption of Liuyin</li>
+      <li data-date="2025.03.29" data-repack="DODI Repack" data-size="17.6gb">Battlefield 4</li>
+      <li data-date="2025.03.29" data-repack="DODI Repack" data-size="4.8gb">Crysis II</li>
+      <li data-date="2025.03.28" data-repack="DODI Repack">Assassin's Creed II</li>
+      <li data-date="2025.03.28" data-repack="DODI Repack" data-size="1.6gb">Assassin's Creed Director's Cut</li>
+      <li data-date="2025.03.28" data-repack="Fitgirl Repack" data-size="3gb">Farmer’s Life: Ultimate Bundle</li>
+      <li data-date="2025.03.28" data-repack="Fitgirl Repack" data-size="11.7gb">Dying Light Platinum Edition</li>
+      <li data-date="2025.03.26" data-repack="Fitgirl Repack" data-size="3.5gb">Home Sweet Home</li>
+      <li data-date="2025.03.26" data-repack="Fitgirl Repack" data-size="3.2gb">Crysis Warhead</li>
+      <li data-date="2025.03.26" data-repack="DODI Repack">Call of Duty: Black Ops - Cold War - 132</li>
+      <li data-date="2025.03.25" data-repack="Fitgirl Repack" data-size="1.8gb">Yasuke Simulator</li>
+      <li data-date="2025.03.25" data-repack="Fitgirl Repack" data-size="3.4gb">Crysis 1 (2007)</li>
+      <li data-date="2025.03.24" data-repack="DODI Repack" data-size="7.8gb">Battlefield 3 - V1.4.0 + MULTi10</li>
+      <li data-date="2025.03.24" data-repack="GOG" data-size="1.9gb">Far Cry 2 Fortune's Edition</li>
+      <li data-date="2025.03.24" data-repack="GOG" data-size="1.9gb">Far Cry 1 (2004)</li>
+      <li data-date="2025.03.24" data-repack="Fitgirl Repack" data-size="8.1gb">Xenoblade Chronicles X</li>
+      <li data-date="2025.03.22" data-repack="DODI Repack" data-size="3.5gb">X-Men Origins: Wolverine</li>
+      <li data-date="2025.03.22" data-repack="Fitgirl Repack" data-size="3.6gb">Prince of Persia: The Lost Crown</li>
+      <li data-date="2025.03.22" data-repack="DODI Repack">Prince of Persia (2008)</li>
+      <li data-date="2025.03.21" data-repack="DODI Repack" data-size="1.03gb">The Rogue Prince of Persia</li>
+      <li data-date="2025.03.21" data-repack="DODI Repack" data-size="2.2gb">Prince of Persia: The Forgotten Sands</li>
+      <li data-date="2025.03.21" data-repack="DODI Repack" data-size="1gb">Prince of Persia: The Two Thrones</li>
+      <li data-date="2025.03.21" data-repack="DODI Repack" data-size="2.2gb">Prince of Persia: Warrior Within</li>
+      <li data-date="2025.03.21" data-repack="DODI Repack" data-size="1gb">Prince of Persia: The Sands of Time</li>
+      <li data-date="2025.03.20" data-repack="Fitgirl Repack" data-size="2.4gb">Burnout Paradise Remastered</li>
+      <li data-date="2025.03.20" data-repack="Fitgirl Repack" data-size="2.9gb">Sniper Elite V2</li>
+      <li data-date="2025.03.19" data-repack="Fitgirl Repack" data-size="12.9gb">Rise of the Tomb Raider</li>
+      <li data-date="2025.03.18" data-repack="Fitgirl Repack" data-size="1.9gb">Dungeons of Hinterberg</li>
+      <li data-date="2025.03.18" data-repack="Fitgirl Repack" data-size="6.5gb">Robin Hood - Sherwood Defenders</li>
+      <li data-date="2025.03.18" data-repack="Fitgirl Repack" data-size="2.8gb">Blade Abyss</li>
+      <li data-date="2025.03.17" data-repack="Fitgirl Repack" data-size="1.2gb">World Racing 2 - Champion Edition</li>
+      <li data-date="2025.03.17" data-repack="Fitgirl Repack" data-size="1.1gb">Ale &amp; Tale Tavern</li>
+      <li data-date="2025.03.16" data-repack="Fitgirl Repack" data-size="2.6gb">Need for Speed Most Wanted (2012)</li>
+      <li data-date="2025.03.15" data-repack="Fitgirl Repack" data-size="6gb">Tomb Raider Definitive Edition</li>
+      <li data-date="2025.03.15" data-repack="Fitgirl Repack" data-size="0.3gb">Elypse</li>
+      <li data-date="2025.03.15" data-repack="DODI Repack" data-size="3.2gb">Battlefield: Bad Company 2</li>
+      <li data-date="2025.03.15" data-repack="Fitgirl Repack" data-size="10.8gb">Call of Duty Modern Warfare 3</li>
+      <li data-date="2025.03.15" data-repack="Fitgirl Repack" data-size="4gb">Tomb Raider IV-VI Remastered</li>
+      <li data-date="2025.03.14" data-repack="Fitgirl Repack" data-size="37gb">Call of Duty Modern Warfare 2</li>
+      <li data-date="2025.03.13" data-repack="DODI Repack" data-size="3.9gb">Call of Duty 4 Modern Warfare</li>
+      <li data-date="2025.03.13" data-repack="DODI Repack" data-size="2.6gb">Call of Duty 2</li>
+      <li data-date="2025.03.12" data-repack="DODI Repack" data-size="2gb">Call of Duty: Deluxe Edition</li>
+      <li data-date="2025.03.12" data-repack="Fitgirl Repack" data-size="8.1gb">Gas Station Simulator</li>
+      <li data-date="2025.03.10" data-repack="Fitgirl Repack" data-size="3.9gb">The Surge: Complete Edition</li>
+      <li data-date="2025.03.10" data-repack="Fitgirl Repack" data-size="5.9gb">Prototype 2</li>
+      <li data-date="2025.03.09" data-repack="DODI Repack" data-size="2.55gb">Tomb Raider: Underworld</li>
+      <li data-date="2025.03.09" data-repack="Fitgirl Repack" data-size="5.1gb">Prototype</li>
+      <li data-date="2025.03.09" data-repack="Fitgirl Repack" data-size="2.2gb">I am Fish</li>
+      <li data-date="2025.03.09" data-repack="Fitgirl Repack" data-size="9.4gb">Age of Mythology: Retold v100.18.9036.0+4 DLCs/Bonuses</li>
+      <li data-date="2025.03.07" data-repack="Fitgirl Repack" data-size="2.5gb">Tomb Raider I-III Remastered</li>
+      <li data-date="2025.03.07" data-repack="Fitgirl Repack" data-size="8.5gb">Nero</li>
+      <li data-date="2025.03.06" data-repack="Fitgirl Repack" data-size="31.7gb">The Witcher 3: Wild Hunt - Complete Edition</li>
+      <li data-date="2025.03.06" data-repack="Fitgirl Repack" data-size="4.2gb">Goat Simulator 3</li>
+      <li data-date="2025.03.05" data-repack="Fitgirl Repack" data-size="4.7gb">Far Cry 3 + Blood Dragon</li>
+      <li data-date="2025.03.05" data-repack="DODI Repack" data-size="4.4gb">Styx: Master of Shadows</li>
+      <li data-date="2025.03.04" data-repack="DODI Repack" data-size="1.88gb">The Awesome Adventures of Captain Spirit</li>
+      <li data-date="2025.03.04" data-repack="Fitgirl Repack" data-size="4.2gb">Jurassic World Evolution 2</li>
+      <li data-date="2025.03.03" data-repack="Fitgirl Repack" data-size="0.6gb">Haydee 3</li>
+      <li data-date="2025.03.03" data-repack="Fitgirl Repack" data-size="5.1gb">Alan Wake</li>
+      <li data-date="2025.03.03" data-repack="Fitgirl Repack" data-size="2.3gb">Jurassic World Evolution</li>
+      <li data-date="2025.03.03" data-repack="Fitgirl Repack" data-size="1.9gb">Breathedge</li>
+      <li data-date="2025.03.02" data-repack="Fitgirl Repack" data-size="1.6gb">The Thing Remastered</li>
+      <li data-date="2025.03.02" data-repack="DODI Repack" data-size="14.4gb">Marvel’s Guardians of the Galaxy</li>
+      <li data-date="2025.03.01" data-repack="DODI Repack" data-size="2.4gb">Homefront</li>
+      <li data-date="2025.03.01" data-repack="Fitgirl Repack" data-size="2.6gb">UNDER NIGHT IN-BIRTH II</li>
+      <li data-date="2025.02.28" data-size="51.2gb">Grand Theft Auto V / GTA 5 v1.0.3411/1.70 + Bonus Content</li>
+      <li data-date="2025.02.28" data-repack="Fitgirl Repack" data-size="1.4gb">Terror of the Seven Seas</li>
+      <li data-date="2025.02.28" data-repack="Fitgirl Repack" data-size="8.7gb">The Witcher 2 EE</li>
+      <li data-date="2025.02.27" data-repack="Fitgirl Repack" data-size="1.4gb">Alan Wake American Nightmare</li>
+      <li data-date="2025.02.26" data-repack="Fitgirl Repack" data-size="3.4gb">The Witcher EEDC</li>
+      <li data-date="2025.02.26" data-repack="Fitgirl Repack" data-size="3.61gb">Mad Max</li>
+      <li data-date="2025.02.25" data-repack="Fitgirl Repack" data-size="3.8gb">The Last Farmer</li>
+      <li data-date="2025.02.25" data-repack="Fitgirl Repack" data-size="1.5gb">Matchbox Driving Adventures</li>
+      <li data-date="2025.02.25" data-repack="Fitgirl Repack" data-size="4gb">Dream Cage</li>
+      <li data-date="2025.02.24" data-repack="Fitgirl Repack" data-size="6.2gb">Bright Memory: Infinite</li>
+      <li data-date="2025.02.23" data-repack="Fitgirl Repack" data-size="1.2gb">TMNT: Splintered Fate</li>
+      <li data-date="2025.02.23" data-repack="Fitgirl Repack" data-size="1.3gb">Before They Wake</li>
+      <li data-date="2025.02.22" data-repack="Fitgirl Repack" data-size="2.6gb">Bright Memory</li>
+      <li data-date="2025.02.22" data-repack="Fitgirl Repack" data-size="0.7gb">Panic in the Woods</li>
+      <li data-date="2025.02.22" data-repack="FitGirl Repack" data-size="6.3gb">BIOMUTANT</li>
+      <li data-date="2025.02.21" data-repack="DODI Repack" data-size="10.3gb">Need for Speed Hot Pursuit</li>
+      <li data-date="2025.02.21" data-repack="FitGirl Repack" data-size="0.3gb">Soulbind Tales Of The Underworld</li>
+      <li data-date="2025.02.21" data-repack="FitGirl Repack" data-size="5.7gb">Borderlands GotY Edition</li>
+      <li data-date="2025.02.19" data-repack="FitGirl Repack" data-size="3gb">Artifice War Tactics</li>
+      <li data-date="2025.02.18" data-repack="FitGirl Repack" data-size="4.8gb">AMENTI</li>
+      <li data-date="2025.02.14" data-repack="R.G.Catalyst">Harry Potter and the Order of the Phoenix</li>
+      <li data-date="2025.02.10" data-repack="Fitgirl Repack" data-size="17.5gb">Kena - The Bridge Of Spirits</li>
+      <li data-date="2025.02.07" data-repack="Fitgirl Repack" data-size="4.4gb">Hello Neighbor 2</li>
+      <li data-date="2025.02.07" data-repack="Fitgirl Repack" data-size="1.3gb">Hello Neighbor</li>
+      <li data-date="2025.02.05" data-repack="DEViANCE">Harry Potter and the Goblet of Fire</li>
+      <li data-date="2025.02.05" data-repack="GOG">Sid Meier's Civilization III Complete v2.0.0.7</li>
+      <li data-date="2025.02.05" data-repack="GOG">Fallout v2.1.0.18</li>
+      <li data-date="2025.02.04" data-repack="Fitgirl Repack" data-size="64.5gb">Marvel's Spider-Man 2</li>
+      <li data-date="2025.02.04" data-repack="Fitgirl Repack" data-size="9gb">Alien Isolation</li>
+      <li data-date="2025.01.30" data-repack="ElAmigos Repack">Call Of Juarez Gunslinger</li>
+      <li data-date="2025.01.28" data-repack="Fitgirl Repack" data-size="3.7gb">Dead Space 3 Limited Edition</li>
+      <li data-date="2025.01.28" data-repack="DEViANCE">Harry Potter and the Prisoner of Azkaban</li>
+      <li data-date="2025.01.27" data-repack="Fitgirl Repack" data-size="4gb">Dead Space 2 Collector's Edition</li>
+      <li data-date="2025.01.27" data-repack="Fitgirl Repack" data-size="2.3gb">Dead Space 1</li>
+      <li data-date="2025.01.26" data-repack="Fitgirl Repack" data-size="15.6gb">Just Cause 3 XL Edition</li>
+      <li data-date="2025.01.24" data-repack="DEViANCE">Harry Potter and the Chamber of Secrets</li>
+      <li data-date="2025.01.23" data-repack="Fitgirl Repack" data-size="0.2gb">Hitman Go - Definitive Edition</li>
+      <li data-date="2025.01.23" data-repack="Fitgirl Repack" data-size="2.8gb">Deadpool</li>
+      <li data-date="2025.01.22" data-repack="DODI Repack">Battlefield Bad Company 2</li>
+      <li data-date="2025.01.21" data-repack="Fitgirl Repack" data-size="1.1gb">NIGHT IN THE WOODS</li>
+      <li data-date="2025.01.21" data-repack="Fitgirl Repack">Inside</li>
+      <li data-date="2025.01.21" data-repack="FLT">Harry Potter and the Philosopher's Stone</li>
+      <li data-date="2025.01.19" data-repack="Fitgirl Repack" data-size="11.3gb">Tom Clancy’s Splinter Cell: Blacklist Digital Deluxe Edition</li>
+      <li data-date="2025.01.17" data-repack="Fitgirl Repack">Age of Empires IV - 20.8</li>
+      <li data-date="2025.01.15" data-repack="Fitgirl Repack" data-size="16.9gb">Watch Dogs 2 Golden Edition</li>
+      <li data-date="2025.01.13" data-repack="Fitgirl Repack" data-size="5.7gb">Sleeping Dogs Definitive Edition</li>
+      <li data-date="2025.01.12" data-repack="Fitgirl Repack" data-size="6.9gb">Go Home Annie</li>
+      <li data-date="2025.01.10" data-repack="Fitgirl Repack">DOOM</li>
+      <li data-date="2025.01.10" data-repack="Fitgirl Repack" data-size="3.6gb">REYNATIS</li>
+      <li data-date="2025.01.07" data-repack="FLT">Harry Potter and the Philosopher's Stone</li>
+      <li data-date="2025.01.06" data-repack="Fitgirl Repack" data-size="16.7gb">Titanfall 2</li>
+      <li data-date="2025.01.04" data-repack="GOG">Galactic Civilizations 2 - Ultimate Edition v2.1.0.3</li>
+      <li data-date="2025.01.04" data-repack="GOG">Galactic Civilizations (2003) - Ultimate Edition v2.0.0.4</li>
+      <li data-date="2025.01.04" data-repack="Fitgirl Repack" data-size="4.2gb">Thief Simulator 2</li>
+      <li data-date="2025.01.01" data-repack="Fitgirl Repack" data-size="3.6gb">Shredders</li>
+    </ul>
+  </div>
 
-<footer>
-  <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
+  <div class="year-group" id="y2024">
+    <div class="year-heading"><span class="year-heading-num">2024</span><div class="year-heading-meta"><span id="meta-2024"></span></div></div>
+    <ul class="game-list" id="list-2024">
+      <li data-date="2024.12.30" data-repack="Fitgirl Repack">Slackers Carts of Glory</li>
+      <li data-date="2024.12.28" data-repack="Fitgirl Repack" data-size="13.2gb">Grand Theft Auto IV - Complete Edition</li>
+      <li data-date="2024.12.24" data-repack="DODI Repack" data-size="3.8gb">Grand Theft Auto San Andreas</li>
+      <li data-date="2024.12.23" data-repack="DODI Repack" data-size="6.3gb">Grand Theft Auto Vice City</li>
+      <li data-date="2024.12.23" data-repack="DODI Repack" data-size="1.6gb">Grand Theft Auto III</li>
+      <li data-date="2024.12.22" data-repack="DODI Repack" data-size="0.2gb">Grand Theft Auto II</li>
+      <li data-date="2024.12.22" data-repack="DODI Repack" data-size="0.1gb">Grand Theft Auto</li>
+      <li data-date="2024.12.18" data-repack="Fitgirl Repack" data-size="24gb">Assassin's Creed Mirage</li>
+      <li data-date="2024.12.15" data-repack="Fitgirl Repack" data-size="2gb">Shadows of the Damned Hella Remastered</li>
+      <li data-date="2024.12.14" data-repack="Fitgirl Repack" data-size="3.1gb">Don't Be Afraid 2</li>
+      <li data-date="2024.12.14" data-repack="Fitgirl Repack" data-size="7.4gb">Sons Of The Forest</li>
+      <li data-date="2024.12.13" data-repack="Fitgirl Repack" data-size="6.7gb">Medieval Dynasty</li>
+      <li data-date="2024.12.12" data-repack="Fitgirl Repack" data-size="1.4gb">KitHack Model Club</li>
+      <li data-date="2024.12.12" data-repack="Fitgirl Repack" data-size="1gb">Farewell North</li>
+      <li data-date="2024.12.07" data-repack="Fitgirl Repack" data-size="0.4gb">DREDGE</li>
+      <li data-date="2024.12.07" data-repack="Fitgirl Repack" data-size="5.6gb">Massacre At The Mirage</li>
+      <li data-date="2024.11.19" data-repack="FitGirl Repack" data-size="0.3gb">John Wick Hex v1.03</li>
+      <li data-date="2024.11.19" data-repack="Fitgirl Repack" data-size="9.4gb">Age of Mythology: Retold v100.17.18697.0 + 3 DLCs/Bonuses</li>
+      <li data-date="2024.11.19" data-repack="DODI Repack" data-size="2.4gb">Outlast - Complete Edition v1.0.12046.0 + Whistleblower DLC</li>
+      <li data-date="2024.11.18" data-repack="GOG" data-size="2.9gb">Far Cry 2 Fortune's Edition</li>
+      <li data-date="2024.11.18" data-repack="GOG" data-size="2.95gb">Far Cry 1</li>
+      <li data-date="2024.11.09" data-repack="Fitgirl Repack" data-size="5.4gb">Red Dead Redemption</li>
+      <li data-date="2024.11.07" data-repack="GOG">Doom 64</li>
+      <li data-date="2024.11.05" data-repack="GOG">The Elder Scrolls: Arena</li>
+      <li data-date="2024.11.01" data-repack="FitGirl Repack" data-size="2.5gb">Escape The Garage</li>
+      <li data-date="2024.10.24">Mortal Kombat 9 Komplete Edition v1.07</li>
+      <li data-date="2024.10.22" data-repack="DODI Repack" data-size="23.5gb">Call of Duty: Ghosts – Deluxe Edition (Update 21)</li>
+      <li data-date="2024.10.21" data-repack="FitGirl Repack" data-size="0.5gb">World of Goo 2 v12329W</li>
+      <li data-date="2024.09.06" data-repack="DODI Repack" data-size="10.9gb">CarX Street: Deluxe Edition v1.0.4</li>
+      <li data-date="2024.08.20">Buckshot Roulette v1.2.2</li>
+      <li data-date="2024.08.19">A Difficult Game About Climbing</li>
+      <li data-date="2024.08.18" data-repack="FitGirl Repack" data-size="4.9gb">Assassin’s Creed IV: Black Flag – Jackdaw Edition v1.07</li>
+      <li data-date="2024.07.27" data-repack="FitGirl Repack" data-size="2.2gb">Ereban: Shadow Legacy v1.1.14</li>
+      <li data-date="2024.07.27">%Conflict_Desert_Storm%</li>
+      <li data-date="2024.07.23" data-repack="FitGirl Repack" data-size="11.7gb">Far Cry: New Dawn – Deluxe Edition v1.0.5</li>
+      <li data-date="2024.07.09" data-repack="DODI Repack" data-size="2gb">Call of Duty: Deluxe Edition</li>
+      <li data-date="2024.07.06" data-repack="FitGirl Repack" data-size="7.2gb">Sekiro: Shadows Die Twice – Game of the Year Edition v1.06</li>
+      <li data-date="2024.07.06" data-repack="FitGirl Repack" data-size="0.3gb">John Wick Hex</li>
+      <li data-date="2024.07.03" data-repack="FitGirl Repack" data-size="1.6gb">Mullet MadJack</li>
+      <li data-date="2024.06.14" data-repack="FitGirl Repack" data-size="68.5gb">God of War (2018) v1.0.12</li>
+      <li data-date="2024.06.08" data-repack="GOG" data-size="4.3gb">World in Conflict Complete Edition v2.0.0.3</li>
+      <li data-date="2024.05.30" data-repack="GOG" data-size="2.9gb">Far Cry 2: Fortune's Edition (2008) v2.1.0.12</li>
+      <li data-date="2024.05.27" data-repack="FitGirl Repack" data-size="31.2gb">Ghost of Tsushima DIRECTOR’S CUT v1053.0.0515.2048</li>
+      <li data-date="2024.05.25" data-repack="FitGirl Repack">Prototype 1</li>
+      <li data-date="2024.05.15" data-size="4.4gb">The Bridge Curse 2: The Extrication</li>
+      <li data-date="2024.05.13" data-repack="GOG" data-size="2.95gb">Far Cry (2004) v1.40</li>
+      <li data-date="2024.05.12" data-repack="FitGirl Repack" data-size="0.8gb">Truck Driver</li>
+      <li data-date="2024.05.12" data-repack="FitGirl Repack" data-size="12.8gb">Outlast 2</li>
+      <li data-date="2024.04.30" data-repack="FitGirl Repack" data-size="0.6gb">My Dream Setup</li>
+      <li data-date="2024.04.27" data-repack="FitGirl Repack" data-size="2.5gb">Need For Speed Most Wanted (2012)</li>
+      <li data-date="2024.04.26" data-repack="FitGirl Repack">Inside (2016)</li>
+      <li data-date="2024.04.23" data-repack="DODI Repack" data-size="2.4gb">Outlast</li>
+      <li data-date="2024.04.21" data-repack="FitGirl Repack" data-size="0.3gb">RimWorld v1.3.3066</li>
+      <li data-date="2024.04.16" data-repack="Fitgirl Repack" data-size="2.3gb">Dead Space v1.0.0.222 GOG</li>
+      <li data-date="2024.04.01" data-repack="Fitgirl Repack" data-size="10.4gb">Welcome to ParadiZe: Supporter Edition Build Feb 26 2024</li>
+      <li data-date="2024.03.28" data-repack="Fitgirl Repack" data-size="21.8gb">Far Cry 5</li>
+      <li data-date="2024.03.21" data-repack="DODI Repack" data-size="9.4gb">Far Cry Primal - Apex Edition v1.3.3</li>
+      <li data-date="2024.03.15" data-repack="FitGirl Repack" data-size="10.8gb">Far Cry 4: Gold Edition v1.10</li>
+      <li data-date="2024.03.13" data-repack="FitGirl Repack" data-size="4.7gb">Far Cry 3 + Far Cry 3: Blood Dragon (2012) Digital Deluxe Edition v1.05/v1.02</li>
+      <li data-date="2024.03.09" data-repack="GOG" data-size="2.9gb">Far Cry 2 v2.1.0.12</li>
+      <li data-date="2024.03.02" data-repack="GOG" data-size="2.95gb">Far Cry (2004) v1.40</li>
+      <li data-date="2024.03.02" data-repack="64 bit ver." data-size="2.95gb">Far Cry (2004)</li>
+      <li data-date="2024.03.01" data-repack="DODI Repack" data-size="3.5gb">X-Men Origins: Wolverine</li>
+      <li data-date="2024.02.26" data-repack="FitGirl Repack" data-size="73.5gb">Forza Horizon 5: Premium Edition v1.634.818.0</li>
+      <li data-date="2024.02.25" data-repack="FitGirl Repack" data-size="4.7gb">Resident Evil 6 v1.10/1.06</li>
+      <li data-date="2024.02.23" data-repack="DODI Repack" data-size="7.9gb">Tom Clancy’s Ghost Recon Future Soldier Complete Edition v1.8</li>
+      <li data-date="2024.02.22" data-repack="FitGirl Repack" data-size="1gb">Hollow Knight v1.5.68.11808</li>
+      <li data-date="2024.02.21" data-repack="FitGirl Repack" data-size="0.8gb">Praetorians: HD Remaster</li>
+      <li data-date="2024.02.16">Halo: Combat Evolved v1.010</li>
+      <li data-date="2024.02.16" data-repack="FitGirl Repack" data-size="13.2gb">Grand Theft Auto IV: The Complete Edition v1.2.0.43</li>
+      <li data-date="2024.02.12" data-repack="FitGirl Repack" data-size="11.2gb">The Sinking City - Deluxe Edition Build 13083473</li>
+      <li data-date="2024.02.09" data-repack="FitGirl Repack" data-size="47.4gb">ELDEN RING: Deluxe Edition v1.06</li>
+      <li data-date="2024.02.08">Spider-Man: Web of Shadows (2008) v1.1</li>
+      <li data-date="2024.02.05" data-repack="FitGirl Repack" data-size="13.9gb">Max Payne 3 (2012) Complete Edition v1.0.0.216</li>
+      <li data-date="2024.02.03">Max Payne 2: The Fall of Max Payne (2003) v1.01</li>
+      <li data-date="2024.02.02">Max Payne (2001) v1.05</li>
+      <li data-date="2024.01.22" data-repack="R.G. Mechanics Repack" data-size="1.3gb">Command &amp; Conquer: Red Alert 2 + Yuri's Revenge</li>
+      <li data-date="2024.01.19" data-repack="FitGirl Repack" data-size="3gb">Hollow Cocoon v1.09</li>
+      <li data-date="2024.01.17" data-repack="FitGirl Repack" data-size="3.6gb">Prince of Persia: The Lost Crown v1.0.2</li>
+      <li data-date="2024.01.01" data-repack="FitGirl Repack" data-size="8.7gb">The Witcher 2: Assassins of Kings – Enhanced Edition</li>
+      <li data-date="2024.01.01" data-repack="FitGirl Repack" data-size="1.9gb">Dave The Diver: Deluxe Edition</li>
+    </ul>
+  </div>
+
+  <div class="year-group" id="y2023">
+    <div class="year-heading"><span class="year-heading-num">2023</span><div class="year-heading-meta"><span id="meta-2023"></span></div></div>
+    <ul class="game-list" id="list-2023">
+      <li data-date="2023.12.23" data-repack="FitGirl Repack" data-size="9.6gb">The Elder Scrolls V: Skyrim – Anniversary Edition</li>
+      <li data-date="2023.12.18" data-repack="FitGirl Repack" data-size="9.7gb">Batman: Arkham Origins The Complete Edition</li>
+      <li data-date="2023.12.17" data-repack="DODI Repack" data-size="3.9gb">Assassin’s Creed: Rogue</li>
+      <li data-date="2023.12.15" data-repack="FitGirl Repack" data-size="4.3gb">Batman Asylum GOTY Edition</li>
+      <li data-date="2023.12.10" data-repack="DODI Repack" data-size="12.2gb">Sniper Ghost Warrior Contracts</li>
+      <li data-date="2023.12.07" data-repack="FitGirl Repack" data-size="35.2gb">Assassin’s Creed: Odyssey – Ultimate Edition</li>
+      <li data-date="2023.12.06" data-repack="DODI Repack" data-size="5.9gb">Tomb Raider GOTY Edition (2013)</li>
+      <li data-date="2023.12.02" data-repack="FitGirl Repack" data-size="3.5gb">Minecraft Legends: Deluxe Edition</li>
+      <li data-date="2023.12.01" data-repack="FitGirl Repack" data-size="1.6gb">Minecraft Dungeons: Ultimate Edition v1.12.0.0_7897191</li>
+      <li data-date="2023.11.30" data-repack="FitGirl Repack" data-size="14.4gb">Battlefield 4</li>
+      <li data-date="2023.11.27" data-repack="FitGirl Repack" data-size="11.2gb">Batman Arkham City</li>
+      <li data-date="2023.11.26" data-repack="DODI Repack" data-size="10.3gb">Medal of Honor (2010)</li>
+      <li data-date="2023.11.25" data-repack="FitGirl Repack" data-size="3.2gb">Crysis Warhead</li>
+      <li data-date="2023.11.24" data-repack="DODI Repack" data-size="4.8gb">Crysis 2</li>
+      <li data-date="2023.11.24" data-repack="FitGirl Repack" data-size="3.4gb">Crysis</li>
+      <li data-date="2023.11.23" data-repack="FitGirl Repack" data-size="2.1gb">Little Nightmares 1</li>
+      <li data-date="2023.11.23" data-repack="FitGirl Repack" data-size="3.2gb">Little Nightmares 2</li>
+      <li data-date="2023.11.23" data-repack="FitGirl Repack" data-size="5.6gb">SBK 22</li>
+      <li data-date="2023.11.23" data-repack="FitGirl Repack" data-size="15.8gb">Tintin Reporter: Cigars of the Pharaoh v1.0.34979.14384</li>
+      <li data-date="2023.11.22" data-repack="FitGirl Repack" data-size="13.3gb">Resident Evil 4: Ultimate HD Edition v1.1.0</li>
+      <li data-date="2023.11.21" data-repack="FitGirl Repack" data-size="5.2gb">Pro Cycling Manager 2023</li>
+      <li data-date="2023.11.20" data-repack="FitGirl Repack">Sniper Elite V2 2.9GB</li>
+      <li data-date="2023.11.20" data-repack="DODI Repack" data-size="5.2gb">Skull Island: Rise of Kong</li>
+      <li data-date="2023.11.20" data-repack="FitGirl Repack" data-size="10.5gb">Assetto Corsa Competizione v1.9.0</li>
+      <li data-date="2023.11.18" data-repack="FitGirl Repack" data-size="1gb">Spintires - MudRunner</li>
+      <li data-date="2023.11.17" data-repack="FitGirl Repack" data-size="6.2gb">Crysis 3</li>
+      <li data-date="2023.11.16" data-repack="FitGirl Repack" data-size="9.8gb">THIEF: Definitive Edition</li>
+      <li data-date="2023.11.16" data-repack="FitGirl Repack" data-size="12.1gb">MotoGP 23</li>
+      <li data-date="2023.11.13" data-repack="FitGirl Repack" data-size="7.2gb">Grounded</li>
+      <li data-date="2023.11.12" data-repack="DODI Repack" data-size="14gb">Watch Dogs</li>
+      <li data-date="2023.11.12" data-repack="FitGirl Repack" data-size="28.1gb">Assassin’s Creed: Origins v1.5.1</li>
+      <li data-date="2023.11.11" data-repack="FitGirl Repack" data-size="7.6gb">MXGP 2021: The Official Motocross Videogame</li>
+      <li data-date="2023.11.10" data-repack="FitGirl Repack" data-size="15.6gb">Euro Truck Simulator 2</li>
+      <li data-date="2023.11.10" data-repack="FitGirl Repack" data-size="4.6gb">Left 4 Dead 2</li>
+      <li data-date="2023.11.10" data-repack="FitGirl Repack">Alan Wake 5.1GB</li>
+      <li data-date="2023.11.09" data-repack="DODI Repack" data-size="2.2gb">Prince of Persia: Warrior Within</li>
+      <li data-date="2023.11.09" data-repack="DODI Repack" data-size="2.2gb">Prince of Persia: The Forgotten Sands</li>
+      <li data-date="2023.11.09" data-repack="DODI Repack" data-size="1gb">Prince of Persia: The Two Thrones</li>
+      <li data-date="2023.11.09" data-repack="DODI Repack" data-size="1gb">Prince of Persia: The Sands of Time</li>
+      <li data-date="2023.11.09" data-repack="DODI Repack" data-size="12gb">James Bond 007 Blood Stone</li>
+      <li data-date="2023.11.09" data-repack="DODI Repack" data-size="6gb">Left 4 Dead</li>
+      <li data-date="2023.11.08" data-repack="FitGirl Repack" data-size="4.5gb">The Telephone</li>
+      <li data-date="2023.11.08" data-repack="FitGirl Repack" data-size="18.4gb">Unholy</li>
+      <li data-date="2023.11.06" data-repack="FitGirl Repack" data-size="3.8gb">Stray - SoundTrack Edition</li>
+      <li data-date="2023.11.06" data-repack="FitGirl Repack" data-size="55.7gb">Cyberpunk 2077: Phantom Liberty</li>
+      <li data-date="2023.10.30" data-repack="FitGirl Repack" data-size="10.8gb">Call of Duty Modern Warfare 3</li>
+      <li data-date="2023.10.27" data-repack="DODI Repack" data-size="1.3gb">Command &amp; Conquer: Red Alert 2 + Yuri's Revenge</li>
+      <li data-date="2023.10.27" data-repack="DODI Repack">Assassin’s Creed: II Deluxe Edition</li>
+      <li data-date="2023.10.23" data-repack="DODI Repack">Assassin’s Creed: Director’s Cut</li>
+      <li data-date="2023.10.23" data-repack="FitGirl Repack" data-size="2.5gb">Need for Speed: Most Wanted 2 (2012) – Limited Edition v.1.5.0.0</li>
+      <li data-date="2023.10.22" data-repack="DODI Repack" data-size="11gb">Assassin’s Creed Brotherhood</li>
+      <li data-date="2023.10.22" data-repack="FitGirl Repack" data-size="4.5gb">Escape the Ayuwoki</li>
+      <li data-date="2023.10.21" data-repack="FitGirl Repack" data-size="4.1gb">Spider-Man: Shattered Dimensions</li>
+      <li data-date="2023.10.20" data-repack="FitGirl Repack" data-size="2.7gb">The Legend of Zelda: Skyward Sword HD</li>
+      <li data-date="2023.10.19" data-repack="FitGirl Repack" data-size="13.2gb">Need For Speed: Payback (2017)</li>
+      <li data-date="2023.10.19" data-repack="DODI Repack" data-size="1.1gb">Grand Theft Auto: Vice City 10th Anniversary Edition (2012)</li>
+      <li data-date="2023.10.18" data-repack="FitGirl Repack" data-size="5.5gb">PC Building Simulator 2</li>
+      <li data-date="2023.10.16" data-repack="FitGirl Repack" data-size="4.4gb">Goat Simulator</li>
+      <li data-date="2023.10.16" data-repack="FitGirl Repack" data-size="4gb">Dark Souls Remastered</li>
+      <li data-date="2023.10.15" data-size="4.8gb">Green Hell v1.8.1 (2022)</li>
+      <li data-date="2023.10.15" data-size="2.5gb">Need For Speed: Most Wanted (2005)</li>
+      <li data-date="2023.10.15" data-repack="R.G. Mechanics">Among The Sleep</li>
+      <li data-date="2023.10.07" data-repack="FitGirl Repack" data-size="3.8gb">StarCraft Remastered</li>
+      <li data-date="2023.10.02" data-repack="FitGirl Repack" data-size="68.8gb">Red Dead Redemption 2</li>
+      <li data-date="2023.09.18">Dead Island: Riptide Definitive Edition</li>
+      <li data-date="2023.09.17" data-repack="FitGirl Repack" data-size="2.7gb">The Conjuring House</li>
+      <li data-date="2023.09.15" data-size="1.5gb">The Wolf Among Us</li>
+      <li data-date="2023.09.12" data-size="5.5gb">PC Building Simulator</li>
+      <li data-date="2023.09.12" data-repack="DODI Repack" data-size="7.8gb">Battlefield 3</li>
+      <li data-date="2023.09.09" data-repack="DODI Repack" data-size="68.5gb">God of War (2018)</li>
+      <li data-date="2023.08.29" data-repack="FitGirl Repack" data-size="6.6gb">Call of Duty: Modern Warfare 2</li>
+      <li data-date="2023.08.22" data-repack="FitGirl Repack" data-size="2.1gb">The Bridge Curse: Road to Salvation v1.5.7</li>
+      <li data-date="2023.08.22" data-repack="FitGirl Repack" data-size="25.9gb">Batman: Arkham Knight – Premium Edition</li>
+      <li data-date="2023.08.19">Mortal Kombat 9 Komplete Edition v1.07</li>
+      <li data-date="2023.08.15" data-repack="FitGirl Repack" data-size="4.1gb">Aliens vs. Predator</li>
+      <li data-date="2023.08.08" data-repack="FitGirl Repack" data-size="1.8gb">Tchia</li>
+      <li data-date="2023.08.07">IGI 1</li>
+      <li data-date="2023.08.05">Call of Duty 4 : Modern Warfare 1 (2007)</li>
+      <li data-date="2023.08.01" data-repack="FitGirl Repack" data-size="3.3gb">GYLT</li>
+      <li data-date="2023.07.28" data-repack="FitGirl Repack" data-size="15.6gb">Just Cause 3</li>
+      <li data-date="2023.07.18" data-repack="DODI Repack" data-size="56.8gb">Hogwarts Legacy</li>
+      <li data-date="2023.07.16">Enter The Matrix (2003)</li>
+      <li data-date="2023.07.06" data-repack="FitGirl Repack" data-size="22.5gb">Days Gone</li>
+      <li data-date="2023.06.23" data-size="4.9gb">Sniper: Ghost Warrior 2</li>
+      <li data-date="2023.06.20">Need for Speed 01-04 (Old Games Collection)</li>
+      <li data-date="2023.06.20" data-repack="FitGirl Repack" data-size="5.2gb">Bramble: The Mountain King</li>
+      <li data-date="2023.06.19" data-repack="DODI Repack" data-size="40.4gb">Far Cry 6</li>
+    </ul>
+  </div>
+
+</div>
+<footer class="page-footer">
+  <a href="https://motionpicturemafia.com/">← Back to Home</a>
+  <div style="display:flex;gap:20px;flex-wrap:wrap">
+    <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+    <a href="https://motionpicturemafia.com/games/games">Games</a>
+    <a href="https://motionpicturemafia.com/Tv%20Series/tv%20series.html">TV Series</a>
+    <a href="https://motionpicturemafia.com/downloads/">Downloads</a>
+  </div>
+  <span><p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p></span>
 </footer>
-
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
-
-
-<!-- Share Button -->
-<div class="share-container">
-  <div class="social-btns" id="socialBtns">
-    <a href="https://motionpicturemafia.com/updates/uploaded-games-list.html" class="whatsapp" target="_blank">WhatsApp</a>
-    <a href="https://motionpicturemafia.com/updates/uploaded-games-list.html" class="facebook" target="_blank">Facebook</a>
-  </div>
-  <button class="share-btn" id="mainShareBtn">Share</button>
-</div>
-
-<script src="buttons.js"></script>
-
+<button id="scrollTop" title="Back to top" aria-label="Scroll to top">▲</button>
+<script>
+function parseGB(s){if(!s)return 0;s=s.toUpperCase().trim();var v=parseFloat(s);if(!v||isNaN(v))return 0;if(s.includes('TB'))return v*1024;return v}
+function fmtSize(gb){if(!gb)return'—';if(gb>=1024)return(gb/1024).toFixed(2)+' TB';return(Math.round(gb*10)/10)+' GB'}
+var yearGroups=document.querySelectorAll('.year-group');
+var overallTotal=0,overallCount=0,sizedCount=0;
+yearGroups.forEach(function(group){
+  var year=group.id.replace('y','');
+  var items=group.querySelectorAll('li');
+  var yearTotal=0,yearCount=0;
+  items.forEach(function(li,i){
+    var title=li.textContent.trim();
+    var date=li.dataset.date||'';
+    var repack=li.dataset.repack||'';
+    var sizeGB=parseGB(li.dataset.size||'');
+    if(sizeGB){yearTotal+=sizeGB;overallTotal+=sizeGB;sizedCount++}
+    yearCount++;overallCount++;
+    var dp=date.split('.');
+    var dateDisp=dp.length===3?dp[2]+'/'+dp[1]+'/'+dp[0]:date;
+    li.innerHTML='<span class="game-num">'+String(i+1).padStart(2,'0')+'</span><span class="game-body"><span class="game-date">'+dateDisp+'</span><span class="game-title">'+title+'</span>'+(repack?'<span class="game-repack">'+repack+'</span>':'')+'</span><span class="game-size'+(sizeGB?'':' unknown')+'">'+( sizeGB?fmtSize(sizeGB):'N/A')+'</span>';
+    li.dataset.titleLower=title.toLowerCase();
+    li.dataset.repackLower=repack.toLowerCase();
+    li.dataset.dateLower=date;
+  });
+  var metaEl=document.getElementById('meta-'+year);
+  if(metaEl)metaEl.textContent=yearCount+' Games  •  '+(yearTotal?fmtSize(yearTotal):'Size Unknown');
+});
+document.getElementById('stat-total-size').textContent=fmtSize(overallTotal);
+document.getElementById('stat-total-games').textContent=overallCount;
+document.getElementById('stat-years').textContent=yearGroups.length;
+var avg=sizedCount?overallTotal/sizedCount:0;
+document.getElementById('stat-avg').textContent=avg?fmtSize(avg):'—';
+var jumpsEl=document.getElementById('yearJumps');
+var mobileBar=document.getElementById('yearBarMobile');
+yearGroups.forEach(function(group){
+  var year=group.id.replace('y','');
+  [jumpsEl,mobileBar].forEach(function(container){
+    var a=document.createElement('a');a.href='#'+group.id;a.className='jump-pill';a.textContent=year;container.appendChild(a);
+  });
+});
+var searchInput=document.getElementById('searchInput');
+var searchClear=document.getElementById('searchClear');
+var searchMeta=document.getElementById('searchMeta');
+var noResults=document.getElementById('noResults');
+function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+function highlight(text,q){if(!q)return text;return text.replace(new RegExp('('+esc(q)+')','gi'),'<mark>$1</mark>')}
+function doSearch(){
+  var q=searchInput.value.trim().toLowerCase();
+  searchClear.classList.toggle('visible',q.length>0);
+  var visible=0;
+  yearGroups.forEach(function(group){
+    var items=group.querySelectorAll('li');
+    var gv=0;
+    items.forEach(function(li){
+      var match=!q||li.dataset.titleLower.includes(q)||li.dataset.repackLower.includes(q)||li.dataset.dateLower.includes(q);
+      li.classList.toggle('hidden',!match);
+      if(match){
+        gv++;visible++;
+        var te=li.querySelector('.game-title');var re=li.querySelector('.game-repack');
+        var qOrig=searchInput.value.trim();
+        if(te)te.innerHTML=highlight(te.textContent,qOrig);
+        if(re)re.innerHTML=highlight(re.textContent,qOrig);
+      }
+    });
+    group.classList.toggle('hidden',gv===0);
+  });
+  noResults.classList.toggle('visible',visible===0&&q.length>0);
+  searchMeta.textContent=q?(visible===0?'No results':visible+' result'+(visible!==1?'s':'')+' for "'+searchInput.value.trim()+'"'):'';
+}
+searchInput.addEventListener('input',doSearch);
+searchClear.addEventListener('click',function(){searchInput.value='';searchInput.focus();doSearch()});
+var topBtn=document.getElementById('scrollTop');
+window.addEventListener('scroll',function(){topBtn.classList.toggle('visible',window.scrollY>300)},{passive:true});
+topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+</script>
 </body>
 </html>
