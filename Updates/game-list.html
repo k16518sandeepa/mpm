@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uploaded Game list | Motion Picture Mafia</title>
-<link rel="icon" type="image/png" href="Images/mpm logo.png">
+<title>Game List | Motion Picture Mafia</title>
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
 <meta property="og:title" content="Uploaded Game List| Motion Picture Mafia Studio">
 <meta property="og:description" content="MPM PC GAMES UPLOADED GAMES LIST">
 <meta property="og:image" content="https://hips.hearstapps.com/hmg-prod/images/gridoffset-videogames-1-1585583517.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*">
@@ -29,7 +28,11 @@ body::before{content:'';position:fixed;inset:0;z-index:300;pointer-events:none;b
 .nav-spacer{flex:1}
 .year-jumps{display:flex;align-items:center;gap:4px;flex-shrink:0}
 .jump-pill{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--muted);text-decoration:none;padding:3px 10px;border:1px solid var(--border);transition:color .2s,border-color .2s,background .2s;white-space:nowrap}
-.jump-pill:hover{color:var(--gold);border-color:var(--gold-dim);background:rgba(201,168,76,.06)}
+.jump-pill:hover,.jump-pill:active{color:var(--gold);border-color:var(--gold-dim);background:rgba(201,168,76,.06)}
+/* Mobile year bar — sits below navbar, always visible */
+.year-bar-mobile{display:none;position:sticky;top:var(--nav-h);z-index:190;background:rgba(8,8,8,0.97);border-bottom:1px solid var(--border);padding:8px clamp(12px,4vw,20px);gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.year-bar-mobile::-webkit-scrollbar{display:none}
+.year-bar-mobile .jump-pill{font-size:14px;padding:5px 14px;border-color:var(--border2)}
 .page-header{padding:clamp(28px,6vw,52px) clamp(16px,5vw,40px) 0;text-align:center}
 .page-header h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,10vw,80px);letter-spacing:.06em;color:var(--gold);line-height:1;margin-bottom:6px}
 .page-header .sub{font-family:'Special Elite',cursive;font-size:clamp(10px,2vw,12px);letter-spacing:.35em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
@@ -71,24 +74,26 @@ body::before{content:'';position:fixed;inset:0;z-index:300;pointer-events:none;b
 .page-footer{border-top:1px solid var(--border);padding:24px clamp(16px,5vw,40px);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
 .page-footer a{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}.page-footer a:hover{color:var(--gold)}
 .page-footer span{font-size:10px;color:rgba(255,255,255,.12);letter-spacing:.1em}
-@media(max-width:600px){.nav-links{display:none}.jump-pill{font-size:12px;padding:3px 7px}.game-size{padding:10px 10px;font-size:13px}.game-num{padding:10px 7px 10px 10px;min-width:32px}}
-@media(max-width:420px){.year-jumps{display:none}.stat-item{min-width:80px;padding:10px 8px}}
+@media(max-width:600px){.nav-links{display:none}.year-jumps{display:none}.year-bar-mobile{display:flex}.game-size{padding:10px 10px;font-size:13px}.game-num{padding:10px 7px 10px 10px;min-width:32px}}
+@media(max-width:420px){.stat-item{min-width:80px;padding:10px 8px}}
 </style>
 </head>
 <body>
 <nav class="navbar">
-  <a href="/" class="nav-logo">MPM <strong>✦</strong></a>
+  <a href="https://motionpicturemafia.com/" class="nav-logo">MPM <strong>✦</strong></a>
   <div class="nav-divider"></div>
   <div class="nav-links">
-    <a href="/" class="nav-btn">Home</a>
-    <a href="/Movies/" class="nav-btn">Movies</a>
-    <a href="/Games/" class="nav-btn active">Games</a>
-    <a href="/Tv Series/" class="nav-btn">TV Series</a>
-    <a href="/downloads/" class="nav-btn">Downloads</a>
+    <a href="https://motionpicturemafia.com/" class="nav-btn">Home</a>
+    <a href="https://motionpicturemafia.com/movies/movies" class="nav-btn">Movies</a>
+    <a href="https://motionpicturemafia.com/games/games" class="nav-btn active">Games</a>
+    <a href="https://motionpicturemafia.com/Tv%20Series/tv%20series.html" class="nav-btn">TV Series</a>
+    <a href="https://motionpicturemafia.com/downloads/" class="nav-btn">Downloads</a>
   </div>
   <div class="nav-spacer"></div>
   <div class="year-jumps" id="yearJumps"></div>
 </nav>
+<!-- Mobile year bar -->
+<div class="year-bar-mobile" id="yearBarMobile"></div>
 <div class="page-header">
   <h1>🎮 Game List</h1>
   <p class="sub">Uploaded to the Family Archives</p>
@@ -136,7 +141,7 @@ body::before{content:'';position:fixed;inset:0;z-index:300;pointer-events:none;b
       <li data-date="2026.02.18" data-repack="Fitgirl Repack" data-size="8.4gb">REANIMAL</li>
       <li data-date="2026.02.15" data-repack="Fitgirl Repack" data-size="14gb">HumanitZ</li>
       <li data-date="2026.02.08" data-repack="Fitgirl Repack" data-size="7.2gb">Grounded: Fully Yoked Edition</li>
-      <li data-date="2026.02.08" data-repack="Fitgirl Repack" data-size="7gb">Call Of Duty Black Ops 1</li>
+      <li data-date="2026.02.08" data-repack="Fitgirl Repack" data-size="7.2gb">Call Of Duty Black Ops 1</li>
       <li data-date="2026.02.08" data-repack="Fitgirl Repack" data-size="17.2gb">Cronos: The New Dawn</li>
       <li data-date="2026.02.08" data-repack="Fitgirl Repack" data-size="4.8gb">Green Hell</li>
       <li data-date="2026.02.08" data-repack="Fitgirl Repack" data-size="13.9gb">Alien: Rogue Incursion Evolved Edition - Deluxe</li>
@@ -154,7 +159,7 @@ body::before{content:'';position:fixed;inset:0;z-index:300;pointer-events:none;b
       <li data-date="2026.01.21" data-repack="Fitgirl Repack" data-size="5.2gb">Quarantine Zone: The Last Check</li>
       <li data-date="2026.01.18" data-repack="SteamRIP">Need For Speed: Most Wanted 2005</li>
       <li data-date="2026.01.18">Spider-Man: Web of Shadows</li>
-      <li data-date="2026.01.15" data-repack="Fitgirl Repack" data-size="37gb">Call of Duty: Modern Warfare 2</li>
+      <li data-date="2026.01.15" data-repack="Fitgirl Repack" data-size="6.7gb">Call of Duty: Modern Warfare 2</li>
       <li data-date="2026.01.14" data-repack="DODI Repack" data-size="3.8gb">GTA San Andreas</li>
       <li data-date="2026.01.14" data-repack="DODI Repack" data-size="1.1gb">GTA Vice City - 10 Year Anniversary</li>
       <li data-date="2026.01.14" data-repack="GOG">Project IGI 2: Covert Strike</li>
@@ -169,8 +174,8 @@ body::before{content:'';position:fixed;inset:0;z-index:300;pointer-events:none;b
       <li data-date="2026.01.10" data-repack="Fitgirl Repack" data-size="6.2gb">Crysis 3</li>
       <li data-date="2026.01.10" data-repack="DODI Repack" data-size="4.8gb">Crysis 2</li>
       <li data-date="2026.01.10" data-repack="Fitgirl Repack" data-size="3.4gb">Crysis 1</li>
-      <li data-date="2026.01.10" data-repack="Fitgirl Repack" data-size="48gb">Call of Duty 3: Modern Warfare</li>
-      <li data-date="2026.01.10" data-repack="DODI Repack" data-size="3.9gb">Call of Duty 4: Modern Warfare</li>
+      <li data-date="2026.01.10" data-repack="Fitgirl Repack" data-size="10.8gb">Call of Duty 3: Modern Warfare</li>
+      <li data-date="2026.01.10" data-repack="DODI Repack" data-size="4gb">Call of Duty 4: Modern Warfare</li>
       <li data-date="2026.01.08" data-repack="Fitgirl Repack" data-size="23.2gb">Lords of the Fallen</li>
       <li data-date="2026.01.08" data-repack="Fitgirl Repack" data-size="29.3gb">Gotham Knights</li>
       <li data-date="2026.01.07" data-repack="Fitgirl Repack" data-size="18gb">DIRT 5</li>
@@ -612,15 +617,18 @@ body::before{content:'';position:fixed;inset:0;z-index:300;pointer-events:none;b
 
 </div>
 <footer class="page-footer">
-  <a href="/">← Back to Home</a>
+  <a href="https://motionpicturemafia.com/">← Back to Home</a>
   <div style="display:flex;gap:20px;flex-wrap:wrap">
-    <a href="/Movies/">Movies</a>
-    <a href="/Games/">Games</a>
-    <a href="/Tv Series/">TV Series</a>
-    <a href="/downloads/">Downloads</a>
+    <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+    <a href="https://motionpicturemafia.com/games/games">Games</a>
+    <a href="https://motionpicturemafia.com/Tv%20Series/tv%20series.html">TV Series</a>
+    <a href="https://motionpicturemafia.com/downloads/">Downloads</a>
   </div>
-  <span>© 2025 Motion Picture Mafia</span>
+  <span><p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p></span>
 </footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 <button id="scrollTop" title="Back to top" aria-label="Scroll to top">▲</button>
 <script>
 function parseGB(s){if(!s)return 0;s=s.toUpperCase().trim();var v=parseFloat(s);if(!v||isNaN(v))return 0;if(s.includes('TB'))return v*1024;return v}
@@ -654,9 +662,12 @@ document.getElementById('stat-years').textContent=yearGroups.length;
 var avg=sizedCount?overallTotal/sizedCount:0;
 document.getElementById('stat-avg').textContent=avg?fmtSize(avg):'—';
 var jumpsEl=document.getElementById('yearJumps');
+var mobileBar=document.getElementById('yearBarMobile');
 yearGroups.forEach(function(group){
   var year=group.id.replace('y','');
-  var a=document.createElement('a');a.href='#'+group.id;a.className='jump-pill';a.textContent=year;jumpsEl.appendChild(a);
+  [jumpsEl,mobileBar].forEach(function(container){
+    var a=document.createElement('a');a.href='#'+group.id;a.className='jump-pill';a.textContent=year;container.appendChild(a);
+  });
 });
 var searchInput=document.getElementById('searchInput');
 var searchClear=document.getElementById('searchClear');
