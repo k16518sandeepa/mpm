@@ -1,5 +1,35 @@
 [
   {
+    "id": "livingforest",
+    "platform": "steam",
+    "title": "LivingForest",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3027490/header.jpg?t=1775248291",
+    "description": "From a first or third person perspective, living this forest.",
+    "claimUrl": "https://store.steampowered.com/app/3027490/LivingForest/",
+    "startDate": "2026-04-10T22:30:00",
+    "endDate": "2026-04-13T22:30:00"
+  },
+   {
+    "id": "graveyard keeper",
+    "platform": "steam",
+    "title": "Graveyard Keeper",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/599140/2d2a1ac04897f5098a094eb1ef99a4be64e938d4/header_alt_assets_2.jpg?t=1775826330",
+    "description": "Build and manage a medieval graveyard while facing ethical dilemmas and making questionable decisions.",
+    "claimUrl": "https://store.steampowered.com/app/599140/Graveyard_Keeper/",
+    "startDate": "2026-04-10T22:30:00",
+    "endDate": "2026-04-13T22:30:00"
+  },
+    {
+    "id": "the stone of madness",
+    "platform": "epic",
+    "title": "The Stone of Madness",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1309710/header.jpg?t=1751040329",
+    "description": "The Stone of Madness is a real-time tactical stealth game set in an 18th-century Spanish Monastery.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/the-stone-of-madness-7b22f3",
+    "startDate": "2026-04-16T21:30:00",
+    "endDate": "2026-04-23T21:30:00"
+  },
+   {
     "id": "chamber survival",
     "platform": "steam",
     "title": "Chamber Survival",
