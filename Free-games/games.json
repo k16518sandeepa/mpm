@@ -1,5 +1,15 @@
 [
   {
+    "id": "ninehells",
+    "platform": "steam",
+    "title": "NineHells",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2860410/header.jpg?t=1776202563",
+    "description": "Ninehells is a psychological horror first person single player, with an unraveling mystery, enriched with voice acting, and has virtual haunted attraction feeling.",
+    "claimUrl": "https://store.steampowered.com/app/2860410/NineHells/",
+    "startDate": "2026-04-15T22:30:00",
+    "endDate": "2026-04-20T22:30:00"
+  },
+     {
     "id": "livingforest",
     "platform": "steam",
     "title": "LivingForest",
