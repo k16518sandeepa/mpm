@@ -615,6 +615,27 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 30px rgba(229,0,0,0.35);
     }
+
+    /* Episode available download link inside card */
+    .ep-avail-link {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; gap: 5px;
+      color: var(--red);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(229,0,0,0.1);
+      border: 1px solid rgba(229,0,0,0.3);
+      transition: var(--transition);
+      margin-top: 2px;
+    }
+    .ep-avail-link:hover {
+      background: rgba(229,0,0,0.2);
+      border-color: rgba(229,0,0,0.6);
+      color: #ff4444;
+    }
   </style>
 </head>
 <body>
@@ -732,9 +753,9 @@
 
       <!-- Season 4 countdown card -->
       <div class="countdown-card" id="s4card">
-        <div class="countdown-badge"><span class="badge-dot"></span>Coming Soon</div>
-        <div class="countdown-title">🎬 Season 4</div>
-        <div class="countdown-date">Premieres April 19, 2026</div>
+        <div class="countdown-badge" id="s4badge"><span class="badge-dot"></span>Coming Soon</div>
+        <div class="countdown-title" id="s4title">🎬 Season 4</div>
+        <div class="countdown-date" id="s4date">Premieres April 19, 2026</div>
         <div class="countdown-units">
           <div class="countdown-unit">
             <div class="countdown-num" id="cd-days">00</div>
@@ -756,6 +777,10 @@
             <div class="countdown-label">Secs</div>
           </div>
         </div>
+        <!-- Shown once S4 is airing: links to current available episode -->
+        <a class="ep-avail-link" id="epAvailLink" href="https://t.me/mpmfilessharebot?start=from_s4" style="display:none">
+          ⬇ <span id="epAvailText">Episode 1 Available</span>
+        </a>
       </div>
 
     </div>
@@ -833,59 +858,104 @@
     }, { passive: true });
     btt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-    /* ── SEASON 4 COUNTDOWN ── */
+    /* ── SEASON 4 COUNTDOWN — weekly episode mode ── */
     (function() {
-      const PREMIERE = new Date("2026-04-19T00:00:00").getTime();
-      const card  = document.getElementById("s4card");
-      const dEl   = document.getElementById("cd-days");
-      const hEl   = document.getElementById("cd-hours");
-      const mEl   = document.getElementById("cd-mins");
-      const sEl   = document.getElementById("cd-secs");
+      // ── CONFIG ────────────────────────────────────────────────
+      const PREMIERE       = new Date("2026-04-19T00:00:00").getTime(); // S4 Ep1 local time
+      const TOTAL_EPISODES = 10;                                         // adjust when confirmed
+      const EPISODE_MS     = 7 * 24 * 60 * 60 * 1000;                  // weekly cadence
+      const TG_LINK        = "https://t.me/mpmfilessharebot?start=from_s4";
+      // ─────────────────────────────────────────────────────────
+
+      const card        = document.getElementById("s4card");
+      const badge       = document.getElementById("s4badge");
+      const titleEl     = document.getElementById("s4title");
+      const dateEl      = document.getElementById("s4date");
+      const dEl         = document.getElementById("cd-days");
+      const hEl         = document.getElementById("cd-hours");
+      const mEl         = document.getElementById("cd-mins");
+      const sEl         = document.getElementById("cd-secs");
+      const availLink   = document.getElementById("epAvailLink");
+      const availText   = document.getElementById("epAvailText");
 
       function pad(n) { return String(n).padStart(2, "0"); }
-
-      function flash(el) {
-        el.classList.add("tick");
-        setTimeout(() => el.classList.remove("tick"), 300);
-      }
+      function flash(el) { el.classList.add("tick"); setTimeout(() => el.classList.remove("tick"), 300); }
 
       let prevS = -1;
 
-      function tick() {
-        const now  = Date.now();
-        const diff = PREMIERE - now;
+      function formatDate(ts) {
+        return new Date(ts).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      }
 
-        if (diff <= 0) {
-          // Countdown done — show "Out Now!" state
-          dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = "00";
-          card.classList.add("released");
-          card.querySelector(".countdown-badge").innerHTML = "✅ Out Now!";
-          card.querySelector(".countdown-title").textContent = "⬇ Season 4";
-          card.querySelector(".countdown-date").textContent = "Click to download";
-          card.style.cursor = "pointer";
-          card.onclick = () => { window.location.href = "https://t.me/mpmfilessharebot?start=from_s4"; };
-          return; // stop ticking
-        }
-
+      function setCountdown(diff) {
         const totalSec = Math.floor(diff / 1000);
         const d = Math.floor(totalSec / 86400);
         const h = Math.floor((totalSec % 86400) / 3600);
         const m = Math.floor((totalSec % 3600) / 60);
         const s = totalSec % 60;
-
         dEl.textContent = pad(d);
         hEl.textContent = pad(h);
         mEl.textContent = pad(m);
         sEl.textContent = pad(s);
-
         if (s !== prevS) {
           flash(sEl);
-          if (s === 59) { flash(mEl); }
-          if (s === 59 && m === 59) { flash(hEl); }
-          if (s === 59 && m === 59 && h === 23) { flash(dEl); }
+          if (s === 59) flash(mEl);
+          if (s === 59 && m === 59) flash(hEl);
+          if (s === 59 && m === 59 && h === 23) flash(dEl);
           prevS = s;
         }
+      }
 
+      function tick() {
+        const now = Date.now();
+
+        /* ── Phase 1: before premiere ── */
+        if (now < PREMIERE) {
+          badge.innerHTML = '<span class="badge-dot"></span>Coming Soon';
+          titleEl.textContent = "🎬 Season 4";
+          dateEl.textContent  = "Premieres " + formatDate(PREMIERE);
+          availLink.style.display = "none";
+          card.classList.remove("released");
+          card.onclick = null; card.style.cursor = "default";
+          setCountdown(PREMIERE - now);
+          setTimeout(tick, 1000);
+          return;
+        }
+
+        /* ── Phase 2: season actively airing ── */
+        const elapsed = now - PREMIERE;
+        const epReleased = Math.min(Math.floor(elapsed / EPISODE_MS) + 1, TOTAL_EPISODES);
+
+        // Show currently available episode link
+        availLink.style.display = "inline-flex";
+        availText.textContent = epReleased === TOTAL_EPISODES
+          ? `All ${TOTAL_EPISODES} Episodes Available`
+          : `Episode ${epReleased} Available`;
+
+        /* ── Phase 3: all episodes out ── */
+        if (epReleased >= TOTAL_EPISODES) {
+          badge.innerHTML = "✅ Season Complete";
+          titleEl.textContent = "⬇ Season 4";
+          dateEl.textContent  = "All episodes available · Click to download";
+          dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = "00";
+          card.classList.add("released");
+          card.style.cursor = "pointer";
+          card.onclick = () => { window.location.href = TG_LINK; };
+          return; // stop ticking
+        }
+
+        /* ── Counting to next episode ── */
+        const nextEpNum  = epReleased + 1;
+        const nextEpTime = PREMIERE + (nextEpNum - 1) * EPISODE_MS;
+        const diff       = nextEpTime - now;
+
+        badge.innerHTML = '<span class="badge-dot"></span>Season 4 · Airing';
+        titleEl.textContent = `🎬 Episode ${nextEpNum}`;
+        dateEl.textContent  = `Drops ${formatDate(nextEpTime)}`;
+        card.classList.remove("released");
+        card.onclick = null; card.style.cursor = "default";
+
+        setCountdown(diff);
         setTimeout(tick, 1000);
       }
 
