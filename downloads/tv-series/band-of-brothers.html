@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="title" content="The Boys | MPM">
-  <meta name="description" content="A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers.">
-  <meta property="og:title" content="The Boys | Motion Picture Mafia Studio">
-  <meta property="og:description" content="A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers.">
-  <meta property="og:image" content="https://cdn.mos.cms.futurecdn.net/SBt9pB7xnjNdcerRHBBhxh-1200-80.jpg">
-  <meta property="og:url" content="https://motionpicturemafia.com/downloads/tv-series/the-boys.html">
+  <meta name="title" content="Band of Brothers | MPM">
+  <meta name="description" content="The story of Easy Company of the U.S. Army 101st Airborne Division and their mission in World War II Europe, from Operation Overlord to V-J Day.">
+  <meta property="og:title" content="Band of Brothers | Motion Picture Mafia Studio">
+  <meta property="og:description" content="The story of Easy Company of the U.S. Army 101st Airborne Division and their mission in World War II Europe, from Operation Overlord to V-J Day.">
+  <meta property="og:image" content="https://m.media-amazon.com/images/M/MV5BMWIzZTIzMGMtOGViYi00NTQ1LTlkYzctOWYzNGZlYTI1NWM3XkEyXkFqcGdeQWpybA@@._V1_.jpg">
+  <meta property="og:url" content="https://motionpicturemafia.com/downloads/tv-series/band-of-brothers.html">
   <link rel="icon" type="image/png" href="Images/mpm logo.png">
-  <title>The Boys — MPM</title>
+  <title>Band of Brothers — MPM</title>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
@@ -37,7 +37,7 @@
       --surface-2: #1c1c1c;
       --surface-3: #252525;
       --red:       #e50000;
-      --red-The Boys:  #a00000;
+      --red-Band of Brothers:  #a00000;
       --red-glow:  rgba(229,0,0,0.28);
       --text:      #f0ece8;
       --text-muted:#888;
@@ -73,7 +73,7 @@
     /* ── BLURRED BACKDROP ── */
     .bg-blur {
       position: fixed; inset: 0;
-      background: url('https://cdn.mos.cms.futurecdn.net/SBt9pB7xnjNdcerRHBBhxh-1200-80.jpg') center/cover no-repeat;
+      background: url('https://m.media-amazon.com/images/M/MV5BMWIzZTIzMGMtOGViYi00NTQ1LTlkYzctOWYzNGZlYTI1NWM3XkEyXkFqcGdeQWpybA@@._V1_.jpg') center/cover no-repeat;
       filter: blur(18px) brightness(0.3) saturate(0.6);
       z-index: -2;
       transform: scale(1.05); /* prevent blur edge artifacts */
@@ -118,7 +118,7 @@
       animation: logoGlow 3s ease-in-out infinite alternate;
     }
     @keyframes logoGlow {
-      The Boys { text-shadow: 0 0 6px rgba(229,0,0,0.3); }
+      Band of Brothers { text-shadow: 0 0 6px rgba(229,0,0,0.3); }
       to   { text-shadow: 0 0 16px rgba(229,0,0,0.7); }
     }
 
@@ -249,7 +249,7 @@
     }
 
     @keyframes slideUp {
-      The Boys { opacity: 0; transform: translateY(24px); }
+      Band of Brothers { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -367,7 +367,7 @@
     .download-btn::before {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--red), var(--red-The Boys));
+      background: linear-gradient(135deg, var(--red), var(--red-Band of Brothers));
       opacity: 0;
       transition: opacity var(--transition);
     }
@@ -462,7 +462,7 @@
     .back-to-top.visible { display: flex; animation: fadeInUp 0.3s var(--ease); }
     .back-to-top:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(229,0,0,0.5); }
     @keyframes fadeInUp {
-      The Boys { opacity: 0; transform: translateY(10px); }
+      Band of Brothers { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -470,7 +470,7 @@
     ::-webkit-scrollbar       { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--red-The Boys); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--red-Band of Brothers); }
 
     /* ── COUNTDOWN CARD ── */
     .countdown-card {
@@ -658,7 +658,7 @@
     <span>›</span>
     <a href="https://motionpicturemafia.com/downloads/">TV Series</a>
     <span>›</span>
-    <span>The Boys</span>
+    <span>Band of Brothers</span>
   </div>
 
   <!-- ── HERO ── -->
@@ -667,7 +667,7 @@
     <!-- Poster -->
     <div class="poster-wrap">
       <div class="poster" id="poster">
-        <img src="https://resizing.flixster.com/7GlCWhHbm6Xtfjk9tTIYgAWdn0A=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvNmVjZWJiMDEtN2E5ZS00MzQzLWJkNWQtNjRmOTZkOGNiYjM5LmpwZw==" alt="The Boys Poster" loading="eager">
+        <img src="https://m.media-amazon.com/images/M/MV5BYjdlNGJlYjQtMDU2Mi00ZjA1LWEwYzgtYzlmNDM5MmE1ZGUwXkEyXkFqcGc@._V1_.jpg" loading="post">
       </div>
     </div>
 
@@ -675,27 +675,27 @@
     <div class="info-panel">
       <div class="category-tag">📺 TV Series</div>
 
-      <h1 class="title">The Boys</h1>
+      <h1 class="title">Band of Brothers</h1>
 
       <p class="synopsis">
-      A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers.  
+      The story of Easy Company of the U.S. Army 101st Airborne Division and their mission in World War II Europe, from Operation Overlord to V-J Day.  
       </p>
 
       <div class="stats">
-        <span class="stat-chip highlight">2019 - 2026</span>
-        <span class="stat-chip">⭐ IMDb 8.6</span>
-        <span class="stat-chip">Dark Comedy</span>
-        <span class="stat-chip">Action</span>
+        <span class="stat-chip highlight">2001</span>
+        <span class="stat-chip">⭐ IMDb 9.4</span>
+        <span class="stat-chip">War Epic</span>
+        <span class="stat-chip">History</span>
         <span class="stat-chip">Psychological Drama</span>
         <span class="stat-chip">TV-MA</span>
-        <span class="stat-chip">40 Episodes</span>
-        <span class="stat-chip">5 Season(s)</span>
+        <span class="stat-chip">10 Episodes</span>
+        <span class="stat-chip">1 Season(s)</span>
       </div>
 
       <div class="trailer-wrap">
         <iframe
-          src="https://www.youtube.com/embed/M1bhOaLV4FU"
-          title="The Boys Trailer"
+          src="https://www.youtube.com/embed/KKRBAFlN5ww"
+          title="Band of Brothers Trailer"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
           loading="lazy">
@@ -712,54 +712,16 @@
 
     <div class="download-grid">
 
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=the_boys_s1">
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=band_of_brothers_720p">
         <div class="btn-label">⬇ Season 1</div>
-        <div class="btn-meta">08 Episodes · 720p WEBRip PSA</div>
+        <div class="btn-meta">10 Episodes · 720p BluRay</div>
         <span class="btn-arrow">→</span>
       </a>
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=the_boys_s2">
-        <div class="btn-label">⬇ Season 2</div>
-        <div class="btn-meta">08 Episodes · 720p WEBRip PSA</div>
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=band_of_brothers_1080p">
+        <div class="btn-label">⬇ Season 1</div>
+        <div class="btn-meta">10 Episodes · 1080p BluRay</div>
         <span class="btn-arrow">→</span>
       </a>
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=the_boys_s3">
-        <div class="btn-label">⬇ Season 3</div>
-        <div class="btn-meta">08 Episodes · 720p WEBRip PSA</div>
-        <span class="btn-arrow">→</span>
-      </a>
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=the_boys_s4">
-        <div class="btn-label">⬇ Season 4</div>
-        <div class="btn-meta">08 Episodes · 720p WEBRip PSA</div>
-        <span class="btn-arrow">→</span>
-      </a>
-      
-      <!-- Season 4 countdown card -->
-      <div class="countdown-card" id="s4card">
-        <div class="countdown-badge"><span class="badge-dot"></span>Coming Soon</div>
-        <div class="countdown-title">🎬 Season 5</div>
-        <div class="countdown-date">Premieres April 08, 2026</div>
-        <div class="countdown-units">
-          <div class="countdown-unit">
-            <div class="countdown-num" id="cd-days">00</div>
-            <div class="countdown-label">Days</div>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-unit">
-            <div class="countdown-num" id="cd-hours">00</div>
-            <div class="countdown-label">Hours</div>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-unit">
-            <div class="countdown-num" id="cd-mins">00</div>
-            <div class="countdown-label">Mins</div>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-unit">
-            <div class="countdown-num" id="cd-secs">00</div>
-            <div class="countdown-label">Secs</div>
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -863,7 +825,7 @@
           dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = "00";
           card.classList.add("released");
           card.querySelector(".countdown-badge").innerHTML = "✅ Out Now!";
-          card.querySelector(".countdown-title").textContent = "⬇ Season 5";
+          card.querySelector(".countdown-title").textContent = "⬇ Season 4";
           card.querySelector(".countdown-date").textContent = "Click to download";
           card.style.cursor = "pointer";
           card.onclick = () => { window.location.href = "https://t.me/mpmfilessharebot?start=the_boys_s5"; };
