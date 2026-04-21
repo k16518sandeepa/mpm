@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="title" content="The Boys | MPM">
-  <meta name="description" content="A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers.">
-  <meta property="og:title" content="The Boys | Motion Picture Mafia Studio">
-  <meta property="og:description" content="A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers.">
-  <meta property="og:image" content="https://cdn.mos.cms.futurecdn.net/SBt9pB7xnjNdcerRHBBhxh-1200-80.jpg">
-  <meta property="og:url" content="https://motionpicturemafia.com/downloads/tv-series/the-boys.html">
+  <meta name="title" content="When They See Us | MPM">
+  <meta name="description" content="Five teens from Harlem become trapped in a nightmare when they're falsely accused of a brutal attack in Central Park. Based on the true story.">
+  <meta property="og:title" content="When They See Us | Motion Picture Mafia Studio">
+  <meta property="og:description" content="Five teens from Harlem become trapped in a nightmare when they're falsely accused of a brutal attack in Central Park. Based on the true story.">
+  <meta property="og:image" content="https://occ-0-8407-92.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABVWO2689PbAGGrzc0iYzSLH7GB8nieGTLkwnMvyM2jpg0Z-t6KvCZetXL2mN3aUHftoSJuRmNGRil9xiZqYL3DuxA6Yz6u55ahNw.jpg?r=cbf">
+  <meta property="og:url" content="https://motionpicturemafia.com/downloads/tv-series/when-they-see-us.html">
   <link rel="icon" type="image/png" href="Images/mpm logo.png">
-  <title>The Boys — MPM</title>
+  <title>When They See Us — MPM</title>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
@@ -37,7 +37,7 @@
       --surface-2: #1c1c1c;
       --surface-3: #252525;
       --red:       #e50000;
-      --red-series:    #a00000;
+      --red-When They See Us:  #a00000;
       --red-glow:  rgba(229,0,0,0.28);
       --text:      #f0ece8;
       --text-muted:#888;
@@ -73,7 +73,7 @@
     /* ── BLURRED BACKDROP ── */
     .bg-blur {
       position: fixed; inset: 0;
-      background: url('https://cdn.mos.cms.futurecdn.net/SBt9pB7xnjNdcerRHBBhxh-1200-80.jpg') center/cover no-repeat;
+      background: url('https://occ-0-8407-92.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABVWO2689PbAGGrzc0iYzSLH7GB8nieGTLkwnMvyM2jpg0Z-t6KvCZetXL2mN3aUHftoSJuRmNGRil9xiZqYL3DuxA6Yz6u55ahNw.jpg?r=cbf') center/cover no-repeat;
       filter: blur(18px) brightness(0.3) saturate(0.6);
       z-index: -2;
       transform: scale(1.05); /* prevent blur edge artifacts */
@@ -118,7 +118,7 @@
       animation: logoGlow 3s ease-in-out infinite alternate;
     }
     @keyframes logoGlow {
-      from { text-shadow: 0 0 6px rgba(229,0,0,0.3); }
+      When They See Us { text-shadow: 0 0 6px rgba(229,0,0,0.3); }
       to   { text-shadow: 0 0 16px rgba(229,0,0,0.7); }
     }
 
@@ -249,7 +249,7 @@
     }
 
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(24px); }
+      When They See Us { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -367,7 +367,7 @@
     .download-btn::before {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--red), var(--red-series));
+      background: linear-gradient(135deg, var(--red), var(--red-When They See Us));
       opacity: 0;
       transition: opacity var(--transition);
     }
@@ -462,7 +462,7 @@
     .back-to-top.visible { display: flex; animation: fadeInUp 0.3s var(--ease); }
     .back-to-top:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(229,0,0,0.5); }
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(10px); }
+      When They See Us { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -470,7 +470,7 @@
     ::-webkit-scrollbar       { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--red-series); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--red-When They See Us); }
 
     /* ── COUNTDOWN CARD ── */
     .countdown-card {
@@ -615,27 +615,6 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 30px rgba(229,0,0,0.35);
     }
-
-    /* Episode available download link inside card */
-    .ep-avail-link {
-      position: relative; z-index: 1;
-      display: inline-flex; align-items: center; gap: 5px;
-      color: var(--red);
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      text-decoration: none;
-      padding: 4px 8px;
-      border-radius: 4px;
-      background: rgba(229,0,0,0.1);
-      border: 1px solid rgba(229,0,0,0.3);
-      transition: var(--transition);
-      margin-top: 2px;
-    }
-    .ep-avail-link:hover {
-      background: rgba(229,0,0,0.2);
-      border-color: rgba(229,0,0,0.6);
-      color: #ff4444;
-    }
   </style>
 </head>
 <body>
@@ -679,7 +658,7 @@
     <span>›</span>
     <a href="https://motionpicturemafia.com/downloads/">TV Series</a>
     <span>›</span>
-    <span>The Boys</span>
+    <span>When They See Us</span>
   </div>
 
   <!-- ── HERO ── -->
@@ -688,7 +667,7 @@
     <!-- Poster -->
     <div class="poster-wrap">
       <div class="poster" id="poster">
-        <img src="https://resizing.flixster.com/7GlCWhHbm6Xtfjk9tTIYgAWdn0A=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvNmVjZWJiMDEtN2E5ZS00MzQzLWJkNWQtNjRmOTZkOGNiYjM5LmpwZw==" alt="The Boys Poster" loading="eager">
+        <img src="https://m.media-amazon.com/images/M/MV5BMGU0MDIzZTAtYjBjZi00ZDQ1LThlYzctNWJkOWU4NTI5OWNkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" loading="post">
       </div>
     </div>
 
@@ -696,27 +675,27 @@
     <div class="info-panel">
       <div class="category-tag">📺 TV Series</div>
 
-      <h1 class="title">The Boys</h1>
+      <h1 class="title">When They See Us</h1>
 
       <p class="synopsis">
-      A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers.  
+      Five teens from Harlem become trapped in a nightmare when they're falsely accused of a brutal attack in Central Park. Based on the true story.  
       </p>
 
       <div class="stats">
-        <span class="stat-chip highlight">2019 - 2026</span>
-        <span class="stat-chip">⭐ IMDb 8.6</span>
-        <span class="stat-chip">Dark Comedy</span>
-        <span class="stat-chip">Action</span>
+        <span class="stat-chip highlight">2019</span>
+        <span class="stat-chip">⭐ IMDb 8.8</span>
+        <span class="stat-chip">Docudrama</span>
+        <span class="stat-chip">True Crime</span>
         <span class="stat-chip">Psychological Drama</span>
         <span class="stat-chip">TV-MA</span>
-        <span class="stat-chip">40 Episodes</span>
-        <span class="stat-chip">5 Season(s)</span>
+        <span class="stat-chip">04 Episodes</span>
+        <span class="stat-chip">1 Season(s)</span>
       </div>
 
       <div class="trailer-wrap">
         <iframe
-          src="https://www.youtube.com/embed/M1bhOaLV4FU"
-          title="The Boys Trailer"
+          src="https://www.youtube.com/embed/YyoSErErnCE"
+          title="When They See Us Trailer"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
           loading="lazy">
@@ -733,59 +712,11 @@
 
     <div class="download-grid">
 
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=the_boys_s1">
+      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=when_they_see_us">
         <div class="btn-label">⬇ Season 1</div>
-        <div class="btn-meta">08 Episodes · 720p WEBRip PSA</div>
+        <div class="btn-meta">04 Episodes · 720p WEBRip</div>
         <span class="btn-arrow">→</span>
       </a>
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=the_boys_s2">
-        <div class="btn-label">⬇ Season 2</div>
-        <div class="btn-meta">08 Episodes · 720p WEBRip PSA</div>
-        <span class="btn-arrow">→</span>
-      </a>
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=the_boys_s3">
-        <div class="btn-label">⬇ Season 3</div>
-        <div class="btn-meta">08 Episodes · 720p WEBRip PSA</div>
-        <span class="btn-arrow">→</span>
-      </a>
-      <a class="download-btn" href="https://t.me/mpmfilessharebot?start=the_boys_s4">
-        <div class="btn-label">⬇ Season 4</div>
-        <div class="btn-meta">08 Episodes · 720p WEBRip PSA</div>
-        <span class="btn-arrow">→</span>
-      </a>
-      
-      <!-- Season 5 countdown card -->
-      <div class="countdown-card" id="s4card">
-        <div class="countdown-badge" id="s4badge"><span class="badge-dot"></span>Coming Soon</div>
-        <div class="countdown-title" id="s4title">🎬 Season 5</div>
-        <div class="countdown-date" id="s4date">Premieres April 08, 2026</div>
-        <div class="countdown-units">
-          <div class="countdown-unit">
-            <div class="countdown-num" id="cd-days">00</div>
-            <div class="countdown-label">Days</div>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-unit">
-            <div class="countdown-num" id="cd-hours">00</div>
-            <div class="countdown-label">Hours</div>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-unit">
-            <div class="countdown-num" id="cd-mins">00</div>
-            <div class="countdown-label">Mins</div>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-unit">
-            <div class="countdown-num" id="cd-secs">00</div>
-            <div class="countdown-label">Secs</div>
-          </div>
-        </div>
-        <!-- Shown once S5 is airing: links to current available episode -->
-        <a class="ep-avail-link" id="epAvailLink" href="https://t.me/mpmfilessharebot?start=the_boys_s5" style="display:none">
-          ⬇ <span id="epAvailText">Episode 1 Available</span>
-        </a>
-      </div>
-
     </div>
   </div>
 
@@ -861,126 +792,59 @@
     }, { passive: true });
     btt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-    /* ── SEASON 5 COUNTDOWN — manual episode schedule ── */
+    /* ── SEASON 4 COUNTDOWN ── */
     (function() {
-      // ── EPISODE SCHEDULE ──────────────────────────────────────
-      
-      // Add one entry per episode. Same date = they drop together.
-      // Update this list as Amazon announces new dates.
-      const EPISODES = [
-        { ep: 1, drops: "2026-04-08T00:00:00" },
-        { ep: 2, drops: "2026-04-08T00:00:00" },  // dropped same day as ep 1
-        { ep: 3, drops: "2026-04-15T00:00:00" },
-        { ep: 4, drops: "2026-04-22T00:00:00" },
-        { ep: 5, drops: "2026-04-29T00:00:00" },
-        { ep: 6, drops: "2026-05-06T00:00:00" },
-        { ep: 7, drops: "2026-05-13T00:00:00" },
-        { ep: 8, drops: "2026-05-20T00:00:00" },
-      ];
-      const TG_LINK = "https://t.me/mpmfilessharebot?start=the_boys_s5";
-      // ─────────────────────────────────────────────────────────
-
-      const card      = document.getElementById("s4card");
-      const badge     = document.getElementById("s4badge");
-      const titleEl   = document.getElementById("s4title");
-      const dateEl    = document.getElementById("s4date");
-      const dEl       = document.getElementById("cd-days");
-      const hEl       = document.getElementById("cd-hours");
-      const mEl       = document.getElementById("cd-mins");
-      const sEl       = document.getElementById("cd-secs");
-      const availLink = document.getElementById("epAvailLink");
-      const availText = document.getElementById("epAvailText");
+      const PREMIERE = new Date("2026-04-08T00:00:00").getTime();
+      const card  = document.getElementById("s4card");
+      const dEl   = document.getElementById("cd-days");
+      const hEl   = document.getElementById("cd-hours");
+      const mEl   = document.getElementById("cd-mins");
+      const sEl   = document.getElementById("cd-secs");
 
       function pad(n) { return String(n).padStart(2, "0"); }
-      function flash(el) { el.classList.add("tick"); setTimeout(() => el.classList.remove("tick"), 300); }
+
+      function flash(el) {
+        el.classList.add("tick");
+        setTimeout(() => el.classList.remove("tick"), 300);
+      }
 
       let prevS = -1;
 
-      function fmtDate(dateStr) {
-        return new Date(dateStr).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-      }
+      function tick() {
+        const now  = Date.now();
+        const diff = PREMIERE - now;
 
-      function setCountdown(ms) {
-        const totalSec = Math.floor(ms / 1000);
+        if (diff <= 0) {
+          // Countdown done — show "Out Now!" state
+          dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = "00";
+          card.classList.add("released");
+          card.querySelector(".countdown-badge").innerHTML = "✅ Out Now!";
+          card.querySelector(".countdown-title").textContent = "⬇ Season 4";
+          card.querySelector(".countdown-date").textContent = "Click to download";
+          card.style.cursor = "pointer";
+          card.onclick = () => { window.location.href = "https://t.me/mpmfilessharebot?start=the_boys_s5"; };
+          return; // stop ticking
+        }
+
+        const totalSec = Math.floor(diff / 1000);
         const d = Math.floor(totalSec / 86400);
         const h = Math.floor((totalSec % 86400) / 3600);
         const m = Math.floor((totalSec % 3600) / 60);
         const s = totalSec % 60;
+
         dEl.textContent = pad(d);
         hEl.textContent = pad(h);
         mEl.textContent = pad(m);
         sEl.textContent = pad(s);
+
         if (s !== prevS) {
           flash(sEl);
-          if (s === 59) flash(mEl);
-          if (s === 59 && m === 59) flash(hEl);
-          if (s === 59 && m === 59 && h === 23) flash(dEl);
+          if (s === 59) { flash(mEl); }
+          if (s === 59 && m === 59) { flash(hEl); }
+          if (s === 59 && m === 59 && h === 23) { flash(dEl); }
           prevS = s;
         }
-      }
 
-      function epLabel(eps) {
-        // eps = array of episode numbers in a drop group
-        if (eps.length === 1) return `Episode ${eps[0]}`;
-        if (eps.length === 2) return `Episodes ${eps[0]} & ${eps[1]}`;
-        return `Episodes ${eps[0]}–${eps[eps.length - 1]}`;
-      }
-
-      function tick() {
-        const now = Date.now();
-
-        // Split into released and upcoming
-        const released = EPISODES.filter(e => new Date(e.drops).getTime() <= now);
-        const upcoming = EPISODES.filter(e => new Date(e.drops).getTime() > now);
-
-        /* ── Phase 1: nothing released yet ── */
-        if (released.length === 0) {
-          const firstDrop = new Date(upcoming[0].drops).getTime();
-          const firstEps  = upcoming.filter(e => e.drops === upcoming[0].drops).map(e => e.ep);
-          badge.innerHTML  = '<span class="badge-dot"></span>Coming Soon';
-          titleEl.textContent = `🎬 ${epLabel(firstEps)}`;
-          dateEl.textContent  = "Premieres " + fmtDate(upcoming[0].drops);
-          availLink.style.display = "none";
-          card.classList.remove("released");
-          card.onclick = null; card.style.cursor = "default";
-          setCountdown(firstDrop - now);
-          setTimeout(tick, 1000);
-          return;
-        }
-
-        /* ── Phase 3: all episodes out ── */
-        if (upcoming.length === 0) {
-          badge.innerHTML     = "✅ Season Complete";
-          titleEl.textContent = "⬇ Season 5";
-          dateEl.textContent  = "All episodes available · Click to download";
-          dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = "00";
-          availLink.style.display = "inline-flex";
-          availText.textContent = `All ${EPISODES.length} Episodes Available`;
-          card.classList.add("released");
-          card.style.cursor = "pointer";
-          card.onclick = () => { window.location.href = TG_LINK; };
-          return;
-        }
-
-        /* ── Phase 2: airing — show available + countdown to next drop ── */
-        const availCount = released.length;
-        availLink.style.display = "inline-flex";
-        availText.textContent = availCount === 1
-          ? "Episode 1 Available"
-          : `Episodes 1–${availCount} Available`;
-
-        // Next drop group
-        const nextDate   = upcoming[0].drops;
-        const nextDropMs = new Date(nextDate).getTime();
-        const nextEps    = upcoming.filter(e => e.drops === nextDate).map(e => e.ep);
-
-        badge.innerHTML     = '<span class="badge-dot"></span>Season 5 · Airing';
-        titleEl.textContent = `🎬 ${epLabel(nextEps)}`;
-        dateEl.textContent  = `Drops ${fmtDate(nextDate)}`;
-        card.classList.remove("released");
-        card.onclick = null; card.style.cursor = "default";
-
-        setCountdown(nextDropMs - now);
         setTimeout(tick, 1000);
       }
 
