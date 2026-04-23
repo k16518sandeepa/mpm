@@ -1,5 +1,25 @@
 [
   {
+    "id": "necturnal",
+    "platform": "steam",
+    "title": "Aeonic",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1634080/header.jpg?t=1776793447",
+    "description": "Carve your way with fire and steel to find out what secrets lie beyond the Mist in this intense 2-hour-long action-platformer game. Get ready to wield the flames and burn everything!",
+    "claimUrl": "https://store.steampowered.com/app/1634080/Nocturnal/",
+    "startDate": "2026-04-23T19:30:00",
+    "endDate": "2026-04-26T19:30:00"
+  },
+  {
+    "id": "aeonic",
+    "platform": "steam",
+    "title": "Aeonic",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3277530/a0c3f617c7e8f3b50958babae1cf4ebccccf7d18/header.jpg?t=1776893461",
+    "description": "In Aeonic you experience the greatest events in different parts of the planet and beyond in the most important epochs of civilization throughout the whole history from the beginning to nowadays and to the possible futures.",
+    "claimUrl": "https://store.steampowered.com/app/3277530/Aeonic/",
+    "startDate": "2026-04-22T22:30:00",
+    "endDate": "2026-04-30T02:30:00"
+  },
+  {
     "id": "poly",
     "platform": "steam",
     "title": "SurrounDead Poly Construction",
