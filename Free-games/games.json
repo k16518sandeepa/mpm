@@ -1,5 +1,25 @@
 [
   {
+    "id": "8am",
+    "platform": "steam",
+    "title": "8AM",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2835590/header.jpg?t=1776723150",
+    "description": "8AM is a suspense game where you find yourself trapped in a room, watching a family through cameras. Without explanations, you must decide if strange events occur night after night.",
+    "claimUrl": "https://store.steampowered.com/app/2835590/8AM/",
+    "startDate": "2026-04-23T22:30:00",
+    "endDate": "2026-04-27T22:30:00"
+  },
+  {
+    "id": "oddsparks",
+    "platform": "epic",
+    "title": "Oddsparks: An Automation Adventure",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817800/c505cd263cf0cb85f1e69fac24de81b196141212/header.jpg?t=1776863841",
+    "description": "Oddsparks: An Automation Adventure is a blend of Automation and Real Time Strategy for both the die-hard fans of the Automation genre and the Automation-curious.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/oddsparks-58440c",
+    "startDate": "2026-04-30T21:30:00",
+    "endDate": "2026-05-07T21:30:00"
+  },
+  {
     "id": "necturnal",
     "platform": "steam",
     "title": "Aeonic",
