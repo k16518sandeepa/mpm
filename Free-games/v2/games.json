@@ -1,0 +1,952 @@
+[
+  {
+    "id": "8am",
+    "platform": "steam",
+    "title": "8AM",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2835590/header.jpg?t=1776723150",
+    "description": "8AM is a suspense game where you find yourself trapped in a room, watching a family through cameras. Without explanations, you must decide if strange events occur night after night.",
+    "claimUrl": "https://store.steampowered.com/app/2835590/8AM/",
+    "startDate": "2026-04-23T22:30:00",
+    "endDate": "2026-04-27T22:30:00"
+  },
+  {
+    "id": "oddsparks",
+    "platform": "epic",
+    "title": "Oddsparks: An Automation Adventure",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817800/c505cd263cf0cb85f1e69fac24de81b196141212/header.jpg?t=1776863841",
+    "description": "Oddsparks: An Automation Adventure is a blend of Automation and Real Time Strategy for both the die-hard fans of the Automation genre and the Automation-curious.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/oddsparks-58440c",
+    "startDate": "2026-04-30T21:30:00",
+    "endDate": "2026-05-07T21:30:00"
+  },
+  {
+    "id": "necturnal",
+    "platform": "steam",
+    "title": "Aeonic",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1634080/header.jpg?t=1776793447",
+    "description": "Carve your way with fire and steel to find out what secrets lie beyond the Mist in this intense 2-hour-long action-platformer game. Get ready to wield the flames and burn everything!",
+    "claimUrl": "https://store.steampowered.com/app/1634080/Nocturnal/",
+    "startDate": "2026-04-23T19:30:00",
+    "endDate": "2026-04-26T19:30:00"
+  },
+  {
+    "id": "aeonic",
+    "platform": "steam",
+    "title": "Aeonic",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3277530/a0c3f617c7e8f3b50958babae1cf4ebccccf7d18/header.jpg?t=1776893461",
+    "description": "In Aeonic you experience the greatest events in different parts of the planet and beyond in the most important epochs of civilization throughout the whole history from the beginning to nowadays and to the possible futures.",
+    "claimUrl": "https://store.steampowered.com/app/3277530/Aeonic/",
+    "startDate": "2026-04-22T22:30:00",
+    "endDate": "2026-04-30T02:30:00"
+  },
+  {
+    "id": "poly",
+    "platform": "steam",
+    "title": "SurrounDead Poly Construction",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4148570/e9d382915c9291934640aa856aa5d65af3abe5d9/header.jpg?t=1776780862",
+    "description": "SurrounDead Poly Construction is an open-world survival adventure game where players will solve puzzles, collect items, and defeat all enemies to reach the end.",
+    "claimUrl": "https://store.steampowered.com/app/4148570/SurrounDead_Poly_Construction/",
+    "startDate": "2026-04-22T22:30:00",
+    "endDate": "2026-04-25T22:30:00"
+  },
+   {
+    "id": "whisperning valley",
+    "platform": "gog",
+    "title": "The Whispering Valley",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1512390/header.jpg?t=1740158519",
+    "description": "Explore a remote village and solve complex puzzles in The Whispering Valley, a folk horror point & click game. Delve into guilt and depression to investigate the village's deepest secret.",
+    "claimUrl": "https://www.gog.com/en/game/the_whispering_valley",
+    "startDate": "2026-04-20T22:30:00",
+    "endDate": "2026-04-28T18:30:00"
+  },
+  {
+    "id": "sentience",
+    "platform": "steam",
+    "title": "Sentience: The Android's Tale",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/635850/header.jpg?t=1775829391",
+    "description": "You can remember nothing before this moment. Your existence begins with a keystroke followed by the flick of a switch.",
+    "claimUrl": "https://store.steampowered.com/app/635850/Sentience_The_Androids_Tale/",
+    "startDate": "2026-04-20T22:30:00",
+    "endDate": "2026-04-23T22:30:00"
+  },
+  {
+    "id": "the stone of madness",
+    "platform": "epic",
+    "title": "DOOMBLADE",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/922050/header.jpg?t=1762953800",
+    "description": "Deep underground, Gloom Girl discovers DOOMBLADE, a sentient weapon hellbent on escape after eons in chains.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/doomblade-afdf9a",
+    "startDate": "2026-04-23T21:30:00",
+    "endDate": "2026-04-30T21:30:00"
+  },
+   {
+    "id": "stickman",
+    "platform": "steam",
+    "title": "Stickman Killing Zombie",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2792610/header.jpg?t=1775669825",
+    "description": "The stickman world is in a zombie epidemic- kill zombie stickmen with your epic red sword!",
+    "claimUrl": "https://store.steampowered.com/app/2792610/Stickman_Killing_Zombie/",
+    "startDate": "2026-04-16T22:30:00",
+    "endDate": "2026-04-19T22:30:00"
+  },
+   {
+    "id": "uncanny",
+    "platform": "steam",
+    "title": "Uncanny Tales: Cold Road",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3534240/d59d2dd07426dddf1ecf8e247f431fc05cb85bde/header.jpg?t=1776331862",
+    "description": "Uncanny Tales is an episodic horror series where the real terror comes not from monsters or the supernatural, but from people.",
+    "claimUrl": "https://store.steampowered.com/app/3534240/Uncanny_Tales_Cold_Road/",
+    "startDate": "2026-04-16T22:30:00",
+    "endDate": "2026-04-20T22:30:00"
+  },
+   {
+    "id": "legend",
+    "platform": "steam",
+    "title": "Legend of Keepers: Career of a Dungeon Manager",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/978520/header.jpg?t=1765920747",
+    "description": "Legend of Keepers is the perfect mix between Dungeon Defender and Roguelite.",
+    "claimUrl": "https://store.steampowered.com/app/978520/Legend_of_Keepers_Career_of_a_Dungeon_Manager/",
+    "startDate": "2026-04-16T22:30:00",
+    "endDate": "2026-04-23T22:30:00"
+  },
+   {
+    "id": "ninehells",
+    "platform": "steam",
+    "title": "NineHells",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2860410/header.jpg?t=1776202563",
+    "description": "Ninehells is a psychological horror first person single player, with an unraveling mystery, enriched with voice acting, and has virtual haunted attraction feeling.",
+    "claimUrl": "https://store.steampowered.com/app/2860410/NineHells/",
+    "startDate": "2026-04-15T22:30:00",
+    "endDate": "2026-04-20T22:30:00"
+  },
+     {
+    "id": "livingforest",
+    "platform": "steam",
+    "title": "LivingForest",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3027490/header.jpg?t=1775248291",
+    "description": "From a first or third person perspective, living this forest.",
+    "claimUrl": "https://store.steampowered.com/app/3027490/LivingForest/",
+    "startDate": "2026-04-10T22:30:00",
+    "endDate": "2026-04-13T22:30:00"
+  },
+   {
+    "id": "graveyard keeper",
+    "platform": "steam",
+    "title": "Graveyard Keeper",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/599140/2d2a1ac04897f5098a094eb1ef99a4be64e938d4/header_alt_assets_2.jpg?t=1775826330",
+    "description": "Build and manage a medieval graveyard while facing ethical dilemmas and making questionable decisions.",
+    "claimUrl": "https://store.steampowered.com/app/599140/Graveyard_Keeper/",
+    "startDate": "2026-04-10T22:30:00",
+    "endDate": "2026-04-13T22:30:00"
+  },
+    {
+    "id": "the stone of madness",
+    "platform": "epic",
+    "title": "The Stone of Madness",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1309710/header.jpg?t=1751040329",
+    "description": "The Stone of Madness is a real-time tactical stealth game set in an 18th-century Spanish Monastery.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/the-stone-of-madness-7b22f3",
+    "startDate": "2026-04-16T21:30:00",
+    "endDate": "2026-04-23T21:30:00"
+  },
+   {
+    "id": "chamber survival",
+    "platform": "steam",
+    "title": "Chamber Survival",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2943780/header.jpg?t=1775248437",
+    "description": "From a first person perspective, escape this terrifying room.",
+    "claimUrl": "https://store.steampowered.com/app/2943780/Chamber_Survival/",
+    "startDate": "2026-04-06T22:30:00",
+    "endDate": "2026-04-09T22:30:00"
+  }, 
+  {
+    "id": "house flipper",
+    "platform": "steam",
+    "title": "House Flipper",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/613100/6cee40fe293f0bab47534e78bcda64487902efc1/header.jpg?t=1775231659",
+    "description": "House Flipper is a unique chance to become a one-man renovation crew. Buy, repair and remodel devastated houses. Give them a second life and sell them at a profit!",
+    "claimUrl": "https://store.steampowered.com/app/613100/House_Flipper/",
+    "startDate": "2026-04-03T22:30:00",
+    "endDate": "2026-04-06T22:30:00"
+  },
+   {
+    "id": "prop sump",
+    "platform": "epic",
+    "title": "Prop Sumo",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3089420/61bb501ec41d3bdd52f15558970f7cd80d48dbd7/header.jpg?t=1775143925",
+    "description": "Prop Sumo is a party fighting game that pits ordinary props together in extraordinary battles! Beat up your friends and dominate the scoreboard!",
+    "claimUrl": "https://store.epicgames.com/en-US/p/propsumo-ca8bd7",
+    "startDate": "2026-04-09T21:30:00",
+    "endDate": "2026-04-16T21:30:00"
+  },
+  {
+    "id": "deapths of horror",
+    "platform": "steam",
+    "title": "Depths Of Horror: Mushroom Day",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1590840/header.jpg?t=1775059568",
+    "description": "This is a 3D first-person adventure and horror game that lets you plunge deep into your fears.",
+    "claimUrl": "https://store.steampowered.com/app/1590840/Depths_Of_Horror_Mushroom_Day/",
+    "startDate": "2026-04-01T22:30:00",
+    "endDate": "2026-04-06T22:30:00"
+  },
+  {
+    "id": "tomak",
+    "platform": "epic",
+    "title": "TOMAK: Save the Earth Regeneration",
+    "image": "https://cdn1.epicgames.com/spt-assets/603c0097f96047c38bc199331b5cf95b/tomak--save-the-earth-regeneration-1cvou.png",
+    "description": "The legendary cult hit Tomak: Save the Earth arrives on the Epic Games Store! Nurture Evian, the Goddess of Love—trapped in a flowerpot—and save humanity from destruction.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/tomak-save-the-earth-regeneration-c1207c",
+    "startDate": "2026-04-02T20:30:00",
+    "endDate": "2026-04-16T20:30:00"
+  },
+   {
+    "id": "clone-drone-in-the-danger-zone",
+    "platform": "epic",
+    "title": "Clone Drone in the Danger Zone",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/597170/4a9a9b609f2b0f738fdad11be0cb9f7111137e10/header_alt_assets_2.jpg?t=1774539907",
+    "description": "Clone Drone in the Danger Zone is a robot voxel slice-em-up where any part of your body can be sliced off. With your mind downloaded into a robot gladiator, you must survive the sinister trials of the arena.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/clone-drone-in-the-danger-zone-4daf6e",
+    "startDate": "2026-04-02T21:30:00",
+    "endDate": "2026-04-09T21:30:00"
+  },
+    {
+    "id": "Narvas",
+    "platform": "steam",
+    "title": "Narvas",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/640700/header.jpg?t=1773344192",
+    "description": "Take control of Mace in this local co-op side scrolling platform shooter as you travel from assignment to assignment taking on enemy bots and dangerous bosses on different planets.",
+    "claimUrl": "https://store.steampowered.com/app/640700/Narvas/",
+    "startDate": "2026-03-22T22:30:00",
+    "endDate": "2026-03-25T22:30:00"
+  },
+    {
+    "id": "hyper-echelon",
+    "platform": "epic",
+    "title": "Hyper Echelon",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/953330/header.jpg?t=1765231177",
+    "description": "The Cyan Galaxy is in peril! Your trusty little star fighter and rag tag squad of wingmen are the only hope against the evil EXODON! Level up from a pea shooter to an offensive powerhouse as you engage in frantic combat across many wondrous locales.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/hyper-echelon-2d23ff",
+    "startDate": "2026-03-26T21:30:00",
+    "endDate": "2026-04-02T21:30:00"
+  },
+   {
+    "id": "havendock",
+    "platform": "epic",
+    "title": "Havendock",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2020710/7236297d57d5bcd8aec47450661b912dcb3de8ce/header.jpg?t=1773056724",
+    "description": "Breathe easy and thrive in this cozy colony sim. Build a haven for castaways, manage resources, live your best life on the ocean. Lead your humble settlement into a high-tech society.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/havendock-64983e",
+    "startDate": "2026-03-26T21:30:00",
+    "endDate": "2026-04-02T21:30:00"
+  },
+    {
+    "id": "Pet_Lands",
+    "platform": "steam",
+    "title": "Pet Lands",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3144950/header.jpg?t=1773344180",
+    "description": "Collect quadrillion of coins, hatch pets to mine for you, and unlock 100 unique hand-crafted areas! An incremental clicker/idle creatures-collection adventure. Dopamine heaven has arrived!",
+    "claimUrl": "https://store.steampowered.com/app/3144950/Pet_Lands/",
+    "startDate": "2026-03-19T22:30:00",
+    "endDate": "2026-03-22T22:30:00"
+  },
+    {
+    "id": "electrician_simulator",
+    "platform": "epic",
+    "title": "Electrician Simulator",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1080020/header.jpg?t=1773420811",
+    "description": "Take on the electrician role and learn the profession's basics! Install sockets, repair worn-out equipment, assemble broken appliances, replace light bulbs, and lay wires at your customers' homes.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/electrician-simulator-164e9f",
+    "startDate": "2026-03-19T21:30:00",
+    "endDate": "2026-03-26T21:30:00"
+  },
+   {
+    "id": "Deponia",
+    "platform": "steam",
+    "title": "Deponia",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/214340/header.jpg?t=1772651228",
+    "description": "In Deponia, the world has degenerated into a vast garbage dump, in which the crotchety Rufus ekes out his sorry existence.",
+    "claimUrl": "https://store.steampowered.com/app/214340/Deponia/",
+    "startDate": "2026-03-09T22:30:00",
+    "endDate": "2026-03-16T22:30:00"
+  },
+   {
+    "id": "Crowalt_Traces_of_the_Lost_Colony",
+    "platform": "steam",
+    "title": "Crowalt: Traces of the Lost Colony",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1269500/header.jpg?t=1772130475",
+    "description": "A young adventurer Hugh Radcliff is in pursuit of one of the greatest mysteries of history: The Lost Colony.",
+    "claimUrl": "https://store.steampowered.com/app/1269500/Crowalt_Traces_of_the_Lost_Colony/",
+    "startDate": "2026-03-06T23:30:00",
+    "endDate": "2026-03-09T22:30:00"
+  },
+    {
+    "id": "isonzo",
+    "platform": "epic",
+    "title": "Isonzo",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1556790/header.jpg?t=1770380091",
+    "description": "Ferocious Alpine warfare will test your tactical skills in this authentic WW1 FPS.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/isonzo",
+    "startDate": "2026-03-12T21:30:00",
+    "endDate": "2026-03-19T21:30:00"
+  },
+    {
+    "id": "cozy-grove",
+    "platform": "epic",
+    "title": "Cozy Grove",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1458100/header.jpg?t=1764788370",
+    "description": "Welcome to Cozy Grove, a game about camping on a haunted, ever-changing island.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/cozy-grove",
+    "startDate": "2026-03-12T21:30:00",
+    "endDate": "2026-03-19T21:30:00"
+  },
+    {
+    "id": "World_Crafter_TD",
+    "platform": "steam",
+    "title": "World Crafter TD",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3098890/header.jpg?t=1772475003",
+    "description": "A highly addictive survival crafting tower defense game! Gather, craft, build turrets, shoot guns, and expand the land to defend against waves of enemies in World Crafter TD!",
+    "claimUrl": "https://store.steampowered.com/app/3098890/World_Crafter_TD/",
+    "startDate": "2026-03-02T23:30:00",
+    "endDate": "2026-03-05T23:30:00"
+  },
+   {
+    "id": "sJust_MoveClean_City_Messy_Battle",
+    "platform": "steam",
+    "title": "Just Move:Clean City Messy Battle",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3414900/header.jpg?t=1771955544",
+    "description": "Faced with difficult tasks, try to challenge the limits.Sometimes need luck to win.",
+    "claimUrl": "http://store.steampowered.com/app/3414900/Just_MoveClean_City_Messy_Battle/",
+    "startDate": "2026-02-27T23:30:00",
+    "endDate": "2026-03-04T23:30:00"
+  },
+    {
+    "id": "turnip_boy_robs_a_bank",
+    "platform": "epic",
+    "title": "Turnip Boy Robs a Bank",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2097230/header.jpg?t=1758386170",
+    "description": "Turnip Boy is back! This time he’s teaming up with the fearsome Pickled Gang to plan and execute the weirdest heist of all time.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/turnip-boy-robs-a-bank-3fae0e",
+    "startDate": "2026-03-05T21:30:00",
+    "endDate": "2026-03-12T21:30:00"
+  },
+    {
+    "id": "save_him",
+    "platform": "steam",
+    "title": "BROTHER!!! Save him! - Hardcore Platformer",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1286560/header.jpg?t=1771456167",
+    "description": "The legendary game is now on Steam Can you prove that you are a good player, go through a difficult path and save your brother? This challenge is not for wimps",
+    "claimUrl": "https://store.steampowered.com/app/1286560/BROTHER_Save_him__Hardcore_Platformer/",
+    "startDate": "2026-02-19T23:30:00",
+    "endDate": "2026-02-24T23:30:00"
+  },
+   {
+    "id": "my-night-job",
+    "platform": "epic",
+    "title": "My Night Job",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/437100/header.jpg?t=1738587180",
+    "description": "My Night Job sends players into an abandoned building and sicks hordes of monsters on them.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/my-night-job-a416a6",
+    "startDate": "2026-02-26T21:30:00",
+    "endDate": "2026-03-05T21:30:00"
+  },
+    {
+    "id": "boxes-lost-fragments",
+    "platform": "epic",
+    "title": "Boxes: Lost Fragments",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2019810/header.jpg?t=1766068607",
+    "description": "As a legendary thief, your next assignment lures you into a grand and lavish mansion.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/boxes-lost-fragments-079041",
+    "startDate": "2026-02-26T21:30:00",
+    "endDate": "2026-03-05T21:30:00"
+  },
+   {
+    "id": "paragnosia",
+    "platform": "steam",
+    "title": "Paragnosia",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3017580/header.jpg?t=1768573764",
+    "description": "Observe every corner of your apartment by moving your camera along a rail that runs through the rooms. Find and take pictures of paranormal anomalies to exorcise them.",
+    "claimUrl": "https://store.steampowered.com/app/3017580/Paragnosia/",
+    "startDate": "2026-02-19T21:30:00",
+    "endDate": "2026-02-23T13:30:00"
+  },
+  {
+    "id": "stalcraft-x-stalcraft-x-starter-edition",
+    "platform": "epic",
+    "title": "STALCRAFT: X Starter Edition [ADD-Ons]",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1818450/3bdcb592e02e56cbf8abd3310abc00a93e6524b0/header.jpg?t=1770387681",
+    "description": "STALCRAFT: X is a free-to-play MMOFPS with RPG elements. Start exploring the world of the Zone with a Starter Pack.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/stalcraft-x-stalcraft-x-starter-edition-0b06d4",
+    "startDate": "2026-02-19T21:30:00",
+    "endDate": "2026-02-26T21:30:00"
+  },
+   {
+    "id": "return-to-ash",
+    "platform": "epic",
+    "title": "Return To Ash",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3445830/header.jpg?t=1757711540",
+    "description": "The hospital was empty. Quiet, and brighter than usual... like waking up on a snow day. But I didn't feel cold. I didn't feel much of anything.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/return-to-ash-dee3ff",
+    "startDate": "2026-02-19T21:30:00",
+    "endDate": "2026-02-26T21:30:00"
+  },
+    {
+    "id": "lost_in_anomaly",
+    "platform": "steam",
+    "title": "Lost in Anomaly",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3312020/header.jpg?t=1770324875",
+    "description": "In Lost in Anomaly, you wake up on the 9th floor of an unknown building.",
+    "claimUrl": "https://store.steampowered.com/app/3312020/Lost_in_Anomaly/",
+    "startDate": "2026-02-11T23:30:00",
+    "endDate": "2026-02-16T23:30:00"
+  },
+   {
+    "id": "magellania",
+    "platform": "steam",
+    "title": "Magellania",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1511950/header.jpg?t=1770000417",
+    "description": "Defeat your enemies with the power of love, friendship, and violent military aggression in Magellania, a hardcore tactics-RPG set in outer space.",
+    "claimUrl": "https://store.steampowered.com/app/1511950/Magellania/",
+    "startDate": "2026-02-06T23:30:00",
+    "endDate": "2026-02-09T23:30:00"
+  },
+   {
+    "id": "the-darkside-detective-a-fumble-in-the-dark",
+    "platform": "epic",
+    "title": "The Darkside Detective: A Fumble in the Dark",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/795420/3baf01c4fca026d6037d5c6e2749f6246a7b355c/header.jpg?t=1769536320",
+    "description": "Delouse your room with sage and pack up your travel-sized ouija board, it’s time to re-enter Twin Lakes - America’s 34th most haunted city.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/the-darkside-detective-a-fumble-in-the-dark-174fcf",
+    "startDate": "2026-02-12T21:30:00",
+    "endDate": "2026-02-19T21:30:00"
+  },
+   {
+    "id": "nobody-wants-to-die",
+    "platform": "epic",
+    "title": "Nobody Wants to Die",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1939970/header.jpg?t=1749822103",
+    "description": "Lose yourself in the dystopian world of New York, 2329; immortality comes at a price that someone has to pay. In this interactive noir story, lead the investigation using advanced technology, as Detective James Karra who risks it all in pursuit of a serial killer targeting the city’s elite.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/nobody-wants-to-die-fe21cd",
+    "startDate": "2026-02-12T21:30:00",
+    "endDate": "2026-02-19T21:30:00"
+  },
+    {
+    "id": "arabian_gulf",
+    "platform": "steam",
+    "title": "Arabian Gulf",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3744480/efb96c296ba8c4832eb4a39b26f108527e92fae5/header.jpg?t=1770243842",
+    "description": "Arabian Gulf is a single-player survival action game set in a harsh desert. Face relentless enemies, endure tough conditions, and fight through dangerous terrain using basic tools and weapons.",
+    "claimUrl": "https://store.steampowered.com/app/3744480/Arabian_Gulf/",
+    "startDate": "2026-02-05T23:30:00",
+    "endDate": "2026-02-08T23:30:00"
+  },
+   {
+    "id": "alone_in_the_dark_the_trilogy_123",
+    "platform": "gog",
+    "title": "Alone in the Dark: The Trilogy 1+2+3",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1310410/header.jpg?t=1754066311",
+    "description": "A suspicious suicide. A chilling curse. A malevolent power. Finally, a wicked dark secret. This is Derceto, a legendary Louisiana mansion where, against your better judgment, you're drawn into a world of shadows to explore the darker side of Jeremy Hartwood's imagination.",
+    "claimUrl": "https://www.gog.com/en/game/alone_in_the_dark_the_trilogy_123",
+    "startDate": "2026-02-02T20:30:00",
+    "endDate": "2026-02-05T17:30:00"
+  },
+   {
+    "id": "nightreaper2",
+    "platform": "epic",
+    "title": "Nightreaper2",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4282590/6b9d36f3c9b97ae9597064dffa36a3c20f99d220/header.jpg?t=1769430799",
+    "description": "A dark stylized action game where you hunt villagers, escape the police, and battle four powerful kings in a fast-paced chaotic world.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/nightreaper2-bc3b86",
+    "startDate": "2026-02-01T10:30:00",
+    "endDate": "2026-02-28T16:32:00"
+  },
+   {
+    "id": "pixel-gun-3d-poison-retro-set",
+    "platform": "epic",
+    "title": "Pixel Gun 3D - Poison Retro Set [DLC]",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2869440/0905fab1749618b4559864e8465648f037055317/header.jpg?t=1747218601",
+    "description": "This content requires the base game Pixel Gun 3D: PC Edition on Epic in order to play.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/pixel-gun-3d-poison-retro-set-55a7dd",
+    "startDate": "2026-02-05T21:30:00",
+    "endDate": "2026-02-12T21:30:00"
+  },
+   {
+    "id": "botany-manor",
+    "platform": "epic",
+    "title": "Botany Manor",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1425350/header.jpg?t=1763652620",
+    "description": "Welcome to Botany Manor, a stately home in 19th century England. You play as inhabitant Arabella Greene, a retired botanist.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/botany-manor-e7c456",
+    "startDate": "2026-02-05T21:30:00",
+    "endDate": "2026-02-12T21:30:00"
+  },
+  {
+    "id": "along-the-edge",
+    "platform": "steam",
+    "title": "Along the Edge",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/504390/header.jpg?t=1768301256",
+    "description": "Following the loss of a baby, a breakup, and a surprise heritage, Daphné decides to leave everything behind to start a new life in the French countryside.",
+    "claimUrl": "https://store.steampowered.com/app/504390/Along_the_Edge/",
+    "startDate": "2026-01-29T22:30:00",
+    "endDate": "2026-01-29T23:30:00"
+  },
+   {
+    "id": "untrusted",
+    "platform": "steam",
+    "title": "Untrusted",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1502660/header.jpg?t=1766521500",
+    "description": "Untrusted is an online multiplayer (10 to 16 players) hacking / social deduction game: as an hacker, hack your target - as an undercover agent, disrupt the operation.",
+    "claimUrl": "https://store.steampowered.com/app/1502660/Untrusted/",
+    "startDate": "2026-01-29T22:30:00",
+    "endDate": "2026-02-01T22:30:00"
+  },
+   {
+    "id": "cursedland",
+    "platform": "steam",
+    "title": "Cursedland",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3447170/header.jpg?t=1769159562",
+    "description": "Step into Cursedland, a 2D indie action platformer where every jump, movement, and decision truly matters. This is a game built around precision, reflexes, and mastery, challenging players to push their skills to the limit while navigating a world filled with chaos, humor, and surreal surprises.",
+    "claimUrl": "https://store.steampowered.com/app/3447170/Cursedland/",
+    "startDate": "2026-01-26T23:30:00",
+    "endDate": "2026-02-01T21:30:00"
+  },
+   {
+    "id": "Kiki",
+    "platform": "steam",
+    "title": "Kiki",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2142680/header.jpg?t=1768952318",
+    "description": "A vibrant platformer with unique graphics and catchy chiptune soundtrack! Dodge treacherous traps and obstacles, overcome only by your agility and quick reflexes. Don’t miss the chance to test your abilities and become a true master of jumping!",
+    "claimUrl": "https://store.steampowered.com/app/2142680/Kiki",
+    "startDate": "2026-01-24T23:30:00",
+    "endDate": "2026-01-31T21:30:00"
+  },
+   {
+    "id": "definitely-not-fried-chicken",
+    "platform": "epic",
+    "title": "Definitely Not Fried Chicken",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1036240/header.jpg?t=1749037531",
+    "description": "Crown Champion: Legends of the Arena is a fantasy RPG/Management simulator set in the ruthless world of gladiatorial combat. Develop your academy and train your fighters. Increase your power and influence in the realm. Reap the rewards of your labours.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/definitely-not-fried-chicken-a30160",
+    "startDate": "2026-01-29T21:30:00",
+    "endDate": "2026-02-05T21:30:00"
+  },
+   {
+    "id": "Crown_Champion_Legends_of_the_Arena",
+    "platform": "steam",
+    "title": "Crown Champion: Legends of the Arena",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/527710/header.jpg?t=1768832289",
+    "description": "Crown Champion: Legends of the Arena is a fantasy RPG/Management simulator set in the ruthless world of gladiatorial combat. Develop your academy and train your fighters. Increase your power and influence in the realm. Reap the rewards of your labours.",
+    "claimUrl": "https://store.steampowered.com/app/527710/Crown_Champion_Legends_of_the_Arena/",
+    "startDate": "2026-01-19T23:30:00",
+    "endDate": "2026-01-22T23:30:00"
+  },
+    {
+    "id": "Battle_Simulator_Counter_Stickman",
+    "platform": "steam",
+    "title": "Battle Simulator: Counter Stickman",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2623090/header.jpg?t=1768846588",
+    "description": "The stickmen must strike at the terror enemy stickmen in this Battle Simulator",
+    "claimUrl": "https://store.steampowered.com/app/2623090/Battle_Simulator_Counter_Stickman/",
+    "startDate": "2026-01-19T23:30:00",
+    "endDate": "2026-01-22T23:30:00"
+  },
+   {
+    "id": "smart_factory_tycoon",
+    "platform": "steam",
+    "title": "Smart Factory Tycoon",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1755300/header.jpg?t=1768580620",
+    "description": "Smart Factory Tycoon inspired by Little Big Workshop is a tycoon management game about running your dream factory with robots. Design your dream factory, plan all steps of production, research new technologies and become a tycoon!",
+    "claimUrl": "https://store.steampowered.com/app/1755300/Smart_Factory_Tycoon",
+    "startDate": "2026-01-17T23:30:00",
+    "endDate": "2026-01-20T23:30:00"
+  },
+   {
+    "id": "rustler-grand-theft-horse",
+    "platform": "epic",
+    "title": "Rustler (Grand Theft Horse)",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/844260/header.jpg?t=1754054367",
+    "description": "Become a medieval thug in a crazy open-world action game, full of pop-culture references. Complete insane quests, kill heroes, steal horses, fight guards, rob peasants, listen to some bard music, and much more! All packed in old-school gameplay style!",
+    "claimUrl": "https://store.epicgames.com/en-US/p/rustler-grand-theft-horse-21a7ca",
+    "startDate": "2026-01-22T21:30:00",
+    "endDate": "2026-01-29T21:30:00"
+  },
+    {
+    "id": "initial_drift_online",
+    "platform": "steam",
+    "title": "Initial Drift Online",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1456200/header.jpg?t=1767030563",
+    "description": "Drift over some of Japan's most legendary mountain passes, compete against your friends or players from around the world in epic battles, make deliveries, buy new cars and set records in the world rankings!",
+    "claimUrl": "https://store.steampowered.com/app/1456200/Initial_Drift_Online/",
+    "startDate": "2026-01-13T23:30:00",
+    "endDate": "2026-01-18T23:30:00"
+  },
+   {
+    "id": "styx-shards-of-darkness",
+    "platform": "epic",
+    "title": "Styx: Shards of Darkness",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/355790/header.jpg?t=1760704209",
+    "description": "Styx returns in a new stealth adventure! Explore and master huge open environments, sneak past or assassinate new enemies and bosses, and experiment with the new array of lethal abilities and weapons in our goblin assassin's arsenal.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/styx-shards-of-darkness-77c030",
+    "startDate": "2026-01-15T21:30:00",
+    "endDate": "2026-01-22T21:30:00"
+  },
+  {
+    "id": "/styx-master-of-shadows",
+    "platform": "epic",
+    "title": "Styx: Master of Shadows",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/242640/header.jpg?t=1760704207",
+    "description": "Styx: Master of Shadows is an infiltration game with RPG elements taking place in a dark fantasy universe, where you sneak, steal and assassinate your way through as Styx, a Goblin two-centuries of age.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/styx-master-of-shadows-4d9ab3",
+    "startDate": "2026-01-15T21:30:00",
+    "endDate": "2026-01-22T21:30:00"
+  },
+  {
+    "id": "Billies_Wheelie",
+    "platform": "steam",
+    "title": "Billie's Wheelie",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3180310/dd4e9730698b83c29b291372dbc3720722d271f4/header.jpg?t=1764700610",
+    "description": "Billie's Wheelie is an adventure racing platformer game, You can play it with up to 8 players Co-op/PvP, Playing as a hamster in his ball trying to beat all challenges, Collecting all cheese pieces for rewards, And beating your friend's time records.",
+    "claimUrl": "https://store.steampowered.com/app/3180310/Billies_Wheelie/",
+    "startDate": "2026-01-03T23:30:00",
+    "endDate": "2026-01-10T23:30:00"
+  },
+   {
+    "id": "bloons-td-6",
+    "platform": "epic",
+    "title": "Bloons TD 6",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/960090/header.jpg?t=1761619015",
+    "description": "Mega Popular Tower Defense Game",
+    "claimUrl": "https://store.epicgames.com/en-US/p/bloons-td-6-bf95a0",
+    "startDate": "2026-01-08T21:30:00",
+    "endDate": "2026-01-15T21:30:00"
+  },
+   {
+    "id": "wildgate-standard-edition",
+    "platform": "epic",
+    "title": "Wildgate",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3504780/d8303ff52c1f79704e32bb91e104cea36bda1dcb/header_alt_assets_8.jpg?t=1766083161",
+    "description": "Wildgate is a PvPvE multiplayer shooter that blends tactical ship-to-ship combat with fast-paced first-person action.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/wildgate-standard-edition-b886b5",
+    "startDate": "2026-01-01T21:30:00",
+    "endDate": "2026-01-08T21:30:00"
+  },
+  {
+    "id": "total-war-three-kingdoms",
+    "platform": "epic",
+    "title": "Total War: THREE KINGDOMS",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/779340/header.jpg?t=1763646247",
+    "description": "Total War: THREE KINGDOMS recreates epic conflict across ancient China in an age of heroes and legends, combining gripping empire-building, statecraft and conquest with stunning real-time battles.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/total-war-three-kingdoms-d3bb7a",
+    "startDate": "2026-01-01T21:30:00",
+    "endDate": "2026-01-08T21:30:00"
+  },
+  {
+    "id": "chivalry-2",
+    "platform": "epic",
+    "title": "Chivalry 2",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1824220/header.jpg?t=1744201613",
+    "description": "Chivalry 2 is a multiplayer first person slasher inspired by epic medieval movie battles. Players are thrust into the action of every iconic moment of the era - from clashing swords, to storms of flaming arrows, to sprawling castle sieges and more.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/chivalry-2",
+    "startDate": "2025-12-31T21:30:00",
+    "endDate": "2026-01-01T21:30:00"
+  },
+  {
+    "id": "trine-classic-collection",
+    "platform": "epic",
+    "title": "Trine Classic Collection",
+    "image": "https://cdn2.unrealengine.com/trine-classic-collection-1920x1080-w-games-1920x1080-f6f11a5dd68b.png?resize=1&w=1920&h=1080&quality=medium",
+    "description": "Experience the magic of the puzzle-platforming Trine series with Trine Classic Collection. Includes four titles: Trine Enchanted Edition, Trine 2: Complete Story, Trine 3: Artifacts of Power and Trine 4: Definitive Edition.",
+    "claimUrl": "https://store.epicgames.com/en-US/bundles/trine-classic-collection",
+    "startDate": "2025-12-30T21:30:00",
+    "endDate": "2025-12-31T21:30:00"
+  },
+  {
+    "id": "viewfinder",
+    "platform": "epic",
+    "title": "Viewfinder",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1382070/a69eb56f73446624325dec8a4fe74dc4ae09fb96/header.jpg?t=1764842475",
+    "description": "Challenge perception, redefine reality, and reshape the world around you with an instant camera.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/viewfinder-61691c",
+    "startDate": "2025-12-29T21:30:00",
+    "endDate": "2025-12-30T21:30:00"
+  },
+  {
+    "id": "skald-against-the-black-priory",
+    "platform": "epic",
+    "title": "SKALD: Against the Black Priory",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1069160/header.jpg?t=1766090307",
+    "description": "SKALD is a retro-style party-based RPG set in a grim-dark fantasy world of tragic heroes, violent deaths and Lovecraftian horror.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/skald-against-the-black-priory-cffcc0",
+    "startDate": "2025-12-28T21:30:00",
+    "endDate": "2025-12-29T21:30:00"
+  },
+   {
+    "id": "cassette-beasts",
+    "platform": "epic",
+    "title": "Cassette Beasts",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1321440/header.jpg?t=1766461574",
+    "description": "Collect awesome monsters to use during turn-based battles in this open-world RPG, now with online multiplayer mode.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/cassette-beasts-32c8e0",
+    "startDate": "2025-12-27T21:30:00",
+    "endDate": "2025-12-28T21:30:00"
+  },
+  {
+    "id": "we-were-here-together",
+    "platform": "epic",
+    "title": "We Were Here Together",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/865360/header.jpg?t=1764330773",
+    "description": "As we explore these frozen wastes, misfortune strikes once again. Through the fierce blizzard, a flare lights the sky, followed by a cry for help over the radio - broken, dying..",
+    "claimUrl": "https://store.epicgames.com/en-US/p/we-were-here-together-6a6d66",
+    "startDate": "2025-12-26T21:30:00",
+    "endDate": "2025-12-27T21:30:00"
+  },
+  {
+    "id": "Caveman_World_Mountains_of_Unga_Boonga",
+    "platform": "steam",
+    "title": "Caveman World: Mountains of Unga Boonga",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/462960/header.jpg?t=1765914816",
+    "description": "Caveman World: Mountains of Unga Boonga is a retro inspired platformer adventure game set in fantasy prehistoric time.",
+    "claimUrl": "https://store.steampowered.com/app/462960/Caveman_World_Mountains_of_Unga_Boonga/",
+    "startDate": "2025-12-25T23:30:00",
+    "endDate": "2025-12-30T23:30:00"
+  },
+  {
+    "id": "disco-elysium",
+    "platform": "epic",
+    "title": "Disco Elysium - The Final Cut",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/header.jpg?t=1727256511",
+    "description": "Disco Elysium - The Final Cut is a groundbreaking role playing game. You’re a detective with a unique skill system at your disposal.",
+    "claimUrl": "http://store.epicgames.com/en-US/p/disco-elysium",
+    "startDate": "2025-12-25T21:30:00",
+    "endDate": "2025-12-26T21:30:00"
+  },
+  {
+    "id": "the-callisto-protocol",
+    "platform": "epic",
+    "title": "The Callisto Protocol",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1544020/header.jpg?t=1760331403",
+    "description": "Survive to escape the horrors of Callisto. Using a unique blend of shooting and close-quarters combat, players will need to combat rapidly evolving creatures while scavenging to unlock new weapons and gear to outrun the growing threat of Jupiter's Dead Moon.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/the-callisto-protocol",
+    "startDate": "2025-12-24T21:30:00",
+    "endDate": "2025-12-25T21:30:00"
+  },
+  {
+    "id": "snk-40th-anniversary-collection",
+    "platform": "onstove",
+    "title": "SNK 40th Anniversary Collection",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/865940/header.jpg?t=1718093041",
+    "description": "SNK 40th Anniversary Collection is the ultimate collection of classic arcade games from SNK's golden age with 24 different nostalgic titles back from the 1980s",
+    "claimUrl": "https://store.onstove.com/en/games/4334",
+    "startDate": "2025-12-25T06:30:00",
+    "endDate": "2026-01-01T01:59:00"
+  },
+  {
+    "id": "bloodstained",
+    "platform": "epic",
+    "title": "Bloodstained: Ritual of the Night",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/692850/header.jpg?t=1750409671",
+    "description": "Igavania Returns! Play as Miriam, an orphan scarred by an alchemist's curse which slowly crystallizes her body.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/bloodstained-f3f575",
+    "startDate": "2025-12-23T21:30:00",
+    "endDate": "2025-12-24T21:30:00"
+  },
+  {
+    "id": "train-sim-world-dlc",
+    "platform": "steam",
+    "title": "Train Sim World® 6: Spirit of Steam: Liverpool Lime Street - Crewe Route Add-On",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3662830/0b96c668a9ed285f233a68297b1b86aaf96eefe0/header.jpg?t=1764616402",
+    "description": "This content requires the base game Train Sim World® 6 on Steam in order to play.",
+    "claimUrl": "https://store.steampowered.com/app/3662830/Train_Sim_World_6_Spirit_of_Steam_Liverpool_Lime_Street__Crewe_Route_AddOn/",
+    "startDate": "2025-12-22T23:30:00",
+    "endDate": "2026-01-05T23:30:00"
+  },
+  {
+    "id": "paradise-killer",
+    "platform": "epic",
+    "title": "Paradise Killer",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1796580/header.jpg?t=1765992644",
+    "description": "Paradise Island, a world outside reality. There’s been a murder only investigation freak Lady Love Dies can solve.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/paradise-killer-c3ea1c",
+    "startDate": "2025-12-22T21:30:00",
+    "endDate": "2025-12-23T21:30:00"
+  },
+  {
+    "id": "the-deed-dynasty",
+    "platform": "steam",
+    "title": "The Deed: Dynasty",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/460960/header.jpg?t=1765914797",
+    "description": "Getting away with murder has never been easy. These three members of a proud and noble family are separated by five centuries, but have in common a vengeful and murderous intent. Plans must be formed, blood must be spilled and evidence must be planted ...",
+    "claimUrl": "https://store.steampowered.com/app/460960/The_Deed_Dynasty/",
+    "startDate": "2025-12-21T23:30:00",
+    "endDate": "2025-12-25T23:30:00"
+  },
+  {
+    "id": "sorry-we-are-closed",
+    "platform": "epic",
+    "title": "Sorry We're Closed",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1796580/header.jpg?t=1765992644",
+    "description": "Sorry We're Closed is a nostalgic, single-player survival horror game with rich lore, deep characters and multiple endings. Fight in first person with demonic weapons. Open your Third Eye to see between worlds, uncover secrets and solve puzzles.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/sorry-were-closed-724c86",
+    "startDate": "2025-12-21T21:30:00",
+    "endDate": "2025-12-22T21:30:00"
+  },
+  {
+    "id": "blood-west",
+    "platform": "epic",
+    "title": "Blood West",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1587130/header.jpg?t=1766197343",
+    "description": "Weird west legends meet eldritch horror in BLOOD WEST, an immersive stealth FPS. Become the Undead Gunslinger, doomed to roam the barren lands until he manages to purge their curse, freeing his soul.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/blood-west-8f6ffd",
+    "startDate": "2025-12-20T21:30:00",
+    "endDate": "2025-12-21T21:30:00"
+  },
+  {
+    "id": "undercroft-warriors",
+    "platform": "steam",
+    "title": "Underecroft Warriors",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2547140/header.jpg?t=1763502052",
+    "description": "Crush the forces of hell and get a high score in this addictive, action-packed, arcade-inspired twin-stick shooter!",
+    "claimUrl": "https://store.steampowered.com/app/2547140/Undercroft_warriors/",
+    "startDate": "2025-12-20T23:30:00",
+    "endDate": "2025-12-31T23:30:00"
+  },
+  {
+    "id": "eternights",
+    "platform": "epic",
+    "title": "Eternights",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1402110/header.jpg?t=1759232313",
+    "description": "Eternights is a dating action game where you try to make the most out of life during the apocalypse. Monday: Go on a date. Tuesday: Clear dungeon. Friday: Freak out! The clock is ticking!!",
+    "claimUrl": "https://store.epicgames.com/en-US/p/eternights-c2fbca",
+    "startDate": "2025-12-19T21:30:00",
+    "endDate": "2025-12-20T21:30:00"
+  },
+   {
+    "id": "banana-hell-mountain-of-madness",
+    "platform": "steam",
+    "title": "Banana Hell: Mountain of Madness",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2068520/header.jpg?t=1766020401",
+    "description": "Jump your way to get the blue diamond as you try to survive a very annoying banana monologue! A REALLY HARD game!",
+    "claimUrl": "https://store.steampowered.com/app/2068520/Banana_Hell_Mountain_of_Madness/",
+    "startDate": "2025-12-19T23:30:00",
+    "endDate": "2025-12-22T12:30:00"
+  },
+   {
+    "id": "jotunnslayer-hordes-of-hel",
+    "platform": "epic",
+    "title": "Jotunnslayer: Hordes of Hel",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2820820/aec793cf08d32c4966bc21cc72bd3b36ff5b20a6/header_alt_assets_4.jpg?t=1765983939",
+    "description": "Hordes of Hel is a gripping roguelike horde-survivor game set in the dark realms of Norse Mythology.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/jotunnslayer-hordes-of-hel-3579b3",
+    "startDate": "2025-12-18T21:30:00",
+    "endDate": "2025-12-19T21:30:00"
+  },
+  {
+    "id": "toy-tinker-simulator",
+    "platform": "steam",
+    "title": "Toy Tinker Simulator",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1510580/header.jpg?t=1766051622",
+    "description": "Have you ever wanted to be a toy tinker? This is a unique chance to become one! Repair toys and start your toy-museums to make everyone happy!",
+    "claimUrl": "https://store.steampowered.com/app/1510580/Toy_Tinker_Simulator/",
+    "startDate": "2025-12-18T23:30:00",
+    "endDate": "2025-12-21T23:30:00"
+  },
+  {
+    "id": "100%-orange-juice",
+    "platform": "steam",
+    "title": "100% Orange Juice",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/282800/74b8f808c2ea623f9aee9ed20c6d76c7e536e137/header.jpg?t=1766086237",
+    "description": "100% Orange Juice is a digital multiplayer board game populated by developer Orange Juice's all-star cast.",
+    "claimUrl": "https://store.steampowered.com/app/282800/100_Orange_Juice/",
+    "startDate": "2025-12-18T23:30:00",
+    "endDate": "2025-12-22T23:30:00"
+  },
+  {
+    "id": "rat-quest",
+    "platform": "steam",
+    "title": "Rat Quest",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2952470/efd77acebd190f5588262c9b1cbe8c38dbdec638/header.jpg?t=1763754651",
+    "description": "In this platformer, jumping will be your main mechanic as you climb the level, each jump matters, if you miss a jump, you have to restart. You may be small but so are the platforms.",
+    "claimUrl": "https://store.steampowered.com/app/2952470/Rat_Quest/",
+    "startDate": "2025-12-18T23:30:00",
+    "endDate": "2025-12-25T23:30:00"
+  },
+  {
+    "id": "hogwarts-legacy",
+    "platform": "epic",
+    "title": "Hogwarts Legacy",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/a3cdc6f40d97df8ac993679c2dd1edeb5222421e/header.jpg?t=1765473525",
+    "description": "Hogwarts Legacy is an immersive, open-world action RPG. Now you can take control of the action and be at the center of your own adventure in the wizarding world.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/hogwarts-legacy",
+    "startDate": "2025-12-12T08:30:00",
+    "endDate": "2025-12-18T21:30:00"
+  },
+  {
+    "id": "wild-terra-2-new-lands",
+    "platform": "steam",
+    "title": "Wild Terra 2: New Lands",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1134700/07763518d7a4ca5cd3ca53a670f955b90efeb333/header_alt_assets_5.jpg?t=1765908364",
+    "description": "MMORPG full of details that create a unique immersion and the spirit of adventure! Play your role in the life-filled medieval world controlled by players.",
+    "claimUrl": "https://store.steampowered.com/app/1134700/Wild_Terra_2_New_Lands/",
+    "startDate": "2025-12-16T23:30:00",
+    "endDate": "2025-12-18T23:30:00"
+  },
+  {
+    "id": "one-gun-guy",
+    "platform": "steam",
+    "title": "One Gun Guy",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1200580/header.jpg?t=1765221829",
+    "description": "One Gun Guy is a straight forward no nonsense action platformer, one giant level littered with player upgrades, hazards to tackle, enemies to destroy, a boss to kill, and multiple difficulty settings.",
+    "claimUrl": "https://store.steampowered.com/app/1200580/One_Gun_Guy/",
+    "startDate": "2025-12-15T23:30:00",
+    "endDate": "2025-12-18T23:30:00"
+  },	
+  {
+    "id": "just-ignore-them",
+    "platform": "steam",
+    "title": "Just Ignore Them",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/561770/header.jpg?t=1765458102",
+    "description": "One night can feel like a lifetime of pain, suffering and horror to a child...do you have what it takes to survive the night? Play as an 8 year old child who is tormented by monsters in his house. Your choices make his future which lives can be saved or ended.",
+    "claimUrl": "https://store.steampowered.com/app/561770/Just_Ignore_Them/",
+    "startDate": "2025-12-11T23:30:00",
+    "endDate": "2025-12-15T23:30:00"
+  },
+  {
+    "id": "black-desert",
+    "platform": "steam",
+    "title": "Black Desert",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/582660/header.jpg?t=1758315448",
+    "description": "However, this offer is region-limited, So these are the regions who are unable to redeem this offer: South Asia , South Korea, China, Israel",    
+    "claimUrl": "https://store.steampowered.com/app/561770/Just_Ignore_Them/?curator_clanid=4777282",
+    "startDate": "2025-12-12T23:30:00",
+    "endDate": "2025-12-18T23:30:00"
+  },
+  {
+    "id": "darkside-detective",
+    "platform": "epic",
+    "title": "The Darkside Detective",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/368390/header.jpg?t=1751347179",
+    "description": "Grab your trench coat, tune your sixth sense and join the Darkside Division as they investigate the outright bizarre cases of Twin Lakes.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/the-darkside-detective-02fd5a",
+    "startDate": "2025-12-04T21:30:00",
+    "endDate": "2025-12-11T22:30:00"
+  },
+  {
+    "id": "the-jackbox-party-pack-4",
+    "platform": "epic",
+    "title": "The Jackbox Party Pack 4",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/610180/header.jpg?t=1728584458",
+    "description": "The fourth pack in this storied party game franchise features Fibbage 3 and its new game mode, Fibbage: Enough About You;..",
+    "claimUrl": "",
+    "startDate": "2025-12-04T21:30:00",
+    "endDate": "2025-12-11T22:30:00"
+  },
+  {
+    "id": "immortal-fenyx-rising",
+    "platform": "ubisoft",
+    "title": "Immortals Fenyx Rising",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2221920/header.jpg?t=1751969539",
+    "description": "Immortals Fenyx Rising brings grand mythological adventure to life. Play as Fenyx on a quest to save the Greek gods.",
+    "claimUrl": "https://store.epicgames.com/en-US/p/the-darkside-detective-02fd5a",
+    "startDate": "2025-12-01T21:30:00",
+    "endDate": "2025-12-02T22:30:00"
+  }
+]
