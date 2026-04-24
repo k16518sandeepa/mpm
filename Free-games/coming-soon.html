@@ -3,50 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Games | Motion Picture Mafia Studio</title>
+  <title>Coming Soon Free Games | Motion Picture Mafia Studio</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="Images/mpm logo.png">
-  <meta name="description" content="Get the latest free game alerts from Epic Games, Steam, GOG, and more. Claim free PC games, AAA titles, and indie games every week in 2025.">
-  <meta name="keywords" content="free PC games, free steam games, weekly free games, best free pc games deals, MPM free games updates, Motion picture mafia free games">
+  <link rel="icon" type="image/png" href="../Images/mpm logo.png">
+
+  <meta name="description" content="Upcoming free game offers from Epic Games, Steam, GOG, and more. Mark your calendar — don't miss the next wave of free PC games.">
+  <meta name="keywords" content="upcoming free PC games, free steam games soon, weekly free games, best free pc games deals, MPM free games, Motion Picture Mafia">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Free Games Alerts – Epic, Steam, GOG & Weekly Giveaways | MPM">
-  <meta property="og:description" content="Get the latest free game alerts from Epic Games, Steam, GOG, and more. Claim free PC games, AAA titles, and indie games every week in 2025.">
+  <meta property="og:title" content="Coming Soon Free Games – Epic, Steam, GOG & Weekly Giveaways | MPM">
+  <meta property="og:description" content="Upcoming free game offers from Epic Games, Steam, GOG, and more.">
   <meta property="og:image" content="https://i.imgur.com/jbMshNZ.jpeg">
-  <meta property="og:url" content="https://motionpicturemafia.com/free-games/test/coming-soon">
+  <meta property="og:url" content="https://motionpicturemafia.com/free-games/coming-soon">
   <meta property="og:type" content="article">
 
-  <!-- Adsense & Analytics (keep yours) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8377794585544932" crossorigin="anonymous"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-89MY1C4M73"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-89MY1C4M73');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-89MY1C4M73');</script>
 
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#ff4757">
-
-  <style>
-    .game-card { position: relative; overflow: hidden; border-radius: 12px; }
-    .game-card.expired { opacity: 0.6; filter: grayscale(80%); }
-    .game-card.upcoming { opacity: 0.85; }
-    .overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 2.5rem; color: #ff4757; font-weight: bold; pointer-events: none; text-shadow: 3px 3px 10px black; }
-    .countdown { font-weight: bold; color: #ff4757; background: rgba(0,0,0,0.7); padding: 8px; border-radius: 8px; text-align: center; margin: 10px 0; }
-    .badge { position: absolute; top: 10px; left: 10px; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; z-index: 2; }
-    .badge.epic { background:#000; color:#fff; }
-    .badge.steam { background:#1b2838; color:#66c0f4; }
-    .badge.gog { background:#8633ff; color:#fff; }
-    .claim-btn { display: block; text-align: center; padding: 12px; background: #ff4757; color: white; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 10px; }
-    .claim-btn:hover { background: #ff3742; }
-  </style>
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#e50000">
 </head>
-<body class="fade-in">
+<body>
 
-  <header>
-    <h1>Free Games Zone | MPM</h1>
-    <nav>
+<!-- ══ SITE HEADER ══════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="https://motionpicturemafia.com/" class="logo">
+      <span class="logo-mpm">MPM</span>
+      <span class="logo-sep">|</span>
+      <span class="logo-sub">FREE GAMES</span>
+    </a>
+    <nav class="main-nav">
       <a href="https://motionpicturemafia.com/">Home</a>
       <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
       <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
@@ -55,143 +42,137 @@
       <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
       <a href="active.html" class="active">Free Games</a>
     </nav>
-    <div class="ad-rotator" id="ad-rotator">
-      <a href="#" target="_blank">
-        <img src="https://i.imgur.com/oa0eAKM.jpeg" alt="Ad">
-      </a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav drawer -->
+<nav class="nav-drawer" id="navDrawer">
+  <a href="https://motionpicturemafia.com/">Home</a>
+  <a href="https://motionpicturemafia.com/movies/movies">Movies</a>
+  <a href="https://motionpicturemafia.com/tv%20series/tv%20series">TV Series</a>
+  <a href="https://motionpicturemafia.com/anime/anime">Anime</a>
+  <a href="https://motionpicturemafia.com/games/games">Games</a>
+  <a href="https://motionpicturemafia.com/updates/updates">Updates</a>
+  <a href="active.html" class="active">Free Games</a>
+</nav>
+
+<!-- ══ PAGE BODY ════════════════════════════════ -->
+<div class="page-body">
+
+  <!-- Ad banner -->
+  <div class="ad-banner">
+    <a href="#" target="_blank">
+      <img src="https://i.imgur.com/oa0eAKM.jpeg" alt="Advertisement">
+    </a>
+  </div>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <h1><span class="hero-free">COMING</span> <span class="hero-games">SOON</span></h1>
+    <p id="heroSub">Upcoming deals — mark your calendar</p>
+  </div>
+
+  <!-- Desktop page tabs -->
+  <nav class="page-tabs">
+    <a href="active.html"      class="ptab" id="ptab-active">🎮 Active</a>
+    <a href="coming-soon.html" class="ptab" id="ptab-soon">⏳ Coming Soon</a>
+    <a href="expired.html"     class="ptab" id="ptab-expired">💀 Expired</a>
+  </nav>
+
+  <!-- Search + platform filter -->
+  <div class="controls-bar">
+    <div class="search-wrap">
+      <span class="search-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+      </span>
+      <input type="search" id="searchInput" placeholder="Search games…" autocomplete="off" spellcheck="false">
     </div>
-  </header>
+    <div class="platform-filters" id="platformFilters">
+      <button class="filter-btn active" data-platform="all">All</button>
+    </div>
+  </div>
 
-  <header>
-    <nav class="tabs">
-      <a href="active.html" id="tab-active">Active</a>
-      <a href="coming-soon.html" id="tab-soon">Coming Soon</a>
-      <a href="expired.html" id="tab-expired">Expired</a>
-    </nav>
-  </header>
-
-  <section class="game-grid" id="game-container">
-    <p style="text-align:center; padding:50px; font-size:1.2rem;">Loading latest free games...</p>
+  <!-- Game grid — skeletons while loading -->
+  <section class="game-grid" id="gameGrid">
+    <div class="skeleton-card"><div class="skel-img"></div><div class="skel-body"><div class="skel-line skel-title"></div><div class="skel-line skel-desc-1"></div><div class="skel-line skel-desc-2"></div><div class="skel-count"></div><div class="skel-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skel-img"></div><div class="skel-body"><div class="skel-line skel-title"></div><div class="skel-line skel-desc-1"></div><div class="skel-line skel-desc-2"></div><div class="skel-count"></div><div class="skel-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skel-img"></div><div class="skel-body"><div class="skel-line skel-title"></div><div class="skel-line skel-desc-1"></div><div class="skel-line skel-desc-2"></div><div class="skel-count"></div><div class="skel-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skel-img"></div><div class="skel-body"><div class="skel-line skel-title"></div><div class="skel-line skel-desc-1"></div><div class="skel-line skel-desc-2"></div><div class="skel-count"></div><div class="skel-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skel-img"></div><div class="skel-body"><div class="skel-line skel-title"></div><div class="skel-line skel-desc-1"></div><div class="skel-line skel-desc-2"></div><div class="skel-count"></div><div class="skel-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skel-img"></div><div class="skel-body"><div class="skel-line skel-title"></div><div class="skel-line skel-desc-1"></div><div class="skel-line skel-desc-2"></div><div class="skel-count"></div><div class="skel-btn"></div></div></div>
   </section>
 
-  <footer>
-    <p>
-      <a href="https://motionpicturemafia.com/about-us" class="info">About Us,</a>
-      <a href="https://motionpicturemafia.com/privacy-policy" class="info">Privacy Policy,</a>
-      <a href="https://motionpicturemafia.com/contact-us" class="info">Contact Us</a>
-    </p>
-    <div class="social-icons">
-      <a href="https://web.facebook.com/groups/721197248262091" target="_blank"><img src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" alt="FB"></a>
-      <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WA"></a>
-      <a href="https://discord.gg/KS8anqchac" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord"></a>
-      <a href="https://t.me/whatsappgang" target="_blank"><img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="TG"></a>
-    </div>
-     <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
-  </footer>
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+</div><!-- /.page-body -->
 
-  <script>
-  // Auto highlight correct tab
-  const page = location.pathname.split('/').pop();
-  if (page.includes('active')) document.getElementById('tab-active').classList.add('active');
-  if (page.includes('coming-soon')) document.getElementById('tab-soon').classList.add('active');
-  if (page.includes('expired')) document.getElementById('tab-expired').classList.add('active');
+<!-- ══ MOBILE BOTTOM TABS ═══════════════════════ -->
+<nav class="bottom-tabs" aria-label="Page navigation">
+  <a href="active.html" class="btab-item" id="btab-active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10S2 17.52 2 12z"/>
+      <path d="M8 12h2m2 0h2M12 8v2m0 2v2"/>
+    </svg>
+    <span>Active</span>
+  </a>
+  <a href="coming-soon.html" class="btab-item" id="btab-soon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 6v6l4 2"/>
+    </svg>
+    <span>Soon</span>
+  </a>
+  <a href="expired.html" class="btab-item" id="btab-expired">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="7" width="20" height="14" rx="2"/>
+      <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+      <line x1="12" y1="12" x2="12" y2="16"/>
+      <line x1="10" y1="14" x2="14" y2="14"/>
+    </svg>
+    <span>Expired</span>
+  </a>
+</nav>
 
-  // Format IST date
-  function formatIST(date) {
-    return date.toLocaleString('en-IN', {
-      timeZone: 'Asia/Kolkata',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    }) + " IST";
-  }
+<!-- ══ FOOTER ════════════════════════════════════ -->
+<footer>
+  <div class="footer-links">
+    <a href="https://motionpicturemafia.com/about-us">About Us</a>
+    <a href="https://motionpicturemafia.com/privacy-policy">Privacy Policy</a>
+    <a href="https://motionpicturemafia.com/contact-us">Contact Us</a>
+  </div>
+  <div class="social-icons">
+    <a href="https://web.facebook.com/groups/721197248262091" target="_blank" rel="noopener" aria-label="Facebook">
+      <img src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" alt="Facebook">
+    </a>
+    <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp">
+    </a>
+    <a href="https://discord.gg/KS8anqchac" target="_blank" rel="noopener" aria-label="Discord">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord">
+    </a>
+    <a href="https://t.me/whatsappgang" target="_blank" rel="noopener" aria-label="Telegram">
+      <img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram">
+    </a>
+  </div>
+  <p>© <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
+</footer>
 
-  // Load games
-  fetch('games.json')
-    .then(r => r.json())
-    .then(games => {
-      const container = document.getElementById('game-container');
-      container.innerHTML = '';
-      const now = new Date();
+<!-- Toast notification -->
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
-      games.forEach(game => {
-        const start = new Date(game.startDate);
-        const end = new Date(game.endDate);
+<!-- Floating support button -->
+<a href="https://motionpicturemafia.com/support" class="floating-support-btn">♥ Support Us</a>
 
-        const isActivePage = page.includes('active');
-        const isSoonPage = page.includes('coming-soon');
-        const isExpiredPage = page.includes('expired');
-
-        const showOnActive = isActivePage && now >= start && now < end;
-        const showOnSoon = isSoonPage && now < start;
-        const showOnExpired = isExpiredPage && now >= end;
-
-        if (!showOnActive && !showOnSoon && !showOnExpired) return;
-
-        const card = document.createElement('div');
-        card.className = 'game-card';
-        if (now >= end) card.classList.add('expired');
-        if (now < start) card.classList.add('upcoming');
-
-        card.innerHTML = `
-          <div class="badge ${game.platform}">${game.platform.toUpperCase()}</div>
-          <img src="${game.image}" alt="${game.title}">
-          <h2>${game.title}</h2>
-          <p>${game.description}</p>
-
-          ${now >= start && now < end ? `<div class="countdown" data-end="${game.endDate}"></div>` : ''}
-
-          ${now < start ? `<p class="expires" style="color:#00d2ff;font-weight:bold;">Starts: ${formatIST(start)}</p>` : ''}
-
-          ${now >= end ? `<p class="expires" style="color:#ff4757;font-weight:bold;">Ended: ${formatIST(end)}</p>` : ''}
-
-          <a href="${game.claimUrl}" target="_blank" class="claim-btn">
-            ${now < start ? 'Coming Soon' : now >= end ? 'Expired' : 'Claim Now'}
-          </a>
-        `;
-
-        if (now >= end) {
-          card.innerHTML += '<div class="overlay">EXPIRED</div>';
-        }
-
-        container.appendChild(card);
-      });
-
-      // Countdown timers
-      document.querySelectorAll('.countdown').forEach(el => {
-        const end = new Date(el.getAttribute('data-end'));
-        const update = () => {
-          const diff = end - new Date();
-          if (diff <= 0) {
-            el.textContent = 'EXPIRED!';
-            el.closest('.game-card').classList.add('expired');
-            el.closest('.game-card').querySelector('.claim-btn').textContent = 'Expired';
-            return;
-          }
-          const d = Math.floor(diff / 86400000);
-          const h = Math.floor((diff % 86400000) / 3600000);
-          const m = Math.floor((diff % 3600000) / 60000);
-          el.textContent = `${d}d ${h}h ${m}m left`;
-        };
-        update();
-        setInterval(update, 60000);
-      });
-
-      if (container.innerHTML === '') {
-        container.innerHTML = '<p style="text-align:center; padding:50px; color:#aaa;">No games in this category right now. Check back soon!</p>';
-      }
-    })
-    .catch(err => {
-      document.getElementById('game-container').innerHTML =
-        '<p style="color:red;text-align:center;">Failed to load games. Please refresh or check games.json file.</p>';
-    });
-</script>
+<script>window.PAGE_MODE = 'soon';</script>
 <script src="script.js"></script>
+
 </body>
 </html>
