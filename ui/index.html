@@ -3,56 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="title" content="Motion Picture Mafia - Movies, TV, Anime &amp; Gaming News">
-  <meta name="description" content="Stay updated with the latest movies, TV series, anime, and gaming news.">
+  <meta name="title" content="Motion Picture Mafia – Movies, TV, Anime & Gaming News">
+  <meta name="description" content="Stay updated with the latest movies, TV series, anime, and gaming news. Discover reviews, release schedules, and trending entertainment updates in 2025.">
+  <meta name="keywords" content="Movie news and reviews, TV series updates, Anime news and releases, Gaming news 2025, Entertainment blog, Motion Picture Mafia,MPM">
   <meta name="robots" content="index, follow">
   <title>Motion Picture Mafia Studio</title>
   <link rel="icon" type="image/png" href="Images/mpm logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <meta property="og:title" content="Motion Picture Mafia Studio | MPM">
+  <meta property="og:description" content="Motion Picture Mafia Studio: Dive into movies, TV series, anime, and games – news, reviews, and all things entertainment!">
   <meta property="og:image" content="https://i.imgur.com/JbmemAc.jpeg">
   <meta property="og:url" content="https://motionpicturemafia.com">
   <meta property="og:type" content="article">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#e50000">
+  <!-- Google tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6KK47Q2PLX');</script>
+  <!-- Google Ads -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8377794585544932" crossorigin="anonymous"></script>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#e50000">
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){await OneSignal.init({appId:"af904d76-cdbd-4d34-abf4-03174757f4d3",notifyButton:{enable:true}});});</script>
+  <script>
+    window.OneSignalDeferred=window.OneSignalDeferred||[];
+    OneSignalDeferred.push(async function(OneSignal){
+      await OneSignal.init({appId:"af904d76-cdbd-4d34-abf4-03174757f4d3",safari_web_id:"web.onesignal.auto.4b99c5db-a7c9-461a-8333-facb0838095d",notifyButton:{enable:true}});
+    });
+  </script>
 </head>
 <body>
 
-<header>
-  <h1><a href="index.html" style="text-decoration:none;color:inherit;">Motion Picture Mafia Studio</a></h1>
-  <div class="ad-rotator" id="ad-rotator">
-    <a href="#" target="_blank"><img src="https://i.imgur.com/oa0eAKM.jpeg" alt="Ad"></a>
-  </div>
-</header>
-
+<!-- ===== TICKER BANNER ===== -->
 <div id="dynamicBanner" class="dynamic-banner">
   <div class="banner-track" id="bannerTrack"></div>
 </div>
 
-<nav id="mainNav">
-  <button class="nav-toggle" id="navToggle" aria-label="Open menu">&#9776;</button>
-  <a href="index.html" class="active">Home</a>
-  <a href="Movies/movies.html">Movies</a>
-  <a href="Tv Series/tv series.html">TV Series</a>
-  <a href="Anime/anime.html">Anime</a>
-  <a href="Games/games.html">Games</a>
-  <a href="the-lab/index.html">The Lab</a>
-  <a href="Updates/updates.html">Updates</a>
-  <a href="subtitle-download/index.html">Subtitles</a>
-  <a href="downloads/index.html">Downloads</a>
-</nav>
-
-<div class="nav-drawer" id="navDrawer">
-  <div class="nav-drawer-header">
-    <span class="nav-title">MPM</span>
-    <button class="nav-close" id="navClose">&#10005;</button>
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-top">
+    <a href="index.html" class="site-logo">
+      <div>
+        <div class="site-logo-icon">MPM</div>
+        <div class="site-logo-sub">Motion Picture Mafia</div>
+      </div>
+    </a>
+    <div class="header-search">
+      <input type="text" id="searchInput" placeholder="Search articles, anime, games…">
+      <button aria-label="Search">🔍</button>
+    </div>
+    <div class="header-actions">
+      <a href="support-us.html" class="btn-support">💖 Support Us</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
-  <div class="nav-drawer-links">
+  <!-- Desktop Nav -->
+  <nav>
     <a href="index.html" class="active">Home</a>
     <a href="Movies/movies.html">Movies</a>
     <a href="Tv Series/tv series.html">TV Series</a>
@@ -62,690 +70,1224 @@
     <a href="Updates/updates.html">Updates</a>
     <a href="subtitle-download/index.html">Subtitles</a>
     <a href="downloads/index.html">Downloads</a>
+  </nav>
+</header>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html" class="active">Home</a>
+  <a href="Movies/movies.html">Movies</a>
+  <a href="Tv Series/tv series.html">TV Series</a>
+  <a href="Anime/anime.html">Anime</a>
+  <a href="Games/games.html">Games</a>
+  <a href="the-lab/index.html">The Lab</a>
+  <a href="Updates/updates.html">Updates</a>
+  <a href="subtitle-download/index.html">Subtitles</a>
+  <a href="downloads/index.html">Downloads</a>
+  <a href="support-us.html">💖 Support Us</a>
+  <div class="mobile-search">
+    <input type="text" id="mobileSearchInput" placeholder="Search…">
+    <button onclick="doMobileSearch()">🔍</button>
   </div>
 </div>
-<div class="nav-backdrop" id="navBackdrop"></div>
 
-<div class="search-box">
-  <input type="text" id="searchInput" placeholder="Search articles..." autocomplete="off" spellcheck="false">
+<!-- ===== HERO FEATURED ===== -->
+    <div class="hero-featured" onclick="window.location.href='Tv Series/love-in-the-clouds.html'">
+      <img src="https://imgur.com/yF4padE.jpeg" alt="love in the clouds">
+      <div class="hero-body">
+        <span class="badge badge-featured">Featured</span>
+        <p class="hero-eyebrow">📺TV Series</p>
+        <h2 class="hero-title">Love in the Clouds (2025) – මාරාන්තික සටනක් මැද උපන් දිව්‍යමය ප්‍රේමය!</h2>
+        <p class="hero-excerpt">ඔන්න අද අරගෙන ආවේ 2025 වසරේ චීන නාට්‍ය (C-drama) ලෝකයේ ඉහළම අවධානයක් දිනාගත් Love in the Clouds ගැන විස්තර. මේක ජනප්‍රිය Xianxia (මායා බල සහ දෙවිවරුන් සහිත) ගණයට අයත් වන, කුතුහලය ස</p>
+        <div class="hero-meta">
+          <span class="hero-author">By ima</span>
+          <span class="hero-time article-card" data-time="2026-04-26T19:45:00"><span class="time"></span></span>
+        </div>
+        <a href="Tv Series/love-in-the-clouds.html" class="hero-read" onclick="event.stopPropagation()">Read Article →</a>
+      </div>
+    </div>
+
+<!-- ===== CATEGORY FILTER ===== -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="movies">🎬 Movies</button>
+  <button class="filter-btn" data-filter="tv">📺 TV Series</button>
+  <button class="filter-btn" data-filter="anime">⭐ Anime</button>
+  <button class="filter-btn" data-filter="gaming">🎮 Gaming</button>
+  <button class="filter-btn" data-filter="lab">🧪 The Lab</button>
 </div>
 
-<div class="page-heading">
-  <h2>Latest Articles</h2>
-  <span class="article-count" id="articleCount"></span>
-</div>
-
-<div class="container">
-  <div class="articles" id="articleList">
-
-    <div class="card" data-title="Hashirama Senju Hokage Naruto">
-      <img src="https://imgur.com/76EN3PS.jpeg" alt="hashirama-senju" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Anime/anime.html"><button class="hashtag">&#11088; Anime</button></a></div>
-        <div class="article-card" data-time="2026-03-25T19:00:00"><h2>ዙවුද මේ Hashirama Senju ዙዙය්නේ?</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Naruto ᱱෝዙයොේ ප්‍රዙපᱱම Hokage හෂዙරාමා සේන්ජු ᱱාන් සዙහᱱයෙන්.</p>
-        <a href="Anime/hashirama-senju.html" class="read-more">Read More</a>
-      </div>
+<!-- ===== MAIN LAYOUT ===== -->
+<div class="page-wrap">
+  <!-- Articles -->
+  <div class="articles">
+    <div class="section-heading">
+      <h2>Latest Articles</h2>
+      <div class="sh-line"></div>
+      <span class="sh-count" id="articleCount">61 articles</span>
     </div>
 
-    <div class="card" data-title="Paprika 2006 anime satoshi kon dreams">
-      <img src="https://imgur.com/4Hzn16P.jpeg" alt="paprika" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Anime/anime.html"><button class="hashtag">&#11088; Anime</button></a></div>
-        <div class="article-card" data-time="2026-03-23T18:05:00"><h2>Paprika (2006): හዙන සහ සැዙා ᱱෝዙዙዙ ዙතර සዙዙන</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>සዙතෝዙዙ ዙዙන්ᱱො සුዙዙරዙ නዙරዙමාዙዙዙ Paprika ඇනዙමො එዙ ᱱාන් සዙහᱱයෙන්.</p>
-        <a href="Anime/paprika-2006.html" class="read-more">Read More</a>
-      </div>
-    </div>
+    <div class="no-results-msg" id="noResultsMsg">No articles found. Try a different search or filter.</div>
 
-    <div class="card" data-title="3D graphics rendering pipeline GPU sinhala">
-      <img src="https://imgur.com/3AByEv6.jpeg" alt="graphics-rendering" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2026-03-22T18:30:00"><h2>3D Graphics වැද ዙරන්නො ዙዙහዙමዙ? | Graphics Rendering Pipeline Sinhala</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Video game graphics how they work - Vertex Shading, Rasterization, Fragment Shading.</p>
-        <a href="Games/graphics-rendering-pipeline.html" class="read-more">Read More</a>
+    <div class="card-grid" id="articleList">
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/love-in-the-clouds.html'" >
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/yF4padE.jpeg" alt="love in the clouds" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <span class="badge badge-featured">Featured</span>
+          <div class="article-card" data-time="2026-04-26T19:45:00">
+            <h2>Love in the Clouds (2025) – මාරාන්තික සටනක් මැද උපන් දිව්‍යමය ප්‍රේමය!</h2>
+          </div>
+          <p>ඔන්න අද අරගෙන ආවේ 2025 වසරේ චීන නාට්‍ය (C-drama) ලෝකයේ ඉහළම අවධානයක් දිනාගත් Love in the Clouds ගැන විස්තර. මේක ජනප්‍රිය…</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Chernobyl HBO nuclear disaster sinhala">
-      <img src="https://imgur.com/XXjhiBU.jpeg" alt="chernobyl" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2026-03-19T19:25:00"><h2>Chernobyl: 1986 න්‍ዙෂ්ዙዙዙ වዙනාዙዙዙ සዙහ ᱱዙරዙዙන් ዙාᱱුල් ዙෙට සዙහ වዙරዙዙන්ᱱෝ ዙත්ዙ</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>1986 Chernobyl nuclear disaster and the HBO Chernobyl series explained in Sinhala.</p>
-        <a href="Tv Series/chernobyl.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/when-they-see-us.html'" >
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/unn8z5N.jpeg" alt="when-they-see-us" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <span class="badge badge-new">New</span>
+          <div class="article-card" data-time="2026-04-22T19:00:00">
+            <h2>When They See Us (2019) සැබෑ කතාව සිංහලෙන්: යුක්තිය අහිමි වූ දරුවන්ගේ කතාව</h2>
+          </div>
+          <p>අපි හැමෝම හිතන්නේ නීතිය සහ පොලීසිය තියෙන්නේ අපේ ආරක්ෂාවට කියලා. හැබැයි සමහර වෙලාවට ඒ පද්ධතියම අහිංසක මිනිස්සුන්ව බිල්ලට …</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="NVIDIA DGX Spark Malaysia AI supercomputer">
-      <img src="https://imgur.com/HhiG8ex.jpeg" alt="nvidia-dgx" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="the-lab/index.html"><button class="hashtag">&#129514; The Lab</button></a></div>
-        <div class="article-card" data-time="2026-03-15T12:40:00"><h2>DGX Spark: NVIDIA DGX Spark Sinhala</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>DGX H100 chips, InfiniBand Networking and NVIDIA's DGX Spark supercomputer explained in Sinhala.</p>
-        <a href="the-lab/nvidia-dgx-spark.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/band-of-brothers.html'" >
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/2lOyUas.jpeg" alt="band-of-brothers" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <span class="badge badge-new">New</span>
+          <div class="article-card" data-time="2026-04-20T10:00:00">
+            <h2>Band of Brothers: සැබෑ ලෝකයේ වීරයන්ගේ ලේ, කඳුළ සහ සහෝදරත්වය පිරි අමරණීය කතාව.</h2>
+          </div>
+          <p>අද අපි බලමු දෙවන ලෝක යුද්ධයේ Easy Company හි සැබෑ කතාව පාදක කරගත් Band of Brothers සීරීස් එකේ සාර්ථකත්වය සහ ඇයි මේක මෙච්…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="The Wheel of Time fantasy series">
-      <img src="https://imgur.com/dIC9oY5.jpeg" alt="wheel-of-time" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2026-03-15T10:45:00"><h2>The Wheel of Time - Fantasy Epic Series Explained</h2><p class="time"></p></div>
-        <span class="author">By ima</span>
-        <p>The Wheel of Time - like Game of Thrones and Lord of the Rings in scale and world-building.</p>
-        <a href="Tv Series/the-wheel-of-time.html" class="read-more">Read More</a>
+      <div class="card" data-filter="movies" onclick="window.location.href='Movies/silent-hill-2006.html'" >
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/z72UsQa.jpeg" alt="silent-hill-2006" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎬Movies</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-04-19T13:40:00">
+            <h2>Silent Hill ලෝකයේ අභිරහස: Silent Hill (2006) Movie Explained Sinhala.</h2>
+          </div>
+          <p>Silent Hill (2006) කියන්නේ වීඩියෝ ගේම් එකක් ඇසුරෙන් නිර්මාණය වුණු, අදටත් රසිකයන් අතර ඉහළින්ම තියෙන Horror/Psychological …</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="GPU graphics card how it works sinhala">
-      <img src="https://imgur.com/gdPDg3r.jpeg" alt="how-gpu-works" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="the-lab/index.html"><button class="hashtag">&#129514; The Lab</button></a></div>
-        <div class="article-card" data-time="2026-03-11T19:10:00"><h2>Graphics cards (GPU) වැද ዙරන් හැዙዙ සዙහᱱයෙන්</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>GPU vs CPU - what is different? How many calculations per second does a Graphics Card do?</p>
-        <a href="the-lab/how-graphics-cards-works.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/perfect-crown.html'" >
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/fyarJ79.jpeg" alt="perfect-crown" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-04-11T11:30:00">
+            <h2>Perfect Crown (2026) – 21 වන සියවසේ රාජකීය ප්‍රේම වෘතාන්තය!</h2>
+          </div>
+          <p>ඔන්න අද අරගෙන ආවේ මේ අවුරුද්දේ (2026) වඩාත්ම බලාපොරොත්තු සහගත KDrama එක ගැන විස්තර. Perfect Crown (මීට කලින් Wife of a 2…</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Minecraft history notch story rubydung">
-      <img src="https://imgur.com/SjW71qx.jpeg" alt="minecraft-history" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2026-03-10T19:30:00"><h2>Minecraft හැදුණු හැዙዙ: From RubyDung to Minecraft</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Minecraft - how it was made and the story of Notch the creator.</p>
-        <a href="Games/history-of-minecraft-notch-story.html" class="read-more">Read More</a>
+      <div class="card" data-filter="lab" onclick="window.location.href='the-lab/what-is-stuxnet.html'" >
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/F6bE0Qw.jpeg" alt="what is stuxnet" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🧪The Lab</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-04-05T19:00:00">
+            <h2>Stuxnet කියන්නේ මොකද්ද? ලොව පළමු ඩිජිටල් ආයුධය ගැන ඔබ නොදන්නා රහස්</h2>
+          </div>
+          <p>ඉරානයේ න්‍යෂ්ටික බලාගාරයක් රහසිගතව විනාශ කළ Stuxnet Computer Worm සහ Cyber යුද කලාවේ ආරම්භය පිළිබඳව ලියැවුණු සම්පූර්ණ වි…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Young Sherlock 2026 Prime Video series">
-      <img src="https://imgur.com/Y1cDKTZ.jpeg" alt="young-sherlock" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2026-03-08T20:00:00"><h2>Young Sherlock (2026) - Oxford Thriller Series</h2><p class="time"></p></div>
-        <span class="author">By ima</span>
-        <p>2026 March 04 Prime Video - Young Sherlock series about Sherlock Holmes' early years.</p>
-        <a href="Tv Series/young-sherlock.html" class="read-more">Read More</a>
+      <div class="card" data-filter="lab" onclick="window.location.href='the-lab/what-is-a-data-center.html'" >
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/7EBVTZ6.jpeg" alt="data center" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🧪The Lab</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-04-04T19:00:00">
+            <h2>මොනාද මේ Data Centers කියන්නේ?</h2>
+          </div>
+          <p>අද අපි ජීවත් වෙන ඩිජිටල් ලෝකයේ හදවත කියලා හඳුන්වන්න පුළුවන් මාතෘකාවක් ගැන තමයි අද කතා කරන්න යන්නේ. ඒ තමයි Data Centers</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Empress pirate queen gaming cracker">
-      <img src="https://imgur.com/Ufgr9jI.jpeg" alt="empress" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2026-03-07T10:20:00"><h2>Empress: ᱱොමዙන් ᱱෝዙዙዙ සොᱱවු "Pirate Queen" ᱱෝ ዙතාව</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>The story of Empress - the legendary game cracker known as the most talented female hacker.</p>
-        <a href="Games/empress-the-pirate-queen-story.html" class="read-more">Read More</a>
+      <div class="card" data-filter="lab" onclick="window.location.href='the-lab/how-repackers-shrink-60gb-games-to-10gb.html'" >
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/cnNyPQf.jpeg" alt="FitGirl" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🧪The Lab</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-04-03T20:00:00">
+            <h2>Repackers ලාගේ රහස: 60GB game එකක් 10GB කරන්නේ කොහොමද?</h2>
+          </div>
+          <p>ඔයාලා Computer Games (PC Games) play කරන කෙනෙක් නම්, අනිවාර්යයෙන්ම FitGirl හෝ DODI වගේ නම් අහලා ඇති. කොහොමද මෙයාලා මේ තර…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Sirens Kiss 2026 thriller series">
-      <img src="https://imgur.com/dFrlzOQ.jpeg" alt="sirens-kiss" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2026-03-05T19:00:00"><h2>Siren's Kiss (2026) - Deadly Thriller Series</h2><p class="time"></p></div>
-        <span class="author">By ima</span>
-        <p>2026 Thriller Series based on the 1999 Japanese original - Siren's Kiss.</p>
-        <a href="Tv Series/sirens-kiss.html" class="read-more">Read More</a>
+      <div class="card" data-filter="lab" onclick="window.location.href='the-lab/scene-groups-vs-p2p.html'" >
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/FNKb1kG.jpeg" alt="scene-groups-vs-p2p" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🧪The Lab</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-04-02T19:00:00">
+            <h2>Scene Groups සහ P2P වෙනස: Torrent වලට මුලින්ම files release වෙන්නේ කොහොමද?</h2>
+          </div>
+          <p>අන්තර්ජාලයේ හොර රහසේ ක්‍රියාත්මක වන Scene Groups සහ P2P (Torrent) අතර තියෙන වෙනස සහ අන්තර්ජාලයට මුලින්ම ෆිල්ම් සහ ගේම්ස්…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="game cracking Denuvo DRM explained sinhala">
-      <img src="https://imgur.com/fiC6tFs.jpeg" alt="game-cracking" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2026-03-04T16:20:00"><h2>How Games are Cracked? Denuvo &amp; DRM Explained in Sinhala</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>How video games are cracked - Denuvo and DRM protection systems explained in Sinhala.</p>
-        <a href="Games/how-game-cracking-works.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/from-series-rewatch-list-before-season-4.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/KeuqxV3.jpeg" alt="from s4" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-29T11:45:00">
+            <h2>FROM: Season 4 බලන්න කලින් ආයෙත් බලන්නම ඕනේ episodes 10</h2>
+          </div>
+          <p>ඔයාලා දන්නවා ඇති FROM කියන්නේ නිකන්ම Horror සීරීස් එකක් නෙවෙයි කියලා. මේකේ හැම තත්පරයකම මොකක් හරි රහසක් හංගලා තියෙනවා. ඉ…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="best zombie games top 10 list">
-      <img src="https://imgur.com/QBmcaQ3.jpeg" alt="best-zombie-games" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2026-03-01T14:15:00"><h2>ᱱෝዙዙዙේ මෙዙතේዙ ዙዙහዙවුණු හዙදම සዙම්ዙዙ ᱱොම්ස් 10ዙ්</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Best zombie games ever made - top 10 list covering every era of zombie gaming.</p>
-        <a href="Games/best-zombie-games.html" class="read-more">Read More</a>
+      <div class="card" data-filter="anime" onclick="window.location.href='Anime/hashirama-senju.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/76EN3PS.jpeg" alt="hashirama-senju" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">⭐Anime</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-25T19:00:00">
+            <h2>කවුද මේ Hashirama Senju කියන්නේ?</h2>
+          </div>
+          <p>Naruto ලෝකයේ ප්‍රබලම Hokage හෂිරාමා සෙන්ජු ගැන සිංහලෙන්. එයාගේ බලය, මොකුටොන් තාක්ෂණය, සහ මදාරා උචිහා සමඟ තිබුණු ගැටුම ගැ…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Mori Satoshi anime director tribute 2026">
-      <img src="https://imgur.com/TI0wjwR.jpeg" alt="mori-satoshi" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Anime/anime.html"><button class="hashtag">&#11088; Anime</button></a><a href="Anime/mori-satoshi.html"><button class="hashtag">News</button></a></div>
-        <div class="article-card" data-time="2026-02-27T11:30:00"><h2>Anime Director Mori Satoshi Passed Away in 2026 - Tribute</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Anime director Mori Satoshi has passed away - a tribute to a legend.</p>
-        <a href="Anime/mori-satoshi.html" class="read-more">Read More</a>
+      <div class="card" data-filter="anime" onclick="window.location.href='Anime/paprika-2006.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/4Hzn16P.jpeg" alt="paprika" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">⭐Anime</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-23T18:05:00">
+            <h2>Paprika (2006): හීන සහ සැබෑ ලෝකය අතර සටන</h2>
+          </div>
+          <p>සතෝෂි කොන්ගේ සුපිරි නිර්මාණයක් වන Paprika ඇනිමේ එක ගැන සිංහලෙන් දැනගන්න. Inception ෆිල්ම් එකට පදනම වුණු මේ අමුතු හීන ලෝක…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Terrifier 4 official update Damien Leone">
-      <img src="https://imgur.com/3fitPnC.jpeg" alt="terrifier-4" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Movies/movies.html"><button class="hashtag">&#127916; Movies</button></a><a href="Movies/terrifier-4-update.html"><button class="hashtag">News</button></a></div>
-        <div class="article-card" data-time="2026-02-26T23:59:00"><h2>Terrifier 4 Official Update in Sinhala</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Terrifier 4 update from director Damien Leone - Art the Clown's final chapter.</p>
-        <a href="Movies/terrifier-4-update.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/graphics-rendering-pipeline.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/3AByEv6.jpeg" alt="graphics-rendering-pipeline" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-22T18:30:00">
+            <h2>3D Graphics වැඩ කරන්නේ කොහොමද? | Graphics Rendering Pipeline Sinhala</h2>
+          </div>
+          <p>වීඩියෝ ගේම් එකක graphics 0 සහ 1 වලින් රියලිස්ටික් රූප බවට පත් වෙන හැටි සරලව. Vertex Shading, Rasterization සහ Fragment S…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Uzumaki anime junji ito horror spiral sinhala">
-      <img src="https://imgur.com/NKQh1h9.jpeg" alt="uzumaki" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Anime/anime.html"><button class="hashtag">&#11088; Anime</button></a></div>
-        <div class="article-card" data-time="2026-02-26T20:00:00"><h2>Uzumaki Anime Explained in Sinhala</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Junji Ito's Uzumaki - the terrifying spiral horror explained in Sinhala.</p>
-        <a href="Anime/uzumaki.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/chernobyl.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/XXjhiBU.jpeg" alt="chernobyl" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-19T19:25:00">
+            <h2>Chernobyl: ඇසට නොපෙනෙන මරණය සහ ලෝකය බේරූ වීරයන්ගේ ඇත්ත කතාව</h2>
+          </div>
+          <p>1986 වසරේ සිදුවූ Chernobyl න්‍යෂ්ටික විනාශය සහ HBO හි ජනප්‍රිය Chernobyl සීරීස් එක ගැන සම්පූර්ණ විස්තරය සිංහලෙන්. විකිරණ…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Elden Ring game explained Lands Between sinhala">
-      <img src="https://imgur.com/MSpo99r.jpeg" alt="elden-ring" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2026-02-25T13:30:00"><h2>Elden Ring Game Explained in Sinhala - Lands Between</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Elden Ring - the game that changed gaming explained in Sinhala.</p>
-        <a href="Games/elden-ring.html" class="read-more">Read More</a>
+      <div class="card" data-filter="lab" onclick="window.location.href='the-lab/nvidia-dgx-spark.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/HhiG8ex.jpeg" alt="nvidia-dgx-spark" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🧪The Lab</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-15T12:40:00">
+            <h2>DGX Spark: මැලේසියාවේ AI සුපිරි පරිගණකය ගැන සරලව | NVIDIA DGX Spark Sinhala</h2>
+          </div>
+          <p>DGX H100 chips, InfiniBand Networking, සහ YTL Power සමඟ එකතු වෙලා NVIDIA මැලේසියාවේ නිර්මාණය කරන DGX Spark සුපිරි පරිගණක…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="The Art of Sarah 2026 Netflix Korean mystery thriller">
-      <img src="https://imgur.com/EbWDxA2.jpeg" alt="the-art-of-sarah" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2026-02-21T16:10:00"><h2>The Art of Sarah (2026) - Korean Mystery Thriller</h2><p class="time"></p></div>
-        <span class="author">By ima</span>
-        <p>2026 Feb 13 Netflix - South Korean Mystery Thriller about identity and wealth.</p>
-        <a href="Tv Series/the-art-of-sarah.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/the-wheel-of-time.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/dIC9oY5.jpeg" alt="the-wheel-of-time" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-15T10:45:00">
+            <h2>The Wheel of Time – ඉරණම, මායා බලය සහ ආලෝකය–අඳුර අතර සදාකාලික සටන!</h2>
+          </div>
+          <p>ඔන්න fantasy ලෝකයට ආදරය කරන අයට තවත් සුපිරිම විස්තරයක් තමයි මේ අරගෙන ආවේ. The Wheel of Time කියන්නේ හරියට &quot;Game of Thron…</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Supernatural TV series sinhala Sam Dean Winchester">
-      <img src="https://imgur.com/4HldY7g.jpeg" alt="supernatural" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a><a href="Tv Series/supernatural.html"><button class="hashtag">&#127911;</button></a></div>
-        <div class="article-card" data-time="2026-02-17T16:30:00"><h2>Supernatural TV Series Explained in Sinhala</h2><p class="time"></p></div>
-        <span class="author">By SANA &amp; Voice Tharindu Jayakody</span>
-        <p>Sam and Dean Winchester's supernatural hunting explained in Sinhala.</p>
-        <a href="Tv Series/supernatural.html" class="read-more">Read More</a>
+      <div class="card" data-filter="lab" onclick="window.location.href='the-lab/how-graphics-cards-works.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/gdPDg3r.jpeg" alt="how-gpu-works" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🧪The Lab</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-11T19:10:00">
+            <h2>Graphics cards (GPU) වැඩ කරන හැටි සිංහලෙන්</h2>
+          </div>
+          <p>GPU සහ CPU අතර වෙනස මොකක්ද? Graphics Card එකක් තත්පරයකට ගණනය කිරීම් කීයක් කරනවාද? මේ හැමදේම සරල සිංහලෙන් දැනගන්න.</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Your Name anime movie kimi no na wa sinhala">
-      <img src="https://imgur.com/KnobFOS.jpeg" alt="your-name" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Anime/anime.html"><button class="hashtag">&#11088; Anime</button></a><a href="Anime/your-name.html"><button class="hashtag">&#127911;</button></a></div>
-        <div class="article-card" data-time="2026-02-16T15:30:00"><h2>Your Name Anime Movie Explained in Sinhala</h2><p class="time"></p></div>
-        <span class="author">By SANA &amp; Voice Oshi</span>
-        <p>Kimi no Na wa - the Japanese anime that brought millions to tears explained in Sinhala.</p>
-        <a href="Anime/your-name.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/history-of-minecraft-notch-story.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/SjW71qx.jpeg" alt="history-of-minecraft-notch-story" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-10T19:30:00">
+            <h2>Minecraft හැදුණු හැටි: From RubyDung to Minecraft</h2>
+          </div>
+          <p>අපි අද කතා කරමු ලෝකෙ වැඩිම පිරිසක් සල්ලි දීලා ගත්ත ගේම් එක, ඒ කියන්නේ Minecraft ගැන. මේක හැදුණේ කොහොමද? මේක පිටුපස ඉන්න …</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="John Wick AAA video game sinhala">
-      <img src="https://imgur.com/FzMzI1k.jpeg" alt="john-wick-game" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2026-02-13T19:00:00"><h2>John Wick New AAA Video Game Explained in Sinhala</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>The latest John Wick video game - Baba Yaga's new AAA game explained.</p>
-        <a href="Games/untitled-john-wick-game.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/young-sherlock.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/Y1cDKTZ.jpeg" alt="young-sherlock" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-08T20:00:00">
+            <h2>Young Sherlock (2026) – ඔක්ස්ෆර්ඩ් සිසුවෙකුගේ පළමු මිනීමැරුම් පරීක්ෂණය!</h2>
+          </div>
+          <p>ඔන්න අද අරගෙන ආවේ 2026 මාර්තු 04 වැනිදා Prime Video හරහා නිකුත් වුණු, ලෝක ප්‍රසිද්ධ රහස් පරීක්ෂක ෂර්ලොක් හෝම්ස්ගේ තාරුණ්…</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Erased anime Boku Dake time travel sinhala">
-      <img src="https://i.imgur.com/RDHw7il.jpeg" alt="erased" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Anime/anime.html"><button class="hashtag">&#11088; Anime</button></a><a href="Anime/erased.html"><button class="hashtag">&#127911;</button></a></div>
-        <div class="article-card" data-time="2026-02-13T17:05:00"><h2>Erased Anime - Time Travel Mystery Explained in Sinhala</h2><p class="time"></p></div>
-        <span class="author">By SANA &amp; Voice Oshi</span>
-        <p>Erased - Mystery, Time Travel and emotional storytelling. A must-watch masterpiece.</p>
-        <a href="Anime/erased.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/empress-the-pirate-queen-story.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/Ufgr9jI.jpeg" alt="empress-the-pirate-queen-story" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-07T10:20:00">
+            <h2>Empress: ගේමින් ලෝකය සෙලවූ &quot;Pirate Queen&quot; ගේ කතාව</h2>
+          </div>
+          <p>වීඩියෝ ගේම්ස් පයිරේට් කරන ලෝකයේ නම ඇසූ පමණින් ඕනෑම කෙනෙක් දන්නා නමක් තමයි Empress. ඇයව හඳුන්වන්නේ ඉතිහාසයේ බිහිවුණු දක්ෂ…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Bridgerton Netflix romance drama sinhala">
-      <img src="https://imgur.com/FgbcuTd.jpeg" alt="bridgerton" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2026-02-12T20:00:00"><h2>Bridgerton (2020-2026) - Netflix Romance Drama</h2><p class="time"></p></div>
-        <span class="author">By ima</span>
-        <p>Netflix's Bridgerton - record-breaking London Regency era romance drama explained.</p>
-        <a href="Tv Series/bridgerton.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/sirens-kiss.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/dFrlzOQ.jpeg" alt="siren&#x27;s kiss" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-05T19:00:00">
+            <h2>Siren&#x27;s Kiss (2026) – මාරාන්තික හාදුවක සහ රහස්‍ය මරණවල අභිරහස!</h2>
+          </div>
+          <p>ඔන්න අද අරගෙන ආවේ 2026 දී ලෝකය පුරාම මාරම විදිහට කතා බහට ලක්වෙන, බලනකොට ඇඟ හිරිවැටෙන මට්ටමේ Thriller Series එකක්. &quot;Siren…</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="The Last of Us game story Joel Ellie sinhala">
-      <img src="https://imgur.com/JsNoygE.jpeg" alt="the-last-of-us" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2026-02-12T14:50:00"><h2>The Last of Us Game Story Explained in Sinhala</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Joel and Ellie's post-apocalyptic journey - The Last of Us Part 1 explained.</p>
-        <a href="Games/the-last-of-us-part1.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/how-game-cracking-works.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/fiC6tFs.jpeg" alt="how-game-cracking-works" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-04T16:20:00">
+            <h2>How Games are Cracked? Denuvo &amp; DRM Explained in Sinhala</h2>
+          </div>
+          <p>වීඩියෝ ගේම්ස් ක්‍රැක් කරන්නේ කොහොමද? Denuvo සහ DRM ආරක්ෂණ පද්ධති බිඳදමන රහස් ගැන සිංහලෙන් දැනගන්න....</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Dracula A Love Tale 2025 Luc Besson gothic romance">
-      <img src="https://imgur.com/oKfrXoB.jpeg" alt="dracula" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Movies/movies.html"><button class="hashtag">&#127916; Movies</button></a></div>
-        <div class="article-card" data-time="2026-02-09T18:00:00"><h2>Dracula: A Love Tale (2025) - Gothic Romance Film</h2><p class="time"></p></div>
-        <span class="author">By ima</span>
-        <p>Luc Besson's Dracula: A Love Tale - 400 years of immortal love explained.</p>
-        <a href="Movies/dracula-a-love-tale.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/best-zombie-games.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/QBmcaQ3.jpeg" alt="best zombie" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-03-01T14:15:00">
+            <h2>ලෝකයේ මෙතෙක් බිහිවුණු හොඳම සොම්බි ගේම්ස් 10ක්</h2>
+          </div>
+          <p>අද අපි කතා කරන්න යන්නේ ගේමින් ලෝකයේ කවදාවත් එපා වෙන්නේ නැති, හැම තත්පරයකම ඇඩ්‍රිනලින් වැඩි කරන සොම්බි ගේම්ස් ගැන.....</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="S Line 2024 Korean fantasy thriller red line">
-      <img src="https://imgur.com/elv3bY9.jpeg" alt="s-line" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2026-02-09T11:00:00"><h2>S Line (2024) - Fantasy Thriller Korean Series</h2><p class="time"></p></div>
-        <span class="author">By ima</span>
-        <p>S Line - what if mysterious red lines revealed everyone's secrets?</p>
-        <a href="Tv Series/s-line.html" class="read-more">Read More</a>
+      <div class="card" data-filter="anime" onclick="window.location.href='Anime/mori-satoshi.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/TI0wjwR.jpeg" alt="mori-satoshi" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">⭐Anime</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-27T11:30:00">
+            <h2>Anime Director Mori Satoshi Passed Away in 2026 - Tribute to a Legend</h2>
+          </div>
+          <p>Anime ක්ෂේත්‍රයම එක ලෙස කම්පාවට පත් කරමින්, ප්‍රවීණ anime නිර්මාණකරුවෙකු වන මොරි සතෝෂි අප අතරින් සමුගෙන තිබෙනවා....</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="The Night Manager spy thriller 2016 2025">
-      <img src="https://imgur.com/xWmO7Sg.jpeg" alt="the-night-manager" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2026-02-08T17:25:00"><h2>The Night Manager (2016-2025) - British Spy Thriller</h2><p class="time"></p></div>
-        <span class="author">By ima</span>
-        <p>Tom Hiddleston and Hugh Laurie in a high-stakes spy thriller series.</p>
-        <a href="Tv Series/the-night-manager.html" class="read-more">Read More</a>
+      <div class="card" data-filter="movies" onclick="window.location.href='Movies/terrifier-4-update.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/3fitPnC.jpeg" alt="terrifier-4-update" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎬Movies</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-26T23:59:00">
+            <h2>Terrifier 4 Official Update in Sinhala</h2>
+          </div>
+          <p>Terrifier 4 චිත්‍රපටය ගැන අධ්‍යක්ෂ ඩේමියන් ලියෝන් නිකුත් කළ අලුත්ම තොරතුරු. Art the Clown ගේ අවසාන ගමන ගැන සම්පූර්ණ විස්…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="The X-Files sci-fi mystery aliens paranormal">
-      <img src="https://imgur.com/PTEgk1t.jpeg" alt="the-x-files" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a><a href="Tv Series/the-x-files.html"><button class="hashtag">&#127911;</button></a></div>
-        <div class="article-card" data-time="2026-02-06T13:20:00"><h2>The X-Files | The Truth Is Out There</h2><p class="time"></p></div>
-        <span class="author">By SANA &amp; Voice Tharindu Jayakody</span>
-        <p>The X-Files - aliens, paranormal cases and government conspiracies iconic sci-fi.</p>
-        <a href="Tv Series/the-x-files.html" class="read-more">Read More</a>
+      <div class="card" data-filter="anime" onclick="window.location.href='Anime/uzumaki.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/NKQh1h9.jpeg" alt="uzumaki" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">⭐Anime</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-26T20:00:00">
+            <h2>Uzumaki Anime Explained in Sinhala - දඟර ශාපයේ බියකරු අබිරහස</h2>
+          </div>
+          <p>ඔන්න එහෙනම් ලෝක ප්‍රකට ජපන් Horror මාස්ටර් කෙනෙක් වන ජුන්ජි ඉතෝගේ (Junji Ito) බයහිතෙන සහ අමුතුම නිර්මාණය වුණු &quot;Uzumaki&quot; …</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Dear X 2025 K-Drama psychological thriller">
-      <img src="https://i.imgur.com/xbNdLO1.jpeg" alt="dear-x" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2026-02-04T18:45:00"><h2>Dear X (2025) - Must-Watch K-Drama</h2><p class="time"></p></div>
-        <span class="author">By ima</span>
-        <p>Dear X - Psychological Thriller about the dark side of people.</p>
-        <a href="Tv Series/dear-x.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/elden-ring.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/MSpo99r.jpeg" alt="elden-ring" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-25T13:30:00">
+            <h2>Elden Ring Game Explained in Sinhala - Lands Between අබිරහස</h2>
+          </div>
+          <p>අද අපි කතා කරන්න යන්නේ මෑත කාලයේ ගේමින් ලෝකයේ ලොකුම පෙරළියක් කරපු, challenges වලට ආස කරන ගේමර්ස්ලා අතර පට්ටම ජනප්‍රිය ගේ…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="First Night with the Duke 2025 K-Drama Joseon romance">
-      <img src="https://imgur.com/JPGkvPH.jpeg" alt="duke" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a><a href="Tv Series/pyramid-game.html"><button class="hashtag">&#127911;</button></a></div>
-        <div class="article-card" data-time="2026-02-02T12:30:00"><h2>The First Night with the Duke (2025) - Guilty Pleasure K-Drama</h2><p class="time"></p></div>
-        <span class="author">By ima &amp; Voice Oshi</span>
-        <p>Based on a popular Webtoon - Joseon era romantic comedy series.</p>
-        <a href="Tv Series/the-first-night-with-the-duke.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/the-art-of-sarah.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/EbWDxA2.jpeg" alt="the-art-of-sarah" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-21T16:10:00">
+            <h2>The Art of Sarah (2026) – සුපිරි වෙළඳ නාම සහ බොරු අනන්‍යතාවල රහස්!</h2>
+          </div>
+          <p>ඔන්න අද අරගෙන ආවේ 2026 පෙබරවාරි 13 වැනිදා Netflix හරහා නිකුත් වුණු, බලනකොට හුස්ම හිරවෙන මට්ටමේ අලුත්ම South Korean Myste…</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Pyramid Game 2024 Korean thriller survival school vote">
-      <img src="https://imgur.com/XiuXjjh.jpeg" alt="pyramid-game" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a><a href="Tv Series/pyramid-game.html"><button class="hashtag">&#127911;</button></a></div>
-        <div class="article-card" data-time="2026-01-28T17:00:00"><h2>Pyramid Game (2024) - School Survival Thriller</h2><p class="time"></p></div>
-        <span class="author">By ima &amp; Voice Oshi</span>
-        <p>Like Squid Game but set in a school classroom - Pyramid Game explained.</p>
-        <a href="Tv Series/pyramid-game.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/supernatural.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/4HldY7g.jpeg" alt="supernatural" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-17T16:30:00">
+            <h2>Supernatural TV Series Explained in Sinhala - සෑම් සහ ඩීන්ගේ අද්භූත දඩයම</h2>
+          </div>
+          <p>ලෝක ප්‍රකට Supernatural ටීවී සීරීස් එක ගැන සිංහලෙන් දැනගන්න. සෑම් සහ ඩීන් විංචෙස්ටර් සහෝදරයන්ගේ අද්භූත ජීවිතය සහ හොල්මන්…</p>
+          <div class="card-footer">
+            <span class="author">By SANA · Voice Tharindu Jayakody</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Sam Bahadur 2023 Indian movie Field Marshal Manekshaw">
-      <img src="https://i.imgur.com/r6MXKlN.jpeg" alt="sam-bahadur" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Movies/movies.html"><button class="hashtag">&#127916; Movies</button></a></div>
-        <div class="article-card" data-time="2026-01-27T18:45:00"><h2>SAM BAHADUR (2023) - Indian War Film</h2><p class="time"></p></div>
-        <span class="author">By Dinusha</span>
-        <p>Field Marshal Sam Manekshaw's life story told in Sam Bahadur 2023.</p>
-        <a href="Movies/sam-bahadur.html" class="read-more">Read More</a>
+      <div class="card" data-filter="anime" onclick="window.location.href='Anime/your-name.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/KnobFOS.jpeg" alt="your-name" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">⭐Anime</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-16T15:30:00">
+            <h2>Your Name Anime Movie Explained in Sinhala - ආදරය සහ දෛවයේ අබිරහස</h2>
+          </div>
+          <p>ඔන්න අද අපි කතා කරන්න යන්නේ fantasy සහ romance යන categories අයත් ලෝකේ පුරාම මිලියන ගණනක් මිනිස්සුන්ගේ ඇස්වලට කඳුළු ගෙනා…</p>
+          <div class="card-footer">
+            <span class="author">By SANA · Voice Oshi</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Can This Love Be Translated 2026 K-Drama Kim Seon-ho">
-      <img src="https://imgur.com/fCyPQg7.jpeg" alt="can-this-love" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a><a href="Tv Series/can-this-love-be-translated.html"><button class="hashtag">&#127911;</button></a></div>
-        <div class="article-card" data-time="2026-01-27T11:00:00"><h2>Can This Love Be Translated? (2026) - K-Drama Romance</h2><p class="time"></p></div>
-        <span class="author">By ima &amp; Voice Oshi</span>
-        <p>Kim Seon-ho returns - Can This Love Be Translated 2026 K-Drama explained.</p>
-        <a href="Tv Series/can-this-love-be-translated.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/untitled-john-wick-game.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/FzMzI1k.jpeg" alt="john wick" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-13T19:00:00">
+            <h2>John Wick New AAA Video Game Explained in Sinhala - ජෝන් වික්ගේ අලුත්ම ගේම් එක</h2>
+          </div>
+          <p>ඔන්න එහෙනම් gaming ලෝකයේ මෑතකදී ඇහුණු පට්ටම ආරංචියක් ගැනයි අද අපි කතා කරන්න යන්නේ. &quot;බබා යාගා&quot; (Baba Yaga) එහෙමත් නැත්නම්…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Flower of Evil 2020 K-Drama thriller dark secret romance">
-      <img src="https://imgur.com/ckJ3VGU.jpeg" alt="flower-of-evil" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a><a href="Tv Series/flower-of-evil.html"><button class="hashtag">&#127911;</button></a></div>
-        <div class="article-card" data-time="2026-01-26T12:10:00"><h2>Flower of Evil (2020) - Dark Secret Thriller K-Drama</h2><p class="time"></p></div>
-        <span class="author">By ima &amp; Voice Oshi</span>
-        <p>Flower of Evil - not just romance but suspense-filled thriller K-Drama.</p>
-        <a href="Tv Series/flower-of-evil.html" class="read-more">Read More</a>
+      <div class="card" data-filter="anime" onclick="window.location.href='Anime/erased.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/RDHw7il.jpeg" alt="erased" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">⭐Anime</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-13T17:05:00">
+            <h2>අම්මාව බේරගන්න අතීතයට ගිය සතෝරුගේ කතාව</h2>
+          </div>
+          <p>අද අපි කතා කරන්න යන්නේ ඔයාගේ හිතට මාරම විදිහට දැනෙන, ඒ වගේම හැම තත්පරයකම කුතුහලය පිරුණු ඇනිමේ එකක් ගැන. ඒ තමයි Erased. ඔ…</p>
+          <div class="card-footer">
+            <span class="author">By SANA · Voice Oshi</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Netflix facts history streaming 7 fun facts sinhala">
-      <img src="https://imgur.com/9QUn9xF.jpeg" alt="netflix" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2026-01-26T09:30:00"><h2>Netflix - 7 Amazing Facts in Sinhala</h2><p class="time"></p></div>
-        <span class="author">By Uditha</span>
-        <p>7 amazing facts about Netflix's history and journey.</p>
-        <a href="Tv Series/netflix.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/bridgerton.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/FgbcuTd.jpeg" alt="bridgerton" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-12T20:00:00">
+            <h2>Bridgerton (2020-2026) – ලන්ඩන් රාජකීය සමාජයේ ආදරය, රහස් සහ ඕපදූප!</h2>
+          </div>
+          <p>ඔන්න අද අරගෙන ආවේ Netflix එකේ record පිට record තියපු, බලනකොට ඇහැට වගේම හිතටත් මාරම &quot;Royal&quot; ගතියක් දෙන සිරීස් එකක්. මේක …</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Multiplayer games history online gaming">
-      <img src="https://imgur.com/cxF1L2E.jpeg" alt="multiplayer-games" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2026-01-24T13:30:00"><h2>History of Multiplayer Games Explained</h2><p class="time"></p></div>
-        <span class="author">By Uditha</span>
-        <p>History of multiplayer gaming - from local to online multiplayer.</p>
-        <a href="Games/multiplayer-games.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/the-last-of-us-part1.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/JsNoygE.jpeg" alt="tlou" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-12T14:50:00">
+            <h2>The Last of Us Game Story Explained in Sinhala - ජොයෙල් සහ එලීගේ අරගලය</h2>
+          </div>
+          <p>අද අපි කතා කරන්න යන්නේ ගේම් එකක් වුණත්, next level ෆිල්ම් එකක් බලනවා වගේ අත්දැකීමක් දෙන, හදවතටම දැනෙන කතාවක් ගැන. ඒ තමයි…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="A Knight of the Seven Kingdoms 2026 Westeros spin-off GOT">
-      <img src="https://imgur.com/96Obsdk.jpeg" alt="knight-seven-kingdoms" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2026-01-23T10:30:00"><h2>A Knight of the Seven Kingdoms (2026) - GOT Spin-off</h2><p class="time"></p></div>
-        <span class="author">By ima</span>
-        <p>The new Westeros prequel - A Knight of the Seven Kingdoms explained.</p>
-        <a href="Tv Series/a-knight-of-the-seven-kingdoms.html" class="read-more">Read More</a>
+      <div class="card" data-filter="movies" onclick="window.location.href='Movies/dracula-a-love-tale.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/oKfrXoB.jpeg" alt="dracula 2025" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎬Movies</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-09T18:00:00">
+            <h2>Dracula: A Love Tale (2025) – ශතවර්ෂ හතරක අමරණීය ආදර කතාව!</h2>
+          </div>
+          <p>ඔන්න අද අරගෙන ආවේ ලෝක ප්‍රසිද්ධ අධ්‍යක්ෂක Luc Besson (The Fifth Element / Léon) ගේ අලුත්ම නිර්මාණය. &quot;Dracula&quot; ගැන ඕනෑතරම…</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Oscars 2026 nominees Academy Awards 98th categories">
-      <img src="https://imgur.com/zunzrHC.jpeg" alt="oscars-2026" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Movies/movies.html"><button class="hashtag">&#127916; Movies</button></a></div>
-        <div class="article-card" data-time="2026-01-22T22:15:00"><h2>All Categories and Nominees for Oscars 2026</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>98th Academy Awards nominees - Best Picture, Acting, Director and all categories.</p>
-        <a href="Movies/oscars-2026-nominees.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/s-line.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/elv3bY9.jpeg" alt="s line" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-09T11:00:00">
+            <h2>S Line (2024) – හැමෝගෙම රහස් එළියට දාන අද්භූත රතු ඉරි!</h2>
+          </div>
+          <p>අද අරන් ආවේ ටිකක් අමුතුම විදියේ Fantasy Thriller එකක්. මේක බලනකොට ඔයාලට හිතෙයි &quot;ඇත්තටම මෙහෙම වුණොත් මොනවා වෙයිද?&quot; කියලා.…</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Vinland Saga anime Viking Thorfinn manga">
-      <img src="https://imgur.com/g5Th349.jpeg" alt="vinland-saga" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Anime/anime.html"><button class="hashtag">&#11088; Anime</button></a></div>
-        <div class="article-card" data-time="2026-01-18T11:00:00"><h2>Vinland Saga - Viking Epic Anime Explained</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Vinland Saga - Makoto Yukimura's manga about Vikings and revenge to peace.</p>
-        <a href="Anime/vinland-saga.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/the-night-manager.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/xWmO7Sg.jpeg" alt="the night manager" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-08T17:25:00">
+            <h2>The Night Manager (2016 – 2025) – හෝටල් කළමනාකරුවෙක් සහ ලෝකයේ දරුණුම ආයුධ ජාවාරම!</h2>
+          </div>
+          <p>ඔන්න අද අරගෙන ආවේ Tom Hiddleston (අපේ Loki!) සහ Hugh Laurie ප්‍රධාන චරිත රඟපාන, හුස්ම හිරවෙන මට්ටමේ කුතුහලයක් (High-stak…</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Controlled Folder Access Windows PC games save files">
-      <img src="https://i.imgur.com/hWTJ7Ru.jpeg" alt="controlled-folder" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2025-12-26T12:22:00"><h2>Controlled Folder Access Feature Explained for PC Gamers</h2><p class="time"></p></div>
-        <span class="author">By Kane</span>
-        <p>The Windows security feature that breaks old PC games' save files explained.</p>
-        <a href="Games/controlled-folder-access-feature.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/the-x-files.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/PTEgk1t.jpeg" alt="the x files" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-06T13:20:00">
+            <h2>📺 | The X-Files | (The Truth Is Out There).</h2>
+          </div>
+          <p>The X-Files කියන්නේ aliens, paranormal cases සහ government conspiracies explore කරන iconic sci-fi TV series එකක්....</p>
+          <div class="card-footer">
+            <span class="author">By SANA · Voice Tharindu Jayakody</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="The Game Awards 2025 winners GOTY categories">
-      <img src="Images/tga 2025.jpg" alt="tga-2025-winners" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2025-12-12T06:30:00"><h2>All Winners for The Game Awards 2025</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>The Game Awards 2025 complete results - GOTY and all category winners.</p>
-        <a href="Games/the-game-awards-2025-winners.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/dear-x.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/xbNdLO1.jpeg" alt="dear-x" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-04T18:45:00">
+            <h2>Dear X (2025) – අනිවාර්යයෙන් බලන්න!</h2>
+          </div>
+          <p>ඔන්න අද අරගෙන ආවේ ලඟදී රිලීස් වුණු මාරම කුතුහලයක් තියෙන K-Drama එකක්. මේක නිකන්ම ආදර කතාවක් නෙවෙයි, මිනිස්සුන්ගේ තියෙන අ…</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Game Awards 2025 nominees GOTY contenders full list">
-      <img src="https://imgur.com/lIwL6sD.jpeg" alt="tga-2025-nominees" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2025-11-18T13:40:00"><h2>Game Awards 2025 Nominees: Full List &amp; GOTY Contenders</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Full nominees list for The Game Awards 2025 voted by 150+ creators.</p>
-        <a href="Games/the-game-awards-2025-nominees.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/the-first-night-with-the-duke.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/JPGkvPH.jpeg" alt="duke" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-02-02T12:30:00">
+            <h2>The First Night with the Duke (2025) – මෙන්න මේක නම් නියම &quot;Guilty Pleasure&quot; Series එකක්!</h2>
+          </div>
+          <p>අද මම අරන් ආවේ නිකන්ම නිකන් K-Drama එකක් නෙවෙයි, මාරම විහිලු වගේම හුස්ම හිරවෙන තරම් රොමෑන්ටික් කතාවක්. මේක Webtoon එකක් …</p>
+          <div class="card-footer">
+            <span class="author">By ima · Voice Oshi</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Steam hardware Machine Frame VR Controller Valve 2025">
-      <img src="https://i.imgur.com/cNBK5Ei.jpeg" alt="steam-hardware" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2025-11-15T21:10:00"><h2>New Steam Hardware: Steam Machine, Frame VR &amp; Controller Revealed</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Valve announces three new Steam hardware devices following Steam Deck's success.</p>
-        <a href="Games/steam-new-hardware-lineup-2025.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/pyramid-game.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/XiuXjjh.jpeg" alt="pyramid-game" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-01-28T17:00:00">
+            <h2>Pyramid Game (2024) – පන්තියක් ඇතුළේ සිද්ධ වෙන අමානුෂික සෙල්ලම!</h2>
+          </div>
+          <p>ඔන්න අද අරගෙන ආවේ 2024 දී නිකුත් වුණු, බලනකොට ඇඟ හිරිවැටෙන මට්ටමේ Thriller එකක්. &quot;Squid Game&quot; හෝ &quot;All of Us Are Dead&quot; වග…</p>
+          <div class="card-footer">
+            <span class="author">By ima · Voice Oshi</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Doctor Doom MCU Marvel powerful villain origin">
-      <img src="https://imgur.com/9i93h65.jpeg" alt="doctor-doom" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Movies/movies.html"><button class="hashtag">&#127916; Movies</button></a></div>
-        <div class="article-card" data-time="2025-11-14T15:16:00"><h2>MCU's Most Powerful Villain - Doctor Doom</h2><p class="time"></p></div>
-        <span class="author">By Mpm&#7475;&#738;</span>
-        <p>Doctor Doom's origin and role in the Marvel Cinematic Universe explained.</p>
-        <a href="Movies/doctor_doom.html" class="read-more">Read More</a>
+      <div class="card" data-filter="movies" onclick="window.location.href='Movies/sam-bahadur.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/r6MXKlN.jpeg" alt="sam-bahadur" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎬Movies</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-01-27T18:45:00">
+            <h2>SAM BAHADUR (2023)</h2>
+          </div>
+          <p>ෆීල්ඩ් මාර්ෂල් සෑම් මැනෙක්ෂෝ කියන්නේ ඉන්දියානු යුද ඉතිහාසයේ නොමැකෙන නමක් තියපු තරු පහේ ජෙනරාල්වරයෙක්. ඔහුගේ ජීවිතය අනුසා…</p>
+          <div class="card-footer">
+            <span class="author">By Dinusha</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Kekkei Genkai Naruto bloodline limit powers">
-      <img src="https://i.imgur.com/AB9tstr.jpeg" alt="kekkei-genkai" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Anime/anime.html"><button class="hashtag">&#11088; Anime</button></a></div>
-        <div class="article-card" data-time="2025-10-23T19:25:00"><h2>What is Kekkei-Genkai? Naruto Powers Explained</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Kekkei genkai (Bloodline Limit) - DNA-based special abilities in the Naruto universe.</p>
-        <a href="Anime/Kekkei-genkai.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/can-this-love-be-translated.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/fCyPQg7.jpeg" alt="can this love translated" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-01-27T11:00:00">
+            <h2>Can This Love Be Translated? (2026) – භාෂාවට එහා ගිය ආදරයක රහස!</h2>
+          </div>
+          <p>ඔන්න 2026 අවුරුද්ද පටන් ගත්ත ගමන්ම K-Drama පිස්සන්ට ලැබුණු නියම තෑග්ගක් තමයි මේ. Hometown Cha-Cha-Cha (Hometown Cha-Cha-…</p>
+          <div class="card-footer">
+            <span class="author">By ima · Voice Oshi</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="2026 Upcoming Games Release Schedule dates list">
-      <img src="https://i.imgur.com/jgThtZu.jpeg" alt="upcoming-games-2026" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2025-10-11T13:55:00"><h2>2026 Upcoming Games Release Schedule</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Complete list of 2026 game release dates - updated as new games are announced.</p>
-        <a href="Games/2026-Upcoming-Games-Release-Schedule.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/flower-of-evil.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/ckJ3VGU.jpeg" alt="flover-of-evil" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-01-26T12:10:00">
+            <h2>Flower of Evil (2020) – පරිපූර්ණ ආදරයක් පිටුපස හැංගුණු අඳුරු රහස!</h2>
+          </div>
+          <p>ඔන්න අද අරගෙන ආවේ K-Drama බලන අය අතරේ මාරම ජනප්‍රිය වුණ, නොබලාම බැරි thriller series එකක්. &quot;Flower of Evil&quot; කියන්නේ හුදෙ…</p>
+          <div class="card-footer">
+            <span class="author">By ima · Voice Oshi</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="2025 Upcoming Games Release Schedule dates">
-      <img src="https://i.imgur.com/6ExsSGb.jpeg" alt="upcoming-games-2025" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2025-10-11T13:51:00"><h2>2025 Upcoming Games Release Schedule</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Complete list of 2025 game release dates - updated regularly.</p>
-        <a href="Games/2025-Upcoming-Games-Release-Schedule.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/netflix.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/9QUn9xF.jpeg" alt="netflix" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-01-26T09:30:00">
+            <h2>Netflix ආයතනය පිළිබඳ පුදුම කරුණු 7ක්.</h2>
+          </div>
+          <p>ඉතින් කට්ටිය අද අපි කතා කරන්න යන්නෙ Netflix ආයතනයේ ඉස්සර ඉදන් මේ ආපු ගමන දක්වා ආපු ගමන ගැන පුදුම හිතෙන කාරණා 7ක්.</p>
+          <div class="card-footer">
+            <span class="author">By Uditha</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="A Minecraft Movie 2 announced Warner Bros">
-      <img src="https://i.imgur.com/9Hm11FW.jpeg" alt="minecraft-movie-2" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Movies/movies.html"><button class="hashtag">&#127916; Movies</button></a></div>
-        <div class="article-card" data-time="2025-10-10T15:15:00"><h2>A Minecraft Movie 2 Announced</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Warner Bros and Legendary announce Minecraft Movie 2.</p>
-        <a href="Movies/minecraft-2.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/multiplayer-games.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/cxF1L2E.jpeg" alt="multiplayer-games" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-01-24T13:30:00">
+            <h2>ආසාවෙන් Multiplayer ගේම් ගැහුවට ඒකෙ ඉතිහාසය හොයල බැලුවද?</h2>
+          </div>
+          <p>ඉතින් මුලින්ම කතා කරන්න ඕන Multiplayer ගේම් කියන්නෙ මොකක්ද කියල, Multiplayer ගේම් කියන්නෙ ක්‍රීඩකයන් කිහිප දෙනෙකුට එකවර …</p>
+          <div class="card-footer">
+            <span class="author">By Uditha</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Uzumaki Clan Naruto shinobi powerful sinhala">
-      <img src="https://i.imgur.com/4AWfHiV.jpeg" alt="uzumaki-clan" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Anime/anime.html"><button class="hashtag">&#11088; Anime</button></a></div>
-        <div class="article-card" data-time="2025-10-09T21:35:00"><h2>Uzumaki Clan - Most Powerful Shinobi Clan Explained</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Everything about the Uzumaki Clan - Naruto's powerful clan explained in Sinhala.</p>
-        <a href="Anime/uzumaki-clan.html" class="read-more">Read More</a>
+      <div class="card" data-filter="tv" onclick="window.location.href='Tv Series/a-knight-of-the-seven-kingdoms.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/96Obsdk.jpeg" alt="A Knight of the Seven Kingdoms" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">📺TV Series</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-01-23T10:30:00">
+            <h2>A Knight of the Seven Kingdoms (2026) – Westeros වල අලුත්ම පිස්සුව!</h2>
+          </div>
+          <p>ඔන්න Westeros පිස්සන්ට 2026 වසරේ ලැබෙන සුපිරිම තෑග්ග තමයි මේ. GOT (Game of Thrones) සහ HOTD (House of the Dragon) බැලුවට…</p>
+          <div class="card-footer">
+            <span class="author">By ima</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Top Survival Games best list gaming">
-      <img src="https://i.imgur.com/C1kmYDk.jpeg" alt="top-survival-games" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2025-10-08T10:30:00"><h2>Top Survival Games - Best List</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>The best survival games ever made - ranked and reviewed.</p>
-        <a href="Games/top-survival-games.html" class="read-more">Read More</a>
+      <div class="card" data-filter="movies" onclick="window.location.href='Movies/oscars-2026-nominees.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/zunzrHC.jpeg" alt="oscars_2026" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎬Movies</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-01-22T22:15:00">
+            <h2>All categories and nominees for the Oscars 2026</h2>
+          </div>
+          <p>98th Academy Awards (Oscars 2026) සඳහා නිර්දේශිත නාම ලැයිස්තුව: Best Picture, Acting, Director සහ තවත් categories.</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Steam Windows 10 32-bit support dropping Valve">
-      <img src="https://i.imgur.com/xUatnz9.jpeg" alt="steam-32bit" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2025-09-19T22:00:00"><h2>Steam Dropping Support for Windows 10 32-Bit</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Valve ends Steam support for Windows 10 32-bit - what this means for gamers.</p>
-        <a href="Games/steam-windows-32-bit-stop.html" class="read-more">Read More</a>
+      <div class="card" data-filter="anime" onclick="window.location.href='Anime/vinland-saga.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/g5Th349.jpeg" alt="vinland-saga" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">⭐Anime</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2026-01-18T11:00:00">
+            <h2>Vinland Saga | Viking යුගයේ පළිගැනීමෙන් සාමයට යන Thorfinnගේ ගමන</h2>
+          </div>
+          <p>Vinland Saga කියන්නේ Makoto Yukimuraගේ manga එක මත base වූන, 11වැනි සියවසේ Viking යුගය ඇතුළේ සිදුවෙන historical action ක…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Young Sheldon TV series underrated sinhala Big Bang Theory">
-      <img src="https://i.imgur.com/nDhgDEc.jpeg" alt="young-sheldon" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2025-09-16T22:00:00"><h2>Young Sheldon - Beyond the Bazinga</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Sri Lanka's underrated gem - Young Sheldon series reviewed.</p>
-        <a href="Tv Series/Young Sheldon.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/controlled-folder-access-feature.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/hWTJ7Ru.jpeg" alt="controlled-access-folder-feature" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-12-26T12:22:00">
+            <h2>පරන PC Games වැඩ නොකරන්න හේතුවක් වෙන &quot;Controlled Folder Access&quot; feature එක ගැන කතා කරමු.</h2>
+          </div>
+          <p>අපේ community එකේ ඉන්න ඔයාල ගොඩ දෙනෙක් PC Games play කරල ඇති / කරනව ඇති. ඒ වගේම ඔයා play කරන සමහරක් games save වෙන්නෙ us…</p>
+          <div class="card-footer">
+            <span class="author">By Kane</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Black Mirror technology dystopia series review">
-      <img src="https://i.imgur.com/GWG5VZp.jpeg" alt="black-mirror" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2025-09-12T22:00:00"><h2>Black Mirror - Technology Dystopia Series</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Black Mirror - a look at technology's dark possibilities.</p>
-        <a href="Tv Series/Black Mirror.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/the-game-awards-2025-winners.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="Images/tga 2025.jpg" alt="game_awards_2025_winners" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-12-12T06:30:00">
+            <h2>All categories and Winners for The Game Awards 2025</h2>
+          </div>
+          <p>The Game Awards 2025 results are here! Find out which game won Game of the Year (GOTY) and see the complete list of winn…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Godzilla franchise history kaiju Japanese 1954">
-      <img src="https://i.imgur.com/zegNG74.jpeg" alt="godzilla" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Movies/movies.html"><button class="hashtag">&#127916; Movies</button></a></div>
-        <div class="article-card" data-time="2025-09-06T22:00:00"><h2>Godzilla Franchise - Complete History</h2><p class="time"></p></div>
-        <span class="author">By H.F. Tharindu</span>
-        <p>Godzilla franchise history from 1954 to modern day Monsterverse.</p>
-        <a href="Movies/Godzilla Franchise.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/the-game-awards-2025-nominees.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/lIwL6sD.jpeg" alt="game_awards_2025" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-11-18T13:40:00">
+            <h2>Game Awards 2025 Nominees: Full List &amp; GOTY Contenders</h2>
+          </div>
+          <p>Creatorsලා සහ Publishersලා 150කට අධික සංඛ්‍යාවක් ඇතුළත් ඡන්ද විමසීමකින් පස්සේ The Game Awards 2025 nominees ප්‍රකාශය කරා…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Rick and Morty animated adult swim review sinhala">
-      <img src="https://i.imgur.com/EcGKtoL.jpeg" alt="rick-and-morty" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Anime/anime.html"><button class="hashtag">&#11088; Anime</button></a></div>
-        <div class="article-card" data-time="2025-09-03T22:00:00"><h2>Rick and Morty - Animated Series Review</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Rick and Morty 2013 - the animated series with a massive fanbase.</p>
-        <a href="Anime/rick and morty.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/steam-new-hardware-lineup-2025.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/cNBK5Ei.jpeg" alt="steam-hardware-lineup" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-11-15T21:10:00">
+            <h2>New Steam Hardware: Steam Machine, Steam Frame VR &amp; Controller Revealed</h2>
+          </div>
+          <p>Steam Hardware series එකේ ඊළග hardware තුන Valve විසින් පෙරේදා(13) annouce කරා. Steam Deck එකේ success එකත් එක්ක මේ devi…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Peaky Blinders James Bond Denis Villeneuve script">
-      <img src="https://static0.colliderimages.com/wordpress/wp-content/uploads/2024/04/the-10-best-peaky-blinders-episodes-ranked.jpg" alt="james-bond-peaky" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Movies/movies.html"><button class="hashtag">&#127916; Movies</button></a></div>
-        <div class="article-card" data-time="2025-09-01T22:00:00"><h2>Peaky Blinders Creator to Write Denis Villeneuve's James Bond Movie</h2><p class="time"></p></div>
-        <span class="author">By Mpm&#7475;&#738;</span>
-        <p>Denis Villeneuve's James Bond script to be written by Peaky Blinders creator.</p>
-        <a href="Movies/James bond new movie.html" class="read-more">Read More</a>
+      <div class="card" data-filter="movies" onclick="window.location.href='Movies/doctor_doom.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://imgur.com/9i93h65.jpeg" alt="Doctor_Doom" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎬Movies</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-11-14T15:16:00">
+            <h2>The Marvel Cinematic Universe&#x27;s Most Powerful Villain Doctor Doom</h2>
+          </div>
+          <p>Marvel Cinematic Universe එකේ බලවත් Villain වන Doctor Doom ගෙ උපත Origin ගැන දැනට තියෙන නිල තොරතුරු ගොඩක් සීමිතයි.නමුත්.…</p>
+          <div class="card-footer">
+            <span class="author">By Mpmᴺˢ</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Rings of Power Amazon season 5 series">
-      <img src="https://images.alphacoders.com/130/1301451.jpg" alt="rings-of-power" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2025-09-01T22:00:00"><h2>Amazon Prime Plans Rings of Power Season 5</h2><p class="time"></p></div>
-        <span class="author">By Mpm&#7475;&#738;</span>
-        <p>Amazon Prime confirms Rings of Power will continue to Season 5.</p>
-        <a href="Tv Series/Ring of power 5th.html" class="read-more">Read More</a>
+      <div class="card" data-filter="anime" onclick="window.location.href='Anime/Kekkei-genkai.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/AB9tstr.jpeg" alt="Kekkei-Genkai" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">⭐Anime</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-10-23T19:25:00">
+            <h2>මොනාද මේ Kekkei-Genkai කියන්නේ?</h2>
+          </div>
+          <p>Kekkei genkai(血継限界:Bloodline Limit) කියන්නේ DNA වල ඇති වන විශමතා හින්දා ඒ userට ලැබෙන special abilities වලට. Bloodline L…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Knight Rider reboot movie Cobra Kai creators">
-      <img src="https://cdn.flickeringmyth.com/wp-content/uploads/2020/08/knight-rider-retro-sci-fi-tv.jpg" alt="knight-rider" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Movies/movies.html"><button class="hashtag">&#127916; Movies</button></a></div>
-        <div class="article-card" data-time="2025-09-01T22:00:00"><h2>New Knight Rider Movie From Cobra Kai Creators</h2><p class="time"></p></div>
-        <span class="author">By Mpm&#7475;&#738;</span>
-        <p>1982 Knight Rider reboot movie in development from Cobra Kai creators.</p>
-        <a href="Movies/Knight Rider Reboot.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/2026-Upcoming-Games-Release-Schedule.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/jgThtZu.jpeg" alt="upcoming 2026" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-10-11T13:55:00">
+            <h2>2026 Upcoming Games Release Schedule</h2>
+          </div>
+          <p>ඔයාලා 2026 release වෙනකන් බලන් ඉන්න games වල dates MPM අපි list කරලා breakdown කරලා තියනවා. ඒ වගේ අලුතෙන් announce කරන g…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Minecraft Notch second game hint reveal">
-      <img src="https://xboxwire.thesourcemediaassets.com/sites/2/2024/05/Hero-8c18da7c19a1a8811ddb.jpg" alt="notch-game" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2025-09-01T22:00:00"><h2>Minecraft Creator Notch Hints at a Second Game</h2><p class="time"></p></div>
-        <span class="author">By Kane</span>
-        <p>Minecraft creator Markus Persson (Notch) hints at a second game via fan poll.</p>
-        <a href="Games/minecraft 2.html" class="read-more">Read More</a>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/2025-Upcoming-Games-Release-Schedule.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/6ExsSGb.jpeg" alt="upcoming 2025" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-10-11T13:55:00">
+            <h2>2025 Upcoming Games Release Schedule</h2>
+          </div>
+          <p>ඔයාලා 2025 release වෙනකන් බලන් ඉන්න games වල dates MPM අපි list කරලා breakdown කරලා තියනවා. ඒ වගේ අලුතෙන් announce කරන g…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="NVIDIA RTX 50 series GPU new release announcement">
-      <img src="https://i.imgur.com/5Yxwg62.jpeg" alt="rtx-50" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Games/games.html"><button class="hashtag">&#127918; Gaming</button></a></div>
-        <div class="article-card" data-time="2025-09-01T22:00:00"><h2>New NVIDIA RTX 50 Series - Next Gen GPU</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>NVIDIA announces RTX 50 Series - the next generation of graphics cards.</p>
-        <a href="Games/rtx50.html" class="read-more">Read More</a>
+      <div class="card" data-filter="movies" onclick="window.location.href='Movies/minecraft-2.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/9Hm11FW.jpeg" alt="minecraft 2" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎬Movies</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-10-10T15:15:00">
+            <h2>A Minecraft Movie 2 Announced</h2>
+          </div>
+          <p>Warner Bros. සහ Legendary විසින් Minecraft Movie 2 movie එක announced කරලා තියනවා.....</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card" data-title="Fringe mystery sci-fi series underrated sinhala">
-      <img src="https://i.imgur.com/vSAqzVy.jpeg" alt="fringe" loading="lazy">
-      <div class="card-body">
-        <div class="categories"><a href="Tv Series/tv series.html"><button class="hashtag">&#128250; TV Series</button></a></div>
-        <div class="article-card" data-time="2025-09-01T22:00:00"><h2>Fringe - Mystery of the Week Sci-Fi Series</h2><p class="time"></p></div>
-        <span class="author">By SANA</span>
-        <p>Fringe - the underrated mystery sci-fi series reviewed.</p>
-        <a href="Tv Series/fringe.html" class="read-more">Read More</a>
+      <div class="card" data-filter="anime" onclick="window.location.href='Anime/uzumaki-clan.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/4AWfHiV.jpeg" alt="uzumaki-clan" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">⭐Anime</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-10-09T21:35:00">
+            <h2>Uzumaki Clan</h2>
+          </div>
+          <p>මොකද්ද මේ Most Powerful shinobi clan එක විදියට සලකන Uzumaki Clan එක කියන්නේ? ඔන්න Guys අද ගෙනවා ඔයාලා කවුරුත් දන්න Narut…</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/top-survival-games.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/C1kmYDk.jpeg" alt="top survial games" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-10-08T10:30:00">
+            <h2>Top Survial Games</h2>
+          </div>
+          <p>එකම විදියේ survival games නිර්මාණය වෙන්නේ ඉතාම කලතුරකින්. ඒ අතරින් හොදම ඒවා තීරනය කරන එක ටිකක් අමාරු වැඩක්...</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-filter="gaming" onclick="window.location.href='Games/steam-windows-32-bit-stop.html'" style="display:none">
+        <div class="card-img-wrap">
+          <img src="https://i.imgur.com/xUatnz9.jpeg" alt="Steam" loading="lazy">
+          <div class="card-category">
+            <span class="card-cat-tag">🎮Gaming</span>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="article-card" data-time="2025-09-19T22:00:00">
+            <h2>Steam Dropping Support for Windows 10 32-Bit</h2>
+          </div>
+          <p>Valve විසින් ඊයේ(සැප්තැම්බර් 18) දින Steam platform එක support කරන අවසාන 32bit OS එක වන Windows 10 32bit...</p>
+          <div class="card-footer">
+            <span class="author">By SANA</span>
+            <span class="time"></span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -754,148 +1296,371 @@
     </div>
   </div>
 
+  <!-- Sidebar -->
   <aside class="sidebar">
-    <h2>Quick Links</h2>
-    <ul>
-      <li><a href="https://drive.usercontent.google.com/download?id=1iZVMNWIYbgKDzD2JBq40Ca72S3QRIf4U&export=download" target="_blank">&#128241; Download MPM App</a></li>
-      <li><a href="Subtitle-download/index.html">&#127916; Sinhala Subtitles</a></li>
-      <li><a href="https://motionpicturemafia.com/downloads/">&#11015; Download Zone</a></li>
-      <li><a href="subtitle-translator.html">&#127760; Subtitle Translator</a></li>
-    </ul>
-    <h2>Updates</h2>
-    <ul>
-      <li><a href="Free-games/active.html">&#127918; Free Game Deals</a></li>
-      <li><a href="Games/2026-Upcoming-Games-Release-Schedule.html">&#128197; 2026 Game Schedule</a></li>
-      <li><a href="Games/2025-Upcoming-Games-Release-Schedule.html">&#128197; 2025 Game Schedule</a></li>
-      <li><a href="Updates/uploaded-games-list.html">&#128203; Uploaded Game List</a></li>
-      <li><a href="Updates/poll and req/poll and req.html">&#128505; Polls &amp; Requests</a></li>
-      <li><a href="Updates/updates.html">&#127942; Award Shows &amp; Winners</a></li>
-    </ul>
-    <h2>Upcoming Releases</h2>
-    <div class="upcoming-box">
-      <img id="upcomingPoster" src="https://i.imgur.com/mD5q0rG.jpeg" alt="Upcoming Release">
-      <p id="upcomingTitle">Avengers: Doomsday - Dec 18, 2026</p>
+
+    <!-- Ad Rotator -->
+    <div class="sidebar-block">
+      <div class="sidebar-block-body" style="padding:0">
+        <div id="ad-rotator" class="ad-rotator">
+          <a href="https://motionpicturemafia.com/support-us" target="_blank">
+            <img src="https://i.imgur.com/sUSg6GH.gif" alt="Support MPM">
+          </a>
+        </div>
+      </div>
     </div>
-    <h2>Stats - February</h2>
-    <div class="article-counter"><h3>TV Series Uploaded</h3><p class="article-counter-number" data-count="19" data-speed="65">0</p></div>
-    <div class="article-counter"><h3>Movies Uploaded</h3><p class="article-counter-number" data-count="212" data-speed="10">0</p></div>
-    <div class="article-counter"><h3>Anime Uploaded</h3><p class="article-counter-number" data-count="68" data-speed="40">0</p></div>
+
+    <!-- Quick Links -->
+    <div class="sidebar-block">
+      <div class="sidebar-block-head">
+        <div class="sbh-accent"></div>
+        <h2>Quick Links</h2>
+      </div>
+      <div class="sidebar-block-body">
+        <ul class="quick-links">
+          <li><a href="https://drive.usercontent.google.com/download?id=1iZVMNWIYbgKDzD2JBq40Ca72S3QRIf4U&export=download&authuser=0&confirm=t" target="_blank">Download MPM App</a></li>
+          <li><a href="Subtitle-download/index.html">Sinhala Subtitles</a></li>
+          <li><a href="https://motionpicturemafia.com/downloads/">Download Zone</a></li>
+          <li><a href="subtitle-translator.html">Subtitle Translator</a></li>
+          <li><a href="Free-games/active.html">Free Game Deals</a></li>
+          <li><a href="Games/2026-Upcoming-Games-Release-Schedule.html">2026 Games Schedule</a></li>
+          <li><a href="Updates/uploaded-games-list.html">Uploaded Game List</a></li>
+          <li><a href="Updates/poll and req/poll and req.html">Polls & Requests</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Upcoming Releases -->
+    <div class="sidebar-block">
+      <div class="sidebar-block-head">
+        <div class="sbh-accent"></div>
+        <h2>Upcoming Releases</h2>
+      </div>
+      <div class="sidebar-block-body">
+        <div class="upcoming-box">
+          <img id="upcomingPoster" src="https://i.imgur.com/mD5q0rG.jpeg" alt="Upcoming Release">
+          <p id="upcomingTitle">Avengers: Doomsday – Dec 18, 2026</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Counters -->
+    <div class="sidebar-block">
+      <div class="sidebar-block-head">
+        <div class="sbh-accent"></div>
+        <h2>Stats (February)</h2>
+      </div>
+      <div class="sidebar-block-body" style="padding:0">
+        <div class="counter-grid">
+          <div class="counter-cell">
+            <span class="article-counter-number" data-count="19" data-speed="65">0</span>
+            <h3>TV Series</h3>
+          </div>
+          <div class="counter-cell">
+            <span class="article-counter-number" data-count="212" data-speed="10">0</span>
+            <h3>Movies</h3>
+          </div>
+          <div class="counter-cell">
+            <span class="article-counter-number" data-count="68" data-speed="40">0</span>
+            <h3>Anime</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Community -->
+    <div class="sidebar-block">
+      <div class="sidebar-block-head">
+        <div class="sbh-accent"></div>
+        <h2>Join the Family</h2>
+      </div>
+      <div class="sidebar-block-body">
+        <div class="social-grid">
+          <a href="https://web.facebook.com/groups/721197248262091" target="_blank" class="social-item">
+            <img src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" alt="Facebook">
+            <span>Facebook</span>
+          </a>
+          <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i" target="_blank" class="social-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp">
+            <span>WhatsApp</span>
+          </a>
+          <a href="https://discord.gg/KS8anqchac" target="_blank" class="social-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord">
+            <span>Discord</span>
+          </a>
+          <a href="https://t.me/whatsappgang" target="_blank" class="social-item">
+            <img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram">
+            <span>Telegram</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
   </aside>
 </div>
 
+<!-- ===== FOOTER ===== -->
 <footer>
-  <div class="footer-info">
-    <a href="about-us.html">About Us</a>
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="contact-us.html">Contact Us</a>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>Motion Picture Mafia</h3>
+      <p>Sri Lanka's premier entertainment community — movies, TV series, anime, gaming and beyond. All in Sinhala.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="Movies/movies.html">Movies</a></li>
+        <li><a href="Tv Series/tv series.html">TV Series</a></li>
+        <li><a href="Anime/anime.html">Anime</a></li>
+        <li><a href="Games/games.html">Gaming</a></li>
+        <li><a href="the-lab/index.html">The Lab</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="subtitle-download/index.html">Subtitles</a></li>
+        <li><a href="subtitle-translator.html">Translator</a></li>
+        <li><a href="downloads/index.html">Downloads</a></li>
+        <li><a href="Free-games/active.html">Free Games</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="about-us.html">About Us</a></li>
+        <li><a href="contact-us.html">Contact</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="support-us.html">Support Us</a></li>
+      </ul>
+    </div>
   </div>
-  <div class="social-icons">
-    <a href="https://web.facebook.com/groups/721197248262091" target="_blank"><img src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" alt="Facebook"></a>
-    <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp"></a>
-    <a href="https://discord.gg/KS8anqchac" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord"></a>
-    <a href="https://t.me/whatsappgang" target="_blank"><img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram"></a>
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> Motion Picture Mafia Studio · Designed by SANA</p>
+    <div class="social-icons">
+      <a href="https://web.facebook.com/groups/721197248262091" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" alt="Facebook">
+      </a>
+      <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp">
+      </a>
+      <a href="https://discord.gg/KS8anqchac" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord">
+      </a>
+      <a href="https://t.me/whatsappgang" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram">
+      </a>
+    </div>
   </div>
-  <p>&copy; <span id="year"></span> Motion Picture Mafia Studio | Designed by SANA</p>
 </footer>
 
-<button id="backToTop" title="Back to top">&#8593;</button>
-<a href="https://motionpicturemafia.com/support-us" class="floating-support-btn">&#128150; Support Us</a>
+<!-- Back to Top -->
+<button id="backToTop" aria-label="Back to top">↑</button>
+
+<!-- Floating Support -->
+<a href="https://motionpicturemafia.com/support-us" class="floating-support-btn" title="Support Motion Picture Mafia">💖 Support Us</a>
 
 <script>
+/* ═══ YEAR ═══ */
 document.getElementById("year").textContent = new Date().getFullYear();
 
-const navToggle=document.getElementById("navToggle"),navClose=document.getElementById("navClose"),navDrawer=document.getElementById("navDrawer"),navBackdrop=document.getElementById("navBackdrop");
-const openNav=()=>{document.body.classList.add("nav-open");navToggle.setAttribute("aria-expanded","true");};
-const closeNav=()=>{document.body.classList.remove("nav-open");navToggle.setAttribute("aria-expanded","false");};
-navToggle.addEventListener("click",openNav);navClose.addEventListener("click",closeNav);navBackdrop.addEventListener("click",closeNav);
-let tX=0;document.addEventListener("touchstart",e=>{tX=e.changedTouches[0].screenX;},{passive:true});
-document.addEventListener("touchend",e=>{if(!tX)return;const d=e.changedTouches[0].screenX-tX;if(Math.abs(d)>70){d>0?openNav():closeNav();}tX=0;},{passive:true});
-
-const btt=document.getElementById("backToTop");
-window.addEventListener("scroll",()=>{btt.classList.toggle("visible",window.scrollY>300);},{passive:true});
-btt.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
-
-document.getElementById("searchInput").addEventListener("input",function(){
-  const f=this.value.toLowerCase().trim();let v=0;
-  document.querySelectorAll("#articleList .card").forEach(c=>{
-    const m=(c.dataset.title+" "+c.innerText).toLowerCase().includes(f);
-    c.style.display=m?"":"none";if(m)v++;
+/* ═══ HAMBURGER ═══ */
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+  document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+});
+// Close on link click
+mobileNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
   });
-  const el=document.getElementById("articleCount");if(el)el.innerHTML="<span>"+v+"</span> articles";
 });
 
-function updateCount(n){const el=document.getElementById("articleCount");if(el)el.innerHTML="<span>"+n+"</span> articles";}
+/* ═══ BACK TO TOP ═══ */
+const backToTop = document.getElementById("backToTop");
+window.addEventListener('scroll', () => {
+  backToTop.classList.toggle('visible', window.scrollY > 300);
+}, { passive: true });
+backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-function timeAgo(date){
-  const s=Math.floor((new Date()-new Date(date))/1000);
-  let i=Math.floor(s/31536000);if(i>=1)return i+" year"+(i>1?"s":"")+" ago";
-  i=Math.floor(s/2592000);if(i>=1)return i+" month"+(i>1?"s":"")+" ago";
-  i=Math.floor(s/86400);if(i>=1)return i+" day"+(i>1?"s":"")+" ago";
-  i=Math.floor(s/3600);if(i>=1)return i+" hour"+(i>1?"s":"")+" ago";
-  i=Math.floor(s/60);if(i>=1)return i+" min ago";
-  return "just now";
+/* ═══ TIME AGO ═══ */
+function timeAgo(date) {
+  const s = Math.floor((new Date() - new Date(date)) / 1000);
+  if (s < 60) return "just now";
+  const m = Math.floor(s/60); if (m < 60) return m + " min ago";
+  const h = Math.floor(m/60); if (h < 24) return h + " hr ago";
+  const d = Math.floor(h/24); if (d < 30) return d + " day" + (d>1?"s":"") + " ago";
+  const mo = Math.floor(d/30); if (mo < 12) return mo + " month" + (mo>1?"s":"") + " ago";
+  return Math.floor(mo/12) + " year" + (Math.floor(mo/12)>1?"s":"") + " ago";
 }
-document.querySelectorAll(".article-card").forEach(c=>{const el=c.querySelector(".time");if(el&&c.dataset.time)el.textContent=timeAgo(c.dataset.time);});
-
-document.addEventListener("DOMContentLoaded",()=>{
-  document.querySelectorAll("#articleList .card").forEach(card=>{
-    const link=card.querySelector("a.read-more");if(!link)return;
-    card.style.cursor="pointer";
-    card.addEventListener("click",e=>{if(e.target.closest("a")||e.target.closest("button"))return;window.location.href=link.getAttribute("href");});
-  });
-  const allCards=Array.from(document.querySelectorAll("#articleList .card"));
-  const btn=document.getElementById("loadMoreBtn");
-  const INITIAL=9,INC=6;let shown=INITIAL;
-  allCards.forEach((c,i)=>{if(i>=INITIAL){c.style.display="none";c.classList.add("load-hidden");}});
-  updateCount(Math.min(INITIAL,allCards.length));
-  if(allCards.length<=INITIAL)btn.parentElement.style.display="none";
-  btn.addEventListener("click",()=>{
-    const hidden=allCards.filter(c=>c.classList.contains("load-hidden")&&c.style.display==="none");
-    hidden.slice(0,INC).forEach(c=>{c.style.display="";c.classList.remove("load-hidden");});
-    shown+=Math.min(INC,hidden.length);updateCount(shown);
-    if(hidden.length<=INC)btn.parentElement.style.display="none";
-  });
-  const counters=document.querySelectorAll(".article-counter-number");
-  const isInView=el=>{const r=el.getBoundingClientRect();return r.top<window.innerHeight&&r.bottom>=0;};
-  const animateCounter=counter=>{
-    const target=parseInt(counter.getAttribute("data-count")),speed=parseInt(counter.getAttribute("data-speed"))||40;
-    let cur=0;const tick=()=>{if(cur<target){counter.textContent=++cur;setTimeout(tick,speed);}};tick();
-  };
-  const check=()=>counters.forEach(c=>{if(!c.classList.contains("counted")&&isInView(c)){c.classList.add("counted");animateCounter(c);}});
-  window.addEventListener("scroll",check,{passive:true});check();
+document.querySelectorAll(".article-card").forEach(card => {
+  const timeEl = card.querySelector(".time");
+  if (timeEl && card.dataset.time) timeEl.textContent = timeAgo(card.dataset.time);
+});
+// also hero time
+document.querySelectorAll(".hero-time .article-card").forEach(card => {
+  const timeEl = card.querySelector(".time");
+  if (timeEl && card.dataset.time) timeEl.textContent = timeAgo(card.dataset.time);
 });
 
-const msgs=[
-  {text:"&#128241; Download Motion Picture Mafia Studio App",link:"https://drive.usercontent.google.com/download?id=1iZVMNWIYbgKDzD2JBq40Ca72S3QRIf4U&export=download",date:null},
-  {text:"&#128229; Download Sinhala Subtitles!",link:"https://motionpicturemafia.com/subtitle-download/",date:null},
-  {text:"&#128229; Download Anime, Movies & TV Series via Telegram",link:"https://motionpicturemafia.com/downloads/",date:null},
-  {text:"&#128150; Support Motion Picture Mafia",link:"https://motionpicturemafia.com/support-us",date:null},
-  {text:"&#11088; Check out free games on Epic & Steam!",link:"https://motionpicturemafia.com/free-games/active",date:null},
-];
-const bt=document.getElementById("bannerTrack");
-[...msgs,...msgs].forEach(m=>{const sp=document.createElement("span");sp.className="banner-message";const a=document.createElement("a");a.href=m.link||"#";a.target="_blank";a.innerHTML=m.text;sp.appendChild(a);bt.appendChild(sp);});
+/* ═══ SEARCH ═══ */
+function doSearch(query) {
+  const q = query.toLowerCase().trim();
+  const cards = document.querySelectorAll("#articleList .card");
+  const activeFilter = document.querySelector(".filter-btn.active")?.dataset.filter || "all";
+  let visible = 0;
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    const catMatch = activeFilter === "all" || card.dataset.filter === activeFilter;
+    const textMatch = !q || text.includes(q);
+    const show = catMatch && textMatch;
+    card.style.display = show ? "" : "none";
+    if (show) visible++;
+  });
+  document.getElementById("articleCount").textContent = visible + " articles";
+  document.getElementById("noResultsMsg").classList.toggle("visible", visible === 0);
+  document.getElementById("loadMoreBtn").style.display = "none";
+}
+document.getElementById("searchInput").addEventListener("input", e => {
+  doSearch(e.target.value);
+  if (document.getElementById("mobileSearchInput"))
+    document.getElementById("mobileSearchInput").value = e.target.value;
+});
+function doMobileSearch() {
+  const q = document.getElementById("mobileSearchInput").value;
+  document.getElementById("searchInput").value = q;
+  doSearch(q);
+  mobileNav.classList.remove("open");
+  hamburger.classList.remove("open");
+  document.body.style.overflow = "";
+}
 
-const upcomingReleases=[
-  {title:"Avengers: Doomsday - Dec 18, 2026",img:"https://i.imgur.com/mD5q0rG.jpeg"},
-  {title:"Ice Age: Boiling Point - 2027",img:"https://i.imgur.com/obx5YJE.jpeg"},
-  {title:"Spider-Man: Brand New Day - Jul 31, 2026",img:"https://cdn.marvel.com/content/1x/cinemacon_spiderman_bnd_card.jpg"},
-  {title:"Mortal Kombat II - Oct 24",img:"https://images6.alphacoders.com/139/1395603.jpg"},
-  {title:"Lord of the Rings: The Hunt for Gollum - Dec 17, 2027",img:"https://i.imgur.com/SsoZ4Ed.jpeg"},
-  {title:"Avengers: Secret Wars - Dec 17, 2027",img:"https://i.imgur.com/aXYAerI.jpeg"},
-  {title:"Spider-Man: Beyond the Spider-Verse - Jun 25, 2027",img:"https://i.imgur.com/AzxxCxy.jpeg"},
-];
-let uIdx=0;const poster=document.getElementById("upcomingPoster"),titleEl=document.getElementById("upcomingTitle");
-setInterval(()=>{uIdx=(uIdx+1)%upcomingReleases.length;poster.style.opacity=0;titleEl.style.opacity=0;setTimeout(()=>{poster.src=upcomingReleases[uIdx].img;titleEl.textContent=upcomingReleases[uIdx].title;poster.style.opacity=1;titleEl.style.opacity=1;},600);},4000);
+/* ═══ CATEGORY FILTER ═══ */
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    const filter = btn.dataset.filter;
+    const q = document.getElementById("searchInput").value.toLowerCase().trim();
+    const cards = document.querySelectorAll("#articleList .card");
+    let visible = 0, shown = 0;
+    cards.forEach(card => {
+      const catMatch = filter === "all" || card.dataset.filter === filter;
+      const textMatch = !q || card.innerText.toLowerCase().includes(q);
+      const show = catMatch && textMatch;
+      card.style.display = show ? "" : "none";
+      if (show) visible++;
+    });
+    document.getElementById("articleCount").textContent = visible + " articles";
+    document.getElementById("noResultsMsg").classList.toggle("visible", visible === 0);
+    // re-apply load more logic
+    document.getElementById("loadMoreBtn").style.display = "none";
+  });
+});
 
-const ads=[
-  {img:"https://i.imgur.com/sUSg6GH.gif",link:"https://motionpicturemafia.com/support-us"},
-  {img:"https://i.imgur.com/oa0eAKM.jpeg",link:"https://wa.me/p/32088611110753641/94766963036"},
-  {img:"https://i.imgur.com/pr2H7hf.jpeg",link:"https://wa.me/p/32088611110753641/94766963036"},
-];
-let aC=0;const adImg=document.querySelector("#ad-rotator img"),adLink=document.querySelector("#ad-rotator a");
-setInterval(()=>{aC=(aC+1)%ads.length;adImg.style.opacity=0;setTimeout(()=>{adImg.src=ads[aC].img;adLink.href=ads[aC].link;adImg.style.opacity=1;},1000);},5000);
+/* ═══ LOAD MORE ═══ */
+(function() {
+  const allCards = document.querySelectorAll("#articleList .card");
+  const btn = document.getElementById("loadMoreBtn");
+  let visibleCount = 9;
+  allCards.forEach((card, i) => { if (i >= visibleCount) card.style.display = "none"; });
+  if (allCards.length <= visibleCount) btn.style.display = "none";
+  btn.addEventListener("click", () => {
+    const hidden = Array.from(allCards).filter(c => c.style.display === "none");
+    hidden.slice(0, 6).forEach(c => c.style.display = "");
+    if (hidden.length <= 6) btn.style.display = "none";
+  });
+})();
 
-if("serviceWorker"in navigator){navigator.serviceWorker.register("/service-worker.js").then(r=>console.log("SW:",r.scope)).catch(e=>console.error("SW:",e));}
+/* ═══ TICKER BANNER ═══ */
+const bannerTrack = document.getElementById("bannerTrack");
+const messages = [
+  { text: "📱 Download Motion Picture Mafia Studio App", link: "https://drive.usercontent.google.com/download?id=1iZVMNWIYbgKDzD2JBq40Ca72S3QRIf4U&export=download&authuser=0&confirm=t" },
+  { text: "📥 Download Sinhala Subtitles from our Subtitle Section!", link: "https://motionpicturemafia.com/subtitle-download/" },
+  { text: "📥 Download Anime, Movies & TV Series via Telegram", link: "https://motionpicturemafia.com/downloads/" },
+  { text: "💖 Support Motion Picture Mafia", link: "https://motionpicturemafia.com/support-us" },
+  { text: "⭐ Check out free games on Epic & Steam!", link: "https://motionpicturemafia.com/free-games/active" },
+];
+function renderBanner() {
+  bannerTrack.innerHTML = "";
+  [...messages, ...messages].forEach(msg => {
+    const span = document.createElement("span");
+    span.className = "banner-message";
+    span.innerHTML = `<a href="${msg.link}" target="_blank">${msg.text}</a>&nbsp;&nbsp;&nbsp;&nbsp;✦&nbsp;&nbsp;&nbsp;&nbsp;`;
+    bannerTrack.appendChild(span);
+  });
+}
+renderBanner();
+
+/* ═══ UPCOMING RELEASES ═══ */
+const upcomingReleases = [
+  { title: "Avengers: Doomsday – Dec 18, 2026", img: "https://i.imgur.com/mD5q0rG.jpeg" },
+  { title: "Mission: Impossible – The Final Reckoning", img: "https://i.imgur.com/NdFmFq0.jpeg" },
+  { title: "Jurassic World Rebirth – 2025", img: "https://i.imgur.com/KZLtfY3.jpeg" },
+  { title: "Avatar 3: Fire and Ash – 2025", img: "https://i.imgur.com/sRhcU2E.jpeg" },
+  { title: "Superman (2025)", img: "https://i.imgur.com/CGfZ1al.jpeg" },
+  { title: "Thunderbolts – 2025", img: "https://i.imgur.com/kW6bqw5.jpeg" },
+  { title: "Fantastic Four – 2025", img: "https://i.imgur.com/0Fvzq7x.jpeg" },
+  { title: "Ice Age: Boiling Point – 2027", img: "https://i.imgur.com/obx5YJE.jpeg" },
+  { title: "Spider-Man: Brand New Day – Jul 31, 2026", img: "https://cdn.marvel.com/content/1x/cinemacon_spiderman_bnd_card.jpg" },
+  { title: "Mortal Kombat II – Oct 24", img: "https://images6.alphacoders.com/139/1395603.jpg" },
+  { title: "Lord of the Rings: The Hunt for Gollum – Dec 17, 2027", img: "https://i.imgur.com/SsoZ4Ed.jpeg" },
+  { title: "Avengers: Secret Wars – Dec 17, 2027", img: "https://i.imgur.com/aXYAerI.jpeg" },
+  { title: "Spider-Man: Beyond the Spider-Verse – Jun 25, 2027", img: "https://i.imgur.com/AzxxCxy.jpeg" },
+];
+let upIdx = 0;
+const poster = document.getElementById("upcomingPoster");
+const upTitle = document.getElementById("upcomingTitle");
+function showNextRelease() {
+  upIdx = (upIdx + 1) % upcomingReleases.length;
+  poster.style.opacity = 0; upTitle.style.opacity = 0;
+  setTimeout(() => {
+    poster.src = upcomingReleases[upIdx].img;
+    upTitle.textContent = upcomingReleases[upIdx].title;
+    poster.style.opacity = 1; upTitle.style.opacity = 1;
+  }, 600);
+}
+setInterval(showNextRelease, 4000);
+
+/* ═══ AD ROTATOR ═══ */
+const ads = [
+  { img: "https://i.imgur.com/sUSg6GH.gif", link: "https://motionpicturemafia.com/support-us" },
+  { img: "https://i.imgur.com/oa0eAKM.jpeg", link: "https://wa.me/p/32088611110753641/94766963036" },
+  { img: "https://i.imgur.com/sUSg6GH.gif", link: "https://motionpicturemafia.com/support-us" },
+  { img: "https://i.imgur.com/pr2H7hf.jpeg", link: "https://wa.me/p/32088611110753641/94766963036" },
+];
+let adIdx = 0;
+const adImg = document.querySelector("#ad-rotator img");
+const adLink = document.querySelector("#ad-rotator a");
+setInterval(() => {
+  adIdx = (adIdx + 1) % ads.length;
+  adImg.style.opacity = 0;
+  setTimeout(() => { adImg.src = ads[adIdx].img; adLink.href = ads[adIdx].link; adImg.style.opacity = 1; }, 1000);
+}, 5000);
+
+/* ═══ COUNTERS ═══ */
+const counters = document.querySelectorAll(".article-counter-number");
+function animateCounter(counter) {
+  const target = parseInt(counter.getAttribute("data-count"));
+  const speed = parseInt(counter.getAttribute("data-speed")) || 40;
+  let current = 0;
+  const update = () => { if (current < target) { current++; counter.textContent = current; setTimeout(update, speed); } };
+  update();
+}
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting && !e.target.classList.contains("counted")) { e.target.classList.add("counted"); animateCounter(e.target); } });
+});
+counters.forEach(c => io.observe(c));
+
+/* ═══ SERVICE WORKER ═══ */
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js").catch(()=>{});
+}
 </script>
 </body>
 </html>
