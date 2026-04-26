@@ -368,15 +368,31 @@ nav a.active { color: var(--red); border-bottom-color: var(--red); }
   font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
   color: var(--muted);
 }
-
-/* card grid */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 2px;
+  gap: 18px;
+  background: transparent; /* remove divider grid look */
+  border: none;
+}
+
+.card {
+  border: 1px solid var(--border);
+    background: var(--surface);
+  display: flex; flex-direction: column;
+  cursor: pointer;
+  position: relative; overflow: hidden;
+  transition: background .2s;
+}
+
+/* card grid 
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
   background: var(--border);
   border: 1px solid var(--border);
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 
 .card {
@@ -385,7 +401,7 @@ nav a.active { color: var(--red); border-bottom-color: var(--red); }
   cursor: pointer;
   position: relative; overflow: hidden;
   transition: background .2s;
-}
+}*/
 .card:hover { background: var(--surface2); }
 .card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
@@ -397,7 +413,7 @@ nav a.active { color: var(--red); border-bottom-color: var(--red); }
 
 .card-img-wrap {
   position: relative; overflow: hidden;
-  aspect-ratio: 16/9;
+  aspect-ratio: auto;
   background: var(--bg2);
 }
 .card-img-wrap img {
