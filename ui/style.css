@@ -397,7 +397,7 @@ nav a.active { color: var(--red); border-bottom-color: var(--red); }
 
 .card-img-wrap {
   position: relative; overflow: hidden;
-  aspect-ratio: 16/9;
+  aspect-ratio: auto;
   background: var(--bg2);
 }
 .card-img-wrap img {
