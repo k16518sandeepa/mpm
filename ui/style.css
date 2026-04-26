@@ -674,7 +674,18 @@ footer {
     border: 1px solid var(--border);
   }
   .card h2 { font-size: 12px; -webkit-line-clamp: 4; }
-  .card p { display: none; }
+  .card p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 👈 show 3 lines instead of 2 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 13px; /* slightly bigger */
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .card-body {
+    gap: 10px; /* more breathing space */
+  }
   .footer-top { grid-template-columns: 1fr 1fr; gap: 20px; }
   .footer-brand { grid-column: 1 / -1; }
   .floating-support-btn { bottom: 72px; right: 12px; font-size: 9px; padding: 8px 12px; }
