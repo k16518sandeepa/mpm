@@ -271,6 +271,7 @@ nav a.active { color: var(--red); border-bottom-color: var(--red); }
   min-height: clamp(200px, 45vw, 420px);
   transition: all 0.5s ease-out;
   overflow: hidden;
+  will-change: transform, opacity;
 }
 .hero-content, .hero-card img {
   transition: opacity 0.5s ease-in-out;
@@ -325,12 +326,18 @@ nav a.active { color: var(--red); border-bottom-color: var(--red); }
 }
 .hero-read:hover { background: var(--red-dim); transform: translateX(2px); }
 @keyframes slideInRight {
-  0% { transform: translateX(100%); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
+  0% { 
+    transform: translate3d(100%, 0, 0); 
+    opacity: 0; 
+  }
+  100% { 
+    transform: translate3d(0, 0, 0); 
+    opacity: 1; 
+  }
 }
 
 .hero-animate {
-  animation: slideInRight 0.6s ease-out forwards;
+  animation: slideInRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 /* FEATURED BADGE */

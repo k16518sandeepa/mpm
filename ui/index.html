@@ -1716,31 +1716,29 @@ function updateHeroRandomly() {
     if (cards.length === 0) return;
     const randomCard = cards[Math.floor(Math.random() * cards.length)];
 
-    // ලිපියේ දත්ත ලබා ගැනීම
+    // දත්ත ලබාගැනීම (කලින් විදියටමයි)
     const newTitle = randomCard.querySelector('h2').innerText;
     const newImg = randomCard.querySelector('img').src;
     const newCat = randomCard.querySelector('.card-cat-tag').innerText;
     const newTime = randomCard.querySelector('.article-card').dataset.time;
     const newExcerpt = randomCard.querySelector('p').innerText;
-    
-    // වැදගත්: Card එකේ ඉන්න Author ගේ නම මෙතනින් ගන්නවා
-    // 'By ' කෑල්ල අයින් කරලා නම විතරක් ගන්න .replace පාවිච්චි කරන්න පුළුවන්
     const newAuthor = randomCard.querySelector('.author').innerText.replace('By ', '');
-
     const rawLink = randomCard.getAttribute('onclick');
     const newLink = rawLink.match(/'([^']+)'/)[1];
 
     const heroSection = document.querySelector('#hero-main-card');
     
+    // 1. කලින් තියෙන Animation එක ක්ෂණිකව අයින් කරනවා
+    heroSection.style.visibility = 'hidden'; // update වෙනකම් හංගනවා
     heroSection.classList.remove('hero-animate');
 
+    // 2. ඉතා කුඩා විරාමයකින් පසු දත්ත දමා නැවත පෙන්වනවා
     setTimeout(() => {
         heroSection.querySelector('.hero-title').innerText = newTitle;
         heroSection.querySelector('.hero-img').src = newImg;
         heroSection.querySelector('.hero-cat').innerText = newCat;
         heroSection.querySelector('.hero-excerpt').innerText = newExcerpt;
         
-        // Author ගේ නම මෙතනින් Update කරනවා
         const authorDisplay = heroSection.querySelector('.hero-author-name');
         if(authorDisplay) authorDisplay.innerText = newAuthor;
 
@@ -1754,8 +1752,10 @@ function updateHeroRandomly() {
             timeDisplay.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeAgo(newTime)}`;
         }
 
+        // 3. දැන් Animation එක පටන් ගන්නවා
+        heroSection.style.visibility = 'visible';
         heroSection.classList.add('hero-animate');
-    }, 100);
+    }, 50); // Delay එක අඩු කළා Smooth වෙන්න
 }
 
 // හැම තත්පර 15කට වරක් මාරු කරන්න
