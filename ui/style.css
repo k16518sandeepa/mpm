@@ -662,6 +662,36 @@ footer {
 }
 .floating-support-btn:hover { background: #f5da80; opacity: 1; transform: translateY(-2px); }
 
+.floating-btn {
+  position: fixed;
+  right: 20px;
+  z-index: 8000;
+  background: var(--gold);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.5);
+  transition: all .2s;
+  opacity: .9;
+}
+
+.floating-btn:hover {
+  background: #f5da80;
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* Position each button */
+.support-btn {
+  bottom: 76px;
+}
+
+.join-btn {
+  bottom: 120px; /* increase this to move it higher */
+}
 /* ══════════════════════════════════════
    SEARCH BOX (old — hidden, using header)
 ══════════════════════════════════════ */
