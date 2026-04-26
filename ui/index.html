@@ -104,7 +104,7 @@
     <p class="hero-excerpt">ඔන්න අද අරගෙන ආවේ 2025 වසරේ චීන නාට්‍ය (C-drama) ලෝකයේ ඉහළම අවධානයක් දිනාගත් Love in the Clouds ගැන විස්තර...</p>
     
     <div class="hero-meta">
-      <span class="hero-author">By ima</span>
+      <span class="hero-author">By <span class="hero-author-name">ima</span></span>
       <span class="hero-time-wrapper article-card" data-time="2026-04-26T19:45:00">
         <span class="time"></span>
       </span>
@@ -1716,38 +1716,50 @@ function updateHeroRandomly() {
     if (cards.length === 0) return;
     const randomCard = cards[Math.floor(Math.random() * cards.length)];
 
+    // ලිපියේ දත්ත ලබා ගැනීම
     const newTitle = randomCard.querySelector('h2').innerText;
     const newImg = randomCard.querySelector('img').src;
     const newCat = randomCard.querySelector('.card-cat-tag').innerText;
     const newTime = randomCard.querySelector('.article-card').dataset.time;
     const newExcerpt = randomCard.querySelector('p').innerText;
+    
+    // වැදගත්: Card එකේ ඉන්න Author ගේ නම මෙතනින් ගන්නවා
+    // 'By ' කෑල්ල අයින් කරලා නම විතරක් ගන්න .replace පාවිච්චි කරන්න පුළුවන්
+    const newAuthor = randomCard.querySelector('.author').innerText.replace('By ', '');
+
     const rawLink = randomCard.getAttribute('onclick');
     const newLink = rawLink.match(/'([^']+)'/)[1];
 
     const heroSection = document.querySelector('#hero-main-card');
     
-    // Animation එක පටන් ගන්න කලින් class එක අයින් කරනවා
     heroSection.classList.remove('hero-animate');
 
-    // පොඩි delay එකකින් දත්ත update කරනවා
     setTimeout(() => {
         heroSection.querySelector('.hero-title').innerText = newTitle;
         heroSection.querySelector('.hero-img').src = newImg;
         heroSection.querySelector('.hero-cat').innerText = newCat;
         heroSection.querySelector('.hero-excerpt').innerText = newExcerpt;
+        
+        // Author ගේ නම මෙතනින් Update කරනවා
+        const authorDisplay = heroSection.querySelector('.hero-author-name');
+        if(authorDisplay) authorDisplay.innerText = newAuthor;
+
         heroSection.querySelector('.hero-link').href = newLink;
         heroSection.setAttribute('onclick', `window.location.href='${newLink}'`);
         
         const timeDisplay = heroSection.querySelector('.time');
-        if(timeDisplay) timeDisplay.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeAgo(newTime)}`;
+        if(timeDisplay) {
+            const heroTimeContainer = heroSection.querySelector('.hero-time-wrapper');
+            heroTimeContainer.dataset.time = newTime;
+            timeDisplay.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeAgo(newTime)}`;
+        }
 
-        // අලුත් ලිපිය Slide වෙලා එන්න class එක දානවා
         heroSection.classList.add('hero-animate');
     }, 100);
 }
 
 // හැම තත්පර 15කට වරක් මාරු කරන්න
-setInterval(updateHeroRandomly, 15000);
+setInterval(updateHeroRandomly, 10000);
 </script>
 </body>
 </html>
