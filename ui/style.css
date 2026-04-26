@@ -687,10 +687,16 @@ footer {
 .ad-rotator a { display: block; }
 .ad-rotator img { width: 100%; transition: opacity 1s ease-in-out; }
 
-/* MOBILE: 1 card per row */
+/* MOBILE SPACING IMPROVEMENT */
 @media (max-width: 600px) {
   .card-grid {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 14px; /* 👈 increase vertical + horizontal space */
+    background: transparent; /* removes ugly divider effect */
+    border: none;
+  }
+
+  .card {
+    border: 1px solid var(--border);
   }
 }
