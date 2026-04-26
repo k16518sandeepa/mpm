@@ -92,20 +92,27 @@
 </div>
 
 <!-- ===== HERO FEATURED ===== -->
-    <div class="hero-featured" onclick="window.location.href='Tv Series/love-in-the-clouds.html'">
-      <img src="https://imgur.com/yF4padE.jpeg" alt="love in the clouds">
-      <div class="hero-body">
-        <span class="badge badge-featured">Featured</span>
-        <p class="hero-eyebrow">📺TV Series</p>
-        <h2 class="hero-title">Love in the Clouds (2025) – මාරාන්තික සටනක් මැද උපන් දිව්‍යමය ප්‍රේමය!</h2>
-        <p class="hero-excerpt">ඔන්න අද අරගෙන ආවේ 2025 වසරේ චීන නාට්‍ය (C-drama) ලෝකයේ ඉහළම අවධානයක් දිනාගත් Love in the Clouds ගැන විස්තර. මේක ජනප්‍රිය Xianxia (මායා බල සහ දෙවිවරුන් සහිත) ගණයට අයත් වන, කුතුහලය ස</p>
-        <div class="hero-meta">
-          <span class="hero-author">By ima</span>
-          <span class="hero-time article-card" data-time="2026-04-26T19:45:00"><span class="time"></span></span>
-        </div>
-        <a href="Tv Series/love-in-the-clouds.html" class="hero-read" onclick="event.stopPropagation()">Read Article →</a>
-      </div>
+    <div class="hero-featured" id="hero-main-card" onclick="window.location.href='Tv Series/love-in-the-clouds.html'">
+  <img src="https://imgur.com/yF4padE.jpeg" alt="featured article" class="hero-img"> 
+  
+  <div class="hero-body">
+    <span class="badge badge-featured">Featured</span>
+    <p class="hero-eyebrow hero-cat">📺TV Series</p> 
+    
+    <h2 class="hero-title">Love in the Clouds (2025) – මාරාන්තික සටනක් මැද උපන් දිව්‍යමය ප්‍රේමය!</h2>
+    
+    <p class="hero-excerpt">ඔන්න අද අරගෙන ආවේ 2025 වසරේ චීන නාට්‍ය (C-drama) ලෝකයේ ඉහළම අවධානයක් දිනාගත් Love in the Clouds ගැන විස්තර...</p>
+    
+    <div class="hero-meta">
+      <span class="hero-author">By ima</span>
+      <span class="hero-time-wrapper article-card" data-time="2026-04-26T19:45:00">
+        <span class="time"></span>
+      </span>
     </div>
+    
+    <a href="Tv Series/love-in-the-clouds.html" class="hero-read hero-link" onclick="event.stopPropagation()">Read Article →</a>
+  </div>
+</div>
 
 <!-- ===== CATEGORY FILTER ===== -->
 <div class="filter-bar">
@@ -1702,6 +1709,45 @@ counters.forEach(c => io.observe(c));
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/service-worker.js").catch(()=>{});
 }
+
+/* Hero Auto*/
+function updateHeroRandomly() {
+    const cards = Array.from(document.querySelectorAll('.card'));
+    if (cards.length === 0) return;
+    const randomCard = cards[Math.floor(Math.random() * cards.length)];
+
+    const newTitle = randomCard.querySelector('h2').innerText;
+    const newImg = randomCard.querySelector('img').src;
+    const newCat = randomCard.querySelector('.card-cat-tag').innerText;
+    const newTime = randomCard.querySelector('.article-card').dataset.time;
+    const newExcerpt = randomCard.querySelector('p').innerText;
+    const rawLink = randomCard.getAttribute('onclick');
+    const newLink = rawLink.match(/'([^']+)'/)[1];
+
+    const heroSection = document.querySelector('#hero-main-card');
+    
+    // Animation එක පටන් ගන්න කලින් class එක අයින් කරනවා
+    heroSection.classList.remove('hero-animate');
+
+    // පොඩි delay එකකින් දත්ත update කරනවා
+    setTimeout(() => {
+        heroSection.querySelector('.hero-title').innerText = newTitle;
+        heroSection.querySelector('.hero-img').src = newImg;
+        heroSection.querySelector('.hero-cat').innerText = newCat;
+        heroSection.querySelector('.hero-excerpt').innerText = newExcerpt;
+        heroSection.querySelector('.hero-link').href = newLink;
+        heroSection.setAttribute('onclick', `window.location.href='${newLink}'`);
+        
+        const timeDisplay = heroSection.querySelector('.time');
+        if(timeDisplay) timeDisplay.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeAgo(newTime)}`;
+
+        // අලුත් ලිපිය Slide වෙලා එන්න class එක දානවා
+        heroSection.classList.add('hero-animate');
+    }, 100);
+}
+
+// හැම තත්පර 15කට වරක් මාරු කරන්න
+setInterval(updateHeroRandomly, 15000);
 </script>
 </body>
 </html>
