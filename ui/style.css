@@ -666,7 +666,13 @@ footer {
   .header-top { padding: 0 16px; }
   .hero-title { font-size: 16px; }
   .hero-excerpt { display: none; }
-  .card-grid { grid-template-columns: 1fr; gap: 8px; }
+  .card-grid { grid-template-columns: 1fr;
+    gap: 14px; /* 👈 increase vertical + horizontal space */
+    background: transparent; /* removes ugly divider effect */
+    border: none; }
+    .card {
+    border: 1px solid var(--border);
+  }
   .card h2 { font-size: 12px; -webkit-line-clamp: 4; }
   .card p { display: none; }
   .footer-top { grid-template-columns: 1fr 1fr; gap: 20px; }
