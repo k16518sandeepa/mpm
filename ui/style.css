@@ -686,3 +686,11 @@ footer {
 .ad-rotator { display: block; }
 .ad-rotator a { display: block; }
 .ad-rotator img { width: 100%; transition: opacity 1s ease-in-out; }
+
+/* MOBILE: 1 card per row */
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
