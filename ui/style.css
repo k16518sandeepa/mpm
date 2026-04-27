@@ -717,11 +717,36 @@ footer {
   .hero-body { border-left: none; border-top: 3px solid var(--red); }
   .card-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
 }
-
+.mobile-visible-search {
+  display: none; /* Hidden by default on desktop */
+  margin: 10px 0 20px 0;
+  width: 100%;
+}
 @media (max-width: 600px) {
   nav { display: none; }
   .hamburger { display: flex; }
   .header-search { display: none; }
+  .mobile-visible-search {
+    display: flex;
+    padding: 0 16px; /* Match the side padding of your articles */
+  }
+  .mobile-visible-search input {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    color: var(--cream);
+    padding: 10px;
+    font-size: 14px;
+    border-radius: var(--radius) 0 0 var(--radius);
+  }
+
+  .mobile-visible-search button {
+    background: var(--red);
+    border: none;
+    padding: 0 15px;
+    color: #fff;
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
   .header-top { padding: 0 16px; }
   .hero-title { font-size: 16px; }
   .hero-excerpt { display: none; }
