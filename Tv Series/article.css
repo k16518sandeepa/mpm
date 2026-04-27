@@ -757,6 +757,7 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  margin-top: 6px;
   padding: 6px 10px;
   background: var(--surface-2);
   border: 1px solid var(--border);
