@@ -53,7 +53,7 @@
   <a href="https://motionpicturemafia.com/support-us">💖 Support Us</a>
   <div class="mobile-search"><input type="text" id="mobileSearchInput" placeholder="Search…"><button onclick="doMobileSearch()">🔍</button></div>
 </div>
-<button id="catSearchClear" class="cat-search-clear" aria-label="Clear" style="display:none">✕</button>
+<button id="catSearchClearTop" class="cat-search-clear" aria-label="Clear" style="display:none">✕</button>
 
 <div class="cat-hero">
   <div class="cat-hero-inner">
@@ -70,8 +70,8 @@
 
 <div class="cat-search-bar">
   <div class="cat-search-inner">
-    <input type="text" id="catSearch" placeholder="Search gaming articles…">
-    <button class="cat-search-clear" id="catSearchClear" aria-label="Clear">✕</button>
+    <input type="text" id="catSearchMain" placeholder="Search gaming articles…">
+    <button class="cat-search-clear" id="catSearchClearMain" aria-label="Clear">✕</button>
     <span class="search-count" id="articleCount">19 articles</span>
   </div>
 </div>
@@ -430,23 +430,62 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 /* Search */
-const searchInput=document.getElementById('catSearch');
-const clearBtn=document.getElementById('catSearchClear');
-const countEl=document.getElementById('articleCount');
-const noRes=document.getElementById('noResultsMsg');
+const searchInputs = [
+  document.getElementById('catSearchTop'),
+  document.getElementById('catSearchMain')
+];
+
+const clearBtns = [
+  document.getElementById('catSearchClearTop'),
+  document.getElementById('catSearchClearMain')
+];
+
+const countEls = [
+  document.getElementById('articleCountTop'),
+  document.getElementById('articleCountMain')
+];
+
+const noRes = document.getElementById('noResultsMsg');
+
 function doSearch(q){
-  q=(q||'').toLowerCase().trim();
-  clearBtn.classList.toggle('visible',q.length>0);
-  const cards=document.querySelectorAll("#articleList .card");
-  let vis=0;
-  cards.forEach(card=>{const match=!q||card.innerText.toLowerCase().includes(q);card.style.display=match?"":"none";if(match)vis++;});
-  if(countEl)countEl.textContent=vis+" articles";
-  if(noRes)noRes.classList.toggle("visible",vis===0&&q.length>0);
-  document.getElementById("loadMoreBtn").style.display="none";
+  q = (q || '').toLowerCase().trim();
+
+  clearBtns.forEach(btn => btn?.classList.toggle('visible', q.length > 0));
+
+  const cards = document.querySelectorAll("#articleList .card");
+  let vis = 0;
+
+  cards.forEach(card => {
+    const match = !q || card.innerText.toLowerCase().includes(q);
+    card.style.display = match ? "" : "none";
+    if(match) vis++;
+  });
+
+  countEls.forEach(el => {
+    if(el) el.textContent = vis + " articles";
+  });
+
+  if(noRes) noRes.classList.toggle("visible", vis === 0 && q.length > 0);
+
+  document.getElementById("loadMoreBtn").style.display = "none";
 }
-searchInput.addEventListener('input',e=>doSearch(e.target.value));
-clearBtn.addEventListener('click',()=>{searchInput.value='';searchInput.focus();doSearch('');});
-function doMobileSearch(){const q=document.getElementById("mobileSearchInput").value;searchInput.value=q;doSearch(q);mobileNav.classList.remove("open");hamburger.classList.remove("open");document.body.style.overflow="";}
+
+// Sync both inputs
+searchInputs.forEach(input => {
+  input?.addEventListener('input', e => {
+    searchInputs.forEach(i => { if(i !== input) i.value = e.target.value; });
+    doSearch(e.target.value);
+  });
+});
+
+// Clear buttons
+clearBtns.forEach((btn, index) => {
+  btn?.addEventListener('click', () => {
+    searchInputs.forEach(i => i.value = '');
+    searchInputs[0].focus();
+    doSearch('');
+  });
+});
 /* Load More */
 (function(){const all=document.querySelectorAll("#articleList .card");const btn=document.getElementById("loadMoreBtn");let v=9;all.forEach((c,i)=>{if(i>=v)c.style.display="none";});if(all.length<=v)btn.style.display="none";btn.addEventListener("click",()=>{const hidden=Array.from(all).filter(c=>c.style.display==="none");hidden.slice(0,6).forEach(c=>c.style.display="");if(hidden.length<=6)btn.style.display="none";});})();
 /* Ad Rotator */

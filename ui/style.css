@@ -721,7 +721,7 @@ footer {
 @media (max-width: 600px) {
   nav { display: none; }
   .hamburger { display: flex; }
-  .header-search { display: none; }
+  .header-search { display: flex; order: 3; width: 100%; max-width: none; margin-top: 10px; }
   .header-top { padding: 0 16px; }
   .hero-title { font-size: 16px; }
   .hero-excerpt { display: none; }
