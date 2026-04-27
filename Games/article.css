@@ -320,7 +320,7 @@ body.light-theme .article p { color: rgba(24,22,20,0.82); }
 body.light-theme .article li { color: rgba(24,22,20,0.8); }
 .article li::marker { color: var(--red); }
 
-.article img {
+.article img:not(.icon) {
   max-width: 100%;
   border-radius: var(--radius);
   transition: transform 0.3s var(--ease);
@@ -738,4 +738,33 @@ footer {
 @media (max-width: 600px) {
   .theme-switch { top: 9px; right: 9px; padding: 4px 8px; }
   .share-btn { padding: 8px 12px; font-size: 12px; }
+}
+
+.icon {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  background: none !important;
+}
+
+.ratings {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rating-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.rating-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
 }
