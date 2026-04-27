@@ -144,7 +144,7 @@ nav a.activee,nav a.active{color:var(--accent);border-bottom-color:var(--accent)
 /* OSCARS SLIDESHOW */
 .slideshow-container{position:relative;overflow:hidden;background:var(--bg2);border:1px solid var(--border)}
 .mySlides{display:none}
-.mySlides img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.mySlides img{width:100%;aspect-ratio:auto;object-fit:cover}
 .caption{background:rgba(0,0,0,.75);color:var(--cream);padding:8px 12px;font-size:11px;font-family:var(--font-mono);letter-spacing:.1em;position:absolute;bottom:0;width:100%}
 .slide-controls{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-top:1px solid var(--border)}
 .prev,.next{cursor:pointer;background:none;border:1px solid var(--border2);color:var(--muted);padding:4px 10px;font-size:14px;transition:all .2s}

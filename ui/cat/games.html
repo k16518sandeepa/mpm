@@ -84,7 +84,7 @@
       <div class="card" onclick="window.location.href='graphics-rendering-pipeline.html'">
         <div class="card-img-wrap"><img src="https://imgur.com/3AByEv6.jpeg" alt="graphics-rendering-pipeline" loading="lazy"></div>
         <div class="card-body">
-          <span class="badge badge-new">New</span>
+          <!--<span class="badge badge-new">New</span>-->
           <div class="article-card" data-time="2026-03-22T18:30:00"><h2>3D Graphics වැඩ කරන්නේ කොහොමද? | Graphics Rendering Pipeline Sinhala</h2></div>
           <p>වීඩියෝ ගේම් එකක graphics 0 සහ 1 වලින් රියලිස්ටික් රූප බවට පත් වෙන හැටි සරලව. Vertex Shading, Rasterization සහ Fragment Shading ගැන සම්පූර්ණ …</p>
           <div class="card-footer">
@@ -96,7 +96,7 @@
       <div class="card" onclick="window.location.href='history-of-minecraft-notch-story.html'">
         <div class="card-img-wrap"><img src="https://imgur.com/SjW71qx.jpeg" alt="history-of-minecraft-notch-story" loading="lazy"></div>
         <div class="card-body">
-          <span class="badge badge-new">New</span>
+          <!--<span class="badge badge-new">New</span>-->
           <div class="article-card" data-time="2026-03-10T19:30:00"><h2>Minecraft හැදුණු හැටි: From RubyDung to Minecraft</h2></div>
           <p>අපි අද කතා කරමු ලෝකෙ වැඩිම පිරිසක් සල්ලි දීලා ගත්ත ගේම් එක, ඒ කියන්නේ Minecraft ගැන. මේක හැදුණේ කොහොමද? මේක පිටුපස ඉන්න අමුතුම චරිතය කවුද? අ…</p>
           <div class="card-footer">
@@ -399,9 +399,36 @@ mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hambu
 const backToTop=document.getElementById("backToTop");
 window.addEventListener('scroll',()=>backToTop.classList.toggle('visible',window.scrollY>300),{passive:true});
 backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:"smooth"}));
-/* Time Ago */
-function timeAgo(d){const s=Math.floor((new Date()-new Date(d))/1000);if(s<60)return"just now";const m=Math.floor(s/60);if(m<60)return m+" min ago";const h=Math.floor(m/60);if(h<24)return h+" hr ago";const dy=Math.floor(h/24);if(dy<30)return dy+" day"+(dy>1?"s":"")+" ago";const mo=Math.floor(dy/30);if(mo<12)return mo+" month"+(mo>1?"s":"")+" ago";return Math.floor(mo/12)+" year"+(Math.floor(mo/12)>1?"s":"")+" ago";}
-document.querySelectorAll(".article-card").forEach(c=>{const t=c.querySelector(".time");if(t&&c.dataset.time)t.textContent=timeAgo(c.dataset.time);});
+/* ═══ TIME AGO FUNCTION ═══ */
+function timeAgo(date) {
+    const s = Math.floor((new Date() - new Date(date)) / 1000);
+    if (s < 60) return "just now";
+    const m = Math.floor(s / 60); 
+    if (m < 60) return m + " min ago";
+    const h = Math.floor(m / 60); 
+    if (h < 24) return h + " hr ago";
+    const d = Math.floor(h / 24); 
+    if (d < 30) return d + " day" + (d > 1 ? "s" : "") + " ago";
+    const mo = Math.floor(d / 30); 
+    if (mo < 12) return mo + " month" + (mo > 1 ? "s" : "") + " ago";
+    return Math.floor(mo / 12) + " year" + (Math.floor(mo / 12) > 1 ? "s" : "") + " ago";
+}
+
+/* ═══ UPDATE ALL TIMES ═══ */
+document.addEventListener("DOMContentLoaded", function() {
+    // check every card
+    document.querySelectorAll(".card").forEach(card => {
+        // data-time  element 
+        const timeContainer = card.querySelector(".article-card");
+        const timeDisplay = card.querySelector(".time");
+
+        if (timeContainer && timeContainer.dataset.time && timeDisplay) {
+            const rawDate = timeContainer.dataset.time;
+            // insert
+            timeDisplay.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeAgo(rawDate)}`;
+        }
+    });
+});
 /* Search */
 const searchInput=document.getElementById('catSearch');
 const clearBtn=document.getElementById('catSearchClear');

@@ -309,15 +309,15 @@ function timeAgo(date) {
 
 /* ═══ UPDATE ALL TIMES ═══ */
 document.addEventListener("DOMContentLoaded", function() {
-    // සෑම card එකක්ම පරීක්ෂා කරයි
+    // Check Cards
     document.querySelectorAll(".card").forEach(card => {
-        // data-time අගය සහිත element එක සොයයි
+        // data-time  element 
         const timeContainer = card.querySelector(".article-card");
         const timeDisplay = card.querySelector(".time");
 
         if (timeContainer && timeContainer.dataset.time && timeDisplay) {
             const rawDate = timeContainer.dataset.time;
-            // අයිකනය සහ කාලය ඇතුළත් කිරීම
+            // Insert
             timeDisplay.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeAgo(rawDate)}`;
         }
     });
