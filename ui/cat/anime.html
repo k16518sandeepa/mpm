@@ -274,8 +274,36 @@ const backToTop=document.getElementById("backToTop");
 window.addEventListener('scroll',()=>backToTop.classList.toggle('visible',window.scrollY>300),{passive:true});
 backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:"smooth"}));
 /* Time Ago */
-function timeAgo(d){const s=Math.floor((new Date()-new Date(d))/1000);if(s<60)return"just now";const m=Math.floor(s/60);if(m<60)return m+" min ago";const h=Math.floor(m/60);if(h<24)return h+" hr ago";const dy=Math.floor(h/24);if(dy<30)return dy+" day"+(dy>1?"s":"")+" ago";const mo=Math.floor(dy/30);if(mo<12)return mo+" month"+(mo>1?"s":"")+" ago";return Math.floor(mo/12)+" year"+(Math.floor(mo/12)>1?"s":"")+" ago";}
-document.querySelectorAll(".article-card").forEach(c=>{const t=c.querySelector(".time");if(t&&c.dataset.time)t.textContent=timeAgo(c.dataset.time);});
+/* ═══ TIME AGO FUNCTION ═══ */
+function timeAgo(date) {
+    const s = Math.floor((new Date() - new Date(date)) / 1000);
+    if (s < 60) return "just now";
+    const m = Math.floor(s / 60); 
+    if (m < 60) return m + " min ago";
+    const h = Math.floor(m / 60); 
+    if (h < 24) return h + " hr ago";
+    const d = Math.floor(h / 24); 
+    if (d < 30) return d + " day" + (d > 1 ? "s" : "") + " ago";
+    const mo = Math.floor(d / 30); 
+    if (mo < 12) return mo + " month" + (mo > 1 ? "s" : "") + " ago";
+    return Math.floor(mo / 12) + " year" + (Math.floor(mo / 12) > 1 ? "s" : "") + " ago";
+}
+
+/* ═══ UPDATE ALL TIMES ═══ */
+document.addEventListener("DOMContentLoaded", function() {
+    // සෑම card එකක්ම පරීක්ෂා කරයි
+    document.querySelectorAll(".card").forEach(card => {
+        // data-time අගය සහිත element එක සොයයි
+        const timeContainer = card.querySelector(".article-card");
+        const timeDisplay = card.querySelector(".time");
+
+        if (timeContainer && timeContainer.dataset.time && timeDisplay) {
+            const rawDate = timeContainer.dataset.time;
+            // අයිකනය සහ කාලය ඇතුළත් කිරීම
+            timeDisplay.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeAgo(rawDate)}`;
+        }
+    });
+});
 /* Search */
 const searchInput=document.getElementById('catSearch');
 const clearBtn=document.getElementById('catSearchClear');
@@ -300,6 +328,7 @@ function doMobileSearch(){const q=document.getElementById("mobileSearchInput").v
 const ads=[{img:"https://i.imgur.com/sUSg6GH.gif",link:"https://motionpicturemafia.com/support-us"},{img:"https://i.imgur.com/oa0eAKM.jpeg",link:"https://wa.me/p/32088611110753641/94766963036"},{img:"https://i.imgur.com/pr2H7hf.jpeg",link:"https://wa.me/p/32088611110753641/94766963036"}];
 let adIdx=0;const adImg=document.querySelector("#ad-rotator img");const adLink=document.querySelector("#ad-rotator a");
 if(adImg)setInterval(()=>{adIdx=(adIdx+1)%ads.length;adImg.style.opacity=0;setTimeout(()=>{adImg.src=ads[adIdx].img;adLink.href=ads[adIdx].link;adImg.style.opacity=1;},1000);},5000);
+
 </script>
 <script></script>
 </body>
