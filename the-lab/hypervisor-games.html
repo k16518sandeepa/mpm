@@ -102,13 +102,13 @@
     <p>කාලයක් තිස්සේ Denuvo කියන්නේ game crack කරන අයට ලොකු හිසරදයක් වුණු DRM System එකක්. EMPRESS වගේ crackers ලා ඒක සම්පූර්ණයෙන්ම remove කරන්න try කරද්දී, අලුත් පරම්පරාවේ crackers ලා කරන්නේ ඒක අයින් කරන්නේ නැතුව, ඒක "රවට්ටන" එකයි. අන්න ඒ රවට්ටන method එකට තමයි Hypervisor-based Virtualization.</p>
 
     <h2>1. මොකක්ද මේ Hypervisor කියන්නේ?</h2>
-    <p>සරලවම කිව්වොත්, Hypervisor කියන්නේ Virtual Machines (VMs) use කරන්න පාවිච්චි කරන Software layer එකක්. උදාහරණයක් විදිහට VMware හෝ VirtualBox ගන්න පුළුවන්. මේක කරන්නේ අපේ computer එකේ තියෙන Hardware (CPU, RAM) සහ Operating System (Windows) අතර මැදින් තවත් layer එකක් හදලා Hardware වල control එක අතට ගන්න එක. සාමාන්‍යයෙන් ඔයාගේ OS එක (Windows) තමයි ඔයාගේ computer එකේ ලොකුම powerfulම unit එක. ඒ කියන්නේ RAM, SSD, CPU, GPU මේ හැමදේම පාලනය කරන්නේ OS එක. මේ level එකට අපි කියන්නේ Ring 0 එහෙම නැත්නම් Kernel Level කියලා. (Anti-cheat, drivers ඔක්කොම තියෙන්නේ මෙතන). හැබැයි Hypervisor කියන්නේ විශේෂ එකක්. ඒක තියෙන්නේ OS එකටත් යටින්, කෙලින්ම Hardware එක උඩ. ඒ මට්ටමට කියන්නේ Ring -1 කියලා.</p>
+    <p>සරලවම කිව්වොත්, Hypervisor කියන්නේ Virtual Machines (VMs) use කරන්න පාවිච්චි කරන Software layer එකක්. උදාහරණයක් විදිහට VMware හෝ VirtualBox ගන්න පුළුවන්. මේක කරන්නේ අපේ computer එකේ තියෙන Hardware (CPU, RAM) සහ Operating System (Windows) අතර මැදින් තවත් layer එකක් හදලා Hardware වල control එක අතට ගන්න එක. සාමාන්‍යයෙන් ඔයාගේ OS එක (Windows) තමයි ඔයාගේ computer එකේ powerfulම unit එක. ඒ කියන්නේ RAM, SSD, CPU, GPU මේ හැමදේම පාලනය කරන්නේ OS එක. මේ level එකට අපි කියන්නේ Ring 0 එහෙම නැත්නම් Kernel Level කියලා. (Anti-cheat, drivers ඔක්කොම තියෙන්නේ මෙතන). හැබැයි Hypervisor කියන්නේ විශේෂ එකක්. ඒක තියෙන්නේ OS එකටත් යටින්, කෙලින්ම Hardware එක උඩ. ඒ මට්ටමට කියන්නේ Ring -1 කියලා.</p>
 
     <h2>2. Denuvo සහ Hypervisor අතර සටන</h2>
-    <p>Denuvo වැඩ කරන්නේ game එකේ Code එක ඇතුළේ "Triggers" දහස් ගණනක් දාලා, game එක රන් වෙද්දී මේ Triggers චෙක් කරනවා ඔයා ගාව Original License එකක් තියෙනවාද කියලා. මේක සාමාන්‍ය විදිහට Crack කරන්න නම් මේ හැම Trigger එකක්ම හොයලා අයින් කරන්න ඕන. ඒක මාස ගණනක් යන වැඩක්.</p>
+    <p>Denuvo වැඩ කරන්නේ game එකේ Code එක ඇතුළේ "Triggers" දහස් ගණනක් දාලා, game එක run වෙද්දී මේ Triggers චෙක් කරනවා ඔයා ගාව Original License එකක් තියෙනවාද කියලා. මේක සාමාන්‍ය විදිහට Crack කරන්න නම් මේ හැම Trigger එකක්ම හොයලා අයින් කරන්න ඕන. ඒක මාස ගණනක් යන වැඩක්.</p>
     <p>Hypervisor Bypass එකේදී කරන්නේ:</p>
     <ul>
-      <li>Game එක රන් වෙන්න වෙනම "Virtual Environment" එකක් හදනවා.</li>
+      <li>Game එක run වෙන්න වෙනම "Virtual Environment" එකක් හදනවා.</li>
       <li>Denuvo, Hardware ID එක හරි License එක චෙක් කරන්න හදද්දී, Hypervisor එක මැදින් පැනලා ඒකට අවශ්‍ය "බොරු දත්ත" (Spoofed Data) ලබා දෙනවා.</li>
       <li>එතකොට Denuvo හිතන්නේ මේක Original game එකක් කියලා. game එකේ Code එකට ලොකු වෙනසක් කරන්නේ නැති නිසා මේක ඉක්මනින් කරන්න පුළුවන්.</li>
     </ul>
