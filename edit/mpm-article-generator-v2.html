@@ -108,6 +108,11 @@ header h2{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.1em;
 .list-item-del:hover{color:var(--red);background:rgba(229,0,0,.1)}
 .add-item-btn{background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.1);border-radius:7px;color:var(--dim);cursor:pointer;font-size:12px;font-weight:700;padding:8px 14px;width:100%;transition:all var(--tr);font-family:'DM Sans',sans-serif}
 .add-item-btn:hover{border-color:rgba(229,0,0,.4);color:var(--red);background:rgba(229,0,0,.05)}
+.list-type-toggle{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:5px;overflow:hidden;flex-shrink:0}
+.list-type-toggle button{background:none;border:none;cursor:pointer;color:var(--dim);font-size:11px;font-weight:800;padding:3px 9px;transition:all var(--tr);font-family:'DM Sans',sans-serif;letter-spacing:.04em;line-height:1.6}
+.list-type-toggle button.active{background:rgba(201,168,76,.18);color:var(--gold)}
+.list-type-toggle button:hover:not(.active){color:var(--text);background:rgba(255,255,255,.06)}
+.list-bullet-num{color:var(--gold);font-size:12px;font-weight:800;min-width:18px;text-align:right;flex-shrink:0}
 .empty-editor{text-align:center;padding:32px 20px;color:var(--dim);font-size:13px;border:1px dashed rgba(255,255,255,.08);border-radius:10px;line-height:1.7}
 .img-block-wrap{display:flex;flex-direction:column;gap:8px}
 .img-url-input,.img-caption-input{
@@ -362,7 +367,7 @@ function getDefaultData(type){
   if(type==='p') return {text:''};
   if(type==='h2') return {text:''};
   if(type==='h3') return {text:''};
-  if(type==='ul') return {items:['']};
+  if(type==='ul') return {items:[''], ordered:false};
   if(type==='img') return {url:'', caption:''};
   if(type==='em') return {text:''};
   return {};
@@ -447,7 +452,7 @@ function syncBlock(id, b){
 
 function buildBlockHTML(b, idx){
   const typeBadge = {p:'badge-p',h2:'badge-h2',h3:'badge-h3',ul:'badge-ul',img:'badge-img',em:'badge-em'}[b.type]||'badge-p';
-  const typeLabel = {p:'¶ Paragraph',h2:'H2 Heading',h3:'H3 Sub',ul:'≡ List',img:'🖼 Image',em:'✦ Highlight'}[b.type]||b.type;
+  const typeLabel = {p:'¶ Paragraph',h2:'H2 Heading',h3:'H3 Sub',ul: b.type==='ul' ? (b.data.ordered ? '# Numbered' : '≡ Bullet') : '≡ List',img:'🖼 Image',em:'✦ Highlight'}[b.type]||b.type;
   const isFirst = idx===0, isLast = idx===blocks.length-1;
   let bodyHTML = '';
 
@@ -462,7 +467,9 @@ function buildBlockHTML(b, idx){
   } else if(b.type==='ul'){
     const items = b.data.items.map((item,i)=>`
       <div class="list-item-row">
-        <span class="list-bullet">•</span>
+        ${b.data.ordered
+          ? `<span class="list-bullet-num">${i+1}.</span>`
+          : `<span class="list-bullet">•</span>`}
         <input class="list-item-input" value="${esc(item)}" placeholder="List item..." oninput="onBlockInput(${b.id})">
         <button class="list-item-del" onclick="removeListItem(${b.id},${i})">✕</button>
       </div>`).join('');
@@ -480,6 +487,11 @@ function buildBlockHTML(b, idx){
   return `
     <div class="block-header">
       <span class="block-type-badge ${typeBadge}">${typeLabel}</span>
+      ${b.type==='ul' ? `
+      <div class="list-type-toggle" style="margin-left:8px">
+        <button class="${!b.data.ordered?'active':''}" onclick="toggleListType(${b.id},'bullet')">• Bullet</button>
+        <button class="${b.data.ordered?'active':''}" onclick="toggleListType(${b.id},'numbered')"># Numbered</button>
+      </div>` : ''}
       <div class="block-actions">
         ${!isFirst?`<button class="block-btn" onclick="moveBlock(${b.id},-1)" title="Move up">↑</button>`:''}
         ${!isLast?`<button class="block-btn" onclick="moveBlock(${b.id},1)" title="Move down">↓</button>`:''}
@@ -520,6 +532,20 @@ function removeListItem(blockId, itemIdx){
   b.data.items.splice(itemIdx,1);
   if(b.data.items.length===0) b.data.items = [''];
   // Remove DOM element so renderBlocks won't re-sync from stale DOM and undo the splice
+  const blockEl = document.getElementById('block-'+blockId);
+  if(blockEl) blockEl.remove();
+  renderBlocks();
+  liveUpdate();
+}
+
+// ── TOGGLE LIST TYPE ──
+function toggleListType(blockId, mode){
+  const b = blocks.find(x=>x.id===blockId);
+  if(!b) return;
+  // Sync current item values from DOM before re-render
+  const inputs = document.querySelectorAll(`#block-${blockId} .list-item-input`);
+  b.data.items = Array.from(inputs).map(i=>i.value);
+  b.data.ordered = (mode === 'numbered');
   const blockEl = document.getElementById('block-'+blockId);
   if(blockEl) blockEl.remove();
   renderBlocks();
@@ -588,8 +614,9 @@ function renderBlocksHTML(){
     if(b.type==='em') return `\n    <p><em><strong>${escHtml(b.data.text)}</strong></em></p>`;
     if(b.type==='img') return `\n    <img src="${escHtml(b.data.url)}" alt="${escHtml(b.data.caption||'image')}" style="max-width:100%;border-radius:8px;margin:12px 0">`;
     if(b.type==='ul'){
+      const tag = b.data.ordered ? 'ol' : 'ul';
       const items = b.data.items.map(i=>`      <li>${escHtml(i)}</li>`).join('\n');
-      return `\n    <ul>\n${items}\n    </ul>`;
+      return `\n    <${tag}>\n${items}\n    </${tag}>`;
     }
     return '';
   }).join('');
@@ -710,7 +737,7 @@ ${trailerSection}
 
 <!-- Comment Section -->
 <div class="comment-section">
-  <h2>💬 Comments</h2>
+  <h2><img src="https://cdn-icons-png.flaticon.com/128/2593/2593482.png" width="24" height="24" alt=""> Comments</h2>
   <div class="comment-form">
     <input type="text" id="name" placeholder="Your name" required>
     <textarea id="comment" placeholder="Write a comment..." required></textarea>
