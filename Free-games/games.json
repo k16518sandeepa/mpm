@@ -1,5 +1,25 @@
 [
   {
+    "id": "livingbattle",
+    "platform": "LivingBattle",
+    "title": "Just Move Fall Dungeon Endless Abyss",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3353830/header.jpg?t=1778365475",
+    "description": "Go to a right place and complete all battle mission",
+    "claimUrl": "https://store.steampowered.com/app/3353830/LivingBattle/",
+    "startDate": "2026-05-10T22:30:00",
+    "endDate": "2026-05-12T22:30:00"
+  },
+  {
+    "id": "abyss",
+    "platform": "steam",
+    "title": "Just Move Fall Dungeon Endless Abyss",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3856040/778e45bf1e3b83f356b7d305f40dae3fecfa98a9/header.jpg?t=1778365883",
+    "description": "Faced with difficult tasks, try to challenge the limits.Sometimes need luck to win.",
+    "claimUrl": "https://store.steampowered.com/app/3856040/Just_Move_Fall_Dungeon_Endless_Abyss/",
+    "startDate": "2026-05-10T22:30:00",
+    "endDate": "2026-05-13T22:30:00"
+  },
+  {
     "id": "caretaker",
     "platform": "steam",
     "title": "Overcome Your Fears - Caretaker",
