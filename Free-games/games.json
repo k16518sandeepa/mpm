@@ -1,7 +1,27 @@
 [
   {
+    "id": "batman-shadows",
+    "platform": "epic",
+    "title": "The Telltale Batman Shadows Edition",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/498240/header.jpg?t=1733944832",
+    "description": "Enter the fractured psyche of Bruce Wayne and discover the powerful and far-reaching consequences of your choices as the Dark Knight.",
+    "claimUrl": "https://store.epicgames.com/p/the-telltale-batman",
+    "startDate": "2026-05-14T20:30:00",
+    "endDate": "2026-05-21T20:30:00"
+  },
+  {
+    "id": "sunderfolk",
+    "platform": "epic",
+    "title": "Sunderfolk - Standard Edition",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2414270/60848b3f16ca1c6ab1dadf7ede3b8aa69524fc51/header.jpg?t=1773940416",
+    "description": "Rediscover game night in this tactical RPG where shared strategy shapes every turn.",
+    "claimUrl": "https://store.epicgames.com/p/sunderfolk-standard-edition-83c05e",
+    "startDate": "2026-05-14T20:30:00",
+    "endDate": "2026-05-21T20:30:00"
+  },
+  {
     "id": "livingbattle",
-    "platform": "LivingBattle",
+    "platform": "steam",
     "title": "Just Move Fall Dungeon Endless Abyss",
     "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3353830/header.jpg?t=1778365475",
     "description": "Go to a right place and complete all battle mission",
@@ -46,8 +66,8 @@
     "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2407830/header.jpg?t=1776847683",
     "description": "A wholesome, cosy shopkeeping game with no pressures, no stress, and endless good vibes! Uncover and clean trinkets then upcycle them to sell to endless colourful and quirky customers.",
     "claimUrl": "https://store.epicgames.com/en-US/p/trash-goblin-cd5fd7",
-    "startDate": "2026-05-07T21:30:00",
-    "endDate": "2026-05-14T21:30:00"
+    "startDate": "2026-05-07T20:30:00",
+    "endDate": "2026-05-14T20:30:00"
   },
   {
     "id": "arranger",
@@ -56,8 +76,8 @@
     "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2596420/header.jpg?t=1745972134",
     "description": "Find your way in a world of breezy, thoughtful puzzles, along a charming journey of self-discovery.",
     "claimUrl": "https://store.epicgames.com/en-US/p/arranger-a-rolepuzzling-adventure-dbfde7",
-    "startDate": "2026-05-07T21:30:00",
-    "endDate": "2026-05-14T21:30:00"
+    "startDate": "2026-05-07T20:30:00",
+    "endDate": "2026-05-14T20:30:00"
   },
   {
     "id": "8am",
