@@ -1,5 +1,25 @@
 [
   {
+    "id": "Dino_running_from_a_FURRY_GAMESFORFARM",
+    "platform": "steam",
+    "title": "Dino running from a FURRY: GAMESFORFARM",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3343840/77c677158da20f9addb4fd615804cca7641cb6b6/header.jpg?t=1778752231",
+    "description": "Run, Dino, run — Mr. Furry is already close! Collect coins, avoid obstacles, unlock new costumes, and set records in a crazy 2.5D runner.",
+    "claimUrl": "https://store.steampowered.com/app/3343840/Dino_running_from_a_FURRY_GAMESFORFARM/",
+    "startDate": "2026-05-15T22:30:00",
+    "endDate": "2026-05-30T22:30:00"
+  },
+  {
+    "id": "Terrors_to_Unveil__Day_Off",
+    "platform": "steam",
+    "title": "Terrors to Unveil - Day Off",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3587490/ad38d7ab0135468d698238d0d06e0e68ea41d49e/header.jpg?t=1778605447",
+    "description": "Jack Williams, a 26 year old hard-working man, is finally taking a day off after a long week at work.",
+    "claimUrl": "https://store.steampowered.com/app/3587490/Terrors_to_Unveil__Day_Off/",
+    "startDate": "2026-05-15T22:30:00",
+    "endDate": "2026-05-19T22:30:00"
+  },
+  {
     "id": "batman-shadows",
     "platform": "epic",
     "title": "The Telltale Batman Shadows Edition",
