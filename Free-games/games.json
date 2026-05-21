@@ -1,5 +1,15 @@
 [
   {
+    "id": "car_mechanic",
+    "platform": "steam",
+    "title": "Car Mechanic Simulator 2018",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/645630/header.jpg?t=1779263670",
+    "description": "Build and expand your repair service empire in this incredibly detailed and highly realistic simulation game, where attention to car detail is astonishing. Find classic, unique cars in the new Barn Find module and Junkyard module. You can even add your self-made car in the Car Editor.",
+    "claimUrl": "https://store.steampowered.com/app/645630/Car_Mechanic_Simulator_2018",
+    "startDate": "2026-05-21T22:30:00",
+    "endDate": "2026-05-27T22:30:00"
+  },
+   {
     "id": "relics_of_wars",
     "platform": "steam",
     "title": "Warhammer 40,000: Gladius - Relics of War",
