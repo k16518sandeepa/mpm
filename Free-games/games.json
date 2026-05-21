@@ -1,5 +1,25 @@
 [
   {
+    "id": "tomb_raider3",
+    "platform": "epic",
+    "title": "Tomb Raider I-III Remastered Starring Lara Croft",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2478970/a94ccfdb7582dc5564cdf736b0f239531b66bf1d/header.jpg?t=1773331351",
+    "description": "Discover Lara Croft’s Original Adventures, Lovingly Restored – Now with New Challenge Mode",
+    "claimUrl": "https://store.epicgames.com/p/tomb-raider-iiii-remastered-538640",
+    "startDate": "2026-05-21T20:30:00",
+    "endDate": "2026-05-28T20:30:00"
+  },
+  {
+    "id": "down-in-bermuda",
+    "platform": "epic",
+    "title": "Down in Bermuda",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1107300/header.jpg?t=1724988375",
+    "description": "An unnatural storm leaves an adventurous aviator stranded for decades within the infamous Bermuda. Overcome creatures of the deep and unravel the islands secrets in search of a way back home.",
+    "claimUrl": "https://store.epicgames.com/p/down-in-bermuda",
+    "startDate": "2026-05-21T20:30:00",
+    "endDate": "2026-05-28T20:30:00"
+  },
+  {
     "id": "Dino_running_from_a_FURRY_GAMESFORFARM",
     "platform": "steam",
     "title": "Dino running from a FURRY: GAMESFORFARM",
