@@ -88,6 +88,33 @@
     </div>
   </div>      
   -->
+  <div class="card" data-category="tv" data-title="the sopranos" data-updated="2026-05-26" data-tmdb-id="1398">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-sopranos.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="bad thoughts" data-updated="2026-05-26" data-tmdb-id="251608">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/bad-thoughts.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="dark winds" data-updated="2026-05-26" data-tmdb-id="128904">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/dark-winds.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
   <div class="card" data-category="tv" data-title="rick and morty" data-updated="2026-05-25" data-tmdb-id="60625">
     <img src="" alt="" loading="lazy">
     <div class="info">
@@ -2388,12 +2415,9 @@ if (window.matchMedia("(pointer: coarse)").matches) {
 </script>
 <script src="popup-ad.js"></script>
 
-  <!-- ══ TMDB AUTO-ENRICH ══════════════════════════════════════════════════════
-     Fetches poster, title, genres + year from TMDB for each card lazily.
-     Set your API key. Cards with data-tmdb-id="0" are skipped.
-════════════════════════════════════════════════════════════════════════════ -->
+  <!--  TMDB AUTO-ENRICH  -->
 <script>
-  const TMDB_KEY = 'e8a74c378c9947d64e477be27a836c34'; // ← replace this
+  const TMDB_KEY = 'e8a74c378c9947d64e477be27a836c34'; // ← tmdb
 
   (function initTmdbEnrich() {
     if (!TMDB_KEY || TMDB_KEY === 'YOUR_TMDB_API_KEY_HERE') return;
