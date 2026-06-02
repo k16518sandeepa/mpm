@@ -268,18 +268,21 @@ nav a.active { color: var(--red); border-bottom-color: var(--red); }
   background: var(--surface);
   cursor: pointer;
   display: flex;
-  min-height: clamp(200px, 45vw, 420px);
-  transition: all 0.5s ease-out;
-  overflow: hidden;
-  will-change: transform, opacity;
-}
-.hero-content, .hero-card img {
-  transition: opacity 0.5s ease-in-out;
+  /* Removed: min-height (let aspect-ratio drive height naturally)  */
+  /* Removed: transition:all — forces full repaint every frame on mobile */
+  /* Removed: duplicate overflow:hidden */
+  transform: translateZ(0); /* promote to GPU layer once */
+  -webkit-transform: translateZ(0);
 }
 .hero-featured img {
-  width: 60%; object-fit: cover;
+  width: 60%;
+  /* Reserve space before image loads — prevents layout jump */
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   flex-shrink: 0;
-  transition: transform .5s ease;
+  /* Only GPU-composited properties in transition */
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: opacity;
 }
 .hero-featured:hover img { transform: scale(1.03); }
 .hero-body {
@@ -288,6 +291,8 @@ nav a.active { color: var(--red); border-bottom-color: var(--red); }
   display: flex; flex-direction: column; justify-content: flex-end;
   background: linear-gradient(135deg, var(--surface2) 0%, var(--surface) 100%);
   border-left: 3px solid var(--red);
+  transition: opacity 0.4s ease;
+  will-change: opacity;
 }
 .hero-eyebrow {
   font-family: var(--font-mono);
@@ -325,19 +330,14 @@ nav a.active { color: var(--red); border-bottom-color: var(--red); }
   align-self: flex-start;
 }
 .hero-read:hover { background: var(--red-dim); transform: translateX(2px); }
-@keyframes slideInRight {
-  0% { 
-    transform: translate3d(100%, 0, 0); 
-    opacity: 0; 
-  }
-  100% { 
-    transform: translate3d(0, 0, 0); 
-    opacity: 1; 
-  }
+/* hero-animate: subtle fade instead of full slide (slide caused layout jank) */
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .hero-animate {
-  animation: slideInRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: heroFadeIn 0.5s ease forwards;
 }
 
 /* FEATURED BADGE */
@@ -712,8 +712,10 @@ footer {
     margin-left: 0;
     margin-top: 20px;
   }
-  .hero-featured { flex-direction: column; min-height: auto; }
-  .hero-featured img { width: 100%; height: 220px; }
+  /* Stack hero vertically on tablet */
+  .hero-featured { flex-direction: column; }
+  /* aspect-ratio instead of fixed height — no layout jump when image loads */
+  .hero-featured img { width: 100%; height: auto; aspect-ratio: 16 / 9; }
   .hero-body { border-left: none; border-top: 3px solid var(--red); }
   .card-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
 }
@@ -756,7 +758,7 @@ footer {
 
 @media (max-width: 380px) {
   .card-grid { grid-template-columns: 1fr; }
-  .hero-featured img { height: 160px; }
+  /* aspect-ratio drives height at all sizes — no fixed px override needed */
   .footer-top { grid-template-columns: 1fr; }
 }
 

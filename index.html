@@ -93,7 +93,7 @@
 
 <!-- ===== HERO FEATURED ===== -->
     <div class="hero-featured" id="hero-main-card" onclick="window.location.href='the-lab/nvidia-rtx-spark.html'">
-  <img src="https://imgur.com/3icUFCz.jpeg" alt="rtx spark" class="hero-img"> 
+  <img src="https://imgur.com/3icUFCz.jpeg" alt="rtx spark" class="hero-img" fetchpriority="high" decoding="async"> 
   
   <div class="hero-body">
     <span class="badge badge-featured">Featured</span>
@@ -104,7 +104,7 @@
     <p class="hero-excerpt">Computex 2026 හිදී Nvidia නිල වශයෙන් නිවේදනය කළ සාමාන්‍ය පරිගණක සඳහා වන Nvidia RTX Spark AI චිප් එකේ තාක්ෂණික තොරතුරු, නිපදවා ඇති ආකාරය සහ එහි ඇති හැකියාවන් පිළිබඳ සම්පූර්ණ විස්තරය.</p>
     
     <div class="hero-meta">
-      <span class="hero-author">By <span class="hero-author-name">SANA</span></span>
+      <span class="hero-author"> <span class="hero-author-name">SANA</span></span>
       <span class="hero-time-wrapper article-card" data-time="2026-06-02T19:00:00">
         <span class="time"></span>
       </span>
@@ -1854,56 +1854,81 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/service-worker.js").catch(()=>{});
 }
 
-/* Hero Auto*/
-function updateHeroRandomly() {
-    const cards = Array.from(document.querySelectorAll('.card'));
+/* ═══ HERO AUTO ROTATE — smooth crossfade ═══ */
+(function () {
+  const heroSection = document.querySelector('#hero-main-card');
+  const heroImg     = heroSection.querySelector('.hero-img');
+  const heroBody    = heroSection.querySelector('.hero-body');
+
+  /* One-time: make sure the hero fades smoothly */
+  heroImg.style.transition  = 'opacity 0.5s ease';
+  heroBody.style.transition = 'opacity 0.4s ease';
+  /* GPU-compositing hint — eliminates mobile repaint jank */
+  heroImg.style.willChange  = 'opacity';
+
+  function updateHeroRandomly() {
+    const cards = Array.from(document.querySelectorAll('#articleList .card'));
     if (cards.length === 0) return;
-    const randomCard = cards[Math.floor(Math.random() * cards.length)];
 
-    // data recive
-    const newTitle = randomCard.querySelector('h2').innerText;
-    const newImg = randomCard.querySelector('img').src;
-    const newCat = randomCard.querySelector('.card-cat-tag').innerText;
-    const newTime = randomCard.querySelector('.article-card').dataset.time;
+    /* Pick a random card (avoid same as current) */
+    let randomCard;
+    let attempts = 0;
+    do {
+      randomCard = cards[Math.floor(Math.random() * cards.length)];
+      attempts++;
+    } while (
+      attempts < 5 &&
+      randomCard.querySelector('img').src === heroImg.src
+    );
+
+    /* Collect new data */
+    const newTitle   = randomCard.querySelector('h2').innerText;
+    const newImgSrc  = randomCard.querySelector('img').src;
+    const newCat     = randomCard.querySelector('.card-cat-tag').innerText;
+    const newTime    = randomCard.querySelector('.article-card').dataset.time;
     const newExcerpt = randomCard.querySelector('p').innerText;
-    const newAuthor = randomCard.querySelector('.author').innerText.replace('By ', '');
-    const rawLink = randomCard.getAttribute('onclick');
-    const newLink = rawLink.match(/'([^']+)'/)[1];
+    const newAuthor  = randomCard.querySelector('.author').innerText.replace('By ', '').split('·')[0].trim();
+    const rawLink    = randomCard.getAttribute('onclick');
+    const newLink    = rawLink.match(/'([^']+)'/)[1];
 
-    const heroSection = document.querySelector('#hero-main-card');
-    
-    // 1. 
-    heroSection.style.visibility = 'hidden'; 
-    heroSection.classList.remove('hero-animate');
+    /* STEP 1 — fade out */
+    heroImg.style.opacity  = '0';
+    heroBody.style.opacity = '0';
 
-    // 2. Small Dealy 
-    setTimeout(() => {
-        heroSection.querySelector('.hero-title').innerText = newTitle;
-        heroSection.querySelector('.hero-img').src = newImg;
-        heroSection.querySelector('.hero-cat').innerText = newCat;
-        heroSection.querySelector('.hero-excerpt').innerText = newExcerpt;
-        
-        const authorDisplay = heroSection.querySelector('.hero-author-name');
-        if(authorDisplay) authorDisplay.innerText = newAuthor;
+    /* STEP 2 — preload image, then swap + fade in */
+    const preload = new Image();
+    preload.onload = function () {
+      /* Swap all content while invisible */
+      heroImg.src = newImgSrc;
+      heroSection.querySelector('.hero-title').textContent   = newTitle;
+      heroSection.querySelector('.hero-cat').textContent     = newCat;
+      heroSection.querySelector('.hero-excerpt').textContent = newExcerpt;
 
-        heroSection.querySelector('.hero-link').href = newLink;
-        heroSection.setAttribute('onclick', `window.location.href='${newLink}'`);
-        
-        const timeDisplay = heroSection.querySelector('.time');
-        if(timeDisplay) {
-            const heroTimeContainer = heroSection.querySelector('.hero-time-wrapper');
-            heroTimeContainer.dataset.time = newTime;
-            timeDisplay.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeAgo(newTime)}`;
-        }
+      const authorEl = heroSection.querySelector('.hero-author-name');
+      if (authorEl) authorEl.textContent = newAuthor;
 
-        // 3. Animation Start
-        heroSection.style.visibility = 'visible';
-        heroSection.classList.add('hero-animate');
-    }, 50); // Smooth ව
-}
+      heroSection.querySelector('.hero-link').href = newLink;
+      heroSection.setAttribute('onclick', `window.location.href='${newLink}'`);
 
-// 10 Sec Deaky
-setInterval(updateHeroRandomly, 10000);
+      const timeDisplay = heroSection.querySelector('.time');
+      if (timeDisplay) {
+        heroSection.querySelector('.hero-time-wrapper').dataset.time = newTime;
+        timeDisplay.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeAgo(newTime)}`;
+      }
+
+      /* STEP 3 — fade in on next frame so the browser paints first */
+      requestAnimationFrame(() => {
+        heroImg.style.opacity  = '1';
+        heroBody.style.opacity = '1';
+      });
+    };
+    /* If image fails to load still swap — avoid permanent black hero */
+    preload.onerror = preload.onload;
+    preload.src = newImgSrc;
+  }
+
+  setInterval(updateHeroRandomly, 10000);
+})();
 </script>
 </body>
 </html>
