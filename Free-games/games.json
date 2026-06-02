@@ -1,5 +1,35 @@
 [
   {
+    "id": "tellMeWhy",
+    "platform": "steam",
+    "title": "Tell Me Why",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1180660/header.jpg?t=1780349055",
+    "description": "Tell Me Why is the multi-award winning episodic adventure game from Dontnod Entertainment in which twins use their supernatural bond to discover the truth of their troubled past.",
+    "claimUrl": "https://store.steampowered.com/app/1180660/Tell_Me_Why/",
+    "startDate": "2026-06-02T22:30:00",
+    "endDate": "2026-07-01T22:30:00"
+  },
+  {
+    "id": "winexy",
+    "platform": "steam",
+    "title": "Winexy",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/577740/header.jpg?t=1778879396",
+    "description": "Winexy is a realistic 3D rolling ball game with a simple gameplay and entertaining action.",
+    "claimUrl": "https://store.steampowered.com/app/577740/Winexy/",
+    "startDate": "2026-06-02T22:30:00",
+    "endDate": "2026-06-05T22:30:00"
+  },
+  {
+    "id": "gravity_circuit",
+    "platform": "steam",
+    "title": "Gravity Circuit",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/858710/68ea7cdbcc45c99f3a15b20680c81af6d608501d/header_alt_assets_0.jpg?t=1780337507",
+    "description": "Gravity Circuit is a flashy action packed 2D platformer in the spirit of console classics. Follow Kai, a lone operative war hero who harnesses the mysterious powers of the Gravity Circuit, on an adventure in a futuristic world inhabited by sentient robots.",
+    "claimUrl": "https://store.steampowered.com/app/858710/Gravity_Circuit/",
+    "startDate": "2026-06-02T22:30:00",
+    "endDate": "2026-06-14T22:30:00"
+  },
+  {
     "id": "calico",
     "platform": "epic",
     "title": "Calico",
