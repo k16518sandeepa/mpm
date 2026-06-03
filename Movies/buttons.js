@@ -60,7 +60,7 @@ function setTheme(theme) {
   document.querySelector('.social-btns .whatsapp').href = `https://wa.me/?text=${pageTitle}%20${pageUrl}`;
   document.querySelector('.social-btns .facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
 
-   //article publish time
+  //article publish time
 function timeAgo(date) {
   const seconds = Math.floor((new Date() - new Date(date)) / 1000);
 
@@ -88,6 +88,94 @@ document.querySelectorAll(".article-card").forEach(card => {
   const date = card.dataset.time;
   if (date) timeEl.textContent = timeAgo(date);
 });
+//img popup
+document.querySelectorAll('.popup-word').forEach(word => {
+  const imgUrl = word.getAttribute('data-img');
+  if (imgUrl) {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .popup-word[data-img="${imgUrl}"]::after {
+        background-image: url(${imgUrl});
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // For mobile: tap to toggle popup
+  word.addEventListener('click', e => {
+    e.stopPropagation();
+    document.querySelectorAll('.popup-word.active').forEach(el => {
+      if (el !== word) el.classList.remove('active');
+    });
+    word.classList.toggle('active');
+  });
+});
+
+// Close popup when tapping outside
+document.addEventListener('click', () => {
+  document.querySelectorAll('.popup-word.active').forEach(el => el.classList.remove('active'));
+});
+
+// Quick navigation toggle
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('toggle-nav');
+  const quickNav = document.getElementById('quick-nav');
+
+  // Toggle show/hide when button clicked
+  toggleBtn.addEventListener('click', () => {
+    quickNav.classList.toggle('active');
+    toggleBtn.textContent = quickNav.classList.contains('active')
+      ? '❌ Close Navigation'
+      : '🔽 Show Navigation';
+  });
+
+  // Detect clicks on navigation links
+  document.querySelectorAll("#quick-nav a").forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const targetId = link.getAttribute("href").replace("#", "");
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      // Smooth scroll to the target section
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      // Remove old highlights first
+      document.querySelectorAll(".glow-highlight").forEach(el => {
+        el.classList.remove("glow-highlight");
+      });
+
+      // Wait for scroll to finish, then add glow
+      setTimeout(() => {
+        target.classList.add("glow-highlight");
+        setTimeout(() => target.classList.remove("glow-highlight"), 2000);
+      }, 600);
+
+      // Auto-hide navigation after 1 second
+      setTimeout(() => {
+        quickNav.classList.remove("active");
+        toggleBtn.textContent = '🔽 Show Navigation';
+      }, 0000);
+    });
+  });
+
+  // Hide navigation if user clicks outside of it
+  document.addEventListener('click', (e) => {
+    if (!quickNav.contains(e.target) && !toggleBtn.contains(e.target)) {
+      quickNav.classList.remove('active');
+      toggleBtn.textContent = '🔽 Show Navigation';
+    }
+  });
+
+  // Hide on touch (for mobile)
+  document.addEventListener('touchstart', (e) => {
+    if (!quickNav.contains(e.target) && !toggleBtn.contains(e.target)) {
+      quickNav.classList.remove('active');
+      toggleBtn.textContent = '🔽 Show Navigation';
+    }
+  });
+});
 
 //ads sideshow
 const ads = [
@@ -109,8 +197,7 @@ setInterval(() => {
     adLink.href = ads[current].link;
     adImg.style.opacity = 1;
   }, 1000);
-}, 5000);
-
+}, 5000); 
 const navToggle = document.getElementById("navToggle");
   const navDrawer = document.getElementById("navDrawer");
   const navBackdrop = document.getElementById("navBackdrop");
