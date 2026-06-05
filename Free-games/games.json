@@ -1,5 +1,45 @@
 [
   {
+    "id": "rogue_waters",
+    "platform": "epic",
+    "title": "Rogue Waters",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1691190/header.jpg?t=1748339686",
+    "description": "Rogue Waters is a tactical, turn-based rogue-lite set in a pirate world overtaken by a terrible curse. Gather your ragtag crew of rogues and grow them into fierce pirates.",
+    "claimUrl": "https://store.epicgames.com/p/rogue-waters-9764d6",
+    "startDate": "2026-06-04T20:30:00",
+    "endDate": "2026-06-11T20:30:00"
+  },
+  {
+    "id": "songs_of_conquest",
+    "platform": "epic",
+    "title": "Songs of Conquest",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/867210/34044f8090fe24c5c4dabf1aa3d15380038e31cc/header_alt_assets_11.jpg?t=1780586065",
+    "description": "Raise mighty armies, wield ancient magic and forge an empire. This turn-based strategy adventure game fuses strategic decision making, tactical combat and kingdom management.",
+    "claimUrl": "https://store.epicgames.com/p/songs-of-conquest",
+    "startDate": "2026-06-04T20:30:00",
+    "endDate": "2026-06-11T20:30:00"
+  },
+  {
+    "id": "the_ourboros_king",
+    "platform": "epic",
+    "title": "The Ouroboros King",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2096510/header.jpg?t=1776273346",
+    "description": "The Ouroboros King combines the strategic depth of chess with the build variety and replayability of roguelikes. Assemble a formidable army, discover powerful relics, and buy surprising gadgets to defeat the Coven.",
+    "claimUrl": "https://store.epicgames.com/p/the-ouroboros-king-e1d547",
+    "startDate": "2026-06-11T20:30:00",
+    "endDate": "2026-06-18T20:30:00"
+  },
+  {
+    "id": "speed_freeks",
+    "platform": "epic",
+    "title": "Warhammer 40,000 : Speed Freeks",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2078450/d69bbee0e5d8f7aa65b7c68943397573a52fca7a/header.jpg?t=1779557955",
+    "description": "Adrenaline-fueled combat racing in the brutal Warhammer 40,000 universe! Drive ferocious vehicles equipped with powerful weapons and abilities into a full-throttle battle to the death.",
+    "claimUrl": "https://store.epicgames.com/p/warhammer-40k-speed-freeks-12879c",
+    "startDate": "2026-06-11T20:30:00",
+    "endDate": "2026-06-18T20:30:00"
+  },
+  {
     "id": "tellMeWhy",
     "platform": "steam",
     "title": "Tell Me Why",
