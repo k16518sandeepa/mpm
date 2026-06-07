@@ -156,7 +156,7 @@
     background: linear-gradient(to right, var(--red), var(--gold), var(--red));
   }
 
-  /* Link Styling Added Here */
+  /* Link Styling*/
   .about-card a {
     color: var(--gold);
     text-decoration: underline;
@@ -354,6 +354,11 @@
     },
     {
       platform : "telegram",
+      name     : "MPM Telegram Channel",
+      url      : "https://t.me/MpMStudioOfficial"
+    },
+    {
+      platform : "telegram",
       name     : "MPM Telegram Group",
       url      : "https://t.me/whatsappgang"
     },
@@ -407,7 +412,7 @@
     document.getElementById("site-tagline").textContent = SITE_TAGLINE;
     document.title = `${SITE_NAME} — Official Links`;
 
-    /* 2. Changed .textContent to .innerHTML to parse the link tag */
+    
     document.getElementById("about-text").innerHTML = ABOUT_TEXT.trim();
 
     // Groups
