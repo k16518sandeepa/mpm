@@ -1,0 +1,2659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="title" content="Download Anime, Movies & TV Series via Telegram | Motion Picture Mafia Studio">
+  <meta name="description" content="Get direct, instant downloads of the latest Anime, Movies, and TV Series! Our official Telegram bot delivers all files securely to your account.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/png" href="Images/mpm logo.png">
+
+  <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8377794585544932"
+   crossorigin="anonymous"></script>-->
+
+  <meta property="og:title" content="Download Anime, Movies & TV Series via Telegram | MPM">
+  <meta property="og:description" content="Get direct, instant downloads of the latest Anime, Movies, and TV Series! Our official Telegram bot delivers all files securely to your account.">
+  <meta property="og:image" content="https://i.imgur.com/JbmemAc.jpeg">
+  <meta property="og:url" content="https://motionpicturemafia.com/downloads/">
+  <meta property="og:type" content="article">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6KK47Q2PLX');
+  </script>
+
+  <title>Downloads - MPM</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+<div id="bot-status" class="bot-online"></div>
+
+<header>
+  <h1><a href="https://motionpicturemafia.com/" class="link">Motion Picture Mafia</a></h1>
+</header>
+
+<nav>
+  <a href="https://motionpicturemafia.com/">Home</a>
+  <a href="https://motionpicturemafia.com/subtitle-download/">Subtitles</a>
+  <a href="index.html" class="active">Downloads</a>
+  <a href="https://motionpicturemafia.com/support-us">Keep Us Alive!!</a>
+</nav>
+
+<!-- CONTROLS ZONE -->
+<div class="controls-zone">
+
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="searchBox" placeholder="Search titles…" autocomplete="off" spellcheck="false" />
+    <span class="search-kbd">/ to search</span>
+  </div>
+
+  <!-- CATEGORY PILLS -->
+  <div class="filter-pills" id="filterPills">
+    <button class="pill active" data-filter="all">🎬 All</button>
+    <button class="pill" data-filter="movie">🎥 Movies</button>
+    <button class="pill" data-filter="tv">📺 TV Series</button>
+    <button class="pill" data-filter="anime">⛩ Anime</button>
+    <button class="pill" data-filter="asian-drama">🌸 Asian Dramas</button>
+  </div>
+
+</div>
+
+<!-- RESULTS BAR -->
+<div class="results-bar">
+  <div class="results-count" id="resultsCount"><span>—</span> titles</div>
+  <div class="view-toggle">
+    <button class="view-btn active" id="gridViewBtn" title="Grid view">⊞</button>
+    <button class="view-btn" id="listViewBtn" title="List view">☰</button>
+  </div>
+</div>
+
+<!-- GRID CARDS -->
+<div class="grid" id="gridContainer">
+
+  <!--
+  <div class="card" data-category="tv" data-title="off campus" data-updated="2026-05-15" data-tmdb-id="273240">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/template.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>      
+  -->
+  <div class="card" data-category="movie" data-title="scream 7" data-updated="2026-06-13" data-tmdb-id="1159559" data-wa="true">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="movies/scream-7.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="rick and morty" data-updated="2026-06-08" data-tmdb-id="60625" data-wa="true">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/rick-and-morty.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="from" data-updated="2026-06-07" test="124364">
+    <img src="https://miro.medium.com/v2/resize:fit:1400/1*39M4XbHXCTfBenNNqLLyLA@2x.jpeg" alt="from" loading="lazy">
+    <div class="info">
+      <h3>From</h3>
+      <p>Folk Horror · Supernatural Horror · Psychological Horror · 2022</p>
+      <button class="download-btn" data-href="tv-series/from.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="arrow 2012" data-updated="2026-06-06" data-tmdb-id="1412">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/arrow.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="project blue book" data-updated="2026-06-06" data-tmdb-id="79649">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/project-blue-book.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="avatar the last airbender" data-updated="2026-06-06" data-tmdb-id="82452">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/avatar-the-last-airbender.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="cross" data-updated="2026-06-06" data-tmdb-id="213306">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/cross.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="gotham 2014" data-updated="2026-06-04" data-tmdb-id="60708">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/gotham.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="supergirl 2015" data-updated="2026-06-04" data-tmdb-id="62688">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/supergirl.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="movie" data-title="project hail mary" data-updated="2026-06-03" data-tmdb-id="687163">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="movies/project-hail-mary.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the flash 2014" data-updated="2026-06-02" data-tmdb-id="60735">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-flash.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="the k2" data-updated="2026-06-02" data-tmdb-id="67391">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="asian-dramas/the-k2.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the fall of the house of usher" data-updated="2026-06-02" data-tmdb-id="157065">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-fall-of-the-house-of-usher.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="his and hers 2026" data-updated="2026-06-02" data-tmdb-id="259731">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/his-and-hers.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="spider noir" data-updated="2026-06-01" data-tmdb-id="220102">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/spider-noir.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the night agent" data-updated="2026-06-01" data-tmdb-id="129552">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-night-agent.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="young sherlock" data-updated="2026-06-01" data-tmdb-id="255661">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/young-sherlock.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="alice in borderland" data-updated="2026-06-01" data-tmdb-id="110316">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/alice-in-borderland.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the bad guys breaking in the bad guys the series" data-updated="2026-06-01" data-tmdb-id="302540">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-bad-guys-breaking-in.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the sopranos" data-updated="2026-05-26" data-tmdb-id="1398">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-sopranos.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="bad thoughts" data-updated="2026-05-26" data-tmdb-id="251608">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/bad-thoughts.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="dark winds" data-updated="2026-05-26" data-tmdb-id="128904">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/dark-winds.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="malcolm in the middle life's still unfair" data-updated="2026-05-25" data-tmdb-id="279471">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/malcolm-in-middle-lifes-still-unfiar.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="money heist la casa de papel" data-updated="2026-05-25" data-tmdb-id="71446">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/money-heist.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="running point" data-updated="2026-05-25" data-tmdb-id="244623">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/running-point.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="beef" data-updated="2026-05-25" data-tmdb-id="154385">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/beef.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="big mistakes" data-updated="2026-05-25" data-tmdb-id="291506">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/big-mistakes.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="unchosen" data-updated="2026-05-25" data-tmdb-id="262848">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/unchosen.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="man on fire" data-updated="2026-05-25" data-tmdb-id="223386">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/man-on-fire.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the bear" data-updated="2026-05-25" data-tmdb-id="136315">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-bear.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="citdael" data-updated="2026-05-25" data-tmdb-id="114922">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/citadel.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="m.i.a. mia " data-updated="2026-05-25" data-tmdb-id="262388">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/m-i-a.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="legends" data-updated="2026-05-25" data-tmdb-id="262280">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/legends.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="off campus" data-updated="2026-05-25" data-tmdb-id="273240">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/off-campus.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="platinum end" data-updated="2026-05-25" data-tmdb-id="114892">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/platinum-end.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="cyberpunk edgerunners" data-updated="2026-05-24" data-tmdb-id="105248">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/cyberpunk-edgerunners.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="baccano!" data-updated="2026-05-24" data-tmdb-id="34121">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/baccano.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="another" data-updated="2026-05-24" data-tmdb-id="42589">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/another.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="aoashi" data-updated="2026-05-24" data-tmdb-id="126437">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/ao-ashi.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="prison school" data-updated="2026-05-24" data-tmdb-id="64706">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/prison-school.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="kaguya sama love is war" data-updated="2026-05-24" data-tmdb-id="83121">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/kaguya-sama-love-is-war.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="grand blue dreaming" data-updated="2026-05-23" data-tmdb-id="79166">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/grand-blue-dreaming.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="buddy dadies" data-updated="2026-05-23" data-tmdb-id="212963">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/buddy-daddies.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="monster" data-updated="2026-05-23" data-tmdb-id="30981">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/monster.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="kakegurui" data-updated="2026-05-23" data-tmdb-id="72305">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/kakegurui.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="assassination classroom" data-updated="2026-05-23" data-tmdb-id="62110">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/assassination-classroom.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="alya sometimes hides her feelings in russian" data-updated="2026-05-23" data-tmdb-id="235758">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/alya-sometimes-hides-her-feelings-in-russian.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="zom 100 bucket list of the dead" data-updated="2026-05-23" data-tmdb-id="217766">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/zom-100.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="high school of the dead" data-updated="2026-05-23" data-tmdb-id="56998">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/high-school-of-dead.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="tengoku daimakyo heavenly delusion" data-updated="2026-05-23" data-tmdb-id="208891">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/heavenly-delusion.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="high school dxd" data-updated="2026-05-23" data-tmdb-id="45950">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/high-school-dxd.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the borughs" data-updated="2026-05-23" data-tmdb-id="224941">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-boroughs.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="narcos mexico" data-updated="2026-05-23" data-tmdb-id="80968">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/narcos-mexico.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="narcos" data-updated="2026-05-22" data-tmdb-id="63351">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/narcos.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+  
+  <div class="card" data-category="anime" data-title="chainsaw man" data-updated="2026-05-22" data-tmdb-id="114410">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/chainsaw-man.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+  
+  <div class="card" data-category="movie" data-title="haikyuu the dumpster battle" data-updated="2026-05-21" data-tmdb-id="1012201">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="movies/haikyuu-the-dumpster-battle.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="haikyuu" data-updated="2026-05-21" data-tmdb-id="60863">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/haikyuu.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="better call saul" data-updated="2026-05-21" data-tmdb-id="60059">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/better-call-saul.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+  <div class="card" data-category="tv" data-title="the witcher" data-updated="2026-05-21" data-tmdb-id="71912">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-witcher.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="jujutsu kaisen" data-updated="2026-05-21" data-tmdb-id="95479">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/jujutsu-kaisen.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the boys" data-updated="2026-05-20" test="76479">
+    <img src="https://resizing.flixster.com/7GlCWhHbm6Xtfjk9tTIYgAWdn0A=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvNmVjZWJiMDEtN2E5ZS00MzQzLWJkNWQtNjRmOTZkOGNiYjM5LmpwZw==" alt="the boys" loading="lazy">
+    <div class="info">
+      <h3>The Boys</h3>
+      <p>Dark Comedy · Psychological Drama · Action · 2019</p>
+      <button class="download-btn" data-href="tv-series/the-boys.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="attack on titan" data-updated="2026-05-20" data-tmdb-id="1429">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/attack-on-titan.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="dexter" data-updated="2026-05-20" data-tmdb-id="1405">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/dexter.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="ozark" data-updated="2026-05-19" data-tmdb-id="69740">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/ozark.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="spartacus" data-updated="2026-05-19" data-tmdb-id="46296">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/spartacus.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="daredevil born again" data-updated="2026-05-18" data-tmdb-id="202555">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/daredevil-born-again.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the chestnut man kastanjemanden" data-updated="2026-05-18" data-tmdb-id="127865">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-chestnut-man.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="movie" data-title="Triangle of Sadness" data-updated="2026-05-18" data-tmdb-id="497828">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="https://t.me/mpmfilessharebot?start=triangle_of_sadness_2022_720p_webrip_x264_aac">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="movie" data-title="kumari 2022" data-updated="2026-05-18" data-tmdb-id="851731">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="https://t.me/mpmfilessharebot?start=kumari_2022">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="movie" data-title="pathonpatham noottandu 2022" data-updated="2026-05-18" data-tmdb-id="835761">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="https://t.me/mpmfilessharebot?start=pathonpatham_noottandu_2022_malayalam_720p_amzn_web_dl_hevc_ddp5">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="erased" data-updated="2026-05-18" data-tmdb-id="65249">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/erased.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="delicious in dungeon" data-updated="2026-05-18" data-tmdb-id="207784">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/delicious-in-dungeon.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="devil may cry" data-updated="2026-05-18" data-tmdb-id="235930">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/devil-may-cry.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="charlotte" data-updated="2026-05-18" data-tmdb-id="63145">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/charlotte.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="apocalypse hotel" data-updated="2026-05-18" data-tmdb-id="262929">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/apocalypse-hotel.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="elfen lied" data-updated="2026-05-18" data-tmdb-id="42671">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/elfen-lied.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="cautious hero the hero is overpowered but overly cautious" data-updated="2026-05-18" data-tmdb-id="93256">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/cautious-hero.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="the girl i like forgot her glasses" data-updated="2026-05-18" data-tmdb-id="218263">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/the-girl-i-like-most-forgot-her-glasses.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="wonder egg priority" data-updated="2026-05-18" data-tmdb-id="111255">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/wonder-egg-priority.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="revenger" data-updated="2026-05-18" data-tmdb-id="211297">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/revenger.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="seven deadly sins" data-updated="2026-05-18" data-tmdb-id="62104">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/seven-deadly-sins.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="no game no life" data-updated="2026-05-18" data-tmdb-id="60808">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/no-game-no-life.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="tsukimichi moonlight fantasy" data-updated="2026-05-18" data-tmdb-id="111819">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/tsukimichi-moonlight.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="cowby bepop" data-updated="2026-05-18" data-tmdb-id="30991">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/cowboy-bepop.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="hyouka" data-updated="2026-05-18" data-tmdb-id="65329">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/hyouka.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="snowfall" data-updated="2026-05-17" data-tmdb-id="71694">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/snowfall.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="guilty crown" data-updated="2026-05-17" data-tmdb-id="43125">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/guilty-crown.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="as the moon so beautiful tsukigakirei" data-updated="2026-05-17" data-tmdb-id="70880">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/as-the-moon-so-beautiful.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the offer" data-updated="2026-05-17" data-tmdb-id="114068">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-offer.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="if wishes could kill" data-updated="2026-05-17" data-tmdb-id="285838">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="asian-dramas/if-wishes-could-kill.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="sentenced to be a hero" data-updated="2026-05-17" data-tmdb-id="249907">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="anime/sentenced-to-be-a-hero.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the oa" data-updated="2026-05-17" data-tmdb-id="69061">
+    <img src="" alt="" loading="lazy">
+    <div class="info">
+      <h3></h3>
+      <p></p>
+      <button class="download-btn" data-href="tv-series/the-oa.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div> 
+
+  <div class="card" data-category="tv" data-title="berlin and the lady with an ermine" data-updated="2026-05-15" test="256855">
+    <img src="https://m.media-amazon.com/images/M/MV5BODAwOGFiZDItNGZkNy00ZjdkLThkMjktZGY4ZDE3MDMyZWRhXkEyXkFqcGc@._V1_.jpg" alt="berlin-and-the-lady-with-ermine" loading="lazy">
+    <div class="info">
+      <h3>Berlin and the Lady with an Ermine</h3>
+      <p>Crime · Thriller · Drama · 2026</p>
+      <button class="download-btn" data-href="tv-series/berlin-and-the-lady-with-ermine.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="lord of the files" data-updated="2026-05-07" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BZTNkYmE5ZGQtMTUzNi00ZDE3LWE5YWQtODk4N2Q3Yzc0YzViXkEyXkFqcGc@._V1_.jpg" alt="lord-of-the-files" loading="lazy">
+    <div class="info">
+      <h3>Lord of the Flies</h3>
+      <p>Coming-of-Age · Psychological Thriller · Survival · 2026</p>
+      <button class="download-btn" data-href="tv-series/lord-of-the-files.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="samurai champloo" data-updated="2026-05-07" test="2264">
+    <img src="https://m.media-amazon.com/images/M/MV5BMjBhZTY4NzMtOGU3OC00ZDllLWE2ZjUtMGFjYTU5OWI0YTQ2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="samurai" loading="lazy">
+    <div class="info">
+      <h3>Samurai Champloo</h3>
+      <p>Action · Adventure · Comedy · 2004</p>
+      <button class="download-btn" data-href="anime/samurai-champloo.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="lawless lawyer" data-updated="2026-05-04" test="73228">
+    <img src="https://asianwiki.com/images/f/f0/Lawless_Lawyer-P2.jpg" alt="lawless lawyer"loading="lazy">
+    <div class="info">
+      <h3>Lawless Lawyer</h3>
+      <p>Korean · Action · Thriller · 2018</p>
+      <button class="download-btn" data-href="asian-dramas/lawless-lawyer.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="love tyrant" data-updated="2026-05-04" test="69590">
+    <img src="https://m.media-amazon.com/images/M/MV5BOTM1NGU2ZGUtZjc1OS00OWU4LWI0YjUtMDdiMjhhZDVmYzQ2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="love tyrant" loading="lazy">
+    <div class="info">
+      <h3>Love Tyrant</h3>
+      <p>Comedy · Romance · Parody · 2017</p>
+      <button class="download-btn" data-href="anime/love-tyrant.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="your lie in april" data-updated="2026-05-04" test="65112">
+    <img src="https://m.media-amazon.com/images/M/MV5BZGMyYmFmNzgtMWQ4NS00MWE2LTg4YmEtZGY1MTBiODE0YmE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="your lie in april" loading="lazy">
+    <div class="info">
+      <h3>Your Lie in April</h3>
+      <p>Psychological Drama · Coming-of-Age · Romance · 2014</p>
+      <button class="download-btn" data-href="anime/your-lie-in-april.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="death parade" data-updated="2026-05-04" test="62745">
+    <img src="https://m.media-amazon.com/images/M/MV5BODRkMDEyZTItYjAzNS00Y2E2LThlNGItYjAxZjhjMDlmMjk3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="death parade" loading="lazy">
+    <div class="info">
+      <h3>Death Parade</h3>
+      <p>Psychological Drama · Psychological Thriller · Mystery · 2015</p>
+      <button class="download-btn" data-href="anime/death-parade.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="parasyte the maxim" data-updated="2026-05-04" test="60634">
+    <img src="https://m.media-amazon.com/images/M/MV5BMzg2YjA0NGYtYjQwMS00MDQyLWFlNWMtODVhNTBkYWIyNjE1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="parasyte the maxim" loading="lazy">
+    <div class="info">
+      <h3>Parasyte: The Maxim</h3>
+      <p>Alien Invasion · Body Horror · Psychological Drama · 2014</p>
+      <button class="download-btn" data-href="anime/parasyte-the-maxim.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="the new gate" data-updated="2026-05-04" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BNjViZTQ2ZmUtYjEzNS00MTRmLThiYzktZGExZjhlZDk2MzY0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="new gate" loading="lazy">
+    <div class="info">
+      <h3>The New Gate</h3>
+      <p>Isekai · Sword & Scrcery · Action · 2021</p>
+      <button class="download-btn" data-href="anime/the-new-gate.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="vinland saga" data-updated="2026-05-04" test="90472">
+    <img src="https://m.media-amazon.com/images/M/MV5BNDA3MGNmZTEtMzFiMy00ZmViLThhNmQtMjQ4ZDc5MDEyN2U1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="vinland-saga" loading="lazy">
+    <div class="info">
+      <h3>Vinland Saga</h3>
+      <p>Psychological Drama · Coming-of-Age · Historical Drama · 2019</p>
+      <button class="download-btn" data-href="anime/vinland-saga.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="debris" data-updated="2026-05-03" test="113226">
+    <img src="https://m.media-amazon.com/images/M/MV5BYTJhNzdlNWYtNjgzYS00N2ZmLWJiNDEtNDdhMjY4MTdjYTE0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="debris" loading="lazy">
+    <div class="info">
+      <h3>Debris</h3>
+      <p>Suspense Mystery· Sci-Fi · Thriller · 2021</p>
+      <button class="download-btn" data-href="tv-series/debris.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="teacup" data-updated="2026-04-27" test="255756">
+    <img src="https://m.media-amazon.com/images/M/MV5BZTk0Mjc3ZjUtY2E0Mi00YWZhLWIwOTgtODYyODNkNTU0YTQ1XkEyXkFqcGc@._V1_.jpg" alt="teacup" loading="lazy">
+    <div class="info">
+      <h3>Teacup</h3>
+      <p>Psychological Horror· Sci-Fi · Thriller · 2024</p>
+      <button class="download-btn" data-href="tv-series/teacup.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="the devil is a part timer hataraku maou sama" data-updated="2026-04-27" test="45334">
+    <img src="https://m.media-amazon.com/images/M/MV5BODdjMWIyYjQtNzI4ZC00ZjA1LWJmYzMtYTA1ZjFiNTMxZWI5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="the devil is a part timer" loading="lazy">
+    <div class="info">
+      <h3>The Devil Is a Part-Timer!</h3>
+      <p>Supernatural· Fantasy · Action · 2025</p>
+      <button class="download-btn" data-href="anime/the-devil-is-a-part-timer.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="dusk beyond the end of the world towa no yuugure" data-updated="2026-04-27" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BNTExYmZmZWEtMzNiOS00YjUwLWE5OTMtZjRiZjFmOTcxNzQ2XkEyXkFqcGc@._V1_.jpg" alt="dusk beyond" loading="lazy">
+    <div class="info">
+      <h3>Dusk Beyond the End of the World</h3>
+      <p>Romance · Sci-FI · 2025</p>
+      <button class="download-btn" data-href="anime/dusk-beyond-the-end-of-the-world.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+<div class="card" data-category="tv" data-title="stranger things tales from 85" data-updated="2026-04-23" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BMWU5NzgzY2QtNDVjZS00NDFkLThmMzctNTIzZmY5ZWYxZTE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="stranger-things-tales-from-85" loading="lazy">
+    <div class="info">
+      <h3>Stranger Things: Tales from '85</h3>
+      <p>Dark Fantasy · Monster Horror · Supernatural Fantasy · 2026</p>
+      <button class="download-btn" data-href="tv-series/stranger-things-tales-from-85.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="kings doctor horse doctor" data-updated="2026-04-23" test="74319">
+    <img src="https://koreandramadvd.com/cdn/shop/files/TheKing_sDoctorBoxSetFront_1024x1024@2x.jpg?v=1689187840" alt="kings doctor"loading="lazy">
+    <div class="info">
+      <h3>King's Doctor</h3>
+      <p>Korean · Romance · History · 2012</p>
+      <button class="download-btn" data-href="asian-dramas/kings-doctor.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="trese" data-updated="2026-04-23" test="130792">
+    <img src="https://m.media-amazon.com/images/M/MV5BODU2ZjEwMjUtMTZiOS00NmFiLTkwOTMtOWUxMjAxZTlmMGFmXkEyXkFqcGc@._V1_.jpg" alt="trese" loading="lazy">
+    <div class="info">
+      <h3>Trese</h3>
+      <p>Filipino · Superhero · Mystery · 2021</p>
+      <button class="download-btn" data-href="anime/trese.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="anohana the flower we saw that day ano hi mita hana no namae o bokutachi wa mada shiranai" data-updated="2026-04-23" test="31893">
+    <img src="https://m.media-amazon.com/images/M/MV5BMjc3ODU0ZTctNDgzYS00OWM2LTk0MGQtMzJiZmE1OTFjZTdkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="anohana" loading="lazy">
+    <div class="info">
+      <h3>Anohana: The Flower We Saw That Day</h3>
+      <p>Adventure · Fantasy · Mystery · 2011</p>
+      <button class="download-btn" data-href="anime/anohana.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="wash it all away kirei ni shitemoraemasu ka" data-updated="2026-04-23" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BN2E0OTYzZmMtODZhZS00MzI2LTlhMDQtYTA1NTIyZGRlMGY1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="seraph-of-the-end" loading="lazy">
+    <div class="info">
+      <h3>Wash It All Away</h3>
+      <p>Comedy · Slice of Life · Drama · 2026</p>
+      <button class="download-btn" data-href="anime/wash-it-all-away.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="our universe ujureul julge" data-updated="2026-04-23" test="0">
+    <img src="https://i.redd.it/g7uwsruhcuag1.jpeg" alt="our universe"loading="lazy">
+    <div class="info">
+      <h3>Our Universe</h3>
+      <p>Korean · Romance · Comedy · 2026</p>
+      <button class="download-btn" data-href="asian-dramas/our-universe.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="seraph of the end" data-updated="2026-04-23" test="62289">
+    <img src="https://m.media-amazon.com/images/M/MV5BNTllMDkyNGEtNzIzMi00ZmUyLTlhNjUtYzRmN2NhYzZmOTBmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="seraph-of-the-end" loading="lazy">
+    <div class="info">
+      <h3>Seraph of the End</h3>
+      <p>Supernatural · Fantasy · Adventure · 2015</p>
+      <button class="download-btn" data-href="anime/seraph-of-the-end.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="skip and loafer" data-updated="2026-04-23" test="209783">
+    <img src="https://m.media-amazon.com/images/M/MV5BNjU4N2UyZDItNDQxYi00NDMyLWJjM2MtYjVlMTMwMWQ4M2QyXkEyXkFqcGc@._V1_.jpg" alt="skp and loafer" loading="lazy">
+    <div class="info">
+      <h3>Skip and Loafer</h3>
+      <p>Romace · Comedy · Slice Of Life · 2023</p>
+      <button class="download-btn" data-href="anime/skip-and-loafer.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="classroom of the elite" data-updated="2026-04-22" test="70204">
+    <img src="https://m.media-amazon.com/images/M/MV5BMDg3MGVhNWUtYTQ2NS00ZDdiLTg5MTMtZmM5MjUzN2IxN2I4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="classroom-of-the-elite" loading="lazy">
+    <div class="info">
+      <h3>Classroom of the Elite</h3>
+      <p>Psychological · Thriller · Drama · 2017</p>
+      <button class="download-btn" data-href="anime/classroom-of-the-elite.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="astra lost in space kanata no astra" data-updated="2026-04-22" test="84949">
+    <img src="https://m.media-amazon.com/images/M/MV5BYTAwMTk3ZjAtNmY1Yy00ODgyLWI1ZDAtOGFiN2YwYTAyOGM2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="astra lost in space" loading="lazy">
+    <div class="info">
+      <h3>Astra Lost in Space</h3>
+      <p>Space Sci-Fi · Survival · Adventure · 2019</p>
+      <button class="download-btn" data-href="anime/astra-lost-in-space.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="my hero academia boku no hiro akademia" data-updated="2026-04-22" test="65930">
+    <img src="https://m.media-amazon.com/images/M/MV5BY2QzODA5OTQtYWJlNi00ZjIzLThhNTItMDMwODhlYzYzMjA2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="mha" loading="lazy">
+    <div class="info">
+      <h3>My Hero Academia</h3>
+      <p>Supernatural · Supernatural Fantasy · Action · 2016</p>
+      <button class="download-btn" data-href="anime/my-hero-academia.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="silo" data-updated="2026-04-22" test="136164">
+    <img src="https://i.redd.it/7na4snc20kwg1.jpeg" alt="silo" loading="lazy">
+    <div class="info">
+      <h3>Silo</h3>
+      <p>Dystopian Sci-Fi · Mystery · Sci-Fi · 2023</p>
+      <button class="download-btn" data-href="tv-series/silo.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="witch craft works" data-updated="2026-04-22" test="57238">
+    <img src="https://m.media-amazon.com/images/M/MV5BODU0NDFiMDAtNjhhZS00N2VlLWFlYjYtODBmNDFjZDNhZDQ4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="witch-craft-works" loading="lazy">
+    <div class="info">
+      <h3>Witch Craft Works</h3>
+      <p>Romance · Supernatural Fantasy · Comedy · 2014</p>
+      <button class="download-btn" data-href="anime/witch-craft-works.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="the daily ilfe of the immortal king" data-updated="2026-04-22" test="88371">
+    <img src="https://m.media-amazon.com/images/M/MV5BYTU2NGRmNTQtYTcyZi00OTNlLTgxMzEtZjRiZjUyNGRhYTM5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="daily life" loading="lazy">
+    <div class="info">
+      <h3>The Daily Life of the Immortal King</h3>
+      <p>Mandarin · Supernatural Fantasy · Action · 2020</p>
+      <button class="download-btn" data-href="anime/the-daily-life-of-the-immortal-king.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="code geass roze of the recapture dakkan no z" data-updated="2026-04-21" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BMjU1NGE0MGQtNzMyNC00NmIyLTk4ZTAtNGVjOGQ3ZGIxYWJlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="code geass 2024" loading="lazy">
+    <div class="info">
+      <h3>Code Geass: Rozé of the Recapture</h3>
+      <p>Mecha · Supernatural Fantasy · Psychological · 2024</p>
+      <button class="download-btn" data-href="anime/code-geass-roze-of-the-recapture.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="code geass kodo giasu hangyaku no rurushu" data-updated="2026-04-21" test="31500">
+    <img src="https://m.media-amazon.com/images/M/MV5BNTk4MWYwNmUtODFjNC00NWJhLWExNGYtMGU4YmRlNzEwOTY1XkEyXkFqcGc@._V1_.jpg" alt="code geass" loading="lazy">
+    <div class="info">
+      <h3>Code Geass</h3>
+      <p>Mecha · Supernatural Fantasy · Psychological · 2006</p>
+      <button class="download-btn" data-href="anime/code-geass.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="made in abyss" data-updated="2026-04-21" test="68820">
+    <img src="https://m.media-amazon.com/images/M/MV5BZjM4ODA5YTktNjliMC00NzI5LTk3ZTctZWYyYWEyNTJhMmQzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="made in abyss" loading="lazy">
+    <div class="info">
+      <h3>Made in Abyss</h3>
+      <p>Dark Fantasy · Folk Horror · Body Horror · 2017</p>
+      <button class="download-btn" data-href="anime/made-in-abyss.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="shangri la frontier" data-updated="2026-04-21" test="209543">
+    <img src="https://m.media-amazon.com/images/M/MV5BNjdkOTE4NWItYWUyNS00ZTQ5LWE5ODYtODA1YWUxNThhY2E1XkEyXkFqcGc@._V1_.jpg" alt="shangri-la-frontier" loading="lazy">
+    <div class="info">
+      <h3>Shangri-La Frontier</h3>
+      <p>Action · Adventure · Fantasy · 2023</p>
+      <button class="download-btn" data-href="anime/shangri-la-frontier.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+<div class="card" data-category="asian-drama" data-title="one high school heroes won ha i seu kui hi eo ro jeu" data-updated="2026-04-21" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BNzU0YzNiZjUtMTFmOC00NDk4LWIxZTEtYzYyYTE0YWI1ZDQyXkEyXkFqcGc@._V1_.jpg" alt="one-high-school-heores"loading="lazy">
+    <div class="info">
+      <h3>ONE: High School Heroes</h3>
+      <p>Korean · Action · Drama · 2025</p>
+      <button class="download-btn" data-href="asian-dramas/one-high-school-heroes.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="when they see us" data-updated="2026-04-20" test="79236">
+    <img src="https://m.media-amazon.com/images/M/MV5BMGU0MDIzZTAtYjBjZi00ZDQ1LThlYzctNWJkOWU4NTI5OWNkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="when-they-see-us" loading="lazy">
+    <div class="info">
+      <h3>When They See Us</h3>
+      <p>Docudrama · True Crime · Psychological Drama · 2019</p>
+      <button class="download-btn" data-href="tv-series/when-they-see-us.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="band of brothers" data-updated="2026-04-20" test="4613">
+    <img src="https://m.media-amazon.com/images/M/MV5BYjdlNGJlYjQtMDU2Mi00ZjA1LWEwYzgtYzlmNDM5MmE1ZGUwXkEyXkFqcGc@._V1_.jpg" alt="band-0f-brothers" loading="lazy">
+    <div class="info">
+      <h3>Band Of Brothers</h3>
+      <p>War Epic · History · Psychological Drama · 2001</p>
+      <button class="download-btn" data-href="tv-series/band-of-brothers.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="to my beloved thief" data-updated="2026-04-03" test="0">
+    <img src="https://i.mydramalist.com/JBYLVX_4f.jpg" alt="to my beloved thief" loading="lazy">
+    <div class="info">
+      <h3>To My Beloved Thief</h3>
+      <p>Korean · Comedy · History · Romance · 2026</p>
+      <button class="download-btn" data-href="asian-dramas/to-my-beloved-thief.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="strawberry marshmallow ichigo mashimaro" data-updated="2026-04-03" test="1487">
+    <img src="https://m.media-amazon.com/images/M/MV5BYWEyNDg5ZTktMzdjNy00ZDQ2LWI0MWItNWZiYTk4YTdkMjg5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="shiki" loading="lazy">
+    <div class="info">
+      <h3>Strawberry Marshmallow</h3>
+      <p>Comedy · Family · Drama · 2005</p>
+      <button class="download-btn" data-href="anime/ichigo-mashimaro.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="shiki" data-updated="2026-04-03" test="31234">
+    <img src="https://m.media-amazon.com/images/M/MV5BODM1OGEzZDMtNTkyMy00YWFiLTg2YTEtNzA4ODdmNTA3NTBlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="shiki" loading="lazy">
+    <div class="info">
+      <h3>Shiki</h3>
+      <p>Boddy Horror · Psychological Thriller · Supernatural Horror · 2010</p>
+      <button class="download-btn" data-href="anime/shiki.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="undercover miss hong" data-updated="2026-04-01" test="0">
+    <img src="https://witheyeseast.com/wp-content/uploads/2026/01/undercover-miss-hong-1.jpg" alt="undercover-miss-hong" loading="lazy">
+    <div class="info">
+      <h3>Undercover Miss Hong</h3>
+      <p>Korean · Comedy · Crime · 2026</p>
+      <button class="download-btn" data-href="asian-dramas/undercover-miss-hong.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="darling in the franxx" data-updated="2026-04-01" test="74259">
+    <img src="https://m.media-amazon.com/images/M/MV5BYWNlYzk1NGQtNTZkNi00YzJiLWJkMWUtZTYzNjI3YTc5ZDRhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="darling in the franxx" loading="lazy">
+    <div class="info">
+      <h3>Darling in the Franxx</h3>
+      <p>Mecha · Coming of Age · Anime · 2018</p>
+      <button class="download-btn" data-href="anime/darling-in-the-franxx.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="azumanga daioh" data-updated="2026-03-31" test="1486">
+    <img src="https://m.media-amazon.com/images/M/MV5BYmYyZWQzMTYtM2EyNS00YzllLThmZGYtZGY2ODA0NDc2M2FkXkEyXkFqcGc@._V1_.jpg" alt="azumanga-daioh" loading="lazy">
+    <div class="info">
+      <h3>Azumanga Daioh</h3>
+      <p>Slice of Life · Comedy · Anime · 2002</p>
+      <button class="download-btn" data-href="anime/azumanga-daioh.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="jewel in the palace dae jang geum" data-updated="2026-03-31" test="1617">
+    <img src="https://m.media-amazon.com/images/M/MV5BMGY0MjIyNmUtZGUyYy00Y2JkLWI3ZDctZTNmYzcyMzBhN2Y3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="jewel-in-the-palace" loading="lazy">
+    <div class="info">
+      <h3>Jewel in the Palace</h3>
+      <p>Korean · History · Medical Drama · 2003</p>
+      <button class="download-btn" data-href="asian-dramas/jewel-in-the-palace.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="the judge returns" data-updated="2026-03-31" test="0">
+    <img src="https://asianwiki.com/images/3/33/The_Judge_Returns-p.jpg" alt="the judge returns" loading="lazy">
+    <div class="info">
+      <h3>The Judge Returns</h3>
+      <p>Korean · Fantasy · Drama · 2026</p>
+      <button class="download-btn" data-href="asian-dramas/the-judge-returns.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="spring fever seupeuring pibeo" data-updated="2026-03-31" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BMmY0YmZiMTUtMDQ3OS00YzM2LTg0YzctOTJjOTAxMDFkNTQzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="spring fever" loading="lazy">
+    <div class="info">
+      <h3>Spring Fever</h3>
+      <p>Korean · Comedy · Romance · 2026</p>
+      <button class="download-btn" data-href="asian-dramas/spring-fever.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="squid game ojing eo geim" data-updated="2026-03-31" test="93405">
+    <img src="https://m.media-amazon.com/images/M/MV5BYTU3ZDVhNmMtMDVlNC00MDc0LTgwNDMtYWE5MTI2ZGI4YWIwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="squid game" loading="lazy">
+    <div class="info">
+      <h3>Squid Game</h3>
+      <p>Korean · Psychological Drama · Action · 2021</p>
+      <button class="download-btn" data-href="asian-dramas/squid-game.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="hunter x hunter" data-updated="2026-03-29" test="46298">
+    <img src="https://m.media-amazon.com/images/M/MV5BYzYxOTlkYzctNGY2MC00MjNjLWIxOWMtY2QwYjcxZWIwMmEwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="hunter x hunter" loading="lazy">
+    <div class="info">
+      <h3>Hunter X Hunter</h3>
+      <p>Fantasy · Action · Supernatural · 2011</p>
+      <button class="download-btn" data-href="anime/hunter-x-hunter.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="reply 1988 eungdaphara 1988" data-updated="2026-03-30" test="60660">
+    <img src="https://m.media-amazon.com/images/M/MV5BZmE4MjRjNjktYWZiMi00MDRkLThkZmEtMGY5MDhjNWRhNGFkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="reply 1988" loading="lazy">
+    <div class="info">
+      <h3>Reply 1988</h3>
+      <p>Korean · Romance · Comedy · Family · 2015</p>
+      <button class="download-btn" data-href="asian-dramas/reply-1988.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="cobra kai" data-updated="2026-03-29" test="77169">
+    <img src="https://m.media-amazon.com/images/M/MV5BYjA3NDkwNzktNjJkYi00ODNhLWFhYzQtYzk5NjU4MDM0OWZmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="cobra kai" loading="lazy">
+    <div class="info">
+      <h3>Cobra Kai</h3>
+      <p>Martial Arts · Comedy · Action · 2018</p>
+      <button class="download-btn" data-href="tv-series/cobra-kai.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="gachiakuta" data-updated="2026-03-29" test="240789">
+    <img src="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/gachiakuta_anime_visual.png" alt="gachiakuta" loading="lazy">
+    <div class="info">
+      <h3>Gachiakuta</h3>
+      <p>Dark Fantasy · Action · Adventure · 2025</p>
+      <button class="download-btn" data-href="anime/gachiakuta.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="black mirror" data-updated="2026-03-29" test="42009">
+    <img src="https://m.media-amazon.com/images/M/MV5BODcxMWI2NDMtYTc3NC00OTZjLWFmNmUtM2NmY2I1ODkxYzczXkEyXkFqcGc@._V1_.jpg" alt="black mirror" loading="lazy">
+    <div class="info">
+      <h3>Black Mirror</h3>
+      <p>Cyber Crime · Dark Comedy · Sci-Fi · 2011</p>
+      <button class="download-btn" data-href="tv-series/black-mirror.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="fringe" data-updated="2026-03-29" test="1705">
+    <img src="https://m.media-amazon.com/images/M/MV5BMWVlMmE1MmEtNjhjMC00MDdmLWIzZGMtNjc1YTZmNDc2MWExXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="fringe" loading="lazy">
+    <div class="info">
+      <h3>Fringe</h3>
+      <p>Suspense Mystery · Sci-Fi · Thriller · 2008</p>
+      <button class="download-btn" data-href="tv-series/fringe.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="flower of evil" data-updated="2026-03-29" test="101747">
+    <img src="https://m.media-amazon.com/images/M/MV5BZDI2YTZmMmQtMGE5NS00YWU2LTk1MDktMDQxMDYzNGI5MDA5XkEyXkFqcGc@._V1_.jpg" alt="flower of evil" loading="lazy">
+    <div class="info">
+      <h3>Flower of Evil</h3>
+      <p>Korean · Romance · Thriller · 2020</p>
+      <button class="download-btn" data-href="asian-dramas/flower-of-evil.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="positively yours" data-updated="2026-03-29" test="0">
+    <img src="https://i.mydramalist.com/PxAA70_4f.jpg" alt="positively-yours" loading="lazy">
+    <div class="info">
+      <h3>Positively Yours</h3>
+      <p>Korean · Romance · Comedy · 2026</p>
+      <button class="download-btn" data-href="asian-dramas/positively-yours.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+  
+  <div class="card" data-category="asian-drama" data-title="boyfriend on demand wolgannamchin" data-updated="2026-03-29" test="0">
+    <img src="https://asianwiki.com/images/f/fe/Boyfriend_on_Demand-p2.jpeg" alt="boyfriend-on-demand" loading="lazy">
+    <div class="info">
+      <h3>Boyfriend On Demand</h3>
+      <p>Korean · Romance · Comedy · 2026</p>
+      <button class="download-btn" data-href="asian-dramas/boyfriend-on-demand.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="malcolm in the middle" data-updated="2026-03-28" test="2004">
+    <img src="https://m.media-amazon.com/images/M/MV5BY2M0Y2M4YTQtZDdjMC00MDZiLWI1OGEtZDdjZjBiZDE4ODU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="malcolm-in-the-middle" loading="lazy">
+    <div class="info">
+      <h3>Malcolm in the Middle</h3>
+      <p>Sitcom · Comedy · Family · 2000</p>
+      <button class="download-btn" data-href="tv-series/malcolm-in-the-middle.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="prison break" data-updated="2026-03-28" test="2288">
+    <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185128_b_v8_ag.jpg" alt="prison break" loading="lazy">
+    <div class="info">
+      <h3>Prison Break</h3>
+      <p>Conspiracy Thriller · Crime · Psychological Thriller · 2005</p>
+      <button class="download-btn" data-href="tv-series/prison-break.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="dark" data-updated="2026-03-28" test="70523">
+    <img src="https://m.media-amazon.com/images/M/MV5BZTE1YTczZWUtNTI5Ny00NzI0LWFmODctYzZiYzQ3MmRmOWZlXkEyXkFqcGc@._V1_.jpg" alt="dark" loading="lazy">
+    <div class="info">
+      <h3>Dark</h3>
+      <p>German · Time Travel · Psychological Thriller · 2017</p>
+      <button class="download-btn" data-href="tv-series/dark.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="beyond the bar" data-updated="2026-03-28" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BNmQyYTAyOGMtMDcwOS00NDNlLWJhODctNTRlZTM5M2ZlMTgyXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="beyond-the-bar" loading="lazy">
+    <div class="info">
+      <h3>Beyond The Bar</h3>
+      <p>Korean · Drama · Leagal Drama · 2020</p>
+      <button class="download-btn" data-href="asian-dramas/beyond-the-bar.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="backstreet rookie" data-updated="2026-03-28" test="98778">
+    <img src="https://m.media-amazon.com/images/M/MV5BNWY3YWZhMGItMGNmNC00ZDMxLWEzYmMtYTE1M2IzM2NhNGQxXkEyXkFqcGc@._V1_.jpg" alt="backstreet-rookie" loading="lazy">
+    <div class="info">
+      <h3>Backstreet Rookie</h3>
+      <p>Romance · Action · Comedy · 2020</p>
+      <button class="download-btn" data-href="asian-dramas/backstreet-rookie.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="chernobyl" data-updated="2026-03-19" test="87108">
+    <img src="https://m.media-amazon.com/images/M/MV5BNzU0OTI4YTQtNGQ1ZS00ZjA4LTg3MTMtZjkyZWNjN2RiZDJmXkEyXkFqcGc@._V1_.jpg" alt="chernobyl" loading="lazy">
+    <div class="info">
+      <h3>Chernobyl</h3>
+      <p>Disaster · Thriller · Psychological Drama · 2019</p>
+      <button class="download-btn" data-href="tv-series/chernobyl.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="snowpiercer" data-updated="2026-02-27" test="79680">
+    <img src="https://m.media-amazon.com/images/M/MV5BMmM1ODg0MjktY2U3ZC00ZDc4LTkxMjAtMzljY2VkZmI3MmE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="snowpiercer" loading="lazy">
+    <div class="info">
+      <h3>Snowpiercer</h3>
+      <p>Sci-Fi · Thriller · Action · 2020</p>
+      <button class="download-btn" data-href="tv-series/snowpiercer.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="honey lemon soda" data-updated="2026-02-27" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BZjdhYTk5N2QtZTIzOC00NTUwLTk3MzItMjZkNzYzYzlhZGJlXkEyXkFqcGc@._V1_.jpg" alt="honey-lemon-soda" loading="lazy">
+    <div class="info">
+      <h3>Honey Lemon Soda</h3>
+      <p>Coming-of-age · Romance · Drama · 2025</p>
+      <button class="download-btn" data-href="anime/honey-lemon-soda.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="death note desu note" data-updated="2026-02-27" test="13916">
+    <img src="https://m.media-amazon.com/images/M/MV5BYTgyZDhmMTEtZDFhNi00MTc4LTg3NjUtYWJlNGE5Mzk2NzMxXkEyXkFqcGc@._V1_.jpg" alt="death-note" loading="lazy">
+    <div class="info">
+      <h3>Death Note</h3>
+      <p>Horror · Psychological Drama · Thriller · 2006</p>
+      <button class="download-btn" data-href="anime/death-note.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="bridgerton" data-updated="2026-02-12" test="126280">
+    <img src="https://m.media-amazon.com/images/M/MV5BNTNlNzVmNzEtNjcyZS00MTFlLThmZGMtZDg4ZmVhZGE0OWRhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="bridgerton" loading="lazy">
+    <div class="info">
+      <h3>Bridgerton</h3>
+      <p>Romance · Drama · Costume Drama · 2020</p>
+      <button class="download-btn" data-href="tv-series/bridgerton.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="peaky blinders" data-updated="2026-02-12" test="60574">
+    <img src="https://m.media-amazon.com/images/M/MV5BOGM0NGY3ZmItOGE2ZC00OWIxLTk0N2EtZWY4Yzg3ZDlhNGI3XkEyXkFqcGc@._V1_.jpg" alt="peaky blinders" loading="lazy">
+    <div class="info">
+      <h3>Peaky Blinders</h3>
+      <p>Crime · Gangstar · Action · 2013</p>
+      <button class="download-btn" data-href="tv-series/peaky-blinders.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="neon genesis evangelion shinseiki evangelion" data-updated="2026-02-09" test="2293">
+    <img src="https://m.media-amazon.com/images/M/MV5BZjZjZGI3ZDQtODNmZC00NjE0LTlmYTUtOTljMWI2YjNmMTQ0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="neon genesis" loading="lazy">
+    <div class="info">
+      <h3>Neon Genesis Evangelion</h3>
+      <p>Sci-Fi · Psychological Drama · Mecha · 1995</p>
+      <button class="download-btn" data-href="anime/neon-genesis-evangelion.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="serial experiments lain" data-updated="2026-02-05" test="1636">
+    <img src="https://scrmbl.imgix.net/posts-images/2025/08/Screenshot-2025-08-22-at-11.12.40.png" alt="lain" loading="lazy">
+    <div class="info">
+      <h3>Serial Experiments Lain</h3>
+      <p>Cyberpunk · Psychological Drama · Horror · 1998</p>
+      <button class="download-btn" data-href="anime/serial-experiments-lain.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="gchiakuta" data-updated="2026-02-05" test="240789">
+    <img src="https://m.media-amazon.com/images/M/MV5BZDU5ZmEzODYtMDU2OS00NTZiLTk4MWYtYWUyZWUzNGU2ODdjXkEyXkFqcGc@._V1_.jpg" alt="gachiakuta" loading="lazy">
+    <div class="info">
+      <h3>Gachiakuta</h3>
+      <p>Fantasy · Action · Adventure · 2025</p>
+      <button class="download-btn" data-href="anime/gachiakuta.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="the haunted palace" data-updated="2026-02-04" test="0">
+    <img src="https://0.soompi.io/wp-content/uploads/2025/03/12200737/the-haunted-palace.jpeg" alt="the haunted palace" loading="lazy">
+    <div class="info">
+      <h3>The Haunted Palace</h3>
+      <p>Romance · Fantasy · Drama · 2025</p>
+      <button class="download-btn" data-href="asian-dramas/the-haunted-palace.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="potato lab" data-updated="2026-01-31" test="0">
+    <img src="https://asianwiki.com/images/b/b2/The_Potato_Lab-p.jpg" alt="the potato lab" loading="lazy">
+    <div class="info">
+      <h3>The Potato Lab</h3>
+      <p>Romance · Comedy · Drama · 2025</p>
+      <button class="download-btn" data-href="asian-dramas/potato-lab.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the walking dead" data-updated="2026-01-30" test="1402">
+    <img src="https://m.media-amazon.com/images/M/MV5BYWQwMGRhNGEtZTNhMy00MzVjLWJhMjItYjcwMDljMTkyNTg2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="twd" loading="lazy">
+    <div class="info">
+      <h3>The Walking Dead</h3>
+      <p>Zombie Horror · Thriller · Action · 2010</p>
+      <button class="download-btn" data-href="tv-series/the-walking-dead.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="idol i a i doi a i" data-updated="2026-01-30" test="0">
+    <img src="https://asianwiki.com/images/1/1b/Idol_I-tp01.jpg" alt="idol i" loading="lazy">
+    <div class="info">
+      <h3>Idol I</h3>
+      <p>Romance · Comedy · Mystery · 2025</p>
+      <button class="download-btn" data-href="asian-dramas/idol-i.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="that time i got reincarnated as a slime tensei shitara suraimu datta ken" data-updated="2026-01-29" test="79671">
+    <img src="https://m.media-amazon.com/images/M/MV5BOTczMjM3MDUtYmZjMC00YzZhLWE4ODQtNjg5YWU4NTJjNzY2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="slime" loading="lazy">
+    <div class="info">
+      <h3>That Time I Got Reincarnated as a Slime</h3>
+      <p>Isekai · Action · Adventure · 2018</p>
+      <button class="download-btn" data-href="anime/that-time-i-got-reincarnated-as-a-slime.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="movie" data-title="greenland 2" data-updated="2026-01-28" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BOWEzM2IzZTMtYzA2Yi00NjY0LWE1ODktNTllZmI3ZTI1MzBmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="greenland 2" loading="lazy">
+    <div class="info">
+      <h3>Greenland 2: Migration</h3>
+      <p>Disaster · Action · Adventure · 2026</p>
+      <button class="download-btn" data-href="movies/greenland-2.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="movie" data-title="greenland" data-updated="2026-01-28" test="522924">
+    <img src="https://m.media-amazon.com/images/M/MV5BZWZjZGMwNmUtYmRiMS00ODEwLTgyYjQtOGUzMDNhOGU3OGQ0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="greenland" loading="lazy">
+    <div class="info">
+      <h3>Greenland</h3>
+      <p>Disaster · Action · Adventure · 2020</p>
+      <button class="download-btn" data-href="movies/greenland.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="s line" data-updated="2026-01-28" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BODVlYjY0YjUtZmVlYS00Y2RiLWIyZmUtODRjNjI3ZmQzMzlkXkEyXkFqcGc@._V1_.jpg" alt="s line" loading="lazy">
+    <div class="info">
+      <h3>S Line</h3>
+      <p>Mystery · Fantasy · Thriller · 2025</p>
+      <button class="download-btn" data-href="asian-dramas/s-line.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="movie" data-title="zootopia 2" data-updated="2026-01-27" test="1209290">
+    <img src="https://m.media-amazon.com/images/M/MV5BYjg1Mjc3MjQtMTZjNy00YWVlLWFhMWEtMWI3ZTgxYjJmNmRlXkEyXkFqcGc@._V1_.jpg" alt="zootopia 2" loading="lazy">
+    <div class="info">
+      <h3>Zootopia 2</h3>
+      <p>Animation · Comedy · Family · 2025</p>
+      <button class="download-btn" data-href="movies/zootopia-2.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="mitsudomoe" data-updated="2026-01-22" test="37106">
+    <img src="https://m.media-amazon.com/images/M/MV5BNGMyNDNjN2QtZWZiYy00Y2ExLWJhY2EtZGQ3OWVkNmRkZjE2XkEyXkFqcGc@._V1_.jpg" alt="mitsudomoe" loading="lazy">
+    <div class="info">
+      <h3>Mitsudomoe</h3>
+      <p>Comedy · Slice of Life · 2010</p>
+      <button class="download-btn" data-href="anime/mitsudomoe.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="supernatural" data-updated="2026-01-21" test="1622">
+    <img src="https://m.media-amazon.com/images/M/MV5BMzJhNDk0MGUtMWI0YS00ZGFmLWE3OTktZTMwNjhlZjExNWZhXkEyXkFqcGc@._V1_.jpg" alt="supernatural" loading="lazy">
+    <div class="info">
+      <h3>Supernatural</h3>
+      <p>Horror · Supernatural · Action · 2005</p>
+      <button class="download-btn" data-href="tv-series/supernatural.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="breaking bad bb" data-updated="2026-01-21" test="1396">
+    <img src="https://m.media-amazon.com/images/M/MV5BMzU5ZGYzNmQtMTdhYy00OGRiLTg0NmQtYjVjNzliZTg1ZGE4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="bb" loading="lazy">
+    <div class="info">
+      <h3>Breaking Bad</h3>
+      <p>Action · Crime · Drug Crime · 2008</p>
+      <button class="download-btn" data-href="tv-series/breaking-bad.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="game of thrones" data-updated="2026-01-21" test="1399">
+    <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="got" loading="lazy">
+    <div class="info">
+      <h3>Game of Thrones</h3>
+      <p>Action · Adventure · Fantasy · 2011</p>
+      <button class="download-btn" data-href="tv-series/game-of-thrones.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="for all mankinf" data-updated="2026-01-21" test="88396">
+    <img src="https://m.media-amazon.com/images/M/MV5BZmI5OTNmYWQtNjRhNy00MWYxLWJjMzAtMmRlNDU1ZjBhMzhlXkEyXkFqcGc@._V1_.jpg" alt="for all mankind" loading="lazy">
+    <div class="info">
+      <h3>For All Mankind</h3>
+      <p>Sci-Fi · Space Sci-Fi · Drama · 2019</p>
+      <button class="download-btn" data-href="tv-series/for-all-mankind.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="the legend of the legendary heroes densetsu no yuusha no densetsu" data-updated="2026-01-20" test="33040">
+    <img src="https://m.media-amazon.com/images/M/MV5BZTZmYjVjOWEtMzBlMS00MDI3LWIxOTUtNmU2OGZiYmI4MmMzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="the legend of the legendary heroes" loading="lazy">
+    <div class="info">
+      <h3>The Legend of the Legendary Heroes</h3>
+      <p>Action · Fantasy · Adventure · 2010</p>
+      <button class="download-btn" data-href="anime/the-legend-of-the-legendary-heroes.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="can this love be translated i sarang tongueok doenayo" data-updated="2026-01-19" test="0">
+    <img src="https://blog.amikom.ac.id/wp-content/uploads/2025/11/Sinopsis-Can-This-Love-Be-Translated-Drama-Korea-Lengkap-Dengan-Jadwal-Tayang-Pemain-dan-Link-Streaming-Nonton-Sub-Indo1-820x1024.jpg" alt="can this love be translated" loading="lazy">
+    <div class="info">
+      <h3>Can This Love Be Translated?</h3>
+      <p>Romance · Comedy · Drama · 2026</p>
+      <button class="download-btn" data-href="asian-dramas/can-this-love-be-translated.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="record of ragnarok" data-updated="2026-01-18" test="110316">
+    <img src="https://m.media-amazon.com/images/M/MV5BNDI0ZjAwZmQtNDViYy00ZGU3LTliZWQtMjdmYmM5ZTJmZDNkXkEyXkFqcGc@._V1_.jpg" alt="ror" loading="lazy">
+    <div class="info">
+      <h3>Record of Ragnarok</h3>
+      <p>Action · Fantasy · Survival · 2021</p>
+      <button class="download-btn" data-href="anime/record-of-ragnarok.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the x files" data-updated="2026-01-16" test="4087">
+    <img src="https://m.media-amazon.com/images/M/MV5BNzg3ODVhZWEtYmI0MC00NDQ0LWEyNGYtM2M0MTRhZTZmMjU3XkEyXkFqcGc@._V1_.jpg" alt="the x files" loading="lazy">
+    <div class="info">
+      <h3>The X-Files</h3>
+      <p>Sci-Fi · Mystery · Alien Invasion · 1993</p>
+      <button class="download-btn" data-href="tv-series/the-x-files.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="naruto clsasic" data-updated="2026-01-16" test="46260">
+    <img src="https://m.media-amazon.com/images/M/MV5BZTNjOWI0ZTAtOGY1OS00ZGU0LWEyOWYtMjhkYjdlYmVjMDk2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="naruto classic" loading="lazy">
+    <div class="info">
+      <h3>Naruto Classic</h3>
+      <p>Comedy · Adventure · Action · 2002</p>
+      <button class="download-btn" data-href="anime/naruto-classic.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="naruto shippuden" data-updated="2026-01-16" test="31910">
+    <img src="https://m.media-amazon.com/images/M/MV5BNTk3MDA1ZjAtNTRhYS00YzNiLTgwOGEtYWRmYTQ3NjA0NTAwXkEyXkFqcGc@._V1_.jpg" alt="naruto shippuden" loading="lazy">
+    <div class="info">
+      <h3>Naruto Shippuden</h3>
+      <p>Comedy · Adventure · Action · 2007</p>
+      <button class="download-btn" data-href="anime/naruto-shippuden.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="black clover" data-updated="2026-01-16" test="73223">
+    <img src="https://m.media-amazon.com/images/M/MV5BZmZkZjNhMWMtM2U0Mi00MjdlLTk3NmMtMTMwZjgwOTJmODMzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="black clover" loading="lazy">
+    <div class="info">
+      <h3>Black Clover</h3>
+      <p>Comedy · Adventure · Action · 2017</p>
+      <button class="download-btn" data-href="anime/black-clover.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="frieren beyond the journeys end" data-updated="2026-01-16" test="209867">
+    <img src="https://m.media-amazon.com/images/M/MV5BZTI4ZGMxN2UtODlkYS00MTBjLWE1YzctYzc3NDViMGI0ZmJmXkEyXkFqcGc@._V1_.jpg" alt="frieren" loading="lazy">
+    <div class="info">
+      <h3>Frieren: Beyond Journey's End</h3>
+      <p>Fantasy · Adventure · Action · 2023</p>
+      <button class="download-btn" data-href="anime/frieren.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="dark gathering" data-updated="2026-01-15" test="202612">
+    <img src="https://m.media-amazon.com/images/M/MV5BNjFjZjRiMDYtZWNkZC00YmYxLWIyZDQtYWFjYzI4M2Q3YjE0XkEyXkFqcGc@._V1_.jpg" alt="dark gathering" loading="lazy">
+    <div class="info">
+      <h3>Dark Gathering</h3>
+      <p>Horror · Supernatural · Thriller · 2023</p>
+      <button class="download-btn" data-href="anime/dark-gathering.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="the eminence in shadow kage no jitsuryokusha ni naritakute" data-updated="2026-01-14" test="95557">
+    <img src="https://m.media-amazon.com/images/M/MV5BMDFmMWJlMWYtMDFkNi00OWViLTkzOGEtNDI0YWNmM2M5MzI5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="the eminence in shadow" loading="lazy">
+    <div class="info">
+      <h3>The Eminence in Shadow</h3>
+      <p>Dark Fantasy · Isekai · Action · 2022</p>
+      <button class="download-btn" data-href="anime/the-eminence-in-shadow.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="hell's paradise jigokuraku" data-updated="2026-01-11" test="160922">
+    <img src="https://m.media-amazon.com/images/M/MV5BZjhmMjhkNjUtMGU2MC00N2IzLTg1YzItZDk5ODMxMDYxODc0XkEyXkFqcGc@._V1_.jpg" alt="hells paradise" loading="lazy">
+    <div class="info">
+      <h3>Hell's Paradise: Jigokuraku</h3>
+      <p>Dark Fantasy · Adventure · Action · 2023</p>
+      <button class="download-btn" data-href="anime/hells-paradise.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="uzumaki spiral into horror" data-updated="2026-01-11" test="147178">
+    <img src="https://m.media-amazon.com/images/M/MV5BNzc3OGYwMWEtNDVjYS00MGI3LWIzOGMtZTQ2NjQ3Njk3MzAyXkEyXkFqcGc@._V1_.jpg" alt="uzumaki" loading="lazy">
+    <div class="info">
+      <h3>Uzumaki</h3>
+      <p>Horror · Supernatural · Body Horror · 2024</p>
+      <button class="download-btn" data-href="anime/uzumaki.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="chained soldier mato seihei no slave" data-updated="2026-01-11" test="236765">
+    <img src="https://m.media-amazon.com/images/M/MV5BZGY3NTVhOWUtMDVmMy00OTIwLTkyYTMtYzQ5YjdmMDllODFkXkEyXkFqcGc@._V1_.jpg" alt="chained soldier" loading="lazy">
+    <div class="info">
+      <h3>Chained Soldier</h3>
+      <p>Romance · Fantasy · Action · 2024</p>
+      <button class="download-btn" data-href="anime/chained-soldier.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="boarding school juliet kishuku gakko no juliet" data-updated="2026-01-11" test="83615">
+    <img src="https://m.media-amazon.com/images/M/MV5BNDU3ZmMxMjQtNzhmOS00NDcyLTkxZGQtN2YyZDk5YjZiNzc0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="boarding school juliet" loading="lazy">
+    <div class="info">
+      <h3>Boarding School Juliet</h3>
+      <p>Romance · Comedy · Action · 2018</p>
+      <button class="download-btn" data-href="anime/boarding-school-juliet.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="movie" data-title="predator badlands" data-updated="2026-01-05" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BNTdjZGUxMTItNjRkNS00N2VhLWE4MjMtMjVhODMwMGIxNjUwXkEyXkFqcGc@._V1_.jpg" alt="predator badlands" loading="lazy">
+    <div class="info">
+      <h3>Predator: Badlands</h3>
+      <p>Sci-Fi · Action · Adventure · 2025</p>
+      <button class="download-btn" data-href="movies/predator-badlands.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="fire force" data-updated="2026-01-03" test="89060">
+    <img src="https://m.media-amazon.com/images/M/MV5BNDRhMDMzYzktYmI3My00YzBlLTkxOTMtMTUxNjZjN2NkOWQ4XkEyXkFqcGc@._V1_.jpg" alt="fire force" loading="lazy">
+    <div class="info">
+      <h3>Fire Force</h3>
+      <p>Dark Fantasy · Supernatural · Thriller · 2022</p>
+      <button class="download-btn" data-href="anime/fire-force.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="blue lock" data-updated="2026-01-01" test="126308">
+    <img src="https://image.tmdb.org/t/p/original/sTDTy73OYmKY51EK94Mc6AxogzR.jpg" alt="blue lock" loading="lazy">
+    <div class="info">
+      <h3>Blue Lock</h3>
+      <p>Sport · Soccer · Thriller · 2022</p>
+      <button class="download-btn" data-href="anime/blue-lock.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="stranger things" data-updated="2026-01-01" test="66732">
+    <img src="https://m.media-amazon.com/images/M/MV5BNjRiMTA4NWUtNmE0ZC00NGM0LWJhMDUtZWIzMDM5ZDIzNTg3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="stranger things" loading="lazy">
+    <div class="info">
+      <h3>Stranger Things</h3>
+      <p>Teen Horror · Sci-Fi · Dark Fantasy · 2016</p>
+      <button class="download-btn" data-href="tv-series/stranger-things.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="black butler" data-updated="2026-01-02" test="31763">
+    <img src="https://m.media-amazon.com/images/M/MV5BZjAzMjE3ZDktNzQ3Zi00OTNiLWEwZjYtOTgyMjYxMTc0NTM2XkEyXkFqcGc@._V1_.jpg" alt="black butler" loading="lazy">
+    <div class="info">
+      <h3>Black Butler</h3>
+      <p>Fantasy · Supernatural · Action · 2008</p>
+      <button class="download-btn" data-href="anime/black-butler.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="mieruko chan" data-updated="2025-12-21" test="128690">
+    <img src="https://m.media-amazon.com/images/M/MV5BNmEzNmJiZjgtY2U2OC00NmRiLTg4MDgtNmE3ZGYyMDY3ZTk5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="mieruko chan" loading="lazy">
+    <div class="info">
+      <h3>Mieruko-chan</h3>
+      <p>Body Horror · Dark Comedy · Seinen · 2021</p>
+      <button class="download-btn" data-href="anime/mieruko-chan.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="movie" data-title="the great flood daehongsu" data-updated="2025-12-21" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BZTVlYTJhNWQtZDdhMS00MjRhLWI3YWEtMDRkN2FhNTc3MWZlXkEyXkFqcGc@._V1_.jpg" alt="the great flood" loading="lazy">
+    <div class="info">
+      <h3>The Great Flood</h3>
+      <p>Disaster · Action · Adventure · 2025</p>
+      <button class="download-btn" data-href="movies/the-great-flood.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="blue eye samurai" data-updated="2025-12-21" test="222277">
+    <img src="https://m.media-amazon.com/images/M/MV5BY2E4ZGIwZWYtMGRiMS00NGI2LTgwYzAtZGY5NGVhNzY3Yjk0XkEyXkFqcGc@._V1_.jpg" alt="blue eye samurai" loading="lazy">
+    <div class="info">
+      <h3>Blue Eye Samurai</h3>
+      <p>Samurai · Action · Adventure · 2023</p>
+      <button class="download-btn" data-href="tv-series/blue-eye-samurai.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="scissor seven" data-updated="2025-12-21" test="86079">
+    <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p17726300_b_v13_ad.jpg" alt="scissor seven" loading="lazy">
+    <div class="info">
+      <h3>Scissor Seven</h3>
+      <p>Fantasy · Comedy · Action · 2020</p>
+      <button class="download-btn" data-href="anime/scissor-seven.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="spartacus house of ashur" data-updated="2025-12-21" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BZWQ1NDUwYjEtYTYzYS00YTc3LTgzOTEtZTM0ZDhhMGM3ODAwXkEyXkFqcGc@._V1_.jpg" alt="spartacus house of ashur" loading="lazy">
+    <div class="info">
+      <h3>Spartacus: House of Ashur</h3>
+      <p>Action · Drama · 2025</p>
+      <button class="download-btn" data-href="tv-series/spartacus-house-of-ashur.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="pluribus" data-updated="2025-12-21" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BOWNlM2E1MDMtYmI5MS00NDQ1LWI3NTctM2VlNjQ5OTAxYTNmXkEyXkFqcGc@._V1_.jpg" alt="pluribus" loading="lazy">
+    <div class="info">
+      <h3>Pluribus</h3>
+      <p>Dark Comedy · Drama · Sci-Fi · 2025</p>
+      <button class="download-btn" data-href="tv-series/pluribus.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="percy jackson and the olympian" data-updated="2025-12-20" test="212713">
+    <img src="https://m.media-amazon.com/images/M/MV5BMTI3YmIzNzYtOTcwNy00ZTZiLTg5NmQtMTUyNGY1ZWVmZDJiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="percy jackson and the olympian" loading="lazy">
+    <div class="info">
+      <h3>Percy Jackson and the Olympians</h3>
+      <p>Fantasy · Action · Adventure · 2023</p>
+      <button class="download-btn" data-href="tv-series/percy-jackson-and-the-olympian.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="moon river the moon flows through the river" data-updated="2025-12-19" test="0">
+    <img src="https://i.mydramalist.com/mOrExP_4f.jpg" alt="moon river" loading="lazy">
+    <div class="info">
+      <h3>Moon River</h3>
+      <p>Fantasy · Romance · Comedy · 2025</p>
+      <button class="download-btn" data-href="asian-dramas/moon-river.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the 100" data-updated="2026-01-11" test="48866">
+    <img src="https://m.media-amazon.com/images/M/MV5BNDdmZGYwOWEtN2FkZC00Y2ExLWJkY2UtNzFlODVlNzc3MGIzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="the 100" loading="lazy">
+    <div class="info">
+      <h3>The 100</h3>
+      <p>Sci-Fi · Action · Drama · 2014</p>
+      <button class="download-btn" data-href="tv-series/the-100.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="man vs baby" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BMzdjYWJiYTMtZDg3NC00ZTgxLTkyYzQtZTM0ZjdlMTgxZDg3XkEyXkFqcGc@._V1_.jpg" alt="man vs baby" loading="lazy">
+    <div class="info">
+      <h3>Man Vs Baby</h3>
+      <p>Comedy · Family · Slapstick · 2025</p>
+      <button class="download-btn" data-href="tv-series/man-vs-baby.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="tomb raider the legend of lara croft" test="235867">
+    <img src="https://m.media-amazon.com/images/M/MV5BMWZmYmUyMWEtNjM4MC00MTIyLWI0MzMtYTJhMTU5NTBjZWUxXkEyXkFqcGc@._V1_.jpg" alt="tomb raider the legend of lara croft" loading="lazy">
+    <div class="info">
+      <h3>Tomb Raider: The Legend of Lara Croft</h3>
+      <p>Action · Animation · Adventure · 2024</p>
+      <button class="download-btn" data-href="tv-series/tomb-raider-the-legend-of-lara-croft.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="chainsaw man the movie reze arc" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BYmUzMTk5MGQtZDg5Yy00MWEzLWIzNjUtNWIyMjFjODhiYjcyXkEyXkFqcGc@._V1_.jpg" alt="chainsaw man the movie reze arc" loading="lazy">
+    <div class="info">
+      <h3>Chainsaw Man The Movie: Reze Arc</h3>
+      <p>Adventure · Drama · 2025</p>
+      <button class="download-btn" data-href="anime/chainsaw-man-the-movie-reze-arc.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="merlin" test="16377">
+    <img src="https://m.media-amazon.com/images/M/MV5BNmI5NDgyZmQtNDc3YS00Mjg0LThmMzEtZjcyNzczOTJlYWY4XkEyXkFqcGc@._V1_.jpg" alt="merlin" loading="lazy">
+    <div class="info">
+      <h3>Merlin</h3>
+      <p>Fantasy · Supernatural · Adventure · 2008</p>
+      <button class="download-btn" data-href="tv-series/merlin.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="alien earth" test="0">
+    <img src="https://resizing.flixster.com/F-DapncwWWUAsdhUdVunOb4dJXU=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvODNkMTg2YmUtODVlMC00NjBiLThjYTMtNzQ1MDZlZTMwNThmLmpwZw==" alt="alien earth" loading="lazy">
+    <div class="info">
+      <h3>Alien Earth</h3>
+      <p>Sci-Fi · Monster Horror · Drama · 2025</p>
+      <button class="download-btn" data-href="tv-series/alien-earth.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="dexter resurrection" test="0">
+    <img src="https://resizing.flixster.com/JeYDDDyf_W_p2QoeO_Bw443FvXA=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvZDE1MzA0YmEtNGNjOC00NDMxLTg4YzEtMmZjNzZjZGUxOWY2LmpwZw==" alt="dexter resurrection" loading="lazy">
+    <div class="info">
+      <h3>Dexter: Resurrection</h3>
+      <p>Crime · Thriller · Drama · 2025</p>
+      <button class="download-btn" data-href="tv-series/dexter-resurrection.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="fullmetal alchemist brotherhood" test="31911">
+    <img src="https://m.media-amazon.com/images/M/MV5BMzNiODA5NjYtYWExZS00OTc4LTg3N2ItYWYwYTUyYmM5MWViXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="fullmetal alchemist brotherhood" loading="lazy">
+    <div class="info">
+      <h3>Fullmetal Alchemist: Brotherhood</h3>
+      <p>Fantasy · Tragedy · 2009</p>
+      <button class="download-btn" data-href="anime/fmab.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="robin hood 2025" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BYjJkNzkyNGEtNTBlMC00ZjExLThkNjItOTNlOGQ1MDdhYzliXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="robin hood 2025" loading="lazy">
+    <div class="info">
+      <h3>Robin Hood 2025</h3>
+      <p>Adventure · Drama · 2025</p>
+      <button class="download-btn" data-href="tv-series/robin-hood.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="don't toy with me, miss nagatoro" test="107530">
+    <img src="https://m.media-amazon.com/images/M/MV5BZjNhM2I2YTMtYzA1MC00NTljLWJhZjQtY2JmNmZlZjZlMmI0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="don't toy with me, miss nagatoro" loading="lazy">
+    <div class="info">
+      <h3>Don't Toy With Me, Miss Nagatoro</h3>
+      <p>Comedy · Romance · Anime · 2021</p>
+      <button class="download-btn" data-href="anime/miss-nagatoro.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="fallout" test="106379">
+    <img src="https://m.media-amazon.com/images/M/MV5BYzE1MTZmY2ItMTgxNi00OGU5LTk4NTItMmY2ODFhYzhjZjRkXkEyXkFqcGc@._V1_.jpg" alt="fallout" loading="lazy">
+    <div class="info">
+      <h3>Fallout</h3>
+      <p>Action · Survival · Adventure · 2024</p>
+      <button class="download-btn" data-href="tv-series/fallout.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="task" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BMmM4ZDUxNDctNjg0ZS00NWM4LTk4YzctYzAzZDJhMzRiYzE5XkEyXkFqcGc@._V1_.jpg" alt="task" loading="lazy">
+    <div class="info">
+      <h3>Task</h3>
+      <p>Crime · Drama · Drug Crime · 2025</p>
+      <button class="download-btn" data-href="tv-series/task.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the paper" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BMWNkZjY2NTgtODc0ZS00Nzg0LTg3MWMtZDNkMWNmM2FhNmY3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="the paper" loading="lazy">
+    <div class="info">
+      <h3>The Paper</h3>
+      <p>Sitcom · Comedy · Mockumentary · 2025</p>
+      <button class="download-btn" data-href="tv-series/the-paper.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="eyes of wakanda" test="0">
+    <img src="https://resizing.flixster.com/BBzknGU14NHPHeQabG5F3AdWyFg=/ems.cHJkLWVtcy1hc3NldHMvdHZzZWFzb24vMWRjNzRhY2ItMzYwZS00MjYyLWFiMWUtOTdiYzExOWMyN2U2LmpwZw==" alt="eyes of wakanda" loading="lazy">
+    <div class="info">
+      <h3>Eyes of Wakanda</h3>
+      <p>Action · Adventure · Superhero · 2025</p>
+      <button class="download-btn" data-href="tv-series/eyes-of-wakanda.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="what if" test="85775">
+    <img src="https://cdn.marvel.com/content/2x/whatif_lob_crd_01.jpg" alt="what if" loading="lazy">
+    <div class="info">
+      <h3>What If...?</h3>
+      <p>Action · Adventure · Superhero · 2021</p>
+      <button class="download-btn" data-href="tv-series/what-if.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="marvel zombies" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BNGNkYjI3ZWUtN2MzMS00NDg5LWE5MmYtZGE4Zjc0OGVhODM4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="marvel zombies" loading="lazy">
+    <div class="info">
+      <h3>Marvel Zombies</h3>
+      <p>Action · Adventure · Superhero · 2025</p>
+      <button class="download-btn" data-href="tv-series/marvel-zombies.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="foundation" test="44217">
+    <img src="https://m.media-amazon.com/images/M/MV5BMzY5OGJhYzItNGQyOS00NmU3LWFhOWMtNGY1OGVlNTlmYjc0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="foundation" loading="lazy">
+    <div class="info">
+      <h3>Foundation</h3>
+      <p>Space Sci-Fi · Drama · Sci-Fi · 2021</p>
+      <button class="download-btn" data-href="tv-series/foundation.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="dear x" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BZTRiOGQ2NGUtNzc3NC00OTY0LWJiZWMtNzBlOGVlNTY0ZThlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="dear x" loading="lazy">
+    <div class="info">
+      <h3>Dear X</h3>
+      <p>Crime · Romance · Thriller · 2025</p>
+      <button class="download-btn" data-href="asian-dramas/dear-x.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="asian-drama" data-title="surely tomorrow gyeongdoreul gidarimyeo" data-updated="2026-03-21" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BZDNkNDI1NzktYjJmOC00ZDUzLWE5NWEtNGI4NWRlMGQ3MzJiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="surely tomorrow"loading="lazy">
+    <div class="info">
+      <h3>Surely Tomorrow</h3>
+      <p>Korean · Comedy · Romance · 2025</p>
+      <button class="download-btn" data-href="asian-dramas/surely-tomorrow.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="tondemo skill de isekai hourou meshi campfire cooking in another world with my absurd skill" test="160401">
+    <img src="https://preview.redd.it/campfire-cooking-in-another-world-with-my-absurd-skill-new-v0-x9lm4msz2n4a1.jpg?auto=webp&s=2a6170123980ace80459fb02973c3d46f66628db" alt="campfire cooking" loading="lazy">
+    <div class="info">
+      <h3>Tondemo Skill de Isekai Hourou Meshi</h3>
+      <p>Isekai · Adventure · Comedy · 2023</p>
+      <button class="download-btn" data-href="anime/tondemo-skill-de-isekai-hourou-meshi.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="solo leveling" test="209265">
+    <img src="https://m.media-amazon.com/images/M/MV5BYTIwYzk3YmQtZmMwNS00ZDAwLTk5Y2MtOTEwODFlZmExMzliXkEyXkFqcGc@._V1_.jpg" alt="solo leveling" loading="lazy">
+    <div class="info">
+      <h3>Solo Leveling</h3>
+      <p>Action · Supernatural Fantasy · Adventure · 2024</p>
+      <button class="download-btn" data-href="anime/solo-leveling.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="blue box" test="221765">
+    <img src="https://m.media-amazon.com/images/M/MV5BZTQ3Zjg5YjQtMDE1NS00MmVhLTk0NjItZjJiNmExNWY5YmRjXkEyXkFqcGc@._V1_.jpg" alt="blue box" loading="lazy">
+    <div class="info">
+      <h3>Blue Box</h3>
+      <p>Romance · Sports · Slice of Life · 2025</p>
+      <button class="download-btn" data-href="anime/blue-box.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the last frontier" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BMmU1ZDg2MmEtNDY1OC00MDA1LWI3YTAtYzI0NGI4MTg1OTRkXkEyXkFqcGc@._V1_.jpg" alt="the last frontier" loading="lazy">
+    <div class="info">
+      <h3>The Last Frontier</h3>
+      <p>Action · Adventure · Thriller · 2025</p>
+      <button class="download-btn" data-href="tv-series/the-last-frontier.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="last samurai standing" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BODAxNWYyOTgtN2YyMS00MzU1LWFkNzYtYmQyYmJjMGQ2ZGM0XkEyXkFqcGc@._V1_.jpg" alt="last samurai standing" loading="lazy">
+    <div class="info">
+      <h3>Last Samurai Standing</h3>
+      <p>Action · Adventure · Samurai · 2025</p>
+      <button class="download-btn" data-href="tv-series/the-last-samurai-standing.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="movie" data-title="interstellar" test="157336">
+    <img src="https://m.media-amazon.com/images/M/MV5BZGYzMGY0ZjctNDY3ZC00MDEzLTgzN2YtYWM1OTQyOTI1NDMxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="interstellar" loading="lazy">
+    <div class="info">
+      <h3>Interstellar</h3>
+      <p>Sci-Fi · Adventure · Drama · 2014</p>
+      <button class="download-btn" data-href="movies/interstellar.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="the day of the jackal" test="0">
+    <img src="https://resizing.flixster.com/khwfuy-fjsp9jCPLvQBnk-9pZak=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvMmExNjFhZGMtNTg3MS00MmUwLWE0YzktM2IyMGEzYWVhNWY4LmpwZw==" alt="the day of the jackal" loading="lazy">
+    <div class="info">
+      <h3>The Day of the Jackal</h3>
+      <p>Action · Crime · Spy · 2025</p>
+      <button class="download-btn" data-href="tv-series/the-day-of-the-jackal.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="it welcome to derry" test="0">
+    <img src="https://images2.9c9media.com/image_asset/2025_9_24_edcf328d-1af0-47f9-88bc-b0f854bca560_png_2000x3000.jpg" alt="it welcome to derry" loading="lazy">
+    <div class="info">
+      <h3>It: Welcome to Derry</h3>
+      <p>Body Horror · Monster Horror · Dark Fantasy · 2025</p>
+      <button class="download-btn" data-href="tv-series/it-welcome-to-derry.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="peacemaker" test="91363">
+    <img src="https://resizing.flixster.com/YjquXjsEOPntiHVUvZlTljYnlZw=/ems.cHJkLWVtcy1hc3NldHMvdHZzZWFzb24vNDJkODE0MDctYjAzNy00MWIyLTlmMjgtZDM5YWY3MDI0YjUzLmpwZw==" alt="peacemaker" loading="lazy">
+    <div class="info">
+      <h3>Peacemaker</h3>
+      <p>Action · Crime · Dark Comedy · 2022</p>
+      <button class="download-btn" data-href="tv-series/peacemaker.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="86" test="106453">
+    <img src="https://m.media-amazon.com/images/M/MV5BOWNmY2IzOGItMmQyNy00ZTM0LThiNjItODM3YzdkYjRlNWU1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="86" loading="lazy">
+    <div class="info">
+      <h3>86</h3>
+      <p>Mecha · Sci-Fi · Survival · 2021</p>
+      <button class="download-btn" data-href="anime/86.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="akame ga kill!" test="61150">
+    <img src="https://m.media-amazon.com/images/M/MV5BYTQyZGQzMmUtNjcwMy00ZThiLWFmMzMtOTA0NTI3OWE0MTU0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="akame ga kill" loading="lazy">
+    <div class="info">
+      <h3>Akame Ga Kill!</h3>
+      <p>Body Horror · Dark Fantasy · Action · 2014</p>
+      <button class="download-btn" data-href="anime/akame-ga-kill.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="the summer hikaru died" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BMjdiNjg4ZDQtNTI2ZS00NmJhLWE5ZWUtMTc0OWY0M2JmODVmXkEyXkFqcGc@._V1_.jpg" alt="the summer hikaru died" loading="lazy">
+    <div class="info">
+      <h3>The Summer Hikaru Died</h3>
+      <p>Slice of Life · Supernatural · Horror · 2025</p>
+      <button class="download-btn" data-href="anime/the-summer-hikaru-died.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="dororo" test="84102">
+    <img src="https://preview.redd.it/dororo-is-peak-fiction-v0-il67pnv5oube1.jpeg?auto=webp&s=972822fa13ca5c056f2862aa810def6f82e4d426" alt="dororo" loading="lazy">
+    <div class="info">
+      <h3>Dororo</h3>
+      <p>Body Horror · Dark Fantasy · Horror · 2019</p>
+      <button class="download-btn" data-href="anime/dororo.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="the witcher and the beast" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BZjQ1YTBiOGEtYWIzYS00NDQyLTlhNjgtY2JjMjFmMTVhOGY4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="the witcher and the beast" loading="lazy">
+    <div class="info">
+      <h3>The Witcher and The Beast</h3>
+      <p>Action · Fantasy · Thriller · 2024</p>
+      <button class="download-btn" data-href="anime/the-witch-and-the-beast.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="shadows house" test="111855">
+    <img src="https://m.media-amazon.com/images/M/MV5BZTQzNDVkNWYtZDViYy00NTYzLTg5NjUtYzI5OWM1OTcwOWI3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="shadows house" loading="lazy">
+    <div class="info">
+      <h3>Shadows House</h3>
+      <p>Psychological Drama · Fantasy · Mystery · 2022</p>
+      <button class="download-btn" data-href="anime/shadow-house.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="tonari no seki-kun: the master of killing time" test="60315">
+    <img src="https://m.media-amazon.com/images/M/MV5BMmU4ZTk3Y2YtN2NhZS00MTQwLTk3MTEtNTQ5ZDEwMTBjOTdkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="tonari no seki-kun" loading="lazy">
+    <div class="info">
+      <h3>Tonari no Seki-kun</h3>
+      <p>Comedy · Hand-Drawn Animation · 2014</p>
+      <button class="download-btn" data-href="anime/tonari-no-seki-kun.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="scumbag system" test="0">
+    <img src="https://m.media-amazon.com/images/M/MV5BZWI5YjQyNDYtNjMxMy00NzU3LWFiMjctNWNjMTU5ZTQxY2I5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="scumbag system" loading="lazy">
+    <div class="info">
+      <h3>Scumbag System</h3>
+      <p>Supernatural · Fantasy · Romance · 2020</p>
+      <button class="download-btn" data-href="anime/scumbag-system.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="the kingdom of ruin" test="224874">
+    <img src="https://m.media-amazon.com/images/M/MV5BY2M4MjE2ZmEtM2M2MC00NjU2LWI0Y2EtNzRkNGVkNmM5MDBjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="the kingdom of ruin" loading="lazy">
+    <div class="info">
+      <h3>The Kingdom of Ruin</h3>
+      <p>Dark Fantasy · Action · Hard-Coded · 2023</p>
+      <button class="download-btn" data-href="anime/the-kingdoms-of-ruins.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="chaos dragon" test="65077">
+    <img src="https://m.media-amazon.com/images/M/MV5BMWE1MDk1YjUtOGZhMi00MTYzLTllMDYtOGEwZWViNDk2MjdmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="chaos dragon" loading="lazy">
+    <div class="info">
+      <h3>Chaos Dragon</h3>
+      <p>Action · Mystery · Fantasy · 2015</p>
+      <button class="download-btn" data-href="anime/chaos-dragon.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="laid-back camp" test="75489">
+    <img src="https://m.media-amazon.com/images/M/MV5BOTk2NzZjNzctMDEyZC00MDdlLTk3M2EtNGNmYmJlZWU4ZGQ2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="laid-back camp" loading="lazy">
+    <div class="info">
+      <h3>Laid-Back Camp</h3>
+      <p>Slice of Life · Adventure · Comedy · 2018</p>
+      <button class="download-btn" data-href="anime/laid-back-camp.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="gnosia" test="0">
+    <img src="https://external-preview.redd.it/gnosia-anime-new-key-visual-v0-GI_rJdzw03U_r-I7GSaVfrTW1AY1NwHi9c1oXls4Ipc.jpeg?auto=webp&s=1605010f7244a0d6f40a1bdb5242ba0c3bed67b7" alt="gnosia" loading="lazy">
+    <div class="info">
+      <h3>Gnosia</h3>
+      <p>Fantasy · Sci-Fi · Mystery · 2025</p>
+      <button class="download-btn" data-href="anime/Gnosia.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="to your eternity" test="117244">
+    <img src="https://m.media-amazon.com/images/M/MV5BMzZhYzAzODUtMzYxMi00OWE1LWI4ZTQtYzU4ZjgxZjcxODA3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="to your eternity" loading="lazy">
+    <div class="info">
+      <h3>To Your Eternity</h3>
+      <p>Fantasy · Supernatural · Adventure · 2021</p>
+      <button class="download-btn" data-href="anime/to-your-eternity.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="metallic rouge" test="212934">
+    <img src="https://m.media-amazon.com/images/M/MV5BNzM3ZWY2MmMtZDgxZS00N2VhLWE0ODktMDY4MDcyYzcyNjgzXkEyXkFqcGc@._V1_.jpg" alt="metallic rouge" loading="lazy">
+    <div class="info">
+      <h3>Metallic Rouge</h3>
+      <p>Action · Mecha · Adventure · 2024</p>
+      <button class="download-btn" data-href="anime/metallic-rouge.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="terminator: zero" test="240411">
+    <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p27735156_b_v10_ab.jpg" alt="terminator zero" loading="lazy">
+    <div class="info">
+      <h3>Terminator: Zero</h3>
+      <p>Action · Sci-Fi · Cyberpunk · 2024</p>
+      <button class="download-btn" data-href="anime/terminator-zero.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="tv" data-title="inside job" test="118048">
+    <img src="https://resizing.flixster.com/8q4j8p5tl7fYaGMo8X7lalS93NA=/ems.cHJkLWVtcy1hc3NldHMvdHZzZWFzb24vNTExOTdlYjgtMDkzOC00ZDBlLWEyZTctZDEwMWQyM2RhNDczLmpwZw==" alt="inside job" loading="lazy">
+    <div class="info">
+      <h3>Inside Job</h3>
+      <p>Sitcom · Sci-Fi · Comedy · 2021</p>
+      <button class="download-btn" data-href="tv-series/inside-job.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="my senpai is annoying" test="131074">
+    <img src="https://m.media-amazon.com/images/M/MV5BMDAzNmRjMGQtMTdiMC00ZmM1LTlhZjQtYzU4N2ZiYmMyZjMzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="my senpai is annoying" loading="lazy">
+    <div class="info">
+      <h3>My Senpai is Annoying</h3>
+      <p>Romance · Slice of Life · Comedy · 2021</p>
+      <button class="download-btn" data-href="anime/my-senpai-is-annoying.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="my little monster" test="46261">
+    <img src="https://m.media-amazon.com/images/M/MV5BYzg1MTU3MWMtYjJlNi00YzQ2LTg3YTUtMTM1NzY4Y2Y5MDdiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="my little monster" loading="lazy">
+    <div class="info">
+      <h3>My Little Monster</h3>
+      <p>Romance · Slice of Life · Comedy · 2012</p>
+      <button class="download-btn" data-href="anime/my-little-monster.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="orange" test="65409">
+    <img src="https://m.media-amazon.com/images/M/MV5BZDFiMTFkOWItMTY3ZC00M2VhLWE5ZGUtNWVlMTc5ZWRiODNlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="orange" loading="lazy">
+    <div class="info">
+      <h3>Orange</h3>
+      <p>Romance · Slice of Life · Drama · 2016</p>
+      <button class="download-btn" data-href="anime/orange.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+  <div class="card" data-category="anime" data-title="scum's wish" test="65507">
+    <img src="https://m.media-amazon.com/images/M/MV5BYmViYjA4NDktOGNkMS00ZDZiLTllZjctNjgzNjcwOWU1MWUwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="scum's wish" loading="lazy">
+    <div class="info">
+      <h3>Scum's Wish</h3>
+      <p>Romance · Drama · Seinen · 2017</p>
+      <button class="download-btn" data-href="anime/scums-wish.html">⬇ Download <span class="dl-count"></span></button>
+    </div>
+  </div>
+
+</div><!-- end .grid -->
+
+<button onclick="topFunction()" class="back-to-top" id="backToTop" title="Back to top">↑</button>
+
+<script>
+/* ================= CONFIG ================= */
+const API_COUNTS  = "/.netlify/functions/counts";
+const API_DOWNLOAD = "/.netlify/functions/download";
+
+/* ================= LATEST BADGE SYSTEM ================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const LATEST_DAYS = 3;
+  const now  = new Date();
+  const grid = document.getElementById("gridContainer");
+  const cards = Array.from(grid.querySelectorAll(".card"));
+
+  cards.forEach(card => {
+    const updated = card.dataset.updated;
+    if (!updated) return;
+    const diffDays = (now - new Date(updated + "T00:00:00")) / 86400000;
+    if (diffDays >= 0 && diffDays <= LATEST_DAYS) {
+      const badge = document.createElement("span");
+      badge.className = "latest-badge";
+      badge.textContent = "NEW";
+      card.prepend(badge);
+      card.dataset.latest = "true";
+    }
+  });
+
+  /* ── WhatsApp Bot Badge ── */
+  /* Add data-wa="true" to any card that's available via the WhatsApp bot */
+  document.querySelectorAll('.card[data-wa="true"]').forEach(card => {
+    const waBadge = document.createElement("span");
+    waBadge.className = "wa-badge";
+    waBadge.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>WA`;
+    card.prepend(waBadge);
+  });
+
+  // Sort latest to top
+  cards.sort((a, b) => (b.dataset.latest === "true" ? 1 : 0) - (a.dataset.latest === "true" ? 1 : 0));
+  cards.forEach(card => grid.appendChild(card));
+
+  // Init results count
+  updateResultsCount();
+});
+
+/* ================= INTERSECTION OBSERVER — SCROLL REVEAL ================= */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      // Stagger based on position in viewport batch
+      setTimeout(() => entry.target.classList.add("visible"), (i % 8) * 55);
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.05, rootMargin: "0px 0px -30px 0px" });
+
+document.querySelectorAll(".card").forEach(card => revealObserver.observe(card));
+
+/* ================= RESULTS COUNT ================= */
+function updateResultsCount() {
+  const visible = document.querySelectorAll(".card:not([style*='display: none'])").length;
+  const span = document.getElementById("resultsCount");
+  if (span) span.innerHTML = `<span>${visible}</span> title${visible !== 1 ? "s" : ""}`;
+}
+
+/* ================= FILTER PILLS ================= */
+document.getElementById("filterPills").addEventListener("click", e => {
+  const pill = e.target.closest(".pill");
+  if (!pill) return;
+
+  document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
+  pill.classList.add("active");
+
+  const filter = pill.dataset.filter;
+  document.querySelectorAll(".card").forEach(card => {
+    const show = filter === "all" || card.dataset.category === filter;
+    card.style.display = show ? "" : "none";
+  });
+
+  // Sync hidden search input (legacy compat)
+  updateResultsCount();
+  checkEmpty();
+});
+
+/* ================= SEARCH ================= */
+document.getElementById("searchBox").addEventListener("input", function () {
+  const input = this.value.toLowerCase().trim();
+  document.querySelectorAll(".card").forEach(card => {
+    const matches = card.dataset.title.toLowerCase().includes(input);
+    card.style.display = matches ? "" : "none";
+  });
+  updateResultsCount();
+  checkEmpty();
+});
+
+/* Keyboard shortcut "/" to focus search */
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && document.activeElement.tagName !== "INPUT") {
+    e.preventDefault();
+    document.getElementById("searchBox").focus();
+  }
+  if (e.key === "Escape") document.getElementById("searchBox").blur();
+});
+
+/* ================= EMPTY STATE ================= */
+function checkEmpty() {
+  const grid = document.getElementById("gridContainer");
+  let empty = grid.querySelector(".empty-state");
+  const visibleCards = document.querySelectorAll(".card:not([style*='display: none'])");
+  if (visibleCards.length === 0) {
+    if (!empty) {
+      empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+        </svg>
+        <p>No results found</p>
+      `;
+      grid.appendChild(empty);
+    }
+  } else {
+    if (empty) empty.remove();
+  }
+}
+
+/* ================= VIEW MODE TOGGLE ================= */
+document.getElementById("gridViewBtn").addEventListener("click", function () {
+  document.getElementById("gridContainer").classList.remove("list-view");
+  this.classList.add("active");
+  document.getElementById("listViewBtn").classList.remove("active");
+});
+
+document.getElementById("listViewBtn").addEventListener("click", function () {
+  document.getElementById("gridContainer").classList.add("list-view");
+  this.classList.add("active");
+  document.getElementById("gridViewBtn").classList.remove("active");
+});
+
+/* ================= DOWNLOAD COUNT HELPERS ================= */
+function ensureDataIds() {
+  document.querySelectorAll(".download-btn").forEach(btn => {
+    if (btn.dataset.id) return;
+    const href = btn.getAttribute("data-href") || "";
+    const m = href.match(/\/?([^\/?#]+)\.html(?:[?#].*)?$/i);
+    if (m && m[1]) btn.dataset.id = m[1].toLowerCase().replace(/[^a-z0-9\-_]/g, "-");
+  });
+}
+
+async function loadDownloadCounts() {
+  ensureDataIds();
+  const btns = Array.from(document.querySelectorAll(".download-btn[data-id]"));
+  if (!btns.length) return;
+  const ids = btns.map(b => b.dataset.id);
+  try {
+    const res  = await fetch(`${API_COUNTS}?ids=${encodeURIComponent(ids.join(","))}`, { method: "GET", cache: "no-store" });
+    const data = await res.json();
+    if (!data.ok) return;
+    btns.forEach(btn => {
+      const count = (data.counts && typeof data.counts[btn.dataset.id] !== "undefined") ? data.counts[btn.dataset.id] : 0;
+      const span = btn.querySelector(".dl-count");
+      if (span && count > 0) span.textContent = `(${count})`;
+    });
+  } catch (e) { /* ignore */ }
+}
+
+async function incrementCount(itemId) {
+  const form = new URLSearchParams();
+  form.append("item_id", itemId);
+  const res = await fetch(API_DOWNLOAD, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: form.toString()
+  });
+  return await res.json();
+}
+
+/* ================= BOT STATUS + DOWNLOAD LOGIC ================= */
+document.addEventListener("DOMContentLoaded", () => {
+  loadDownloadCounts();
+
+  const botStatus = document.getElementById("bot-status");
+  const isOffline = botStatus && botStatus.classList.contains("bot-offline");
+
+  document.querySelectorAll(".download-btn").forEach(btn => {
+    if (isOffline) {
+      btn.style.opacity = "0.5";
+      btn.style.cursor = "not-allowed";
+      btn.onclick = e => { e.preventDefault(); alert("Bot is currently offline for maintenance."); };
+      return;
+    }
+
+    btn.onclick = async function (e) {
+      e.preventDefault();
+      const href = this.getAttribute("data-href");
+      const id   = this.dataset.id;
+      if (!href) return;
+      if (!id) { location.href = href; return; }
+
+      const span = this.querySelector(".dl-count");
+      if (span) {
+        const current = parseInt(span.textContent.replace(/[^\d]/g, ""), 10) || 0;
+        span.textContent = `(${current + 1})`;
+      }
+
+      try {
+        const data = await incrementCount(id);
+        if (data.ok && span) span.textContent = `(${data.count})`;
+      } catch (err) { /* ignore */ }
+
+      location.href = href;
+    };
+  });
+});
+
+/* ================= BACK TO TOP ================= */
+const backToTopBtn = document.getElementById("backToTop");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) backToTopBtn.classList.add("visible");
+  else backToTopBtn.classList.remove("visible");
+}, { passive: true });
+
+function topFunction() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ================= MOBILE TAP-TO-REVEAL CARDS ================= */
+// Only on touch devices
+if (window.matchMedia("(pointer: coarse)").matches) {
+  document.getElementById("gridContainer").addEventListener("click", e => {
+    const card = e.target.closest(".card");
+    if (!card) return;
+
+    // If tapping the download button, let it fire normally
+    if (e.target.closest(".download-btn")) return;
+
+    const alreadyTapped = card.classList.contains("tapped");
+
+    // Untap all other cards
+    document.querySelectorAll(".card.tapped").forEach(c => c.classList.remove("tapped"));
+
+    // Toggle the tapped card
+    if (!alreadyTapped) card.classList.add("tapped");
+  });
+}
+</script>
+<script src="popup-ad.js"></script>
+
+  <!--  TMDB AUTO-ENRICH  -->
+<script>
+  const TMDB_KEY = 'e8a74c378c9947d64e477be27a836c34'; // ← tmdb
+
+  (function initTmdbEnrich() {
+    if (!TMDB_KEY || TMDB_KEY === 'YOUR_TMDB_API_KEY_HERE') return;
+
+    const queue   = [];
+    let   running = false;
+
+    function mtype(card) {
+      return card.dataset.category === 'movie' ? 'movie' : 'tv';
+    }
+
+    async function drainQueue() {
+      if (running || !queue.length) return;
+      running = true;
+      while (queue.length) {
+        const card = queue.shift();
+        const id   = card.dataset.tmdbId;
+        if (!id || id === '0') continue;
+        const type = mtype(card);
+        try {
+          const r = await fetch(
+            `https://api.themoviedb.org/3/${type}/${id}?api_key=${TMDB_KEY}&language=en-US`
+          );
+          const d = await r.json();
+
+          /* ── Poster ── */
+          if (d.poster_path) {
+            const img = card.querySelector('img');
+            if (img) img.src = `https://image.tmdb.org/t/p/w500${d.poster_path}`;
+          }
+
+          /* ── Title ── */
+          const tmdbTitle = d.name || d.title;
+          if (tmdbTitle) {
+            const h3 = card.querySelector('h3');
+            if (h3) h3.textContent = tmdbTitle;
+          }
+
+          /* ── Genres + Year ── */
+          if (d.genres?.length) {
+            const g1   = d.genres[0]?.name || '';
+            const g2   = d.genres[1]?.name || '';
+            const date = type === 'tv' ? d.first_air_date : d.release_date;
+            const year = date ? new Date(date).getFullYear() : '';
+            const p    = card.querySelector('p');
+            if (p) p.textContent = [g1, g2, year].filter(Boolean).join(' · ');
+          }
+
+        } catch { /* keep existing content on network error */ }
+        await new Promise(r => setTimeout(r, 220)); /* ~4.5 req/s */
+      }
+      running = false;
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const card = entry.target;
+        if (!card.dataset.tmdbLoaded) {
+          card.dataset.tmdbLoaded = '1';
+          queue.push(card);
+          drainQueue();
+        }
+        observer.unobserve(card);
+      });
+    }, { rootMargin: '300px 0px', threshold: 0 });
+
+    document.querySelectorAll('.card[data-tmdb-id]:not([data-tmdb-id="0"])').forEach(c =>
+      observer.observe(c)
+    );
+  })();
+</script>
+</body>
+</html>
