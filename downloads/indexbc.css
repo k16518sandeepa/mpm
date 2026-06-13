@@ -489,39 +489,6 @@ nav a.active {
   50%       { box-shadow: 0 0 16px rgba(229,0,0,0.5); }
 }
 
-/* ── WHATSAPP BADGE ── */
-.wa-badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: #25D366;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  padding: 3px 7px 3px 5px;
-  border-radius: 4px;
-  z-index: 6;
-  box-shadow: 0 2px 10px rgba(37, 211, 102, 0.4);
-  pointer-events: none;
-  user-select: none;
-}
-
-.wa-badge svg {
-  width: 11px;
-  height: 11px;
-  flex-shrink: 0;
-}
-
-/* In list view keep badge at top-right of the thumb */
-.grid.list-view .wa-badge {
-  top: 6px;
-  right: 6px;
-}
-
 /* ── LIST VIEW MODE ── */
 .grid.list-view {
   grid-template-columns: 1fr;
