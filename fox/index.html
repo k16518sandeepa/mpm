@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MPM Member Quiz</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080808;
+      --surface:  #111111;
+      --border:   #222222;
+      --red:      #e50000;
+      --gold:     #e8c96a;
+      --text:     #f0f0f0;
+      --muted:    #888888;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* film grain overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 20px 32px;
+    }
+
+    /* ── Header ─────────────────────────────── */
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .header .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 3px;
+      color: var(--text);
+    }
+    .header .logo span { color: var(--red); }
+    .header .tagline {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── Progress bar ────────────────────────── */
+    .progress-wrap {
+      margin-bottom: 24px;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .progress-track {
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    /* ── Question card ──────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      flex: 1;
+    }
+    .question-text {
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--text);
+      margin-bottom: 22px;
+      min-height: 60px;
+    }
+
+    /* ── Options ────────────────────────────── */
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+      text-align: left;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .option:active { transform: scale(0.98); }
+    .option:hover  { border-color: var(--muted); }
+    .option .opt-letter {
+      min-width: 26px; height: 26px;
+      background: var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 600;
+      color: var(--muted);
+      transition: background 0.15s, color 0.15s;
+    }
+    .option.correct { border-color: #2ea043; background: rgba(46,160,67,0.08); }
+    .option.correct .opt-letter { background: #2ea043; color: #fff; }
+    .option.wrong   { border-color: var(--red); background: rgba(229,0,0,0.07); }
+    .option.wrong   .opt-letter { background: var(--red); color: #fff; }
+    .option.disabled { pointer-events: none; opacity: 0.45; }
+
+    /* ── Hint ───────────────────────────────── */
+    .hint {
+      display: none;
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(232,201,106,0.08);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--gold);
+    }
+
+    /* ── Attempts badge ─────────────────────── */
+    .attempts {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: right;
+    }
+    .attempts.warn { color: var(--red); }
+
+    /* ── Result screens ─────────────────────── */
+    .result {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex: 1;
+      padding: 32px 20px;
+      gap: 16px;
+    }
+    .result.show { display: flex; }
+    .result-icon { font-size: 64px; }
+    .result-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      letter-spacing: 2px;
+    }
+    .result-title.pass { color: var(--gold); }
+    .result-title.fail { color: var(--red); }
+    .result-body { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 300px; }
+    .result-btn {
+      margin-top: 8px;
+      padding: 14px 32px;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">MOTION PICTURE <span>MAFIA</span></div>
+    <div class="tagline">Member Verification Quiz</div>
+  </div>
+
+  <!-- Quiz section -->
+  <div id="quiz-section">
+    <!-- Progress -->
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="prog-label">Question 1 of 3</span>
+        <span id="prog-pct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Question card -->
+    <div class="card">
+      <div class="question-text" id="question-text"></div>
+      <div class="options" id="options"></div>
+      <div class="hint" id="hint"></div>
+      <div class="attempts" id="attempts"></div>
+    </div>
+  </div>
+
+  <!-- Pass result -->
+  <div class="result" id="result-pass">
+    <div class="result-icon">🎬</div>
+    <div class="result-title pass">You're In!</div>
+    <div class="result-body">Welcome to the family. Your request is being approved now. Enjoy the content, and remember — what happens in MPM stays in MPM.</div>
+    <button class="result-btn" onclick="closeApp()">Close</button>
+  </div>
+
+  <!-- Fail result -->
+  <div class="result" id="result-fail">
+    <div class="result-icon">🚫</div>
+    <div class="result-title fail">Access Denied</div>
+    <div class="result-body" id="fail-body">You didn't pass the quiz. Your join request has been declined. You may try again after 24 hours.</div>
+    <button class="result-btn" style="background:#333" onclick="closeApp()">Close</button>
+  </div>
+
+</div>
+
+<script>
+  // ── Telegram WebApp init ─────────────────────────────────────────────────
+  const tg = window.Telegram.WebApp;
+  tg.ready();
+  tg.expand();
+  tg.enableClosingConfirmation();
+
+  // ── Quiz data ─────────────────────────────────────────────────────────────
+  const QUESTIONS = [
+    {
+      question: "What does MPM stand for?",
+      options: ["Motion Picture Mafia", "Movie Production Mania", "Media Publishing Masters", "Major Picture Masters"],
+      answer: 0,
+      hint: "Check our Telegram group name or website 😉"
+    },
+    {
+      question: "What type of content does MPM primarily share?",
+      options: ["Cooking recipes & food vlogs", "Movies, TV Series, Anime & Gaming", "Sports highlights", "Music albums & podcasts"],
+      answer: 1,
+      hint: "Think movies, shows, anime and games — our four pillars 🎮"
+    },
+    {
+      question: "MPM content is meant to be:",
+      options: ["Shared publicly on social media", "Sold to other people", "Kept within the MPM community only", "Uploaded to YouTube"],
+      answer: 2,
+      hint: "Community rules — content stays inside MPM 🙏"
+    }
+  ];
+
+  const MAX_WRONG = 2;
+  const LETTERS   = ["A", "B", "C", "D"];
+
+  let step   = 0;
+  let wrong  = 0;
+  let locked = false;
+
+  // ── DOM refs ──────────────────────────────────────────────────────────────
+  const progLabel  = document.getElementById("prog-label");
+  const progPct    = document.getElementById("prog-pct");
+  const progFill   = document.getElementById("prog-fill");
+  const questionEl = document.getElementById("question-text");
+  const optionsEl  = document.getElementById("options");
+  const hintEl     = document.getElementById("hint");
+  const attemptsEl = document.getElementById("attempts");
+  const quizSec    = document.getElementById("quiz-section");
+  const resultPass = document.getElementById("result-pass");
+  const resultFail = document.getElementById("result-fail");
+  const failBody   = document.getElementById("fail-body");
+
+  // ── Render current question ───────────────────────────────────────────────
+  function render() {
+    locked = false;
+    const q   = QUESTIONS[step];
+    const pct = Math.round((step / QUESTIONS.length) * 100);
+
+    progLabel.textContent = `Question ${step + 1} of ${QUESTIONS.length}`;
+    progPct.textContent   = pct + "%";
+    progFill.style.width  = pct + "%";
+
+    questionEl.textContent = q.question;
+    hintEl.style.display   = "none";
+    hintEl.textContent     = "";
+    attemptsEl.textContent = "";
+
+    optionsEl.innerHTML = "";
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement("button");
+      btn.className = "option";
+      btn.innerHTML = `<span class="opt-letter">${LETTERS[i]}</span>${opt}`;
+      btn.onclick = () => choose(i, btn);
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  // ── Handle answer tap ─────────────────────────────────────────────────────
+  function choose(index, btn) {
+    if (locked) return;
+    locked = true;
+
+    const q       = QUESTIONS[step];
+    const allBtns = optionsEl.querySelectorAll(".option");
+
+    if (index === q.answer) {
+      // ✅ Correct
+      btn.classList.add("correct");
+      allBtns.forEach((b, i) => { if (i !== index) b.classList.add("disabled"); });
+
+      setTimeout(() => {
+        step++;
+        wrong = 0;
+        if (step >= QUESTIONS.length) {
+          showPass();
+        } else {
+          render();
+        }
+      }, 700);
+
+    } else {
+      // ❌ Wrong
+      wrong++;
+      btn.classList.add("wrong");
+
+      // Reveal correct
+      allBtns[q.answer].classList.add("correct");
+      allBtns.forEach(b => b.classList.add("disabled"));
+
+      const remaining = MAX_WRONG - wrong;
+
+      if (remaining <= 0) {
+        attemptsEl.textContent = "Too many wrong answers.";
+        attemptsEl.className   = "attempts warn";
+        setTimeout(showFail, 1200);
+      } else {
+        hintEl.textContent     = "💡 " + q.hint;
+        hintEl.style.display   = "block";
+        attemptsEl.textContent = `${remaining} attempt(s) remaining on next try`;
+        attemptsEl.className   = remaining === 1 ? "attempts warn" : "attempts";
+
+        // Reset after delay for retry
+        setTimeout(() => {
+          wrong = wrong; // keep wrong count
+          render();
+          // re-apply wrong state awareness
+        }, 1800);
+      }
+    }
+  }
+
+  // ── Show results ──────────────────────────────────────────────────────────
+  function showPass() {
+    quizSec.style.display = "none";
+    resultPass.classList.add("show");
+    tg.sendData("PASS");
+  }
+
+  function showFail() {
+    quizSec.style.display = "none";
+    resultFail.classList.add("show");
+    tg.sendData("FAIL");
+  }
+
+  function closeApp() {
+    tg.close();
+  }
+
+  // ── Start ─────────────────────────────────────────────────────────────────
+  render();
+</script>
+</body>
+</html>
