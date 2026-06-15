@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TG → WA Link Converter</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0d0d0d;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  .card {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 680px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.8rem;
+  }
+
+  .logo {
+    width: 38px;
+    height: 38px;
+    background: #e50000;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  h1 { font-size: 18px; font-weight: 600; color: #fff; letter-spacing: 0.3px; }
+  h1 span { color: #888; font-weight: 400; }
+
+  .row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  label { font-size: 12px; color: #888; white-space: nowrap; min-width: 70px; }
+
+  input[type="text"] {
+    background: #111;
+    border: 1px solid #2e2e2e;
+    border-radius: 6px;
+    color: #e0e0e0;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    padding: 7px 10px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input[type="text"]:focus { border-color: #e50000; }
+
+  #waNumber { width: 160px; }
+  #prefix   { width: 90px; }
+
+  /* mode toggle */
+  .mode-row { display: flex; gap: 8px; margin-bottom: 1rem; }
+  .mode-btn {
+    flex: 1;
+    padding: 7px 0;
+    font-size: 12px;
+    border-radius: 6px;
+    border: 1px solid #2e2e2e;
+    background: #111;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .mode-btn.active { background: #e50000; border-color: #e50000; color: #fff; font-weight: 600; }
+
+  textarea {
+    width: 100%;
+    background: #111;
+    border: 1px solid #2e2e2e;
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    padding: 10px 12px;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+    line-height: 1.6;
+  }
+  textarea:focus { border-color: #555; }
+  textarea[readonly] { color: #aaa; background: #0d0d0d; cursor: default; }
+
+  .btn-row { display: flex; gap: 8px; margin: 12px 0; }
+
+  button {
+    background: #e50000;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  button:hover  { background: #cc0000; }
+  button:active { transform: scale(0.97); }
+
+  button.secondary { background: #2a2a2a; color: #ccc; }
+  button.secondary:hover { background: #333; }
+  button.small { padding: 5px 14px; font-size: 12px; background: #2a2a2a; color: #ccc; }
+  button.small:hover { background: #333; }
+
+  #convertBtn { flex: 1; }
+
+  .output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  #countLabel { font-size: 12px; color: #666; }
+  #output { display: none; margin-top: 4px; }
+  #copyMsg { font-size: 12px; color: #4caf50; margin-top: 6px; display: none; }
+
+  .hint { font-size: 11px; color: #555; margin-top: 6px; }
+  .divider { border: none; border-top: 1px solid #222; margin: 1.4rem 0; }
+
+  .mode-desc {
+    font-size: 11px;
+    color: #555;
+    margin-bottom: 1rem;
+    padding: 8px 10px;
+    background: #111;
+    border-radius: 6px;
+    border-left: 3px solid #e50000;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="header">
+    <div class="logo">📎</div>
+    <h1>TG → WA Converter <span>by MPM</span></h1>
+  </div>
+
+  <div class="row">
+    <label>WA Number</label>
+    <input type="text" id="waNumber" value="94777981384" placeholder="94777981384" />
+    <label style="margin-left:8px;">Prefix</label>
+    <input type="text" id="prefix" value="/dl " placeholder="/dl " />
+  </div>
+
+  <div class="mode-row">
+    <div class="mode-btn" id="modeOne" onclick="setMode('one')">Grouped (1 WA link)</div>
+    <div class="mode-btn active" id="modeSep" onclick="setMode('sep')">Separate (1 WA link each)</div>
+  </div>
+
+  <div class="mode-desc" id="modeDesc">
+    <b>Separate:</b> Each Telegram link → its own WhatsApp link with <code>/dl</code>.
+  </div>
+
+  <textarea id="inputLinks" rows="7" placeholder="Paste Telegram links here — one per line or comma/space separated
+
+https://t.me/c/3981372064/39
+https://t.me/c/3981372064/40
+https://t.me/c/3981372064/41"></textarea>
+  <p class="hint">Tip: Ctrl+Enter to convert</p>
+
+  <hr class="divider" />
+
+  <div class="btn-row">
+    <button id="convertBtn" onclick="convert()">Convert</button>
+    <button class="secondary" onclick="clearAll()">Clear</button>
+  </div>
+
+  <div id="output">
+    <div class="output-header">
+      <span id="countLabel"></span>
+      <button class="small" onclick="copyAll()">⎘ Copy all</button>
+    </div>
+    <textarea id="outputLinks" rows="8" readonly></textarea>
+    <p id="copyMsg">✓ Copied to clipboard</p>
+  </div>
+
+</div>
+
+<script>
+  let mode = 'sep'; // 'one' or 'sep'
+
+  const modeDescs = {
+    one: '<b>Grouped:</b> All links in <b>one</b> WhatsApp message — <code>/dl</code> on the first link, rest follow as plain links.',
+    sep: '<b>Separate:</b> Each Telegram link → its own WhatsApp link with <code>/dl</code>.'
+  };
+
+  function setMode(m) {
+    mode = m;
+    document.getElementById('modeOne').classList.toggle('active', m === 'one');
+    document.getElementById('modeSep').classList.toggle('active', m === 'sep');
+    document.getElementById('modeDesc').innerHTML = modeDescs[m];
+    document.getElementById('output').style.display = 'none';
+  }
+
+  function extractLinks(raw) {
+    return raw.split(/[\n,]+/).flatMap(s => s.trim().split(/\s+/))
+              .map(s => s.trim()).filter(s => s.startsWith('https://t.me/'));
+  }
+
+  function convert() {
+    const raw      = document.getElementById('inputLinks').value;
+    const waNumber = document.getElementById('waNumber').value.trim();
+    const prefix   = document.getElementById('prefix').value;
+    const links    = extractLinks(raw);
+    if (!links.length) return;
+
+    let out = '';
+
+    if (mode === 'sep') {
+      // Each link → own wa.me link
+      out = links.map(l => {
+        const text = prefix + l;
+        return 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(text);
+      }).join('\n');
+      document.getElementById('countLabel').textContent = links.length + ' WA link' + (links.length !== 1 ? 's' : '') + ' generated';
+
+    } else {
+      // All in ONE wa.me link: "/dl first\nsecond\nthird..."
+      const msgText = prefix + links[0] + (links.length > 1 ? '\n' + links.slice(1).join('\n') : '');
+      out = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(msgText);
+      document.getElementById('countLabel').textContent = '1 WA link for ' + links.length + ' TG link' + (links.length !== 1 ? 's' : '');
+    }
+
+    document.getElementById('outputLinks').value = out;
+    document.getElementById('output').style.display = 'block';
+  }
+
+  function copyAll() {
+    const val = document.getElementById('outputLinks').value;
+    if (!val) return;
+    navigator.clipboard.writeText(val).then(() => {
+      const msg = document.getElementById('copyMsg');
+      msg.style.display = 'block';
+      setTimeout(() => msg.style.display = 'none', 2000);
+    });
+  }
+
+  function clearAll() {
+    document.getElementById('inputLinks').value  = '';
+    document.getElementById('outputLinks').value = '';
+    document.getElementById('output').style.display = 'none';
+  }
+
+  document.getElementById('inputLinks').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.ctrlKey) convert();
+  });
+</script>
+
+</body>
+</html>
