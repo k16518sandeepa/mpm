@@ -1,5 +1,45 @@
 [
   {
+    "id": "rollercoaster",
+    "platform": "epic",
+    "title": "RollerCoaster Tycoon 3 Complete Edition",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2014550/header.jpg?t=1754474893",
+    "description": "Voidwrought is a 2D action-platformer set in a hand-drawn world of cosmic horrors. Explore the thawing ruins of the First Civilisation and strike down the gods that dwell there.",
+    "claimUrl": "https://store.epicgames.com/p/rollercoaster-tycoon-3-complete-edition",
+    "startDate": "2026-06-25T20:30:00",
+    "endDate": "2026-07-02T20:30:00"
+  },
+  {
+    "id": "voidwrought",
+    "platform": "epic",
+    "title": "Voidwrought",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1368820/header.jpg?t=1779306991",
+    "description": "Build the park of a lifetime and rediscover the critically acclaimed rollercoaster simulation bestseller. Feel the thrill of a genre-defining classic, complete with two huge expansion packs",
+    "claimUrl": "https://store.epicgames.com/p/voidwrought-ce8f4b",
+    "startDate": "2026-06-25T20:30:00",
+    "endDate": "2026-07-02T20:30:00"
+  },
+  {
+    "id": "citizen",
+    "platform": "epic",
+    "title": "Citizen Sleeper",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1456760/6deea24de35cafe95a4b3693ff925608b44bc4a2/header.jpg?t=1781256997",
+    "description": "Keep your trigger finger on the pulse! In rhythm shooter ROBOBEAT, you'll play as Ace - a bounty hunter on a mission to capture robot-gone-rogue Frazzer in his ever-shifting lair.",
+    "claimUrl": "https://store.epicgames.com/p/citizen-sleeper-944858",
+    "startDate": "2026-06-11T20:30:00",
+    "endDate": "2026-06-25T20:30:00"
+  },
+  {
+    "id": "robobeat",
+    "platform": "epic",
+    "title": "ROBOBEAT",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1578650/header.jpg?t=1780960841",
+    "description": "Roleplaying in the ruins of interplanetary capitalism. Live the life of an escaped worker, washed-up on a lawless station at the edge of an interstellar society.",
+    "claimUrl": "https://store.epicgames.com/p/robobeat-5f084b",
+    "startDate": "2026-06-11T20:30:00",
+    "endDate": "2026-06-25T20:30:00"
+  },
+  {
     "id": "wild_tera",
     "platform": "steam",
     "title": "Wild Terra 2: New Lands",
