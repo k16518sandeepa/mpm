@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MPM Download Page Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808; --surface: #111; --surface-2: #1c1c1c; --surface-3: #252525;
+    --red: #e50000; --red-dark: #a00000; --red-glow: rgba(229,0,0,0.28);
+    --gold: #e8c96a; --green: #25D366;
+    --text: #f0ece8; --text-muted: #888; --text-dim: #555;
+    --radius: 10px; --radius-lg: 16px;
+    --ease: cubic-bezier(0.4,0,0.2,1);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+  body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:999; opacity:0.45; }
+
+  .gen-header { background: rgba(8,8,8,0.95); border-bottom: 1px solid rgba(229,0,0,0.2); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top:0; z-index:100; backdrop-filter: blur(16px); }
+  .gen-logo { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:3px; color:var(--text); }
+  .gen-logo span { color: var(--red); }
+  .gen-badge { background: rgba(229,0,0,0.12); border: 1px solid rgba(229,0,0,0.3); color: var(--red); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding: 4px 10px; border-radius:4px; }
+
+  .steps-bar { display:flex; align-items:center; gap:0; padding: 20px 24px; max-width:800px; margin:0 auto; }
+  .step-item { display:flex; align-items:center; gap:8px; flex:1; }
+  .step-num { width:28px; height:28px; border-radius:50%; border:2px solid var(--surface-3); background:var(--surface-2); color:var(--text-dim); font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:.3s; }
+  .step-num.active { border-color:var(--red); background:var(--red); color:#fff; }
+  .step-num.done { border-color:rgba(229,0,0,0.4); background:rgba(229,0,0,0.1); color:var(--red); }
+  .step-label { font-size:12px; font-weight:600; color:var(--text-dim); text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; }
+  .step-label.active { color:var(--text); }
+  .step-connector { flex:1; height:1px; background:var(--surface-3); margin:0 8px; }
+
+  .gen-body { max-width:800px; margin:0 auto; padding:0 24px 60px; }
+
+  .panel { background:var(--surface); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius-lg); padding:28px; margin-bottom:16px; }
+  .panel-title { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:2px; color:var(--text-muted); margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+  .panel-title::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,rgba(229,0,0,0.3),transparent); }
+
+  .field { margin-bottom:16px; }
+  .field label { display:block; font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-muted); margin-bottom:7px; }
+  .field input, .field select, .field textarea {
+    width:100%; background:var(--surface-2); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius);
+    color:var(--text); font-family:'DM Sans',sans-serif; font-size:14px; padding:11px 14px; outline:none; transition:.25s; resize:vertical;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color:rgba(229,0,0,0.5); box-shadow:0 0 0 3px rgba(229,0,0,0.08); }
+  .field input::placeholder { color:var(--text-dim); }
+  .field select option { background:var(--surface-2); }
+  .field-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:11px 22px; border-radius:var(--radius); font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; cursor:pointer; border:none; transition:.25s var(--ease); }
+  .btn-primary { background:var(--red); color:#fff; }
+  .btn-primary:hover { background:var(--red-dark); transform:translateY(-1px); box-shadow:0 6px 20px rgba(229,0,0,0.35); }
+  .btn-primary:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn-secondary { background:var(--surface-2); color:var(--text-muted); border:1px solid rgba(255,255,255,0.08); }
+  .btn-secondary:hover { background:var(--surface-3); color:var(--text); }
+  .btn-success { background:#1a3d2a; color:var(--green); border:1px solid rgba(37,211,102,0.3); }
+  .btn-success:hover { background:#1f4f34; transform:translateY(-1px); box-shadow:0 6px 20px rgba(37,211,102,0.2); }
+  .btn-sm { padding:7px 14px; font-size:12px; }
+
+  .search-results { display:grid; gap:10px; margin-top:14px; }
+  .result-card { display:flex; align-items:center; gap:14px; padding:12px 16px; background:var(--surface-2); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); cursor:pointer; transition:.25s; }
+  .result-card:hover { border-color:rgba(229,0,0,0.4); background:var(--surface-3); }
+  .result-card.selected { border-color:var(--red); background:rgba(229,0,0,0.06); }
+  .result-poster { width:48px; height:72px; object-fit:cover; border-radius:6px; background:var(--surface-3); flex-shrink:0; }
+  .result-info { flex:1; min-width:0; }
+  .result-title { font-weight:700; font-size:14px; margin-bottom:3px; }
+  .result-meta { font-size:12px; color:var(--text-muted); }
+  .result-badge { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; border-radius:4px; background:var(--surface-3); color:var(--text-dim); }
+  .result-badge.tv { background:rgba(229,0,0,0.1); color:var(--red); border:1px solid rgba(229,0,0,0.2); }
+  .result-badge.movie { background:rgba(232,201,106,0.1); color:var(--gold); border:1px solid rgba(232,201,106,0.2); }
+
+  .selected-preview { display:flex; gap:16px; align-items:flex-start; background:rgba(229,0,0,0.05); border:1px solid rgba(229,0,0,0.2); border-radius:var(--radius); padding:16px; margin-bottom:20px; }
+  .selected-preview img { width:60px; border-radius:8px; }
+  .selected-preview-info { flex:1; }
+  .selected-preview-title { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1px; margin-bottom:4px; }
+  .selected-preview-meta { font-size:12px; color:var(--text-muted); }
+  .change-btn { font-size:12px; color:var(--red); cursor:pointer; background:none; border:none; font-family:'DM Sans',sans-serif; font-weight:600; padding:0; }
+  .change-btn:hover { text-decoration:underline; }
+
+  .link-list { display:grid; gap:8px; margin-bottom:14px; }
+  .link-row { display:grid; grid-template-columns: 14px 1fr 1fr 1fr auto; gap:8px; align-items:center; background:var(--surface-2); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); padding:10px 12px; }
+  .link-type-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .link-text { font-size:13px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .link-meta-text { font-size:12px; color:var(--text-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .link-url-text { font-size:11px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-family:monospace; }
+  .link-del { background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:16px; padding:2px 4px; border-radius:4px; transition:.2s; }
+  .link-del:hover { color:var(--red); background:rgba(229,0,0,0.1); }
+
+  .add-link-form { background:var(--surface-2); border:1px dashed rgba(229,0,0,0.2); border-radius:var(--radius); padding:16px; }
+  .add-link-form .field { margin-bottom:10px; }
+  .type-selector { display:flex; gap:8px; flex-wrap:wrap; }
+  .type-btn { padding:6px 14px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; border:1px solid rgba(255,255,255,0.08); background:var(--surface-3); color:var(--text-dim); transition:.2s; letter-spacing:.04em; text-transform:uppercase; }
+  .type-btn.active.telegram { border-color:#229ED9; background:rgba(34,158,217,0.1); color:#229ED9; }
+  .type-btn.active.whatsapp { border-color:var(--green); background:rgba(37,211,102,0.1); color:var(--green); }
+  .type-btn.active.subtitle { border-color:var(--gold); background:rgba(232,201,106,0.1); color:var(--gold); }
+  .type-btn.active.direct { border-color:var(--text-muted); background:rgba(136,136,136,0.1); color:var(--text-muted); }
+
+  .output-actions { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px; }
+  .filename-preview { font-size:12px; color:var(--text-dim); font-family:monospace; background:var(--surface-2); padding:8px 14px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); }
+  .code-preview { background:var(--surface-2); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); padding:16px; font-family:monospace; font-size:11px; color:var(--text-dim); max-height:280px; overflow-y:auto; white-space:pre-wrap; word-break:break-all; line-height:1.6; }
+  .code-preview::-webkit-scrollbar { width:6px; }
+  .code-preview::-webkit-scrollbar-thumb { background:var(--surface-3); border-radius:999px; }
+
+  .status { padding:10px 14px; border-radius:8px; font-size:13px; font-weight:500; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .status.loading { background:rgba(232,201,106,0.08); border:1px solid rgba(232,201,106,0.2); color:var(--gold); }
+  .status.error { background:rgba(229,0,0,0.08); border:1px solid rgba(229,0,0,0.25); color:#ff6b6b; }
+  .status.success { background:rgba(37,211,102,0.08); border:1px solid rgba(37,211,102,0.2); color:var(--green); }
+  .spin { display:inline-block; width:14px; height:14px; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:spin .7s linear infinite; flex-shrink:0; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  .section-divider { display:flex; align-items:center; gap:10px; margin:20px 0 16px; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-dim); }
+  .section-divider::before, .section-divider::after { content:''; flex:1; height:1px; background:rgba(255,255,255,0.06); }
+  .tip { font-size:12px; color:var(--text-dim); margin-top:6px; }
+  .nav-btns { display:flex; justify-content:space-between; align-items:center; margin-top:24px; }
+  .empty-state { text-align:center; padding:30px; color:var(--text-dim); font-size:14px; }
+  .loader { display:flex; justify-content:center; padding:20px; gap:6px; }
+  .loader-dot { width:8px; height:8px; border-radius:50%; background:var(--red); animation:bounce .9s ease-in-out infinite; }
+  .loader-dot:nth-child(2) { animation-delay:.15s; }
+  .loader-dot:nth-child(3) { animation-delay:.3s; }
+  @keyframes bounce { 0%,80%,100%{transform:scale(0.5);opacity:.3} 40%{transform:scale(1);opacity:1} }
+
+  .hidden { display:none !important; }
+
+  @media(max-width:600px) {
+    .field-row { grid-template-columns:1fr; }
+    .link-row { grid-template-columns:14px 1fr auto; }
+    .link-row .link-meta-text, .link-row .link-url-text { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="gen-header">
+  <div class="gen-logo">MPM <span>PAGE</span> GENERATOR</div>
+  <div class="gen-badge">Download Page Builder</div>
+</div>
+
+<div class="steps-bar" id="stepsBar">
+  <div class="step-item">
+    <div class="step-num active" id="s1num">1</div>
+    <div class="step-label active" id="s1lbl">Find Title</div>
+  </div>
+  <div class="step-connector"></div>
+  <div class="step-item">
+    <div class="step-num" id="s2num">2</div>
+    <div class="step-label" id="s2lbl">Page Details</div>
+  </div>
+  <div class="step-connector"></div>
+  <div class="step-item">
+    <div class="step-num" id="s3num">3</div>
+    <div class="step-label" id="s3lbl">Download Links</div>
+  </div>
+  <div class="step-connector"></div>
+  <div class="step-item">
+    <div class="step-num" id="s4num">4</div>
+    <div class="step-label" id="s4lbl">Generate</div>
+  </div>
+</div>
+
+<div class="gen-body">
+
+  <!-- STEP 1 -->
+  <div id="step1">
+    <div class="panel">
+      <div class="panel-title">Search Title</div>
+      <div class="field">
+        <label>Search by Name, TMDB ID, or IMDB ID</label>
+        <input type="text" id="searchInput" placeholder="e.g. Breaking Bad  or  tmdb:1396  or  imdb:tt0903747" />
+        <p class="tip">Prefix with <code>tmdb:</code> or <code>imdb:</code> to search by ID directly</p>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Media Type</label>
+          <select id="mediaTypeSelect">
+            <option value="tv">TV Series</option>
+            <option value="movie">Movie</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button class="btn btn-primary" style="width:100%" onclick="doSearch()">Search TMDB →</button>
+        </div>
+      </div>
+      <div id="searchStatus"></div>
+      <div id="searchResults" class="search-results"></div>
+    </div>
+    <div class="nav-btns">
+      <span></span>
+      <button class="btn btn-primary" id="step1Next" onclick="goStep(2)" disabled>Next: Page Details →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2" class="hidden">
+    <div class="panel">
+      <div class="panel-title">Page Details</div>
+      <div id="previewBox"></div>
+      <div class="field-row">
+        <div class="field">
+          <label>Page Slug (filename without .html)</label>
+          <input type="text" id="slugInput" placeholder="e.g. spider-noir" oninput="document.getElementById('slugPreview').textContent=this.value+'.html'" />
+          <p class="tip">File: <span id="slugPreview" style="color:var(--text-muted)">spider-noir.html</span></p>
+        </div>
+        <div class="field">
+          <label>Category Tag</label>
+          <select id="categorySelect">
+            <option value="TV Series">TV Series</option>
+            <option value="Movie">Movie</option>
+            <option value="Anime">Anime</option>
+            <option value="Mini Series">Mini Series</option>
+            <option value="Documentary">Documentary</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>YouTube Trailer ID</label>
+        <input type="text" id="trailerInput" placeholder="e.g. HgMbkitzhEM  (from youtube.com/watch?v=XXXXXX)" />
+      </div>
+      <div class="field">
+        <label>Breadcrumb / Folder Path</label>
+        <select id="breadcrumbSelect">
+          <option value="tv-series|../index.html|TV Series">TV Series → downloads/tv-series/</option>
+          <option value="movies|../index.html|Movies">Movies → downloads/movies/</option>
+          <option value="anime|../index.html|Anime">Anime → downloads/anime/</option>
+          <option value="root|index.html|Home">Root level (same folder as index)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>WhatsApp Number (for WA bot delivery buttons)</label>
+        <input type="text" id="waNumber" placeholder="94777981384" value="94777981384" />
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goStep(1)">← Back</button>
+      <button class="btn btn-primary" onclick="goStep(3)">Next: Download Links →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="step3" class="hidden">
+    <div class="panel">
+      <div class="panel-title">Download Links</div>
+      <div id="linkList" class="link-list">
+        <div class="empty-state">No links added yet — add your first link below</div>
+      </div>
+      <div class="section-divider">Add Link</div>
+      <div class="add-link-form">
+        <div class="field">
+          <label>Link Type</label>
+          <div class="type-selector" id="typeSelector">
+            <button class="type-btn active telegram" data-type="telegram" onclick="setType('telegram')">📱 Telegram</button>
+            <button class="type-btn whatsapp" data-type="whatsapp" onclick="setType('whatsapp')">💬 WhatsApp</button>
+            <button class="type-btn subtitle" data-type="subtitle" onclick="setType('subtitle')">📝 Subtitle</button>
+            <button class="type-btn direct" data-type="direct" onclick="setType('direct')">🔗 Direct</button>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Button Label</label>
+            <input type="text" id="newLabel" placeholder="e.g. Season 1 · 1080p" />
+          </div>
+          <div class="field">
+            <label>Meta (quality/size info)</label>
+            <input type="text" id="newMeta" placeholder="e.g. 08 Episodes · 720p WEBRip" />
+          </div>
+        </div>
+        <div class="field">
+          <label>URL</label>
+          <input type="text" id="newUrl" placeholder="https://t.me/... or https://wa.me/... or any link" />
+          <p class="tip" id="urlHint">Telegram: paste the t.me link directly</p>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addLink()">+ Add Link</button>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goStep(2)">← Back</button>
+      <button class="btn btn-primary" onclick="goStep(4)">Generate Page →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div id="step4" class="hidden">
+    <div class="panel">
+      <div class="panel-title">Generated Page</div>
+      <div id="generateStatus"></div>
+      <div class="output-actions">
+        <button class="btn btn-success" onclick="downloadHTML()">⬇ Download HTML File</button>
+        <button class="btn btn-secondary" id="copyBtn" onclick="copyHTML()">📋 Copy HTML</button>
+        <button class="btn btn-secondary" onclick="goStep(3)">← Edit Links</button>
+      </div>
+      <div class="filename-preview" id="filenameDisplay">page.html</div>
+      <br>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--text-muted);margin-bottom:10px;">HTML Preview</div>
+      <div class="code-preview" id="codePreview">Generating...</div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goStep(1)">↩ Start Over</button>
+      <button class="btn btn-success" onclick="downloadHTML()">⬇ Download HTML</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const TMDB_KEY = 'e8a74c378c9947d64e477be27a836c34';
+const TMDB_IMG = (p, s='w500') => p ? `https://image.tmdb.org/t/p/${s}${p}` : '';
+
+let currentStep = 1;
+let selectedResult = null;
+let links = [];
+let currentLinkType = 'telegram';
+let generatedHTML = '';
+
+function goStep(n) {
+  if (n === 2 && selectedResult) buildPreviewBox();
+  if (n === 4) buildHTML();
+  document.querySelectorAll('[id^="step"]').forEach(el => {
+    const num = parseInt(el.id.replace('step',''));
+    if (!isNaN(num)) el.classList.toggle('hidden', num !== n);
+  });
+  currentStep = n;
+  updateStepUI();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function updateStepUI() {
+  for (let i=1;i<=4;i++) {
+    const num = document.getElementById('s'+i+'num');
+    const lbl = document.getElementById('s'+i+'lbl');
+    if (!num) continue;
+    num.className = 'step-num' + (i < currentStep ? ' done' : i === currentStep ? ' active' : '');
+    num.textContent = i < currentStep ? '✓' : i;
+    lbl.className = 'step-label' + (i === currentStep ? ' active' : '');
+  }
+}
+
+async function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  const mt = document.getElementById('mediaTypeSelect').value;
+  if (!q) return;
+  const statusEl = document.getElementById('searchStatus');
+  const resultsEl = document.getElementById('searchResults');
+  statusEl.innerHTML = '<div class="status loading"><span class="spin"></span> Searching TMDB...</div>';
+  resultsEl.innerHTML = '<div class="loader"><div class="loader-dot"></div><div class="loader-dot"></div><div class="loader-dot"></div></div>';
+  try {
+    let results = [];
+    if (q.toLowerCase().startsWith('tmdb:')) {
+      const id = q.split(':')[1].trim();
+      const r = await fetch(`https://api.themoviedb.org/3/${mt}/${id}?api_key=${TMDB_KEY}&language=en-US`);
+      const d = await r.json();
+      if (d.id) results = [d];
+    } else if (q.toLowerCase().startsWith('imdb:')) {
+      const imdbId = q.split(':')[1].trim();
+      const r = await fetch(`https://api.themoviedb.org/3/find/${imdbId}?api_key=${TMDB_KEY}&external_source=imdb_id`);
+      const d = await r.json();
+      results = [...(d.tv_results||[]), ...(d.movie_results||[])];
+    } else {
+      const r = await fetch(`https://api.themoviedb.org/3/search/${mt}?api_key=${TMDB_KEY}&query=${encodeURIComponent(q)}&language=en-US`);
+      const d = await r.json();
+      results = (d.results || []).slice(0,6);
+    }
+    statusEl.innerHTML = '';
+    if (!results.length) {
+      resultsEl.innerHTML = '<div class="status error">No results found. Try a different name or ID.</div>';
+      return;
+    }
+    resultsEl.innerHTML = results.map((r,i) => {
+      const title = r.name || r.title || 'Unknown';
+      const year = (r.first_air_date || r.release_date || '').slice(0,4);
+      const isTV = r.first_air_date !== undefined;
+      const poster = r.poster_path ? TMDB_IMG(r.poster_path,'w92') : '';
+      return `<div class="result-card" onclick="selectResult(${i})" data-idx="${i}">
+        ${poster ? `<img class="result-poster" src="${poster}" alt="${title}">` : '<div class="result-poster"></div>'}
+        <div class="result-info">
+          <div class="result-title">${title}</div>
+          <div class="result-meta">${year||'N/A'} · TMDB #${r.id}${r.vote_average?' · ⭐ '+r.vote_average.toFixed(1):''}</div>
+        </div>
+        <div class="result-badge ${isTV?'tv':'movie'}">${isTV?'TV':'Movie'}</div>
+      </div>`;
+    }).join('');
+    resultsEl._data = results;
+    document.getElementById('step1Next').disabled = true;
+  } catch(e) {
+    statusEl.innerHTML = `<div class="status error">Error: ${e.message}</div>`;
+    resultsEl.innerHTML = '';
+  }
+}
+
+function selectResult(idx) {
+  const results = document.getElementById('searchResults')._data;
+  selectedResult = results[idx];
+  selectedResult._mediaType = selectedResult.first_air_date !== undefined ? 'tv' : 'movie';
+  document.querySelectorAll('.result-card').forEach((el,i) => el.classList.toggle('selected', i===idx));
+  document.getElementById('step1Next').disabled = false;
+  document.getElementById('searchStatus').innerHTML = `<div class="status success">✓ Selected: ${selectedResult.name||selectedResult.title}</div>`;
+  const rawTitle = (selectedResult.name || selectedResult.title || '');
+  const slug = rawTitle.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  document.getElementById('slugInput').value = slug;
+  document.getElementById('slugPreview').textContent = slug + '.html';
+  if (selectedResult._mediaType === 'tv') {
+    document.getElementById('categorySelect').value = 'TV Series';
+    document.getElementById('breadcrumbSelect').value = 'tv-series|../index.html|TV Series';
+  } else {
+    document.getElementById('categorySelect').value = 'Movie';
+    document.getElementById('breadcrumbSelect').value = 'movies|../index.html|Movies';
+  }
+}
+
+document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+
+function buildPreviewBox() {
+  if (!selectedResult) return;
+  const title = selectedResult.name || selectedResult.title;
+  const year = (selectedResult.first_air_date || selectedResult.release_date || '').slice(0,4);
+  const poster = selectedResult.poster_path ? TMDB_IMG(selectedResult.poster_path,'w92') : '';
+  const overview = selectedResult.overview || '';
+  document.getElementById('previewBox').innerHTML = `
+    <div class="selected-preview">
+      ${poster ? `<img src="${poster}" alt="${title}">` : ''}
+      <div class="selected-preview-info">
+        <div class="selected-preview-title">${title}</div>
+        <div class="selected-preview-meta">${year} · TMDB #${selectedResult.id} · ${selectedResult._mediaType==='tv'?'TV Series':'Movie'}</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:6px;line-height:1.5">${overview.slice(0,140)}${overview.length>140?'…':''}</div>
+      </div>
+      <button class="change-btn" onclick="goStep(1)">Change</button>
+    </div>`;
+}
+
+function setType(type) {
+  currentLinkType = type;
+  document.querySelectorAll('.type-btn').forEach(b => {
+    b.className = 'type-btn' + (b.dataset.type===type ? ` active ${type}` : '');
+  });
+  const hints = {
+    telegram: 'Telegram: paste the t.me link directly',
+    whatsapp: 'Paste a Telegram link — it will auto-convert to WA bot /dlunzip command',
+    subtitle: 'Link to subtitle file or subtitle download page',
+    direct: 'Direct download link (Google Drive, Mega, Pixeldrain, etc.)'
+  };
+  document.getElementById('urlHint').textContent = hints[type];
+}
+
+function addLink() {
+  const label = document.getElementById('newLabel').value.trim();
+  const meta = document.getElementById('newMeta').value.trim();
+  const url = document.getElementById('newUrl').value.trim();
+  if (!label || !url) { alert('Label and URL are required'); return; }
+  links.push({ label, meta, url, type: currentLinkType, id: Date.now() });
+  document.getElementById('newLabel').value = '';
+  document.getElementById('newMeta').value = '';
+  document.getElementById('newUrl').value = '';
+  renderLinks();
+}
+
+function removeLink(id) { links = links.filter(l => l.id !== id); renderLinks(); }
+
+function renderLinks() {
+  const el = document.getElementById('linkList');
+  if (!links.length) { el.innerHTML = '<div class="empty-state">No links added yet</div>'; return; }
+  const typeColors = { telegram:'#229ED9', whatsapp:'#25D366', subtitle:'#e8c96a', direct:'#888' };
+  el.innerHTML = links.map(l => `
+    <div class="link-row">
+      <div class="link-type-dot" style="width:10px;height:10px;border-radius:50%;background:${typeColors[l.type]};flex-shrink:0"></div>
+      <div class="link-text">${l.label}</div>
+      <div class="link-meta-text">${l.meta}</div>
+      <div class="link-url-text">${l.url}</div>
+      <button class="link-del" onclick="removeLink(${l.id})">✕</button>
+    </div>`).join('');
+}
+
+function buildHTML() {
+  if (!selectedResult) return;
+  const title = selectedResult.name || selectedResult.title || 'Untitled';
+  const tmdbId = selectedResult.id;
+  const mediaType = selectedResult._mediaType;
+  const overview = selectedResult.overview || '';
+  const posterPath = selectedResult.poster_path || '';
+  const backdropPath = selectedResult.backdrop_path || '';
+  const slug = document.getElementById('slugInput').value.trim() || 'download';
+  const category = document.getElementById('categorySelect').value;
+  const trailerId = document.getElementById('trailerInput').value.trim();
+  const waNumber = document.getElementById('waNumber').value.trim() || '94777981384';
+  const breadVal = document.getElementById('breadcrumbSelect').value.split('|');
+  const breadDir = breadVal[0], breadHome = breadVal[1], breadLabel = breadVal[2];
+
+  const posterUrl = posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : '';
+  const backdropUrl = backdropPath ? `https://image.tmdb.org/t/p/w1280${backdropPath}` : '';
+
+  const linksHTML = links.map(l => {
+    const typeClass = l.type==='whatsapp' ? 'wa-btn' : l.type==='subtitle' ? 'sub-btn' : '';
+    let iconSrc = '';
+    if (l.type==='telegram') iconSrc='https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/telegram/default.svg';
+    else if (l.type==='whatsapp') iconSrc='https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/whatsapp/default.svg';
+    let href = l.url;
+    if (l.type==='whatsapp' && l.url.includes('t.me/')) {
+      href = `https://wa.me/${waNumber}?text=%2Fdlunzip%20${encodeURIComponent(l.url)}`;
+    }
+    const icon = iconSrc ? `<img src="${iconSrc}" width="24" height="24">` : (l.type==='subtitle'?'🌏':'⬇');
+    return `      <a class="download-btn${typeClass?' '+typeClass:''}" href="${href}" target="_blank">
+        <div class="btn-label">${icon} ${l.label}</div>
+        ${l.meta?`<div class="btn-meta">${l.meta}</div>`:''}
+        <span class="btn-arrow">→</span>
+      </a>`;
+  }).join('\n');
+
+  const trailerSection = trailerId ? `
+      <div class="trailer-wrap">
+        <iframe src="https://www.youtube.com/embed/${trailerId}" title="${title} Trailer"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen loading="lazy"></iframe>
+      </div>` : '';
+
+  generatedHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="title" content="${title} | MPM">
+  <meta name="description" content="${overview.slice(0,160)}">
+  <meta property="og:title" content="${title} | Motion Picture Mafia Studio">
+  <meta property="og:description" content="${overview.slice(0,160)}">
+  <meta property="og:image" content="${backdropUrl||posterUrl}">
+  <meta property="og:url" content="https://motionpicturemafia.com/downloads/${breadDir}/${slug}.html">
+  <link rel="icon" type="image/png" href="../Images/mpm logo.png">
+  <title>${title} — MPM</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6KK47Q2PLX"><\/script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6KK47Q2PLX');<\/script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8377794585544932" crossorigin="anonymous"><\/script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#080808;--surface:#111111;--surface-2:#1c1c1c;--surface-3:#252525;--red:#e50000;--red-dark:#a00000;--red-glow:rgba(229,0,0,0.28);--text:#f0ece8;--text-muted:#888;--text-dim:#555;--radius:10px;--radius-lg:16px;--ease:cubic-bezier(0.4,0,0.2,1);--transition:0.3s var(--ease)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.45}
+    .bg-blur{position:fixed;inset:0;background:url('${backdropUrl||posterUrl}') center/cover no-repeat;filter:blur(18px) brightness(0.3) saturate(0.6);z-index:-2;transform:scale(1.05)}
+    .bg-overlay{position:fixed;inset:0;background:linear-gradient(180deg,rgba(8,8,8,0.55) 0%,rgba(8,8,8,0.85) 60%,#080808 100%);z-index:-1}
+    nav{position:sticky;top:0;background:rgba(8,8,8,0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;z-index:1000;border-bottom:1px solid rgba(229,0,0,0.15)}
+    nav::after{content:'';position:absolute;bottom:0;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:0.4}
+    .logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--text);text-decoration:none;animation:logoGlow 3s ease-in-out infinite alternate}
+    @keyframes logoGlow{from{text-shadow:0 0 6px rgba(229,0,0,0.3)}to{text-shadow:0 0 16px rgba(229,0,0,0.7)}}
+    .nav-links{display:none;gap:4px}
+    .nav-links a{color:var(--text-muted);text-decoration:none;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:6px 14px;border-radius:6px;transition:var(--transition)}
+    .nav-links a:hover{color:var(--text);background:var(--surface-2)}
+    .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:26px;height:2.5px;background:var(--text);border-radius:2px;transition:var(--transition)}
+    .hamburger.active span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+    .hamburger.active span:nth-child(2){opacity:0}
+    .hamburger.active span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+    .mobile-menu{position:fixed;top:0;right:-100%;width:72%;max-width:290px;height:100vh;background:rgba(10,10,10,0.98);backdrop-filter:blur(24px);padding:80px 28px 30px;transition:right 0.4s var(--ease);z-index:9999;border-left:1px solid rgba(229,0,0,0.15)}
+    .mobile-menu.active{right:0}
+    .mobile-menu a{display:block;color:var(--text-muted);text-decoration:none;font-size:17px;font-weight:600;margin:4px 0;padding:12px 14px;border-radius:8px;transition:var(--transition)}
+    .mobile-menu a:hover{color:var(--text);background:var(--surface-2);padding-left:20px}
+    .mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9998;display:none}
+    .mobile-overlay.active{display:block}
+    @media(min-width:768px){.nav-links{display:flex}.hamburger{display:none}}
+    .breadcrumb{max-width:1200px;margin:20px auto 0;padding:0 24px;font-size:12px;color:var(--text-dim);display:flex;align-items:center;gap:8px;position:relative;z-index:20}
+    .breadcrumb a{color:var(--text-dim);text-decoration:none;transition:color var(--transition)}
+    .breadcrumb a:hover{color:var(--red)}
+    .breadcrumb span{color:var(--text-muted)}
+    .hero{max-width:1200px;margin:24px auto 0;padding:0 24px 40px;display:grid;grid-template-columns:1fr;gap:28px;position:relative;z-index:20}
+    @media(min-width:768px){.hero{grid-template-columns:260px 1fr;gap:40px;align-items:start}}
+    @media(min-width:1024px){.hero{grid-template-columns:300px 1fr}}
+    .poster-wrap{position:relative}
+    .poster{border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.8),0 0 40px var(--red-glow);transition:all 0.6s cubic-bezier(0.23,1,0.32,1);transform:rotateY(-6deg) rotateX(3deg);will-change:transform;cursor:default}
+    .poster img{width:100%;height:auto;display:block}
+    .poster-wrap::after{content:'';position:absolute;inset:0;border-radius:var(--radius-lg);border:1px solid rgba(229,0,0,0.2);pointer-events:none}
+    .info-panel{display:flex;flex-direction:column;gap:20px}
+    .category-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(229,0,0,0.12);border:1px solid rgba(229,0,0,0.3);color:var(--red);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:4px;width:fit-content}
+    .title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,7vw,5rem);line-height:0.95;letter-spacing:2px;background:linear-gradient(135deg,#fff 0%,#e0d8d0 50%,var(--red) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;animation:slideUp 0.7s var(--ease) 0.1s forwards}
+    @keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .synopsis{font-size:15px;line-height:1.7;color:rgba(240,236,232,0.78);font-weight:400;max-width:600px;opacity:0;animation:slideUp 0.7s var(--ease) 0.2s forwards}
+    .stats{display:flex;flex-wrap:wrap;align-items:center;gap:8px;opacity:0;animation:slideUp 0.7s var(--ease) 0.3s forwards}
+    #chip-genres-wrap{display:contents}
+    .stat-chip{display:inline-flex;align-items:center;justify-content:center;height:30px;white-space:nowrap;background:var(--surface-2);border:1px solid rgba(255,255,255,0.08);color:var(--text-muted);font-size:12px;font-weight:600;line-height:1;padding:0 12px;border-radius:6px;letter-spacing:.03em;transition:var(--transition)}
+    .stat-chip:hover{border-color:rgba(229,0,0,0.3);color:var(--text)}
+    .stat-chip.highlight{background:rgba(229,0,0,0.08);border-color:rgba(229,0,0,0.25);color:var(--red)}
+    .trailer-wrap{position:relative;border-radius:var(--radius-lg);overflow:hidden;opacity:0;animation:slideUp 0.7s var(--ease) 0.4s forwards}
+    .trailer-wrap::before{content:'TRAILER';position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-size:10px;font-weight:800;letter-spacing:.1em;padding:3px 8px;border-radius:4px;z-index:5}
+    .trailer-wrap iframe{width:100%;aspect-ratio:16/9;display:block;border:none;border-radius:var(--radius-lg);border:1px solid rgba(229,0,0,0.2)}
+    .cast-row{display:flex;gap:16px;overflow-x:auto;padding-bottom:10px;scroll-behavior:smooth}
+    .cast-row::-webkit-scrollbar{height:6px}
+    .cast-row::-webkit-scrollbar-track{background:transparent}
+    .cast-row::-webkit-scrollbar-thumb{background:var(--surface-3);border-radius:999px}
+    .cast-card{min-width:140px;max-width:140px;flex-shrink:0;background:rgba(17,17,17,0.85);border:1px solid rgba(255,255,255,0.06);border-radius:18px;overflow:hidden;transition:var(--transition);backdrop-filter:blur(12px)}
+    .cast-card:hover{transform:translateY(-5px);border-color:rgba(229,0,0,0.35);box-shadow:0 12px 30px rgba(0,0,0,0.45),0 0 25px rgba(229,0,0,0.15)}
+    .cast-photo{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
+    .cast-info{padding:12px}
+    .cast-name{font-size:14px;font-weight:700;color:var(--text);line-height:1.3}
+    .cast-character{margin-top:5px;font-size:12px;color:var(--text-muted);line-height:1.4}
+    .download-section{max-width:1200px;margin:0 auto 60px;padding:0 24px;position:relative;z-index:20}
+    .section-heading{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--text-muted);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+    .section-heading::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(229,0,0,0.3),transparent)}
+    .download-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:560px){.download-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:900px){.download-grid{grid-template-columns:repeat(3,1fr)}}
+    .download-btn{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:18px 22px;background:var(--surface);border:1px solid rgba(255,255,255,0.07);border-radius:var(--radius-lg);color:var(--text);text-decoration:none;transition:var(--transition);overflow:hidden;cursor:pointer}
+    .download-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--red),var(--red-dark));opacity:0;transition:opacity var(--transition)}
+    .download-btn:hover{border-color:var(--red);transform:translateY(-3px);box-shadow:0 8px 30px rgba(229,0,0,0.3)}
+    .download-btn:hover::before{opacity:1}
+    .download-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);transition:left 0.6s var(--ease)}
+    .download-btn:hover::after{left:160%}
+    .btn-label{position:relative;z-index:1;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+    .btn-meta{position:relative;z-index:1;font-size:12px;color:rgba(240,236,232,0.5);font-weight:400;transition:color var(--transition)}
+    .download-btn:hover .btn-meta{color:rgba(255,255,255,0.7)}
+    .btn-arrow{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:20px;opacity:0.3;transition:opacity var(--transition),transform var(--transition);z-index:1}
+    .download-btn:hover .btn-arrow{opacity:1;transform:translateY(-50%) translateX(3px)}
+    .download-btn.sub-btn{background:var(--surface-2);border-color:rgba(232,201,106,0.15)}
+    .download-btn.sub-btn::before{background:linear-gradient(135deg,#b8973a,#8a6d1a)}
+    .download-btn.sub-btn:hover{border-color:#e8c96a;box-shadow:0 8px 30px rgba(232,201,106,0.15)}
+    .download-btn.sub-btn .btn-label{color:#e8c96a}
+    .download-btn.wa-btn{background:var(--surface-2);border-color:rgba(37,211,102,0.15)}
+    .download-btn.wa-btn::before{background:linear-gradient(135deg,#25D366,#128C7E)}
+    .download-btn.wa-btn:hover{border-color:#25D366;box-shadow:0 8px 30px rgba(37,211,102,0.2)}
+    .download-btn.wa-btn .btn-label{color:#25D366}
+    footer{background:var(--surface);border-top:1px solid rgba(255,255,255,0.05);padding:32px 24px;text-align:center}
+    .footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:16px}
+    .footer-text{font-size:13px;color:var(--text-dim)}
+    .back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--red);border:none;color:#fff;font-size:18px;cursor:pointer;opacity:0;transform:translateY(12px);transition:var(--transition);z-index:500}
+    .back-to-top.visible{opacity:1;transform:translateY(0)}
+    .back-to-top:hover{background:var(--red-dark);transform:translateY(-2px)}
+  <\/style>
+<\/head>
+<body>
+  <div class="bg-blur"><\/div>
+  <div class="bg-overlay"><\/div>
+  <nav>
+    <a href="${breadHome}" class="logo">MPM<\/a>
+    <div class="nav-links">
+      <a href="${breadHome}">Home<\/a>
+      <a href="${breadHome}#movies">Movies<\/a>
+      <a href="${breadHome}#series">Series<\/a>
+      <a href="${breadHome}#anime">Anime<\/a>
+    <\/div>
+    <div class="hamburger" id="hamburger"><span><\/span><span><\/span><span><\/span><\/div>
+  <\/nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="${breadHome}">Home<\/a>
+    <a href="${breadHome}#movies">Movies<\/a>
+    <a href="${breadHome}#series">Series<\/a>
+    <a href="${breadHome}#anime">Anime<\/a>
+  <\/div>
+  <div class="mobile-overlay" id="mobileOverlay"><\/div>
+  <div class="breadcrumb">
+    <a href="${breadHome}">Home<\/a> <span>›<\/span>
+    <a href="#">${breadLabel}<\/a> <span>›<\/span>
+    <span style="color:var(--text-muted)">${title}<\/span>
+  <\/div>
+  <div class="hero">
+    <div class="poster-wrap">
+      <div class="poster" id="poster">
+        <img id="poster-img" src="${posterUrl}" alt="${title} Poster">
+      <\/div>
+    <\/div>
+    <div class="info-panel">
+      <div class="category-tag">📽 ${category}<\/div>
+      <h1 class="title">${title}<\/h1>
+      <p class="synopsis" id="synopsis">${overview}<\/p>
+      <div class="stats" id="stats-container">
+        <span class="stat-chip highlight" id="chip-years"><\/span>
+        <span class="stat-chip" id="chip-rating"><\/span>
+        <span id="chip-genres-wrap"><span class="stat-chip"><\/span><\/span>
+        <span class="stat-chip" id="chip-cert"><\/span>
+        <span class="stat-chip" id="chip-episodes"><\/span>
+        <span class="stat-chip" id="chip-seasons"><\/span>
+      <\/div>
+      ${trailerSection}
+    <\/div>
+  <\/div>
+  <div class="download-section cast-section">
+    <div class="section-heading">Cast<\/div>
+    <div class="cast-row" id="castRow"><\/div>
+  <\/div>
+  <div class="download-section">
+    <div class="section-heading">Download<\/div>
+    <div class="download-grid">
+${linksHTML}
+    <\/div>
+  <\/div>
+  <footer>
+    <div class="footer-links">
+      <a href="https://t.me/whatsappgang"><img src="../Images/telegram.png" alt="Telegram" width="40" height="40"><\/a>
+      <a href="https://whatsapp.com/channel/0029Va9bRGREawdkel5Jvx1i"><img src="../Images/whatsapp.png" alt="WhatsApp" width="40" height="40"><\/a>
+      <a href="https://web.facebook.com/motionpicturemafiaofficial/"><img src="../Images/facebook.png" alt="Facebook" width="40" height="40"><\/a>
+      <a href="https://www.instagram.com/motionpicturemafiaofficial/"><img src="../Images/insta.png" alt="Instagram" width="40" height="40"><\/a>
+    <\/div>
+    <div class="footer-text">© <span id="year"><\/span> Motion Picture Mafia · Fast · Free · Forever<\/div>
+  <\/footer>
+  <button class="back-to-top" id="backToTop">↑<\/button>
+  <script>
+    document.getElementById("year").textContent=new Date().getFullYear();
+    const hamburger=document.getElementById("hamburger"),mobileMenu=document.getElementById("mobileMenu"),mobileOverlay=document.getElementById("mobileOverlay");
+    function toggleMenu(open){hamburger.classList.toggle("active",open);mobileMenu.classList.toggle("active",open);mobileOverlay.classList.toggle("active",open);document.body.style.overflow=open?"hidden":"";}
+    hamburger.addEventListener("click",()=>toggleMenu(!mobileMenu.classList.contains("active")));
+    mobileOverlay.addEventListener("click",()=>toggleMenu(false));
+    const poster=document.getElementById("poster");
+    if(poster){
+      poster.style.transform="rotateY(-6deg) rotateX(3deg)";
+      poster.addEventListener("mousemove",e=>{if(window.innerWidth<768)return;const r=poster.getBoundingClientRect();const rx=(e.clientY-r.top-r.height/2)/(r.height/2)*-12;const ry=(e.clientX-r.left-r.width/2)/(r.width/2)*12;poster.style.transform=\`perspective(900px) rotateY(\${ry}deg) rotateX(\${rx}deg) scale(1.04)\`;poster.style.boxShadow="0 30px 80px rgba(0,0,0,0.9),0 0 80px rgba(229,0,0,0.4)";});
+      poster.addEventListener("mouseleave",()=>{poster.style.transform="rotateY(-6deg) rotateX(3deg)";poster.style.boxShadow="0 20px 60px rgba(0,0,0,0.8),0 0 50px rgba(229,0,0,0.25)";});
+    }
+    const btt=document.getElementById("backToTop");
+    window.addEventListener("scroll",()=>btt.classList.toggle("visible",window.scrollY>300),{passive:true});
+    btt.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+  <\/script>
+  <script>
+    const TMDB_API_KEY='${TMDB_KEY}';
+    const TMDB_ID=${tmdbId};
+    const MEDIA_TYPE='${mediaType}';
+    const tmdbImg=(p,s='w500')=>p?\`https://image.tmdb.org/t/p/\${s}\${p}\`:null;
+    function el(id){return document.getElementById(id)}
+    function setChip(id,text){const c=el(id);if(c)c.textContent=text}
+    function buildGenreChips(genres){const wrap=el('chip-genres-wrap');if(!wrap||!genres?.length)return;wrap.innerHTML=genres.slice(0,3).map(g=>\`<span class="stat-chip">\${g.name}</span>\`).join('');}
+    function airYears(first,last,status){const y1=first?new Date(first).getFullYear():'?';if(status==='Ended'||status==='Canceled'){const y2=last?new Date(last).getFullYear():'?';return y1===y2?\`\${y1}\`:\`\${y1} – \${y2}\`}return \`\${y1} – Present\`;}
+    async function fetchContentRating(id){try{const r=await fetch(\`https://api.themoviedb.org/3/tv/\${id}/content_ratings?api_key=\${TMDB_API_KEY}\`);const d=await r.json();const us=d.results?.find(x=>x.iso_3166_1==='US');return us?.rating||null;}catch{return null}}
+    async function loadTMDBData(){
+      if(!TMDB_API_KEY)return;
+      try{
+        const endpoint=MEDIA_TYPE==='tv'?\`https://api.themoviedb.org/3/tv/\${TMDB_ID}?api_key=\${TMDB_API_KEY}&language=en-US\`:\`https://api.themoviedb.org/3/movie/\${TMDB_ID}?api_key=\${TMDB_API_KEY}&language=en-US\`;
+        const res=await fetch(endpoint);const data=await res.json();
+        if(data.success===false)return;
+        const posterEl=el('poster-img');
+        if(posterEl&&data.poster_path){posterEl.src=tmdbImg(data.poster_path,'w500');posterEl.alt=(data.name||data.title)+' Poster';}
+        if(data.backdrop_path){const bgEl=document.querySelector('.bg-blur');if(bgEl)bgEl.style.backgroundImage=\`url('\${tmdbImg(data.backdrop_path,'w1280')}')\`;}
+        const synEl=el('synopsis');if(synEl&&data.overview)synEl.textContent=data.overview;
+        if(data.vote_average)setChip('chip-rating',\`⭐ TMDB \${data.vote_average.toFixed(1)}\`);
+        buildGenreChips(data.genres);
+        if(MEDIA_TYPE==='tv'){
+          setChip('chip-years',airYears(data.first_air_date,data.last_air_date,data.status));
+          if(data.number_of_seasons)setChip('chip-seasons',\`\${data.number_of_seasons} Season\${data.number_of_seasons!==1?'s':''}\`);
+          if(data.number_of_episodes)setChip('chip-episodes',\`\${data.number_of_episodes} Episodes\`);
+          const rating=await fetchContentRating(TMDB_ID);if(rating)setChip('chip-cert',rating);
+        }else{
+          if(data.release_date)setChip('chip-years',new Date(data.release_date).getFullYear());
+          if(data.runtime)setChip('chip-episodes',\`\${data.runtime} min\`);
+          el('chip-seasons')?.remove();
+        }
+        try{
+          const credEnd=MEDIA_TYPE==='tv'?\`https://api.themoviedb.org/3/tv/\${TMDB_ID}/credits?api_key=\${TMDB_API_KEY}\`:\`https://api.themoviedb.org/3/movie/\${TMDB_ID}/credits?api_key=\${TMDB_API_KEY}\`;
+          const cr=await fetch(credEnd);const credits=await cr.json();
+          const row=el('castRow');
+          if(row&&credits.cast?.length){row.innerHTML=credits.cast.slice(0,16).map(a=>\`<div class="cast-card"><img class="cast-photo" src="\${a.profile_path?tmdbImg(a.profile_path,'w300'):'https://placehold.co/300x450/111111/666666?text=No+Image'}" alt="\${a.name}" loading="lazy"><div class="cast-info"><div class="cast-name">\${a.name}</div><div class="cast-character">\${a.character||''}</div></div></div>\`).join('');}
+        }catch(e){console.error('[TMDB CAST]',e)}
+      }catch(e){console.error('[TMDB]',e)}
+    }
+    loadTMDBData();
+  <\/script>
+  <script src="../main.js"><\/script>
+<\/body>
+<\/html>`;
+
+  document.getElementById('codePreview').textContent = generatedHTML;
+  document.getElementById('filenameDisplay').textContent = slug + '.html';
+  document.getElementById('generateStatus').innerHTML = `<div class="status success">✓ Page generated for <strong>${title}</strong> — ${links.length} download link${links.length!==1?'s':''} included</div>`;
+}
+
+function downloadHTML() {
+  if (!generatedHTML) return;
+  const slug = document.getElementById('slugInput').value.trim() || 'download';
+  const blob = new Blob([generatedHTML], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = slug + '.html';
+  a.click();
+}
+
+function copyHTML() {
+  navigator.clipboard.writeText(generatedHTML).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => btn.textContent = '📋 Copy HTML', 1500);
+  });
+}
+
+document.getElementById('searchInput').focus();
+</script>
+</body>
+</html>
