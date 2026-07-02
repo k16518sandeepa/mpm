@@ -1,5 +1,25 @@
 [
   {
+    "id": "river-city",
+    "platform": "epic",
+    "title": "River City Girls 2",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1920480/header.jpg?t=1758823732",
+    "description": "Higher stakes. Meaner streets. The River City Girls are back in action!",
+    "claimUrl": "https://store.epicgames.com/p/river-city-girls-2-77af3a",
+    "startDate": "2026-07-02T20:30:00",
+    "endDate": "2026-07-09T20:30:00"
+  },
+ {
+    "id": "ihavenomouth",
+    "platform": "epic",
+    "title": "I Have No Mouth, and I Must Scream",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/245390/header.jpg?t=1773355242",
+    "description": "The Allied Mastercomputer has destroyed all of humanity except for five people, whom it has been keeping them alive and torturing them for the past one hundred and nine years by designing virtual adventures based on their fears and weaknesses.",
+    "claimUrl": "https://store.epicgames.com/p/i-have-no-mouth-and-i-must-scream-95c5c2",
+    "startDate": "2026-07-02T20:30:00",
+    "endDate": "2026-07-09T20:30:00"
+  },
+  {
     "id": "popgoes",
     "platform": "steam",
     "title": "POPGOES Arcade",
