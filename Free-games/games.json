@@ -1,5 +1,35 @@
 [
   {
+    "id": "foretales",
+    "platform": "epic",
+    "title": "Foretales",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1170080/header.jpg?t=1744981707",
+    "description": "Decide the fate of the world in this ingenious story-driven card game. Foretales offers a unique take on the adventure genre, with a multitude of playstyles and story paths through which you can save the world… or bring about its end.",
+    "claimUrl": "https://store.epicgames.com/p/foretales-d6c5bd",
+    "startDate": "2026-07-23T20:30:00",
+    "endDate": "2026-07-30T20:30:00"
+  },
+  {
+    "id": "echo",
+    "platform": "epic",
+    "title": "Echo Generation: Midnight Edition",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1072300/header.jpg?t=1763674119",
+    "description": "Lead a gang of kids to uncover spooky mysteries, battle creatures, and explore the supernatural side of your hometown in Echo Generation, a turn-based adventure set in the 90s.",
+    "claimUrl": "https://store.epicgames.com/p/echo-generation-midnight-edition-069026",
+    "startDate": "2026-07-16T20:30:00",
+    "endDate": "2026-07-23T20:30:00"
+  },
+  {
+    "id": "luto",
+    "platform": "epic",
+    "title": "Luto",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1729740/def13c797b5c98624d24fb0b75d2e57ea0fdbf70/header.jpg?t=1784213685",
+    "description": "Luto is a psychological horror experience where you take on the role of someone unable to leave their home. Every attempt to escape will lead you deeper into the unknown, where nothing is as it seems and everything will test your senses.",
+    "claimUrl": "https://store.epicgames.com/p/luto-0a4ab3",
+    "startDate": "2026-07-16T20:30:00",
+    "endDate": "2026-07-23T20:30:00"
+  },
+  {
     "id": "nexus_the_jupiter_incident",
     "platform": "gog",
     "title": "Nexus: The Jupiter Incident",
