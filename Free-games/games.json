@@ -1,5 +1,15 @@
 [
   {
+    "id": "The_Life_and_Suffering_of_Sir_Brante",
+    "platform": "steam",
+    "title": "The Life and Suffering of Sir Brante",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1272160/header.jpg?t=1780003239",
+    "description": "A narrative-driven hardcore RPG set in a gritty world ruled by real but unrelenting gods. Set out on a challenging lifetime journey, where every choice has a price and entails consequences. Will you become an inquisitor, a judge, or conspire against the old order? Dare to decide!",
+    "claimUrl": "https://store.steampowered.com/app/1272160/The_Life_and_Suffering_of_Sir_Brante/",
+    "startDate": "2026-06-17T22:30:00",
+    "endDate": "2026-07-23T22:30:00"
+  },
+  {
     "id": "foretales",
     "platform": "epic",
     "title": "Foretales",
