@@ -268,95 +268,121 @@
   .tg-hint strong{color:var(--gold);}
 
   /* ---------- MOBILE FIXES ---------- */
+  .sub-lang-badge{display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--gold); border:1px solid rgba(232,201,106,.35); background:rgba(232,201,106,.08); padding:4px 12px; border-radius:999px; margin:8px 0;}
+  .overview-head{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;}
+  .overview-head h3{margin:0;}
+
   @media (max-width:768px){
+    #searchForm input{ width:88px; font-size:12px; }
+    #navlinks{ display:none; }
+
     .detail-hero{
       min-height:auto;
-      padding-bottom:0;
     }
     .detail-hero .backdrop{
       position:relative;
-      height:200px;
+      height:230px;
       border-radius:0;
     }
     .detail-hero .fade{
-      height:200px;
+      height:230px;
     }
     .detail-body{
       flex-direction:column !important;
       align-items:center;
-      gap:12px;
-      padding:16px 4vw 0;
+      text-align:center;
+      gap:0;
+      padding:0 7vw;
+      margin-top:-72px; /* poster overlaps the backdrop, netflix-style */
     }
     .poster-lg{
-      width:160px;
-      flex:0 0 160px;
-      margin:0 auto;
+      width:148px;
+      flex:0 0 148px;
+      margin:0 auto 14px;
       border-radius:8px;
+      border:3px solid var(--bg);
+      box-shadow:0 14px 26px rgba(0,0,0,.6);
     }
     .detail-info{
       width:100%;
+      max-width:420px;
       text-align:center;
-      padding:0 4px;
     }
     .detail-info h1{
-      font-size:clamp(24px,5vw,32px);
+      font-size:clamp(24px,6vw,32px);
       text-align:center;
-      margin-bottom:4px;
+      margin-bottom:6px;
     }
     .detail-info .tagline{
       text-align:center;
       font-size:13px;
+      margin-bottom:10px;
     }
     .meta-row{
       justify-content:center;
       font-size:12px;
-      gap:8px;
+      gap:10px;
       flex-wrap:wrap;
+      margin-bottom:2px;
     }
     .genre-pills{
       justify-content:center;
+      margin:10px 0;
+    }
+    .sub-lang-badge{
+      margin:2px auto 10px;
     }
     .btnrow{
       justify-content:center;
-      margin-top:8px;
+      margin-top:6px;
       width:100%;
-      gap:8px;
+      gap:10px;
     }
     .btn{
-      padding:8px 16px;
-      font-size:13px;
+      flex:1 1 0;
+      justify-content:center;
+      padding:11px 16px;
+      font-size:14px;
+      max-width:170px;
+    }
+    .overview-head{
+      flex-direction:column;
+      text-align:center;
     }
     .btn-download{
-      padding:8px 16px;
-      font-size:13px;
-    }
-    .detail-info .btnrow{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
+      width:100%;
       justify-content:center;
+      padding:11px 16px;
+      font-size:14px;
     }
     .overview-lg{
       font-size:14px;
       text-align:center;
-      padding:0 4px;
+      max-width:440px;
+      margin:0 auto;
     }
     .section{
-      padding:16px 4vw;
+      padding:24px 7vw;
     }
     .section h3{
       text-align:center;
     }
     .cast-row{
-      justify-content:center;
-      gap:12px;
+      justify-content:flex-start;
+      gap:14px;
+      margin:0 -7vw;
+      padding:4px 7vw 8px;
+    }
+    .cast-row::after{
+      content:'';
+      flex:0 0 1px;
     }
     .cast-card{
-      width:72px;
+      width:78px;
     }
     .cast-card .ph{
-      width:72px;
-      height:72px;
+      width:78px;
+      height:78px;
     }
     .season-bar{
       justify-content:center;
@@ -396,10 +422,6 @@
     .card{
       width:120px;
     }
-    #searchForm input{
-      width:100px;
-      font-size:12px;
-    }
     .menu-pop{
       width:260px;
       right:-60px;
@@ -412,23 +434,26 @@
   }
   @media (max-width:480px){
     .poster-lg{
-      width:140px;
-      flex:0 0 140px;
+      width:128px;
+      flex:0 0 128px;
+      margin-bottom:12px;
+    }
+    .detail-body{
+      margin-top:-58px;
     }
     .detail-info h1{
       font-size:22px;
     }
     .btn{
-      padding:6px 12px;
-      font-size:12px;
-      gap:4px;
+      padding:9px 14px;
+      font-size:13px;
     }
     .btn-download{
-      padding:6px 12px;
-      font-size:12px;
+      padding:9px 14px;
+      font-size:13px;
     }
     .btnrow{
-      gap:6px;
+      gap:8px;
     }
     .card{
       width:100px;
@@ -445,15 +470,11 @@
       min-width:60px;
       font-size:10px;
     }
-    .detail-body{
-      gap:10px;
-      padding:12px 4vw 0;
-    }
     .detail-hero .backdrop{
-      height:160px;
+      height:190px;
     }
     .detail-hero .fade{
-      height:160px;
+      height:190px;
     }
     .meta-row{
       font-size:11px;
@@ -827,7 +848,7 @@ function renderMovieDetail(entry, data){
             <span>${fmtRuntime(data.runtime)}</span>
           </div>
           <div class="genre-pills">${(data.genres||[]).map(g=>`<span class="pill">${escapeHtml(g.name)}</span>`).join('')}</div>
-          ${hasSubs ? `<div style="font-size:12px;color:var(--gold);margin:6px 0;">📝 Subtitles: ${subLabels}</div>` : ''}
+          ${hasSubs ? `<div class="sub-lang-badge">📝 Subtitles: ${subLabels}</div>` : ''}
           <div class="btnrow">
             <button class="btn btn-primary" id="playBtnDetail" ${entry.streamUrl?'':'disabled'}>${entry.streamUrl? '▶ Play' : '⏳ Coming Soon'}</button>
             ${trailer ? `<button class="btn btn-secondary" id="trailerBtn">▶ Trailer</button>` : ''}
@@ -836,8 +857,8 @@ function renderMovieDetail(entry, data){
       </div>
     </div>
     <div class="section" style="padding-top:16px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
-        <h3 style="margin:0;">Overview</h3>
+      <div class="overview-head">
+        <h3>Overview</h3>
         ${entry.streamUrl ? `<button class="btn btn-download" id="downloadBtnDetail">⬇ Download</button>` : ''}
       </div>
       <p class="overview-lg" style="margin:0;">${escapeHtml(data.overview)}</p>
@@ -983,38 +1004,44 @@ function playMovie(entry){
 
 /* =========================================================
    DOWNLOAD FUNCTION - FIXED
+   NOTE: fetching the whole video into a blob() was the bug —
+   it silently fails cross-origin (the stream server doesn't
+   send CORS headers), so it fell into the catch{} block and
+   opened the raw stream URL, which just plays in-browser.
+   Instead we navigate straight to the file with a `download=1`
+   flag so the server can respond with a real file download
+   instead of an inline/streamed response. This requires a
+   small server-side change on the MPM Player route — see note
+   below the function.
    ========================================================= */
 function downloadFile(url, filename) {
   if(!url) { showToast('No file to download'); return; }
-  
-  showToast('⏳ Preparing download...');
-  
-  // Use fetch to get the file as a blob
-  fetch(url, {
-    mode: 'cors',
-    credentials: 'omit'
-  })
-  .then(response => {
-    if(!response.ok) throw new Error('Download failed: ' + response.status);
-    return response.blob();
-  })
-  .then(blob => {
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = filename + '.mp4';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-    showToast('✅ Download started');
-  })
-  .catch(err => {
-    console.error('Download error:', err);
-    showToast('⚠️ Trying alternative download...');
-    // Fallback: try opening in new tab
-    window.open(url, '_blank');
-  });
+
+  const sep = url.includes('?') ? '&' : '?';
+  const dlUrl = url + sep + 'download=1';
+
+  showToast('⏳ Starting download...');
+
+  const a = document.createElement('a');
+  a.href = dlUrl;
+  a.download = (filename || 'video').replace(/[\\/:*?"<>|]/g, '') + '.mp4';
+  a.rel = 'noopener';
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
+/* Server-side (Express / MPM Player) needs to honor `?download=1`
+   on the /stream/:id route by setting a Content-Disposition
+   header before piping the response, e.g.:
+
+   if (req.query.download) {
+     res.setHeader('Content-Disposition', `attachment; filename="${safeName}.mp4"`);
+   }
+
+   Without that header the browser has no way to know it should
+   save the file instead of playing it — the `download` attribute
+   on the <a> tag only works for same-origin URLs. */
 
 /* =========================================================
    ADMIN
@@ -1284,7 +1311,7 @@ const subSettings = {
   bgOpacity: parseInt(localStorage.getItem('mpm_sub_bgopacity')) || 70,
   color: localStorage.getItem('mpm_sub_color') || '#ffffff',
   bgColor: localStorage.getItem('mpm_sub_bgcolor') || '#000000',
-  position: parseInt(localStorage.getItem('mpm_sub_position')) || 50
+  position: localStorage.getItem('mpm_sub_position') !== null ? parseInt(localStorage.getItem('mpm_sub_position')) : 90
 };
 
 function applySubtitleSettings() {
@@ -1311,6 +1338,24 @@ function applySubtitleSettings() {
   `;
   
   document.head.appendChild(newStyle);
+}
+
+/* Font/color/background above only styles the cue box via CSS —
+   CSS can't move a cue's vertical position. That has to be set
+   per-cue in JS via VTTCue.line, which is why the position slider
+   previously did nothing. */
+function applySubtitlePosition(track) {
+  if(!track || !track.cues) return;
+  Array.from(track.cues).forEach(cue => {
+    try {
+      cue.snapToLines = false;
+      cue.line = subSettings.position;
+      cue.align = cue.align || 'center';
+    } catch(e) { /* some browsers throw on unsupported cue types */ }
+  });
+}
+function applySubtitlePositionAll() {
+  Array.from(video.textTracks).forEach(applySubtitlePosition);
 }
 
 function hexToRgb(hex) {
@@ -1426,6 +1471,7 @@ async function loadSubtitlesWithFetch(subUrls) {
       video.appendChild(track);
       
       track.addEventListener('load', () => {
+        applySubtitlePosition(track);
         showToast(`✅ Loaded ${langNames[lang] || lang} subtitles`);
         renderSubMenu();
       });
@@ -1486,7 +1532,8 @@ function loadLocalSubtitle(file) {
     Array.from(video.textTracks).forEach(t => {
       if (t !== track) t.mode = 'disabled';
     });
-    
+
+    track.addEventListener('load', () => applySubtitlePosition(track));
     showToast(`✅ Loaded local subtitle: ${file.name}`);
     renderSubMenu();
   };
@@ -1666,6 +1713,7 @@ function renderSubMenu(){
       document.getElementById('subPositionVal').textContent = subSettings.position + '%';
       localStorage.setItem('mpm_sub_position', subSettings.position);
       applySubtitleSettings();
+      applySubtitlePositionAll();
     };
   }
   
@@ -1707,16 +1755,17 @@ function renderSubMenu(){
   if(resetBtn) {
     resetBtn.onclick = () => {
       subSettings.fontSize = 100;
-      subSettings.position = 50;
+      subSettings.position = 90;
       subSettings.color = '#ffffff';
       subSettings.bgColor = '#000000';
       subSettings.bgOpacity = 70;
       localStorage.setItem('mpm_sub_fontsize', 100);
-      localStorage.setItem('mpm_sub_position', 50);
+      localStorage.setItem('mpm_sub_position', 90);
       localStorage.setItem('mpm_sub_color', '#ffffff');
       localStorage.setItem('mpm_sub_bgcolor', '#000000');
       localStorage.setItem('mpm_sub_bgopacity', 70);
       applySubtitleSettings();
+      applySubtitlePositionAll();
       renderSubMenu();
       showToast('✅ Subtitle settings reset');
     };
@@ -1742,6 +1791,7 @@ subMenu.addEventListener('click', (e) => {
     if(idx < tracks.length) {
       tracks[idx].mode = 'showing';
       tracks[idx].default = true;
+      applySubtitlePosition(tracks[idx]);
     }
   }
   renderSubMenu(); 
