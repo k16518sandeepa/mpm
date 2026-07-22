@@ -349,7 +349,7 @@
 
 <script type="module">
 /* =========================================================
-   MPMFLIX — with fixed download, subtitle settings, separate quality
+   MPMFLIX — with fixed fullscreen back button and subtitle position
    ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -1071,12 +1071,18 @@ const subSettings = {
 };
 
 function applySubtitleSettings() {
-  const style = document.createElement('style');
-  style.id = 'mpm-sub-settings';
-  const position = subSettings.position;
-  // Position: 0 = bottom, 50 = middle, 100 = top
-  const bottomOffset = 5 + (100 - position) * 0.3;
-  style.textContent = `
+  const style = document.getElementById('mpm-sub-settings');
+  if(style) style.remove();
+  
+  const newStyle = document.createElement('style');
+  newStyle.id = 'mpm-sub-settings';
+  
+  // Position mapping: 0% = very bottom, 50% = middle, 100% = top
+  // line value in CSS cues: 0 = bottom, 50% = middle, 100% = top
+  // We'll use line with percentage
+  const lineValue = 100 - subSettings.position; // Invert so 0% position = bottom
+  
+  newStyle.textContent = `
     #videoEl::cue {
       font-size: ${subSettings.fontSize}%;
       color: ${subSettings.color};
@@ -1085,14 +1091,17 @@ function applySubtitleSettings() {
       line-height: 1.4;
       padding: 2px 6px;
       border-radius: 2px;
+      text-shadow: 0 0 4px rgba(0,0,0,0.5);
     }
     #videoEl::cue(v) {
       background: rgba(${hexToRgb(subSettings.bgColor)}, ${subSettings.bgOpacity / 100});
     }
   `;
-  const old = document.getElementById('mpm-sub-settings');
-  if(old) old.remove();
-  document.head.appendChild(style);
+  
+  // Apply line position using CSS custom property
+  video.style.setProperty('--cue-line', lineValue + '%');
+  
+  document.head.appendChild(newStyle);
 }
 
 function hexToRgb(hex) {
@@ -1102,6 +1111,21 @@ function hexToRgb(hex) {
 
 // Apply settings on load
 applySubtitleSettings();
+
+// FIXED: Fullscreen back button - exit fullscreen first then close player
+document.getElementById('playerBack').onclick = function() {
+  if (document.fullscreenElement) {
+    document.exitFullscreen().then(() => {
+      // Wait for fullscreen exit then close player
+      setTimeout(closePlayer, 300);
+    }).catch(() => {
+      // If fullscreen exit fails, just close player
+      closePlayer();
+    });
+  } else {
+    closePlayer();
+  }
+};
 
 function openPlayer(url, title, subUrls){
   if(!url){ showToast('Not available yet'); return; }
@@ -1273,7 +1297,6 @@ function closePlayer(){
   document.body.style.overflow = '';
   clearSubtitles();
 }
-document.getElementById('playerBack').onclick = closePlayer;
 
 function saveResume(){ 
   if(currentStreamKey && video.currentTime > 0) {
@@ -1378,7 +1401,7 @@ speedMenu.innerHTML = `<h5>Speed</h5>` + speeds.map(s=>`<div class="opt ${s===1?
 document.getElementById('speedBtn').onclick = (e) => { e.stopPropagation(); toggleMenu(speedMenu); };
 speedMenu.addEventListener('click', (e) => { const opt=e.target.closest('.opt'); if(!opt) return; video.playbackRate=Number(opt.dataset.speed); speedMenu.querySelectorAll('.opt').forEach(o=>o.classList.remove('active')); opt.classList.add('active'); speedMenu.classList.remove('open'); });
 
-// SUBTITLE MENU with settings
+// SUBTITLE MENU with settings - FIXED position
 document.getElementById('subBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8 12H6v-2h2v2zm0 4H6v-2h2v2zm4-4h-2v-2h2v2zm0 4h-2v-2h2v2zm6 0h-6v-2h6v2zm0-4h-2v-2h2v2z"/></svg>`;
 const subMenu = document.getElementById('subMenu');
 
@@ -1400,14 +1423,14 @@ function renderSubMenu(){
     <div style="border-top:1px solid var(--border);margin:8px 0;"></div>
     <h5>⚙️ Subtitle Settings</h5>
     <div class="sub-setting">
-      <label>Font Size</label>
-      <input type="range" id="subFontSize" min="50" max="200" value="${subSettings.fontSize}">
-      <span class="val" id="subFontSizeVal">${subSettings.fontSize}%</span>
-    </div>
-    <div class="sub-setting">
       <label>Position</label>
       <input type="range" id="subPosition" min="0" max="100" value="${subSettings.position}">
       <span class="val" id="subPositionVal">${subSettings.position}%</span>
+    </div>
+    <div class="sub-setting">
+      <label>Font Size</label>
+      <input type="range" id="subFontSize" min="50" max="200" value="${subSettings.fontSize}">
+      <span class="val" id="subFontSizeVal">${subSettings.fontSize}%</span>
     </div>
     <div class="sub-setting">
       <label>Text Color</label>
@@ -1429,26 +1452,26 @@ function renderSubMenu(){
   `;
   
   // Attach events
-  const fontSlider = document.getElementById('subFontSize');
   const posSlider = document.getElementById('subPosition');
+  const fontSlider = document.getElementById('subFontSize');
   const textColor = document.getElementById('subTextColor');
   const bgColor = document.getElementById('subBgColor');
   const bgOpacity = document.getElementById('subBgOpacity');
-  
-  if(fontSlider) {
-    fontSlider.oninput = () => {
-      subSettings.fontSize = parseInt(fontSlider.value);
-      document.getElementById('subFontSizeVal').textContent = subSettings.fontSize + '%';
-      localStorage.setItem('mpm_sub_fontsize', subSettings.fontSize);
-      applySubtitleSettings();
-    };
-  }
   
   if(posSlider) {
     posSlider.oninput = () => {
       subSettings.position = parseInt(posSlider.value);
       document.getElementById('subPositionVal').textContent = subSettings.position + '%';
       localStorage.setItem('mpm_sub_position', subSettings.position);
+      applySubtitleSettings();
+    };
+  }
+  
+  if(fontSlider) {
+    fontSlider.oninput = () => {
+      subSettings.fontSize = parseInt(fontSlider.value);
+      document.getElementById('subFontSizeVal').textContent = subSettings.fontSize + '%';
+      localStorage.setItem('mpm_sub_fontsize', subSettings.fontSize);
       applySubtitleSettings();
     };
   }
