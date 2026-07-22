@@ -349,7 +349,7 @@
 
 <script type="module">
 /* =========================================================
-   MPMFLIX — with fixed fullscreen back button and subtitle position
+   MPMFLIX — with fixed download (works with stream URLs)
    ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -766,37 +766,31 @@ function playMovie(entry){
 }
 
 /* =========================================================
-   DOWNLOAD FUNCTION - Opens new tab, closes it, starts download
+   DOWNLOAD FUNCTION - FIXED for stream URLs
    ========================================================= */
 function downloadFile(url, filename) {
   if(!url) { showToast('No file to download'); return; }
   
-  showToast('Preparing download...');
+  showToast('⏳ Preparing download...');
   
-  // Open a new tab that will trigger the download
-  const win = window.open(url, '_blank');
+  // Create a hidden anchor element with download attribute
+  const a = document.createElement('a');
+  a.href = url;
+  // Set the download attribute with filename
+  a.download = filename + '.mp4';
+  a.target = '_blank';
+  a.style.display = 'none';
+  document.body.appendChild(a);
   
-  // Close the tab after a delay (let the download start)
+  // Click the anchor to trigger download
+  a.click();
+  
+  // Clean up
   setTimeout(() => {
-    if(win) {
-      win.close();
-      showToast('✅ Download started');
-    }
-  }, 2000);
-  
-  // Fallback: if the tab didn't open, try direct download
-  setTimeout(() => {
-    try {
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename + '.mp4';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    } catch(e) {
-      // Ignore
-    }
+    document.body.removeChild(a);
   }, 3000);
+  
+  showToast('✅ Download started');
 }
 
 /* =========================================================
@@ -1077,11 +1071,6 @@ function applySubtitleSettings() {
   const newStyle = document.createElement('style');
   newStyle.id = 'mpm-sub-settings';
   
-  // Position mapping: 0% = very bottom, 50% = middle, 100% = top
-  // line value in CSS cues: 0 = bottom, 50% = middle, 100% = top
-  // We'll use line with percentage
-  const lineValue = 100 - subSettings.position; // Invert so 0% position = bottom
-  
   newStyle.textContent = `
     #videoEl::cue {
       font-size: ${subSettings.fontSize}%;
@@ -1098,7 +1087,11 @@ function applySubtitleSettings() {
     }
   `;
   
-  // Apply line position using CSS custom property
+  // Apply position using CSS custom property on video
+  const position = subSettings.position;
+  // Position: 0% = bottom, 50% = middle, 100% = top
+  // Map to line: 0% = bottom, 50% = middle, 100% = top
+  const lineValue = position;
   video.style.setProperty('--cue-line', lineValue + '%');
   
   document.head.appendChild(newStyle);
@@ -1116,10 +1109,8 @@ applySubtitleSettings();
 document.getElementById('playerBack').onclick = function() {
   if (document.fullscreenElement) {
     document.exitFullscreen().then(() => {
-      // Wait for fullscreen exit then close player
       setTimeout(closePlayer, 300);
     }).catch(() => {
-      // If fullscreen exit fails, just close player
       closePlayer();
     });
   } else {
@@ -1401,7 +1392,7 @@ speedMenu.innerHTML = `<h5>Speed</h5>` + speeds.map(s=>`<div class="opt ${s===1?
 document.getElementById('speedBtn').onclick = (e) => { e.stopPropagation(); toggleMenu(speedMenu); };
 speedMenu.addEventListener('click', (e) => { const opt=e.target.closest('.opt'); if(!opt) return; video.playbackRate=Number(opt.dataset.speed); speedMenu.querySelectorAll('.opt').forEach(o=>o.classList.remove('active')); opt.classList.add('active'); speedMenu.classList.remove('open'); });
 
-// SUBTITLE MENU with settings - FIXED position
+// SUBTITLE MENU with settings
 document.getElementById('subBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8 12H6v-2h2v2zm0 4H6v-2h2v2zm4-4h-2v-2h2v2zm0 4h-2v-2h2v2zm6 0h-6v-2h6v2zm0-4h-2v-2h2v2z"/></svg>`;
 const subMenu = document.getElementById('subMenu');
 
