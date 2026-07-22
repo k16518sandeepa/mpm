@@ -267,49 +267,71 @@
   .tg-hint{font-size:11px; color:var(--text-dim); background:var(--bg); padding:8px 12px; border-radius:4px; border-left:3px solid var(--gold); margin-top:6px;}
   .tg-hint strong{color:var(--gold);}
 
-  /* ---------- MOBILE FIXES ---------- */
+  /* ---------- MOBILE FIXES - Poster left, details right, buttons below ---------- */
   @media (max-width:768px){
+    .detail-hero{
+      min-height:auto;
+      padding-bottom:10px;
+    }
+    .detail-hero .backdrop{
+      position:relative;
+      height:180px;
+    }
+    .detail-hero .fade{
+      height:180px;
+    }
     .detail-body{
-      flex-direction:column;
-      align-items:center;
-      padding:16px 4vw 0;
+      flex-direction:row !important;
+      align-items:flex-start;
       gap:16px;
+      padding:16px 4vw 0;
+      flex-wrap:wrap;
     }
     .poster-lg{
-      width:140px;
-      flex:0 0 140px;
+      width:120px;
+      flex:0 0 120px;
     }
     .detail-info{
-      width:100%;
-      text-align:center;
+      flex:1;
+      min-width:150px;
+      text-align:left;
     }
     .detail-info h1{
-      font-size:clamp(24px,6vw,36px);
-      text-align:center;
+      font-size:clamp(20px,4vw,30px);
+      text-align:left;
     }
     .detail-info .tagline{
-      text-align:center;
+      text-align:left;
+      font-size:13px;
     }
     .meta-row{
-      justify-content:center;
+      justify-content:flex-start;
+      font-size:12px;
     }
     .genre-pills{
-      justify-content:center;
+      justify-content:flex-start;
     }
     .btnrow{
-      justify-content:center;
+      justify-content:flex-start;
+      margin-top:6px;
+      width:100%;
     }
     .btn{
-      padding:9px 16px;
-      font-size:13px;
+      padding:8px 14px;
+      font-size:12px;
+    }
+    .detail-info .btnrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
     }
     .overview-lg{
       font-size:14px;
-      text-align:center;
-      padding:0 8px;
+      text-align:left;
+      padding:0;
     }
     .cast-row{
-      justify-content:center;
+      justify-content:flex-start;
     }
     .cast-card{
       width:72px;
@@ -318,30 +340,19 @@
       width:72px;
       height:72px;
     }
-    .detail-hero{
-      min-height:auto;
-      padding-bottom:20px;
-    }
-    .detail-hero .backdrop{
-      position:relative;
-      height:200px;
-    }
-    .detail-hero .fade{
-      height:200px;
-    }
     .section{
       padding:20px 4vw;
     }
     .section h3{
-      text-align:center;
+      text-align:left;
     }
     .season-bar{
-      justify-content:center;
+      justify-content:flex-start;
     }
     .episode{
       flex-direction:column;
-      align-items:center;
-      text-align:center;
+      align-items:flex-start;
+      text-align:left;
     }
     .episode .thumb{
       width:100%;
@@ -349,18 +360,16 @@
       flex:none;
     }
     .episode .info .top{
-      justify-content:center;
-      flex-direction:column;
-      gap:4px;
+      justify-content:flex-start;
+      flex-direction:row;
+      flex-wrap:wrap;
+      gap:6px;
     }
     .episode .info .top .btn-download{
-      margin:0 auto !important;
+      margin-left:auto !important;
     }
     .episode .info .desc{
-      text-align:center;
-    }
-    .sub-indicator{
-      display:inline-block;
+      text-align:left;
     }
     #hero{
       height:60vh;
@@ -386,16 +395,19 @@
   }
   @media (max-width:480px){
     .poster-lg{
-      width:120px;
-      flex:0 0 120px;
+      width:90px;
+      flex:0 0 90px;
+    }
+    .detail-info h1{
+      font-size:18px;
     }
     .btn{
-      padding:7px 12px;
-      font-size:12px;
+      padding:6px 10px;
+      font-size:11px;
       gap:4px;
     }
     .btnrow{
-      gap:8px;
+      gap:6px;
     }
     .card{
       width:100px;
@@ -411,6 +423,10 @@
     .sub-setting label{
       min-width:60px;
       font-size:10px;
+    }
+    .detail-body{
+      gap:10px;
+      padding:12px 4vw 0;
     }
   }
 </style>
@@ -496,7 +512,7 @@
 
 <script type="module">
 /* =========================================================
-   MPMFLIX — with fixed mobile UI and download
+   MPMFLIX — Fixed mobile UI (poster left, details right, buttons below)
    ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -925,14 +941,14 @@ function playMovie(entry){
 }
 
 /* =========================================================
-   DOWNLOAD FUNCTION - FIXED for stream URLs
+   DOWNLOAD FUNCTION - FIXED - uses fetch with blob
    ========================================================= */
 function downloadFile(url, filename) {
   if(!url) { showToast('No file to download'); return; }
   
-  showToast('⏳ Downloading...');
+  showToast('⏳ Preparing download...');
   
-  // Method 1: Use fetch to get the file as blob then download
+  // Use fetch to get the file as a blob
   fetch(url, {
     mode: 'cors',
     credentials: 'omit'
@@ -942,6 +958,7 @@ function downloadFile(url, filename) {
     return response.blob();
   })
   .then(blob => {
+    // Create a download link
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = filename + '.mp4';
@@ -953,21 +970,9 @@ function downloadFile(url, filename) {
   })
   .catch(err => {
     console.error('Download error:', err);
-    // Method 2: Fallback - use anchor with download attribute
-    try {
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename + '.mp4';
-      a.target = '_blank';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      showToast('✅ Download started (fallback)');
-    } catch(e) {
-      // Method 3: Last resort - open in new tab
-      window.open(url, '_blank');
-      showToast('⚠️ File opened in new tab, right-click to save');
-    }
+    // Fallback: try opening in new tab
+    showToast('⚠️ Trying alternative download method...');
+    window.open(url, '_blank');
   });
 }
 
@@ -1273,10 +1278,8 @@ function hexToRgb(hex) {
   return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : '0, 0, 0';
 }
 
-// Apply settings on load
 applySubtitleSettings();
 
-// FIXED: Fullscreen back button - exit fullscreen first then close player
 document.getElementById('playerBack').onclick = function() {
   if (document.fullscreenElement) {
     document.exitFullscreen().then(() => {
@@ -1467,7 +1470,6 @@ function saveResume(){
 }
 setInterval(()=>{ if(!video.paused) saveResume(); }, 4000);
 
-// Player download button
 document.getElementById('downloadBtn').onclick = () => {
   const url = localStorage.getItem('mpm_current_url');
   const title = document.getElementById('playerTitle').textContent;
@@ -1563,7 +1565,6 @@ speedMenu.innerHTML = `<h5>Speed</h5>` + speeds.map(s=>`<div class="opt ${s===1?
 document.getElementById('speedBtn').onclick = (e) => { e.stopPropagation(); toggleMenu(speedMenu); };
 speedMenu.addEventListener('click', (e) => { const opt=e.target.closest('.opt'); if(!opt) return; video.playbackRate=Number(opt.dataset.speed); speedMenu.querySelectorAll('.opt').forEach(o=>o.classList.remove('active')); opt.classList.add('active'); speedMenu.classList.remove('open'); });
 
-// SUBTITLE MENU with settings
 document.getElementById('subBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8 12H6v-2h2v2zm0 4H6v-2h2v2zm4-4h-2v-2h2v2zm0 4h-2v-2h2v2zm6 0h-6v-2h6v2zm0-4h-2v-2h2v2z"/></svg>`;
 const subMenu = document.getElementById('subMenu');
 
@@ -1613,7 +1614,6 @@ function renderSubMenu(){
     ${!hasTracks ? `<div style="font-size:10px;color:var(--text-dim);padding:8px 10px;text-align:center;">No subtitles available. Upload a local file.</div>` : ''}
   `;
   
-  // Attach events
   const posSlider = document.getElementById('subPosition');
   const fontSlider = document.getElementById('subFontSize');
   const textColor = document.getElementById('subTextColor');
