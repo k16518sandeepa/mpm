@@ -872,18 +872,18 @@ function renderMovieEditor(data, entry, host){
         </select>
       </div>
       <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
-        <label style="font-size:12px;color:var(--text-dim);display:block;margin-bottom:8px;">📝 Subtitle URLs</label>
+        <label style="font-size:12px;color:var(--text-dim);display:block;margin-bottom:8px;">📝 Subtitle URLs (from Telegram bot)</label>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
           <div style="flex:1;min-width:180px;">
-            <label style="font-size:11px;color:var(--text-dim);">🇱🇰 Sinhala (.srt URL)</label>
+            <label style="font-size:11px;color:var(--text-dim);">🇱🇰 Sinhala</label>
             <input type="text" id="subSiInput" value="${escapeHtml(subs.si||'')}" placeholder="https://stream.motionpicturemafia.com/stream/72?hash=73ddfc" style="width:100%;background:var(--bg);border:1px solid var(--border);padding:8px 10px;border-radius:4px;font-size:13px;color:var(--text);">
           </div>
           <div style="flex:1;min-width:180px;">
-            <label style="font-size:11px;color:var(--text-dim);">🇬🇧 English (.srt URL)</label>
+            <label style="font-size:11px;color:var(--text-dim);">🇬🇧 English</label>
             <input type="text" id="subEnInput" value="${escapeHtml(subs.en||'')}" placeholder="https://stream.motionpicturemafia.com/stream/73?hash=..." style="width:100%;background:var(--bg);border:1px solid var(--border);padding:8px 10px;border-radius:4px;font-size:13px;color:var(--text);">
           </div>
         </div>
-        <div class="tg-hint">💡 You can also upload subtitle files locally while watching the video</div>
+        <div class="tg-hint">💡 <strong>Important:</strong> Make sure the subtitle URLs are correct and accessible. You can also upload subtitle files locally while watching.</div>
       </div>
       <button class="btn btn-primary" id="saveMovieBtn" style="margin-top:14px;">${entry ? 'Update' : 'Add to catalog'}</button>
       ${entry ? `<button class="btn btn-ghost" id="removeMovieBtn" style="margin-left:10px;">Remove from catalog</button>` : ''}
@@ -997,7 +997,7 @@ async function renderTVEditor(data, entry, host){
 }
 
 /* =========================================================
-   PLAYER — Fixed subtitle support
+   PLAYER — Fixed subtitle loading with fetch-based approach
    ========================================================= */
 const watchEl = document.getElementById('watch');
 const playerWrap = document.getElementById('playerWrap');
@@ -1012,7 +1012,6 @@ function openPlayer(url, title, subUrls){
   currentSubUrls = subUrls || {};
   currentStreamKey = 'mpmflix_time_' + btoa(unescape(encodeURIComponent(url))).slice(0,40);
   
-  // Reset video and load
   video.removeAttribute('src');
   video.load();
   video.src = url;
@@ -1021,11 +1020,10 @@ function openPlayer(url, title, subUrls){
   watchEl.classList.add('open');
   document.body.style.overflow = 'hidden';
   
-  // Clear old subtitles
   clearSubtitles();
   
-  // Load subtitles from URLs
-  loadSubtitlesFromUrls(subUrls);
+  // Load subtitles using fetch to handle Telegram stream URLs
+  loadSubtitlesWithFetch(subUrls);
   
   resetPlayerUI();
   const resume = parseFloat(localStorage.getItem(currentStreamKey) || '0');
@@ -1039,7 +1037,6 @@ function openPlayer(url, title, subUrls){
       badge.textContent = entry.quality;
       badge.className = 'quality-badge ' + (entry.quality === '4K' ? '_4k' : entry.quality === 'HD' ? 'hd' : '');
     }
-    // Ensure subtitles are available after metadata loads
     setTimeout(renderSubMenu, 300);
   });
   
@@ -1048,32 +1045,83 @@ function openPlayer(url, title, subUrls){
   localStorage.setItem('mpm_current_url', url);
 }
 
-function loadSubtitlesFromUrls(subUrls) {
+// Load subtitles using fetch to handle both direct .srt files and Telegram stream URLs
+async function loadSubtitlesWithFetch(subUrls) {
   clearSubtitles();
+  
   const langNames = { en: 'English', si: 'Sinhala' };
   const langEmojis = { en: '🇬🇧', si: '🇱🇰' };
   
-  Object.entries(subUrls).forEach(([lang, url]) => {
-    if(!url) return;
-    const track = document.createElement('track');
-    track.kind = 'subtitles';
-    track.label = `${langEmojis[lang] || ''} ${langNames[lang] || lang}`;
-    track.srclang = lang;
-    track.src = url;
-    track.mode = 'disabled';
-    track.default = false;
-    video.appendChild(track);
+  for (const [lang, url] of Object.entries(subUrls)) {
+    if(!url) continue;
     
-    track.addEventListener('load', () => {
-      showToast(`✅ Loaded ${langNames[lang] || lang} subtitles`);
-      renderSubMenu();
-    });
-    track.addEventListener('error', (e) => {
-      console.warn(`Failed to load subtitle: ${url}`, e);
-    });
-  });
+    try {
+      console.log(`Loading subtitle for ${lang} from: ${url}`);
+      
+      // Fetch the subtitle content
+      const response = await fetch(url, {
+        mode: 'cors',
+        credentials: 'omit'
+      });
+      
+      if (!response.ok) {
+        console.warn(`Failed to load subtitle ${lang}: ${response.status}`);
+        showToast(`⚠️ Could not load ${langNames[lang] || lang} subtitles (${response.status})`);
+        continue;
+      }
+      
+      let content = await response.text();
+      console.log(`Subtitle content for ${lang} loaded, length: ${content.length}`);
+      
+      // Check if it's SRT format
+      const isSRT = /^\d+\s*\n\d{2}:\d{2}:\d{2}[,.]\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}[,.]\d{3}/m.test(content);
+      
+      let vttContent;
+      if (isSRT) {
+        // Convert SRT to WebVTT
+        vttContent = 'WEBVTT\n\n' + content
+          .replace(/\r+/g, '')
+          .replace(/^\uFEFF/, '')
+          .replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, '$1.$2')
+          .replace(/(\d{2}:\d{2}:\d{2})\.(\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2})\.(\d{3})/g, '$1.$2 --> $3.$4');
+      } else if (content.trim().startsWith('WEBVTT')) {
+        vttContent = content;
+      } else {
+        // Try to treat as VTT or plain text
+        vttContent = 'WEBVTT\n\n' + content;
+      }
+      
+      // Create a blob URL for the subtitle
+      const blob = new Blob([vttContent], { type: 'text/vtt' });
+      const blobUrl = URL.createObjectURL(blob);
+      
+      // Create track element
+      const track = document.createElement('track');
+      track.kind = 'subtitles';
+      track.label = `${langEmojis[lang] || ''} ${langNames[lang] || lang}`;
+      track.srclang = lang;
+      track.src = blobUrl;
+      track.mode = 'disabled';
+      track.default = false;
+      video.appendChild(track);
+      
+      track.addEventListener('load', () => {
+        showToast(`✅ Loaded ${langNames[lang] || lang} subtitles`);
+        renderSubMenu();
+      });
+      
+      track.addEventListener('error', (e) => {
+        console.warn(`Track error for ${lang}:`, e);
+      });
+      
+      console.log(`Subtitle track added for ${lang}`);
+      
+    } catch (err) {
+      console.error(`Error loading subtitle ${lang}:`, err);
+      showToast(`⚠️ Error loading ${langNames[lang] || lang} subtitles`);
+    }
+  }
   
-  // Wait a bit then update the menu
   setTimeout(renderSubMenu, 800);
 }
 
@@ -1082,12 +1130,10 @@ function loadLocalSubtitle(file) {
   reader.onload = function(e) {
     let content = e.target.result;
     
-    // Detect if it's SRT (starts with numbers and timestamps)
     const isSRT = /^\d+\s*\n\d{2}:\d{2}:\d{2}[,.]\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}[,.]\d{3}/m.test(content);
     
     let vttContent;
     if (isSRT) {
-      // Convert SRT to WebVTT
       vttContent = 'WEBVTT\n\n' + content
         .replace(/\r+/g, '')
         .replace(/^\uFEFF/, '')
@@ -1100,10 +1146,11 @@ function loadLocalSubtitle(file) {
     const blob = new Blob([vttContent], { type: 'text/vtt' });
     const url = URL.createObjectURL(blob);
     
-    // Remove any existing local subtitle tracks
+    // Remove existing local subtitle tracks
     const existingTracks = Array.from(video.querySelectorAll('track'));
     existingTracks.forEach(t => {
       if (t.label && t.label.startsWith('📁')) {
+        if (t.src && t.src.startsWith('blob:')) URL.revokeObjectURL(t.src);
         t.remove();
       }
     });
@@ -1265,7 +1312,7 @@ function renderSubMenu(){
   
   subMenu.innerHTML += `
     <div class="upload-btn" id="uploadLocalSubBtn">📁 Upload local .srt / .vtt file</div>
-    ${!hasTracks ? `<div style="font-size:10px;color:var(--text-dim);padding:8px 10px;text-align:center;">No subtitles available</div>` : ''}
+    ${!hasTracks ? `<div style="font-size:10px;color:var(--text-dim);padding:8px 10px;text-align:center;">No subtitles available. Upload a local file.</div>` : ''}
     <div style="font-size:10px;color:var(--text-dim);padding:8px 10px;border-top:1px solid var(--border);margin-top:6px;">
       💡 Upload .srt or .vtt files locally
     </div>`;
