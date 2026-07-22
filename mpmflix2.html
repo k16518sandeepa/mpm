@@ -232,18 +232,18 @@
   .editor-head .sub{color:var(--text-dim); font-size:12.5px; margin-top:4px;}
   .check-row{display:flex; align-items:center; gap:8px; margin:10px 0; font-size:13px; color:var(--text-dim);}
   .ep-row{display:flex; gap:10px; align-items:center; padding:9px 0; border-bottom:1px solid var(--border); flex-wrap:wrap;}
-  .ep-row .eplabel{width:140px; flex:0 0 140px; font-size:13px;}
-  .ep-row .ep-inputs{display:flex; gap:8px; flex:1; flex-wrap:wrap; min-width:200px;}
+  .ep-row .eplabel{width:130px; flex:0 0 130px; font-size:13px;}
+  .ep-row .ep-inputs{display:flex; gap:8px; flex:1; flex-wrap:wrap; min-width:180px;}
   .ep-row .ep-inputs input{flex:1; background:var(--bg); border:1px solid var(--border); padding:8px 10px; border-radius:4px; font-size:13px; min-width:80px; color:var(--text);}
   .ep-row .ep-inputs input::placeholder{color:var(--text-dim);}
   .ep-row .ep-inputs input:focus{outline:none; border-color:var(--gold);}
-  .ep-row .sub-links{display:flex; gap:6px; align-items:center; flex-wrap:wrap;}
-  .ep-row .sub-links input{width:120px; background:var(--bg); border:1px solid var(--border); padding:6px 8px; border-radius:4px; font-size:11px; color:var(--text);}
-  .ep-row .sub-links input::placeholder{color:var(--text-dim); font-size:10px;}
+  .ep-row .sub-links{display:flex; gap:6px; align-items:center; flex-wrap:wrap; flex:1; min-width:180px;}
+  .ep-row .sub-links input{width:130px; background:var(--bg); border:1px solid var(--border); padding:6px 8px; border-radius:4px; font-size:11px; color:var(--text);}
+  .ep-row .sub-links input::placeholder{color:var(--text-dim); font-size:9px;}
   .ep-row .sub-links input:focus{outline:none; border-color:var(--gold);}
   .ep-row .sub-links .lang-label{font-size:10px; color:var(--text-dim); font-weight:700; min-width:20px;}
   .ep-row .sub-links .has-sub{color:var(--gold); border-color:var(--gold);}
-  .ep-row .status{width:50px; text-align:center; font-size:11px;}
+  .ep-row .status{width:40px; text-align:center; font-size:11px;}
   .status.linked{color:var(--gold);}
   .catalog-list{border:1px solid var(--border); border-radius:8px; overflow:hidden;}
   .catalog-row{display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid var(--border); flex-wrap:wrap;}
@@ -256,6 +256,10 @@
   .quality-badge{font-size:11px; background:rgba(0,0,0,.7); padding:2px 8px; border-radius:3px; color:var(--text-dim); border:1px solid var(--border);}
   .quality-badge.hd{color:var(--gold); border-color:var(--gold);}
   .quality-badge._4k{color:#00d4ff; border-color:#00d4ff;}
+
+  /* Telegram style hint */
+  .tg-hint{font-size:11px; color:var(--text-dim); background:var(--bg); padding:8px 12px; border-radius:4px; border-left:3px solid var(--gold); margin-top:6px;}
+  .tg-hint strong{color:var(--gold);}
 </style>
 </head>
 <body>
@@ -338,7 +342,8 @@
 
 <script type="module">
 /* =========================================================
-   MPMFLIX — with subtitle links (URLs) for Sinhala and English
+   MPMFLIX — with subtitle links from Telegram bot
+   Subtitle URLs format: https://stream.motionpicturemafia.com/stream/72?hash=73ddfc
    ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -615,7 +620,7 @@ function renderMovieDetail(entry, data){
           ${data.tagline ? `<div class="tagline">${escapeHtml(data.tagline)}</div>` : ''}
           <div class="meta-row"><span class="badge-rating">★ ${ratingOf(data)}</span><span>${yearOf(data)}</span><span>${fmtRuntime(data.runtime)}</span></div>
           <div class="genre-pills">${(data.genres||[]).map(g=>`<span class="pill">${escapeHtml(g.name)}</span>`).join('')}</div>
-          ${hasSubs ? `<div style="font-size:12px;color:var(--gold);margin:6px 0;">📝 Subtitles: ${Object.keys(subUrls).join(', ')}</div>` : ''}
+          ${hasSubs ? `<div style="font-size:12px;color:var(--gold);margin:6px 0;">📝 Subtitles: ${Object.keys(subUrls).map(k => k==='en'?'English':'Sinhala').join(', ')}</div>` : ''}
           <div class="btnrow">
             <button class="btn btn-primary" id="playBtnDetail" ${entry.streamUrl?'':'disabled'}>${entry.streamUrl? '▶ Play' : '⏳ Coming Soon'}</button>
             ${trailer ? `<button class="btn btn-secondary" id="trailerBtn">▶ Trailer</button>` : ''}
@@ -704,13 +709,14 @@ async function renderTVDetail(entry, data){
 function episodeHtml(ep, url, subUrls){
   const thumb = CONFIG.IMG(ep.still_path, 'w300');
   const hasSubs = Object.keys(subUrls).length > 0;
+  const subLabels = Object.keys(subUrls).map(k => k==='en'?'EN':'සිං').join(', ');
   return `<div class="episode ${url?'':'disabled'}" data-season="${ep.season_number}" data-episode="${ep.episode_number}" data-name="${escapeHtml(ep.name)}" data-url="${url||''}" data-subs='${JSON.stringify(subUrls)}'>
     <div class="thumb skeleton">${thumb?lazyImg(thumb,ep.name):''}<div class="playbadge">▶</div></div>
     <div class="info">
       <div class="top">
         <span class="num">${ep.episode_number}. ${escapeHtml(ep.name)}</span>
         ${url?`<span class="runtime">${fmtRuntime(ep.runtime)}</span>`:`<span class="soon-chip">Coming soon</span>`}
-        ${hasSubs ? `<span class="sub-indicator">📝 ${Object.keys(subUrls).join(', ')}</span>` : ''}
+        ${hasSubs ? `<span class="sub-indicator">📝 ${subLabels}</span>` : ''}
       </div>
       <div class="desc">${escapeHtml(ep.overview || 'No description available.')}</div>
     </div>
@@ -738,7 +744,7 @@ function playMovie(entry){
 }
 
 /* =========================================================
-   ADMIN
+   ADMIN — with subtitle URL support
    ========================================================= */
 route('/admin', async () => {
   if(!currentUser){ renderAdminLogin(); return; }
@@ -853,8 +859,9 @@ function renderMovieEditor(data, entry, host){
         ${data.poster_path ? `<img src="${CONFIG.IMG(data.poster_path,'w185')}">` : ''}
         <div><h3>${escapeHtml(data.title)}</h3><div class="sub">${yearOf(data)} · Film ${entry ? '· already in catalog' : ''}</div></div>
       </div>
-      <div class="field"><label>Stream URL</label>
-        <input type="text" id="movieStreamInput" value="${escapeHtml(entry?.streamUrl||'')}" placeholder="https://stream.motionpicturemafia.com/stream/71?hash=fd4a48">
+      <div class="field"><label>🎬 Stream URL (from Telegram bot)</label>
+        <input type="text" id="movieStreamInput" value="${escapeHtml(entry?.streamUrl||'')}" placeholder="https://stream.motionpicturemafia.com/stream/62?hash=f5a2d2">
+        <div class="tg-hint">📱 Paste the stream URL from your Telegram bot (e.g., <strong>https://stream.motionpicturemafia.com/stream/62?hash=f5a2d2</strong>)</div>
       </div>
       <div class="field"><label>Quality</label>
         <select id="movieQualitySelect">
@@ -864,18 +871,18 @@ function renderMovieEditor(data, entry, host){
         </select>
       </div>
       <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
-        <label style="font-size:12px;color:var(--text-dim);display:block;margin-bottom:8px;">Subtitle URLs (Sinhala & English)</label>
+        <label style="font-size:12px;color:var(--text-dim);display:block;margin-bottom:8px;">📝 Subtitle URLs (from Telegram bot)</label>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <div style="flex:1;min-width:150px;">
-            <label style="font-size:11px;color:var(--text-dim);">🇱🇰 Sinhala (.srt/.vtt URL)</label>
-            <input type="text" id="subSiInput" value="${escapeHtml(subs.si||'')}" placeholder="https://example.com/sub.srt" style="width:100%;background:var(--bg);border:1px solid var(--border);padding:8px 10px;border-radius:4px;font-size:13px;color:var(--text);">
+          <div style="flex:1;min-width:180px;">
+            <label style="font-size:11px;color:var(--text-dim);">🇱🇰 Sinhala (.srt URL)</label>
+            <input type="text" id="subSiInput" value="${escapeHtml(subs.si||'')}" placeholder="https://stream.motionpicturemafia.com/stream/72?hash=73ddfc" style="width:100%;background:var(--bg);border:1px solid var(--border);padding:8px 10px;border-radius:4px;font-size:13px;color:var(--text);">
           </div>
-          <div style="flex:1;min-width:150px;">
-            <label style="font-size:11px;color:var(--text-dim);">🇬🇧 English (.srt/.vtt URL)</label>
-            <input type="text" id="subEnInput" value="${escapeHtml(subs.en||'')}" placeholder="https://example.com/sub.srt" style="width:100%;background:var(--bg);border:1px solid var(--border);padding:8px 10px;border-radius:4px;font-size:13px;color:var(--text);">
+          <div style="flex:1;min-width:180px;">
+            <label style="font-size:11px;color:var(--text-dim);">🇬🇧 English (.srt URL)</label>
+            <input type="text" id="subEnInput" value="${escapeHtml(subs.en||'')}" placeholder="https://stream.motionpicturemafia.com/stream/73?hash=..." style="width:100%;background:var(--bg);border:1px solid var(--border);padding:8px 10px;border-radius:4px;font-size:13px;color:var(--text);">
           </div>
         </div>
-        <div style="font-size:11px;color:var(--text-dim);margin-top:6px;">⚠️ Subtitle files must be in .srt or .vtt format and publicly accessible</div>
+        <div class="tg-hint">📱 Paste the subtitle stream URL from your Telegram bot (e.g., <strong>https://stream.motionpicturemafia.com/stream/72?hash=73ddfc</strong>)</div>
       </div>
       <button class="btn btn-primary" id="saveMovieBtn" style="margin-top:14px;">${entry ? 'Update' : 'Add to catalog'}</button>
       ${entry ? `<button class="btn btn-ghost" id="removeMovieBtn" style="margin-left:10px;">Remove from catalog</button>` : ''}
@@ -991,7 +998,7 @@ async function renderTVEditor(data, entry, host){
 }
 
 /* =========================================================
-   PLAYER with subtitle URL loading
+   PLAYER — loads subtitles from Telegram stream URLs
    ========================================================= */
 const watchEl = document.getElementById('watch');
 const playerWrap = document.getElementById('playerWrap');
@@ -1008,6 +1015,7 @@ function openPlayer(url, title, subUrls){
   video.src = url; video.load();
   watchEl.classList.add('open'); document.body.style.overflow = 'hidden';
   clearSubtitles();
+  // Load subtitles from URLs (these are Telegram stream URLs)
   loadSubtitlesFromUrls(subUrls);
   resetPlayerUI();
   const resume = parseFloat(localStorage.getItem(currentStreamKey) || '0');
@@ -1029,23 +1037,24 @@ function openPlayer(url, title, subUrls){
 function loadSubtitlesFromUrls(subUrls) {
   clearSubtitles();
   const langNames = { en: 'English', si: 'Sinhala' };
+  const langEmojis = { en: '🇬🇧', si: '🇱🇰' };
   Object.entries(subUrls).forEach(([lang, url]) => {
     if(!url) return;
     const track = document.createElement('track');
     track.kind = 'subtitles';
-    track.label = langNames[lang] || lang;
+    track.label = `${langEmojis[lang] || ''} ${langNames[lang] || lang}`;
     track.srclang = lang;
     track.src = url;
     track.mode = 'disabled';
     video.appendChild(track);
     track.addEventListener('load', () => {
-      showToast(`Loaded ${track.label} subtitles`);
+      showToast(`✅ Loaded ${langNames[lang] || lang} subtitles`);
     });
     track.addEventListener('error', () => {
       console.warn(`Failed to load subtitle: ${url}`);
     });
   });
-  // After loading, update the subtitle menu
+  // Update subtitle menu after loading
   setTimeout(renderSubMenu, 500);
 }
 
@@ -1130,12 +1139,12 @@ const subMenu = document.getElementById('subMenu');
 function renderSubMenu(){
   const tracks = Array.from(video.textTracks);
   const hasEmbedded = Object.keys(currentSubUrls).length > 0;
-  subMenu.innerHTML = `<h5>Subtitles</h5>
+  subMenu.innerHTML = `<h5>📝 Subtitles</h5>
     <div class="opt ${tracks.every(t=>t.mode!=='showing')?'active':''}" data-idx="off">Off</div>
     ${tracks.map((t,i)=>`<div class="opt ${t.mode==='showing'?'active':''}" data-idx="${i}">${escapeHtml(t.label||('Track '+(i+1)))}</div>`).join('')}
     ${!hasEmbedded ? `<div class="opt" style="color:var(--text-dim);cursor:default;">No subtitles available</div>` : ''}
     <div style="font-size:10px;color:var(--text-dim);padding:8px 10px;border-top:1px solid var(--border);margin-top:6px;">
-      💡 Subtitle URLs can be added in Admin panel
+      📱 Subtitle URLs from Telegram bot
     </div>`;
 }
 document.getElementById('subBtn').onclick = (e) => { e.stopPropagation(); renderSubMenu(); toggleMenu(subMenu); };
