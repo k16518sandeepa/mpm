@@ -173,13 +173,15 @@
   #centerPlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;}
   #centerPlay button{pointer-events:auto; background:rgba(0,0,0,.5); border:2px solid rgba(255,255,255,.5); border-radius:50%; width:72px; height:72px; display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer;}
   #centerPlay svg{width:32px; height:32px;}
-  .menu-pop{position:absolute; bottom:56px; right:0; background:rgba(20,20,20,.97); border:1px solid var(--border); border-radius:6px; padding:10px; width:280px; display:none; max-height:280px; overflow-y:auto; z-index:50;}
+  .menu-pop{position:absolute; bottom:56px; right:0; background:rgba(20,20,20,.97); border:1px solid var(--border); border-radius:6px; padding:10px; width:280px; display:none; max-height:320px; overflow-y:auto; z-index:50;}
   .menu-pop.open{display:block;}
   .menu-pop h5{font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); margin-bottom:8px;}
   .menu-pop .opt{padding:8px 10px; border-radius:4px; font-size:13px; cursor:pointer; display:flex; justify-content:space-between;}
   .menu-pop .opt:hover{background:rgba(255,255,255,.08);}
   .menu-pop .opt.active{color:var(--gold);}
   .menu-pop .opt .lang-label{font-size:11px; color:var(--text-dim);}
+  .menu-pop .upload-btn{width:100%; text-align:center; margin-top:6px; padding:9px; border:1px dashed var(--border); border-radius:4px; font-size:12.5px; color:var(--text-dim); cursor:pointer;}
+  .menu-pop .upload-btn:hover{border-color:var(--gold); color:var(--gold);}
   .ctrl-pos{position:relative;}
 
   #toast{position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--bg-raised); border:1px solid var(--border); padding:12px 20px; border-radius:6px; font-size:13.5px; z-index:2000; opacity:0; transition:opacity .25s, transform .25s; pointer-events:none;}
@@ -257,7 +259,6 @@
   .quality-badge.hd{color:var(--gold); border-color:var(--gold);}
   .quality-badge._4k{color:#00d4ff; border-color:#00d4ff;}
 
-  /* Telegram style hint */
   .tg-hint{font-size:11px; color:var(--text-dim); background:var(--bg); padding:8px 12px; border-radius:4px; border-left:3px solid var(--gold); margin-top:6px;}
   .tg-hint strong{color:var(--gold);}
 </style>
@@ -305,7 +306,7 @@
 
 <div id="watch">
   <div id="playerWrap">
-    <video id="videoEl" playsinline></video>
+    <video id="videoEl" crossorigin="anonymous" playsinline></video>
     <div id="playerLoading"><div class="spinner"></div></div>
     <div id="centerPlay"><button id="bigPlayBtn" aria-label="Play"></button></div>
     <div id="topbar">
@@ -337,13 +338,13 @@
         <button id="fsBtn" title="Fullscreen"></button>
       </div>
     </div>
+    <input type="file" id="subFileInput" accept=".srt,.vtt" style="display:none;">
   </div>
 </div>
 
 <script type="module">
 /* =========================================================
-   MPMFLIX — with subtitle links from Telegram bot
-   Subtitle URLs format: https://stream.motionpicturemafia.com/stream/72?hash=73ddfc
+   MPMFLIX — with subtitle support (URL + local upload)
    ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -610,6 +611,7 @@ function renderMovieDetail(entry, data){
   const trailer = (data.videos?.results || []).find(v => v.site==='YouTube' && v.type==='Trailer') || (data.videos?.results||[])[0];
   const subUrls = entry.subtitles || {};
   const hasSubs = Object.keys(subUrls).length > 0;
+  const subLabels = Object.keys(subUrls).map(k => k==='en'?'English':'Sinhala').join(', ');
   app.innerHTML = `
     <div class="detail-hero">
       <div class="backdrop" style="background-image:url(${CONFIG.IMG(data.backdrop_path,'original')})"></div><div class="fade"></div>
@@ -620,7 +622,7 @@ function renderMovieDetail(entry, data){
           ${data.tagline ? `<div class="tagline">${escapeHtml(data.tagline)}</div>` : ''}
           <div class="meta-row"><span class="badge-rating">★ ${ratingOf(data)}</span><span>${yearOf(data)}</span><span>${fmtRuntime(data.runtime)}</span></div>
           <div class="genre-pills">${(data.genres||[]).map(g=>`<span class="pill">${escapeHtml(g.name)}</span>`).join('')}</div>
-          ${hasSubs ? `<div style="font-size:12px;color:var(--gold);margin:6px 0;">📝 Subtitles: ${Object.keys(subUrls).map(k => k==='en'?'English':'Sinhala').join(', ')}</div>` : ''}
+          ${hasSubs ? `<div style="font-size:12px;color:var(--gold);margin:6px 0;">📝 Subtitles: ${subLabels}</div>` : ''}
           <div class="btnrow">
             <button class="btn btn-primary" id="playBtnDetail" ${entry.streamUrl?'':'disabled'}>${entry.streamUrl? '▶ Play' : '⏳ Coming Soon'}</button>
             ${trailer ? `<button class="btn btn-secondary" id="trailerBtn">▶ Trailer</button>` : ''}
@@ -744,7 +746,7 @@ function playMovie(entry){
 }
 
 /* =========================================================
-   ADMIN — with subtitle URL support
+   ADMIN — with subtitle URL support + local upload hint
    ========================================================= */
 route('/admin', async () => {
   if(!currentUser){ renderAdminLogin(); return; }
@@ -861,7 +863,7 @@ function renderMovieEditor(data, entry, host){
       </div>
       <div class="field"><label>🎬 Stream URL (from Telegram bot)</label>
         <input type="text" id="movieStreamInput" value="${escapeHtml(entry?.streamUrl||'')}" placeholder="https://stream.motionpicturemafia.com/stream/62?hash=f5a2d2">
-        <div class="tg-hint">📱 Paste the stream URL from your Telegram bot (e.g., <strong>https://stream.motionpicturemafia.com/stream/62?hash=f5a2d2</strong>)</div>
+        <div class="tg-hint">📱 Paste the stream URL from your Telegram bot</div>
       </div>
       <div class="field"><label>Quality</label>
         <select id="movieQualitySelect">
@@ -882,7 +884,8 @@ function renderMovieEditor(data, entry, host){
             <input type="text" id="subEnInput" value="${escapeHtml(subs.en||'')}" placeholder="https://stream.motionpicturemafia.com/stream/73?hash=..." style="width:100%;background:var(--bg);border:1px solid var(--border);padding:8px 10px;border-radius:4px;font-size:13px;color:var(--text);">
           </div>
         </div>
-        <div class="tg-hint">📱 Paste the subtitle stream URL from your Telegram bot (e.g., <strong>https://stream.motionpicturemafia.com/stream/72?hash=73ddfc</strong>)</div>
+        <div class="tg-hint">📱 Paste the subtitle stream URL from your Telegram bot (the .srt file URL)</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:6px;">💡 You can also upload subtitle files locally while watching the video</div>
       </div>
       <button class="btn btn-primary" id="saveMovieBtn" style="margin-top:14px;">${entry ? 'Update' : 'Add to catalog'}</button>
       ${entry ? `<button class="btn btn-ghost" id="removeMovieBtn" style="margin-left:10px;">Remove from catalog</button>` : ''}
@@ -998,7 +1001,7 @@ async function renderTVEditor(data, entry, host){
 }
 
 /* =========================================================
-   PLAYER — loads subtitles from Telegram stream URLs
+   PLAYER — with subtitle support (URL + local upload)
    ========================================================= */
 const watchEl = document.getElementById('watch');
 const playerWrap = document.getElementById('playerWrap');
@@ -1006,6 +1009,7 @@ const video = document.getElementById('videoEl');
 let currentStreamKey = null;
 let idleTimer = null;
 let currentSubUrls = {};
+let localSubTracks = [];
 
 function openPlayer(url, title, subUrls){
   if(!url){ showToast('Not available yet'); return; }
@@ -1015,7 +1019,6 @@ function openPlayer(url, title, subUrls){
   video.src = url; video.load();
   watchEl.classList.add('open'); document.body.style.overflow = 'hidden';
   clearSubtitles();
-  // Load subtitles from URLs (these are Telegram stream URLs)
   loadSubtitlesFromUrls(subUrls);
   resetPlayerUI();
   const resume = parseFloat(localStorage.getItem(currentStreamKey) || '0');
@@ -1036,6 +1039,7 @@ function openPlayer(url, title, subUrls){
 
 function loadSubtitlesFromUrls(subUrls) {
   clearSubtitles();
+  localSubTracks = [];
   const langNames = { en: 'English', si: 'Sinhala' };
   const langEmojis = { en: '🇬🇧', si: '🇱🇰' };
   Object.entries(subUrls).forEach(([lang, url]) => {
@@ -1047,18 +1051,51 @@ function loadSubtitlesFromUrls(subUrls) {
     track.src = url;
     track.mode = 'disabled';
     video.appendChild(track);
+    localSubTracks.push({ track, lang, url });
     track.addEventListener('load', () => {
       showToast(`✅ Loaded ${langNames[lang] || lang} subtitles`);
+      renderSubMenu();
     });
     track.addEventListener('error', () => {
       console.warn(`Failed to load subtitle: ${url}`);
     });
   });
-  // Update subtitle menu after loading
   setTimeout(renderSubMenu, 500);
 }
 
-function closePlayer(){ video.pause(); saveResume(); video.src=''; watchEl.classList.remove('open'); document.body.style.overflow=''; }
+function loadLocalSubtitle(file) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const content = e.target.result;
+    // Convert SRT to VTT if needed
+    let vttContent = content;
+    if (!content.trim().startsWith('WEBVTT')) {
+      vttContent = 'WEBVTT\n\n' + content.replace(/\r+/g, '').replace(/^\uFEFF/, '').replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, '$1.$2');
+    }
+    const blob = new Blob([vttContent], { type: 'text/vtt' });
+    const url = URL.createObjectURL(blob);
+    
+    const track = document.createElement('track');
+    track.kind = 'subtitles';
+    track.label = `📁 ${file.name.replace(/\.(srt|vtt)$/i, '')}`;
+    track.srclang = 'local';
+    track.src = url;
+    track.mode = 'showing';
+    video.appendChild(track);
+    localSubTracks.push({ track, lang: 'local', url, blobUrl: url });
+    
+    // Disable other tracks
+    Array.from(video.textTracks).forEach(t => {
+      if (t !== track) t.mode = 'disabled';
+    });
+    
+    showToast(`✅ Loaded local subtitle: ${file.name}`);
+    renderSubMenu();
+  };
+  reader.readAsText(file);
+}
+
+function closePlayer(){ video.pause(); saveResume(); video.src=''; watchEl.classList.remove('open'); document.body.style.overflow=''; clearSubtitles(); }
 document.getElementById('playerBack').onclick = closePlayer;
 function saveResume(){ if(currentStreamKey && video.currentTime>0) localStorage.setItem(currentStreamKey, String(video.currentTime)); }
 setInterval(()=>{ if(!video.paused) saveResume(); }, 4000);
@@ -1132,27 +1169,55 @@ speedMenu.innerHTML = `<h5>Speed</h5>` + speeds.map(s=>`<div class="opt ${s===1?
 document.getElementById('speedBtn').onclick = (e) => { e.stopPropagation(); toggleMenu(speedMenu); };
 speedMenu.addEventListener('click', (e) => { const opt=e.target.closest('.opt'); if(!opt) return; video.playbackRate=Number(opt.dataset.speed); speedMenu.querySelectorAll('.opt').forEach(o=>o.classList.remove('active')); opt.classList.add('active'); speedMenu.classList.remove('open'); });
 
-// Subtitle menu
+// Subtitle menu with local upload
 document.getElementById('subBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8 12H6v-2h2v2zm0 4H6v-2h2v2zm4-4h-2v-2h2v2zm0 4h-2v-2h2v2zm6 0h-6v-2h6v2zm0-4h-2v-2h2v2z"/></svg>`;
 const subMenu = document.getElementById('subMenu');
 
 function renderSubMenu(){
   const tracks = Array.from(video.textTracks);
   const hasEmbedded = Object.keys(currentSubUrls).length > 0;
+  const hasLocal = tracks.some(t => t.label && t.label.startsWith('📁'));
   subMenu.innerHTML = `<h5>📝 Subtitles</h5>
     <div class="opt ${tracks.every(t=>t.mode!=='showing')?'active':''}" data-idx="off">Off</div>
     ${tracks.map((t,i)=>`<div class="opt ${t.mode==='showing'?'active':''}" data-idx="${i}">${escapeHtml(t.label||('Track '+(i+1)))}</div>`).join('')}
-    ${!hasEmbedded ? `<div class="opt" style="color:var(--text-dim);cursor:default;">No subtitles available</div>` : ''}
+    ${!hasEmbedded && !hasLocal ? `<div class="opt" style="color:var(--text-dim);cursor:default;">No subtitles available</div>` : ''}
+    <div class="upload-btn" id="uploadLocalSubBtn">📁 Upload local .srt / .vtt file</div>
     <div style="font-size:10px;color:var(--text-dim);padding:8px 10px;border-top:1px solid var(--border);margin-top:6px;">
-      📱 Subtitle URLs from Telegram bot
+      📱 Subtitle URLs from Telegram bot are auto-loaded
     </div>`;
+  document.getElementById('uploadLocalSubBtn').onclick = () => document.getElementById('subFileInput').click();
 }
 document.getElementById('subBtn').onclick = (e) => { e.stopPropagation(); renderSubMenu(); toggleMenu(subMenu); };
-subMenu.addEventListener('click', (e) => { const opt=e.target.closest('.opt'); if(!opt || opt.dataset.idx===undefined) return; const tracks=Array.from(video.textTracks); tracks.forEach(t=>t.mode='disabled'); if(opt.dataset.idx!=='off') tracks[Number(opt.dataset.idx)].mode='showing'; renderSubMenu(); subMenu.classList.remove('open'); });
+subMenu.addEventListener('click', (e) => { 
+  const opt = e.target.closest('.opt'); 
+  if(!opt || opt.dataset.idx === undefined) return; 
+  const tracks = Array.from(video.textTracks); 
+  tracks.forEach(t=>t.mode='disabled'); 
+  if(opt.dataset.idx !== 'off') {
+    const idx = parseInt(opt.dataset.idx);
+    if(idx < tracks.length) tracks[idx].mode='showing';
+  }
+  renderSubMenu(); 
+  subMenu.classList.remove('open'); 
+});
+
+// Local subtitle file upload
+document.getElementById('subFileInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  loadLocalSubtitle(file);
+  this.value = '';
+});
 
 function toggleMenu(menu){ document.querySelectorAll('.menu-pop').forEach(m=>{ if(m!==menu) m.classList.remove('open'); }); menu.classList.toggle('open'); }
 document.addEventListener('click', (e) => { if(!e.target.closest('.ctrl-pos')) document.querySelectorAll('.menu-pop').forEach(m=>m.classList.remove('open')); });
-function clearSubtitles(){ Array.from(video.querySelectorAll('track')).forEach(t=>{ t.remove(); }); }
+function clearSubtitles(){ 
+  Array.from(video.querySelectorAll('track')).forEach(t => { 
+    if(t.src && t.src.startsWith('blob:')) URL.revokeObjectURL(t.src);
+    t.remove(); 
+  });
+  localSubTracks = [];
+}
 
 document.getElementById('fsBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>`;
 document.getElementById('fsBtn').onclick = () => { if(!document.fullscreenElement) watchEl.requestFullscreen?.(); else document.exitFullscreen?.(); };
