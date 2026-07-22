@@ -266,6 +266,153 @@
 
   .tg-hint{font-size:11px; color:var(--text-dim); background:var(--bg); padding:8px 12px; border-radius:4px; border-left:3px solid var(--gold); margin-top:6px;}
   .tg-hint strong{color:var(--gold);}
+
+  /* ---------- MOBILE FIXES ---------- */
+  @media (max-width:768px){
+    .detail-body{
+      flex-direction:column;
+      align-items:center;
+      padding:16px 4vw 0;
+      gap:16px;
+    }
+    .poster-lg{
+      width:140px;
+      flex:0 0 140px;
+    }
+    .detail-info{
+      width:100%;
+      text-align:center;
+    }
+    .detail-info h1{
+      font-size:clamp(24px,6vw,36px);
+      text-align:center;
+    }
+    .detail-info .tagline{
+      text-align:center;
+    }
+    .meta-row{
+      justify-content:center;
+    }
+    .genre-pills{
+      justify-content:center;
+    }
+    .btnrow{
+      justify-content:center;
+    }
+    .btn{
+      padding:9px 16px;
+      font-size:13px;
+    }
+    .overview-lg{
+      font-size:14px;
+      text-align:center;
+      padding:0 8px;
+    }
+    .cast-row{
+      justify-content:center;
+    }
+    .cast-card{
+      width:72px;
+    }
+    .cast-card .ph{
+      width:72px;
+      height:72px;
+    }
+    .detail-hero{
+      min-height:auto;
+      padding-bottom:20px;
+    }
+    .detail-hero .backdrop{
+      position:relative;
+      height:200px;
+    }
+    .detail-hero .fade{
+      height:200px;
+    }
+    .section{
+      padding:20px 4vw;
+    }
+    .section h3{
+      text-align:center;
+    }
+    .season-bar{
+      justify-content:center;
+    }
+    .episode{
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+    }
+    .episode .thumb{
+      width:100%;
+      max-width:300px;
+      flex:none;
+    }
+    .episode .info .top{
+      justify-content:center;
+      flex-direction:column;
+      gap:4px;
+    }
+    .episode .info .top .btn-download{
+      margin:0 auto !important;
+    }
+    .episode .info .desc{
+      text-align:center;
+    }
+    .sub-indicator{
+      display:inline-block;
+    }
+    #hero{
+      height:60vh;
+      min-height:320px;
+    }
+    #hero h1{
+      font-size:clamp(28px,6vw,48px);
+    }
+    .track{
+      gap:8px;
+    }
+    .card{
+      width:120px;
+    }
+    #searchForm input{
+      width:100px;
+      font-size:12px;
+    }
+    .menu-pop{
+      width:260px;
+      right:-60px;
+    }
+  }
+  @media (max-width:480px){
+    .poster-lg{
+      width:120px;
+      flex:0 0 120px;
+    }
+    .btn{
+      padding:7px 12px;
+      font-size:12px;
+      gap:4px;
+    }
+    .btnrow{
+      gap:8px;
+    }
+    .card{
+      width:100px;
+    }
+    .card .title{
+      font-size:11px;
+    }
+    .menu-pop{
+      width:220px;
+      right:-40px;
+      font-size:12px;
+    }
+    .sub-setting label{
+      min-width:60px;
+      font-size:10px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -349,7 +496,7 @@
 
 <script type="module">
 /* =========================================================
-   MPMFLIX — with fixed download (works with stream URLs)
+   MPMFLIX — with fixed mobile UI and download
    ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -625,7 +772,11 @@ function renderMovieDetail(entry, data){
         <div class="detail-info">
           <h1>${escapeHtml(data.title)}</h1>
           ${data.tagline ? `<div class="tagline">${escapeHtml(data.tagline)}</div>` : ''}
-          <div class="meta-row"><span class="badge-rating">★ ${ratingOf(data)}</span><span>${yearOf(data)}</span><span>${fmtRuntime(data.runtime)}</span></div>
+          <div class="meta-row">
+            <span class="badge-rating">★ ${ratingOf(data)}</span>
+            <span>${yearOf(data)}</span>
+            <span>${fmtRuntime(data.runtime)}</span>
+          </div>
           <div class="genre-pills">${(data.genres||[]).map(g=>`<span class="pill">${escapeHtml(g.name)}</span>`).join('')}</div>
           ${hasSubs ? `<div style="font-size:12px;color:var(--gold);margin:6px 0;">📝 Subtitles: ${subLabels}</div>` : ''}
           <div class="btnrow">
@@ -641,7 +792,11 @@ function renderMovieDetail(entry, data){
   `;
   if(entry.streamUrl) {
     document.getElementById('playBtnDetail').onclick = () => playMovie({...entry, ...data, subtitles: subUrls});
-    document.getElementById('downloadBtnDetail').onclick = () => downloadFile(entry.streamUrl, titleOf(data));
+    document.getElementById('downloadBtnDetail').onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      downloadFile(entry.streamUrl, titleOf(data));
+    };
   }
   if(trailer) document.getElementById('trailerBtn').onclick = () => openTrailer(trailer.key);
   mountLazyImages(app);
@@ -672,7 +827,11 @@ async function renderTVDetail(entry, data){
         <div class="detail-info">
           <h1>${escapeHtml(data.name)}</h1>
           ${data.tagline ? `<div class="tagline">${escapeHtml(data.tagline)}</div>` : ''}
-          <div class="meta-row"><span class="badge-rating">★ ${ratingOf(data)}</span><span>${yearOf(data)}</span><span>${data.number_of_seasons||seasons.length} Season${(data.number_of_seasons||seasons.length)!==1?'s':''}</span></div>
+          <div class="meta-row">
+            <span class="badge-rating">★ ${ratingOf(data)}</span>
+            <span>${yearOf(data)}</span>
+            <span>${data.number_of_seasons||seasons.length} Season${(data.number_of_seasons||seasons.length)!==1?'s':''}</span>
+          </div>
           <div class="genre-pills">${(data.genres||[]).map(g=>`<span class="pill">${escapeHtml(g.name)}</span>`).join('')}</div>
           <div class="btnrow">${trailer ? `<button class="btn btn-secondary" id="trailerBtn">▶ Trailer</button>` : ''}</div>
         </div>
@@ -771,26 +930,45 @@ function playMovie(entry){
 function downloadFile(url, filename) {
   if(!url) { showToast('No file to download'); return; }
   
-  showToast('⏳ Preparing download...');
+  showToast('⏳ Downloading...');
   
-  // Create a hidden anchor element with download attribute
-  const a = document.createElement('a');
-  a.href = url;
-  // Set the download attribute with filename
-  a.download = filename + '.mp4';
-  a.target = '_blank';
-  a.style.display = 'none';
-  document.body.appendChild(a);
-  
-  // Click the anchor to trigger download
-  a.click();
-  
-  // Clean up
-  setTimeout(() => {
+  // Method 1: Use fetch to get the file as blob then download
+  fetch(url, {
+    mode: 'cors',
+    credentials: 'omit'
+  })
+  .then(response => {
+    if(!response.ok) throw new Error('Download failed: ' + response.status);
+    return response.blob();
+  })
+  .then(blob => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename + '.mp4';
+    document.body.appendChild(a);
+    a.click();
     document.body.removeChild(a);
-  }, 3000);
-  
-  showToast('✅ Download started');
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    showToast('✅ Download started');
+  })
+  .catch(err => {
+    console.error('Download error:', err);
+    // Method 2: Fallback - use anchor with download attribute
+    try {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename + '.mp4';
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('✅ Download started (fallback)');
+    } catch(e) {
+      // Method 3: Last resort - open in new tab
+      window.open(url, '_blank');
+      showToast('⚠️ File opened in new tab, right-click to save');
+    }
+  });
 }
 
 /* =========================================================
@@ -1086,13 +1264,6 @@ function applySubtitleSettings() {
       background: rgba(${hexToRgb(subSettings.bgColor)}, ${subSettings.bgOpacity / 100});
     }
   `;
-  
-  // Apply position using CSS custom property on video
-  const position = subSettings.position;
-  // Position: 0% = bottom, 50% = middle, 100% = top
-  // Map to line: 0% = bottom, 50% = middle, 100% = top
-  const lineValue = position;
-  video.style.setProperty('--cue-line', lineValue + '%');
   
   document.head.appendChild(newStyle);
 }
