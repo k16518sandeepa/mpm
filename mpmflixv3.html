@@ -267,71 +267,89 @@
   .tg-hint{font-size:11px; color:var(--text-dim); background:var(--bg); padding:8px 12px; border-radius:4px; border-left:3px solid var(--gold); margin-top:6px;}
   .tg-hint strong{color:var(--gold);}
 
-  /* ---------- MOBILE FIXES - Poster left, details right, buttons below ---------- */
+  /* ---------- MOBILE FIXES ---------- */
   @media (max-width:768px){
     .detail-hero{
       min-height:auto;
-      padding-bottom:10px;
+      padding-bottom:0;
     }
     .detail-hero .backdrop{
       position:relative;
-      height:180px;
+      height:200px;
+      border-radius:0;
     }
     .detail-hero .fade{
-      height:180px;
+      height:200px;
     }
     .detail-body{
-      flex-direction:row !important;
-      align-items:flex-start;
-      gap:16px;
+      flex-direction:column !important;
+      align-items:center;
+      gap:12px;
       padding:16px 4vw 0;
-      flex-wrap:wrap;
     }
     .poster-lg{
-      width:120px;
-      flex:0 0 120px;
+      width:160px;
+      flex:0 0 160px;
+      margin:0 auto;
+      border-radius:8px;
     }
     .detail-info{
-      flex:1;
-      min-width:150px;
-      text-align:left;
+      width:100%;
+      text-align:center;
+      padding:0 4px;
     }
     .detail-info h1{
-      font-size:clamp(20px,4vw,30px);
-      text-align:left;
+      font-size:clamp(24px,5vw,32px);
+      text-align:center;
+      margin-bottom:4px;
     }
     .detail-info .tagline{
-      text-align:left;
+      text-align:center;
       font-size:13px;
     }
     .meta-row{
-      justify-content:flex-start;
+      justify-content:center;
       font-size:12px;
+      gap:8px;
+      flex-wrap:wrap;
     }
     .genre-pills{
-      justify-content:flex-start;
+      justify-content:center;
     }
     .btnrow{
-      justify-content:flex-start;
-      margin-top:6px;
+      justify-content:center;
+      margin-top:8px;
       width:100%;
+      gap:8px;
     }
     .btn{
-      padding:8px 14px;
-      font-size:12px;
+      padding:8px 16px;
+      font-size:13px;
+    }
+    .btn-download{
+      padding:8px 16px;
+      font-size:13px;
     }
     .detail-info .btnrow{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
+      justify-content:center;
     }
     .overview-lg{
       font-size:14px;
-      text-align:left;
-      padding:0;
+      text-align:center;
+      padding:0 4px;
+    }
+    .section{
+      padding:16px 4vw;
+    }
+    .section h3{
+      text-align:center;
     }
     .cast-row{
-      justify-content:flex-start;
+      justify-content:center;
+      gap:12px;
     }
     .cast-card{
       width:72px;
@@ -340,36 +358,30 @@
       width:72px;
       height:72px;
     }
-    .section{
-      padding:20px 4vw;
-    }
-    .section h3{
-      text-align:left;
-    }
     .season-bar{
-      justify-content:flex-start;
+      justify-content:center;
     }
     .episode{
       flex-direction:column;
-      align-items:flex-start;
-      text-align:left;
+      align-items:center;
+      text-align:center;
+      padding:12px;
     }
     .episode .thumb{
       width:100%;
-      max-width:300px;
+      max-width:280px;
       flex:none;
     }
     .episode .info .top{
-      justify-content:flex-start;
-      flex-direction:row;
-      flex-wrap:wrap;
-      gap:6px;
+      justify-content:center;
+      flex-direction:column;
+      gap:4px;
     }
     .episode .info .top .btn-download{
-      margin-left:auto !important;
+      margin:0 auto !important;
     }
     .episode .info .desc{
-      text-align:left;
+      text-align:center;
     }
     #hero{
       height:60vh;
@@ -392,19 +404,28 @@
       width:260px;
       right:-60px;
     }
+    footer{
+      flex-direction:column;
+      text-align:center;
+      gap:8px;
+    }
   }
   @media (max-width:480px){
     .poster-lg{
-      width:90px;
-      flex:0 0 90px;
+      width:140px;
+      flex:0 0 140px;
     }
     .detail-info h1{
-      font-size:18px;
+      font-size:22px;
     }
     .btn{
-      padding:6px 10px;
-      font-size:11px;
+      padding:6px 12px;
+      font-size:12px;
       gap:4px;
+    }
+    .btn-download{
+      padding:6px 12px;
+      font-size:12px;
     }
     .btnrow{
       gap:6px;
@@ -427,6 +448,18 @@
     .detail-body{
       gap:10px;
       padding:12px 4vw 0;
+    }
+    .detail-hero .backdrop{
+      height:160px;
+    }
+    .detail-hero .fade{
+      height:160px;
+    }
+    .meta-row{
+      font-size:11px;
+    }
+    .overview-lg{
+      font-size:13px;
     }
   }
 </style>
@@ -512,7 +545,7 @@
 
 <script type="module">
 /* =========================================================
-   MPMFLIX — Fixed mobile UI (poster left, details right, buttons below)
+   MPMFLIX — Fixed mobile UI with larger poster
    ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -798,21 +831,29 @@ function renderMovieDetail(entry, data){
           <div class="btnrow">
             <button class="btn btn-primary" id="playBtnDetail" ${entry.streamUrl?'':'disabled'}>${entry.streamUrl? '▶ Play' : '⏳ Coming Soon'}</button>
             ${trailer ? `<button class="btn btn-secondary" id="trailerBtn">▶ Trailer</button>` : ''}
-            ${entry.streamUrl ? `<button class="btn btn-download" id="downloadBtnDetail">⬇ Download</button>` : ''}
           </div>
         </div>
       </div>
     </div>
-    <div class="section" style="padding-top:26px;"><p class="overview-lg">${escapeHtml(data.overview)}</p></div>
+    <div class="section" style="padding-top:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+        <h3 style="margin:0;">Overview</h3>
+        ${entry.streamUrl ? `<button class="btn btn-download" id="downloadBtnDetail">⬇ Download</button>` : ''}
+      </div>
+      <p class="overview-lg" style="margin:0;">${escapeHtml(data.overview)}</p>
+    </div>
     ${(data.credits?.cast?.length) ? `<div class="section" style="padding-top:0;"><h3>Cast</h3><div class="cast-row">${data.credits.cast.slice(0,14).map(castHtml).join('')}</div></div>` : ''}
   `;
   if(entry.streamUrl) {
     document.getElementById('playBtnDetail').onclick = () => playMovie({...entry, ...data, subtitles: subUrls});
-    document.getElementById('downloadBtnDetail').onclick = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      downloadFile(entry.streamUrl, titleOf(data));
-    };
+    const downloadBtn = document.getElementById('downloadBtnDetail');
+    if(downloadBtn) {
+      downloadBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        downloadFile(entry.streamUrl, titleOf(data));
+      };
+    }
   }
   if(trailer) document.getElementById('trailerBtn').onclick = () => openTrailer(trailer.key);
   mountLazyImages(app);
@@ -853,7 +894,7 @@ async function renderTVDetail(entry, data){
         </div>
       </div>
     </div>
-    <div class="section" style="padding-top:26px;"><p class="overview-lg">${escapeHtml(data.overview)}</p></div>
+    <div class="section" style="padding-top:16px;"><p class="overview-lg">${escapeHtml(data.overview)}</p></div>
     <div class="section" style="padding-top:0;">
       <div class="season-bar">
         <select class="season-select" id="seasonSelect">${seasons.map(s=>`<option value="${s.season_number}">${escapeHtml(s.name)}</option>`).join('')}</select>
@@ -941,7 +982,7 @@ function playMovie(entry){
 }
 
 /* =========================================================
-   DOWNLOAD FUNCTION - FIXED - uses fetch with blob
+   DOWNLOAD FUNCTION - FIXED
    ========================================================= */
 function downloadFile(url, filename) {
   if(!url) { showToast('No file to download'); return; }
@@ -958,7 +999,6 @@ function downloadFile(url, filename) {
     return response.blob();
   })
   .then(blob => {
-    // Create a download link
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = filename + '.mp4';
@@ -970,8 +1010,8 @@ function downloadFile(url, filename) {
   })
   .catch(err => {
     console.error('Download error:', err);
+    showToast('⚠️ Trying alternative download...');
     // Fallback: try opening in new tab
-    showToast('⚠️ Trying alternative download method...');
     window.open(url, '_blank');
   });
 }
