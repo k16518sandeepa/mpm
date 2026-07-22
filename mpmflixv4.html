@@ -277,66 +277,77 @@
     #navlinks{ display:none; }
 
     .detail-hero{
-      min-height:auto;
+      min-height:auto !important;
+      padding-top:72px; /* clears the fixed nav so nothing sits under it */
     }
     .detail-hero .backdrop{
       position:relative;
-      height:230px;
+      height:170px;
       border-radius:0;
     }
     .detail-hero .fade{
-      height:230px;
+      height:170px;
     }
     .detail-body{
+      display:flex !important;
       flex-direction:column !important;
-      align-items:center;
-      text-align:center;
-      gap:0;
-      padding:0 7vw;
-      margin-top:-72px; /* poster overlaps the backdrop, netflix-style */
+      align-items:center !important;
+      text-align:center !important;
+      gap:0 !important;
+      padding:18px 7vw 0 !important;
+      margin-top:0 !important;
+      max-width:none !important;
     }
     .poster-lg{
-      width:148px;
-      flex:0 0 148px;
-      margin:0 auto 14px;
+      width:148px !important;
+      flex:0 0 148px !important;
+      margin:0 auto 16px !important;
       border-radius:8px;
-      border:3px solid var(--bg);
       box-shadow:0 14px 26px rgba(0,0,0,.6);
     }
     .detail-info{
-      width:100%;
-      max-width:420px;
-      text-align:center;
+      width:100% !important;
+      max-width:420px !important;
+      margin:0 auto !important;
+      text-align:center !important;
     }
     .detail-info h1{
-      font-size:clamp(24px,6vw,32px);
-      text-align:center;
-      margin-bottom:6px;
+      font-size:clamp(24px,6vw,32px) !important;
+      text-align:center !important;
+      margin-bottom:6px !important;
+      width:100%;
     }
     .detail-info .tagline{
-      text-align:center;
-      font-size:13px;
-      margin-bottom:10px;
+      text-align:center !important;
+      font-size:13px !important;
+      margin-bottom:10px !important;
+      width:100%;
     }
     .meta-row{
-      justify-content:center;
-      font-size:12px;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-bottom:2px;
+      display:flex !important;
+      justify-content:center !important;
+      font-size:12px !important;
+      gap:10px !important;
+      flex-wrap:wrap !important;
+      margin:0 0 2px !important;
+      width:100%;
     }
     .genre-pills{
-      justify-content:center;
-      margin:10px 0;
+      display:flex !important;
+      justify-content:center !important;
+      margin:10px 0 !important;
+      width:100%;
     }
     .sub-lang-badge{
-      margin:2px auto 10px;
+      display:table !important; /* table centers reliably via margin:auto even though the base rule is inline-flex */
+      margin:2px auto 10px !important;
     }
     .btnrow{
-      justify-content:center;
-      margin-top:6px;
-      width:100%;
-      gap:10px;
+      display:flex !important;
+      justify-content:center !important;
+      margin-top:6px !important;
+      width:100% !important;
+      gap:10px !important;
     }
     .btn{
       flex:1 1 0;
@@ -434,15 +445,12 @@
   }
   @media (max-width:480px){
     .poster-lg{
-      width:128px;
-      flex:0 0 128px;
-      margin-bottom:12px;
-    }
-    .detail-body{
-      margin-top:-58px;
+      width:128px !important;
+      flex:0 0 128px !important;
+      margin-bottom:12px !important;
     }
     .detail-info h1{
-      font-size:22px;
+      font-size:22px !important;
     }
     .btn{
       padding:9px 14px;
@@ -471,10 +479,10 @@
       font-size:10px;
     }
     .detail-hero .backdrop{
-      height:190px;
+      height:150px !important;
     }
     .detail-hero .fade{
-      height:190px;
+      height:150px !important;
     }
     .meta-row{
       font-size:11px;
@@ -1003,45 +1011,19 @@ function playMovie(entry){
 }
 
 /* =========================================================
-   DOWNLOAD FUNCTION - FIXED
-   NOTE: fetching the whole video into a blob() was the bug —
-   it silently fails cross-origin (the stream server doesn't
-   send CORS headers), so it fell into the catch{} block and
-   opened the raw stream URL, which just plays in-browser.
-   Instead we navigate straight to the file with a `download=1`
-   flag so the server can respond with a real file download
-   instead of an inline/streamed response. This requires a
-   small server-side change on the MPM Player route — see note
-   below the function.
+   DOWNLOAD FUNCTION
+   A real in-browser download needs the stream server to send a
+   Content-Disposition: attachment header (browsers can't force a
+   download of a cross-origin file on their own — the `download`
+   attribute on <a> only works same-origin). Until that server-side
+   change is made, the download button sends people to the Telegram
+   channel to grab the file from there instead of dropping them
+   into the stream player.
    ========================================================= */
 function downloadFile(url, filename) {
-  if(!url) { showToast('No file to download'); return; }
-
-  const sep = url.includes('?') ? '&' : '?';
-  const dlUrl = url + sep + 'download=1';
-
-  showToast('⏳ Starting download...');
-
-  const a = document.createElement('a');
-  a.href = dlUrl;
-  a.download = (filename || 'video').replace(/[\\/:*?"<>|]/g, '') + '.mp4';
-  a.rel = 'noopener';
-  a.style.display = 'none';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+  showToast('Opening our Telegram channel to download…');
+  window.open('https://t.me/MotionPictureMafiaCentral', '_blank', 'noopener');
 }
-/* Server-side (Express / MPM Player) needs to honor `?download=1`
-   on the /stream/:id route by setting a Content-Disposition
-   header before piping the response, e.g.:
-
-   if (req.query.download) {
-     res.setHeader('Content-Disposition', `attachment; filename="${safeName}.mp4"`);
-   }
-
-   Without that header the browser has no way to know it should
-   save the file instead of playing it — the `download` attribute
-   on the <a> tag only works for same-origin URLs. */
 
 /* =========================================================
    ADMIN
