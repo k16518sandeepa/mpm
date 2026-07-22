@@ -150,7 +150,7 @@
   #watch.open{display:block;}
   #playerWrap{position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center;}
   #videoEl{width:100%; height:100%; object-fit:contain; background:#000;}
-  #videoEl::cue{background:rgba(0,0,0,.6); color:#fff; font-size:1.1em;}
+  #videoEl::cue{background:rgba(0,0,0,.7); color:#fff; font-size:1.1em; white-space:pre-wrap;}
   #controls{position:absolute; left:0; right:0; bottom:0; padding:14px 22px 18px; background:linear-gradient(to top, rgba(0,0,0,.85), transparent); transition:opacity .25s;}
   #playerWrap.idle #controls, #playerWrap.idle #topbar{opacity:0; pointer-events:none;}
   #playerWrap.idle{cursor:none;}
@@ -746,7 +746,7 @@ function playMovie(entry){
 }
 
 /* =========================================================
-   ADMIN — with subtitle URL support + local upload hint
+   ADMIN
    ========================================================= */
 route('/admin', async () => {
   if(!currentUser){ renderAdminLogin(); return; }
@@ -861,9 +861,8 @@ function renderMovieEditor(data, entry, host){
         ${data.poster_path ? `<img src="${CONFIG.IMG(data.poster_path,'w185')}">` : ''}
         <div><h3>${escapeHtml(data.title)}</h3><div class="sub">${yearOf(data)} · Film ${entry ? '· already in catalog' : ''}</div></div>
       </div>
-      <div class="field"><label>🎬 Stream URL (from Telegram bot)</label>
+      <div class="field"><label>🎬 Stream URL</label>
         <input type="text" id="movieStreamInput" value="${escapeHtml(entry?.streamUrl||'')}" placeholder="https://stream.motionpicturemafia.com/stream/62?hash=f5a2d2">
-        <div class="tg-hint">📱 Paste the stream URL from your Telegram bot</div>
       </div>
       <div class="field"><label>Quality</label>
         <select id="movieQualitySelect">
@@ -873,7 +872,7 @@ function renderMovieEditor(data, entry, host){
         </select>
       </div>
       <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
-        <label style="font-size:12px;color:var(--text-dim);display:block;margin-bottom:8px;">📝 Subtitle URLs (from Telegram bot)</label>
+        <label style="font-size:12px;color:var(--text-dim);display:block;margin-bottom:8px;">📝 Subtitle URLs</label>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
           <div style="flex:1;min-width:180px;">
             <label style="font-size:11px;color:var(--text-dim);">🇱🇰 Sinhala (.srt URL)</label>
@@ -884,8 +883,7 @@ function renderMovieEditor(data, entry, host){
             <input type="text" id="subEnInput" value="${escapeHtml(subs.en||'')}" placeholder="https://stream.motionpicturemafia.com/stream/73?hash=..." style="width:100%;background:var(--bg);border:1px solid var(--border);padding:8px 10px;border-radius:4px;font-size:13px;color:var(--text);">
           </div>
         </div>
-        <div class="tg-hint">📱 Paste the subtitle stream URL from your Telegram bot (the .srt file URL)</div>
-        <div style="font-size:11px;color:var(--text-dim);margin-top:6px;">💡 You can also upload subtitle files locally while watching the video</div>
+        <div class="tg-hint">💡 You can also upload subtitle files locally while watching the video</div>
       </div>
       <button class="btn btn-primary" id="saveMovieBtn" style="margin-top:14px;">${entry ? 'Update' : 'Add to catalog'}</button>
       ${entry ? `<button class="btn btn-ghost" id="removeMovieBtn" style="margin-left:10px;">Remove from catalog</button>` : ''}
@@ -968,7 +966,6 @@ async function renderTVEditor(data, entry, host){
       </div>`;
     }).join('');
     
-    // Save stream URL
     document.querySelectorAll('.ep-inputs input[type="text"]').forEach(inp => {
       inp.addEventListener('change', async () => {
         if(!entry){ showToast('Save the show first'); inp.value=''; return; }
@@ -980,7 +977,6 @@ async function renderTVEditor(data, entry, host){
       });
     });
     
-    // Save subtitle URLs
     document.querySelectorAll('.sub-input').forEach(inp => {
       inp.addEventListener('change', async () => {
         if(!entry){ showToast('Save the show first'); inp.value=''; return; }
@@ -1001,7 +997,7 @@ async function renderTVEditor(data, entry, host){
 }
 
 /* =========================================================
-   PLAYER — with subtitle support (URL + local upload)
+   PLAYER — Fixed subtitle support
    ========================================================= */
 const watchEl = document.getElementById('watch');
 const playerWrap = document.getElementById('playerWrap');
@@ -1009,19 +1005,31 @@ const video = document.getElementById('videoEl');
 let currentStreamKey = null;
 let idleTimer = null;
 let currentSubUrls = {};
-let localSubTracks = [];
 
 function openPlayer(url, title, subUrls){
   if(!url){ showToast('Not available yet'); return; }
   document.getElementById('playerTitle').textContent = title || '';
   currentSubUrls = subUrls || {};
   currentStreamKey = 'mpmflix_time_' + btoa(unescape(encodeURIComponent(url))).slice(0,40);
-  video.src = url; video.load();
-  watchEl.classList.add('open'); document.body.style.overflow = 'hidden';
+  
+  // Reset video and load
+  video.removeAttribute('src');
+  video.load();
+  video.src = url;
+  video.load();
+  
+  watchEl.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  
+  // Clear old subtitles
   clearSubtitles();
+  
+  // Load subtitles from URLs
   loadSubtitlesFromUrls(subUrls);
+  
   resetPlayerUI();
   const resume = parseFloat(localStorage.getItem(currentStreamKey) || '0');
+  
   video.addEventListener('loadedmetadata', function onMeta(){
     if(resume > 5 && resume < video.duration - 15) video.currentTime = resume;
     video.removeEventListener('loadedmetadata', onMeta);
@@ -1031,7 +1039,10 @@ function openPlayer(url, title, subUrls){
       badge.textContent = entry.quality;
       badge.className = 'quality-badge ' + (entry.quality === '4K' ? '_4k' : entry.quality === 'HD' ? 'hd' : '');
     }
+    // Ensure subtitles are available after metadata loads
+    setTimeout(renderSubMenu, 300);
   });
+  
   video.play().catch(()=>{});
   armIdle();
   localStorage.setItem('mpm_current_url', url);
@@ -1039,9 +1050,9 @@ function openPlayer(url, title, subUrls){
 
 function loadSubtitlesFromUrls(subUrls) {
   clearSubtitles();
-  localSubTracks = [];
   const langNames = { en: 'English', si: 'Sinhala' };
   const langEmojis = { en: '🇬🇧', si: '🇱🇰' };
+  
   Object.entries(subUrls).forEach(([lang, url]) => {
     if(!url) return;
     const track = document.createElement('track');
@@ -1050,30 +1061,52 @@ function loadSubtitlesFromUrls(subUrls) {
     track.srclang = lang;
     track.src = url;
     track.mode = 'disabled';
+    track.default = false;
     video.appendChild(track);
-    localSubTracks.push({ track, lang, url });
+    
     track.addEventListener('load', () => {
       showToast(`✅ Loaded ${langNames[lang] || lang} subtitles`);
       renderSubMenu();
     });
-    track.addEventListener('error', () => {
-      console.warn(`Failed to load subtitle: ${url}`);
+    track.addEventListener('error', (e) => {
+      console.warn(`Failed to load subtitle: ${url}`, e);
     });
   });
-  setTimeout(renderSubMenu, 500);
+  
+  // Wait a bit then update the menu
+  setTimeout(renderSubMenu, 800);
 }
 
 function loadLocalSubtitle(file) {
   const reader = new FileReader();
   reader.onload = function(e) {
-    const content = e.target.result;
-    // Convert SRT to VTT if needed
-    let vttContent = content;
-    if (!content.trim().startsWith('WEBVTT')) {
-      vttContent = 'WEBVTT\n\n' + content.replace(/\r+/g, '').replace(/^\uFEFF/, '').replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, '$1.$2');
+    let content = e.target.result;
+    
+    // Detect if it's SRT (starts with numbers and timestamps)
+    const isSRT = /^\d+\s*\n\d{2}:\d{2}:\d{2}[,.]\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}[,.]\d{3}/m.test(content);
+    
+    let vttContent;
+    if (isSRT) {
+      // Convert SRT to WebVTT
+      vttContent = 'WEBVTT\n\n' + content
+        .replace(/\r+/g, '')
+        .replace(/^\uFEFF/, '')
+        .replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, '$1.$2')
+        .replace(/(\d{2}:\d{2}:\d{2})\.(\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2})\.(\d{3})/g, '$1.$2 --> $3.$4');
+    } else {
+      vttContent = content;
     }
+    
     const blob = new Blob([vttContent], { type: 'text/vtt' });
     const url = URL.createObjectURL(blob);
+    
+    // Remove any existing local subtitle tracks
+    const existingTracks = Array.from(video.querySelectorAll('track'));
+    existingTracks.forEach(t => {
+      if (t.label && t.label.startsWith('📁')) {
+        t.remove();
+      }
+    });
     
     const track = document.createElement('track');
     track.kind = 'subtitles';
@@ -1081,8 +1114,8 @@ function loadLocalSubtitle(file) {
     track.srclang = 'local';
     track.src = url;
     track.mode = 'showing';
+    track.default = true;
     video.appendChild(track);
-    localSubTracks.push({ track, lang: 'local', url, blobUrl: url });
     
     // Disable other tracks
     Array.from(video.textTracks).forEach(t => {
@@ -1095,9 +1128,22 @@ function loadLocalSubtitle(file) {
   reader.readAsText(file);
 }
 
-function closePlayer(){ video.pause(); saveResume(); video.src=''; watchEl.classList.remove('open'); document.body.style.overflow=''; clearSubtitles(); }
+function closePlayer(){
+  video.pause();
+  saveResume();
+  video.removeAttribute('src');
+  video.load();
+  watchEl.classList.remove('open');
+  document.body.style.overflow = '';
+  clearSubtitles();
+}
 document.getElementById('playerBack').onclick = closePlayer;
-function saveResume(){ if(currentStreamKey && video.currentTime>0) localStorage.setItem(currentStreamKey, String(video.currentTime)); }
+
+function saveResume(){ 
+  if(currentStreamKey && video.currentTime > 0) {
+    localStorage.setItem(currentStreamKey, String(video.currentTime));
+  }
+}
 setInterval(()=>{ if(!video.paused) saveResume(); }, 4000);
 
 // Download button
@@ -1120,15 +1166,27 @@ const iconPlay = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l
 const iconPause = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>`;
 document.getElementById('bigPlayBtn').innerHTML = iconPlay;
 document.getElementById('playBtn').innerHTML = iconPlay;
+
 function togglePlay(){ video.paused ? video.play() : video.pause(); }
 document.getElementById('bigPlayBtn').onclick = togglePlay;
 document.getElementById('playBtn').onclick = togglePlay;
 video.addEventListener('click', togglePlay);
-video.addEventListener('play', () => { document.getElementById('playBtn').innerHTML=iconPause; document.getElementById('centerPlay').style.display='none'; document.getElementById('playerLoading').style.display='none'; });
-video.addEventListener('pause', () => { document.getElementById('playBtn').innerHTML=iconPlay; document.getElementById('centerPlay').style.display='flex'; });
-video.addEventListener('waiting', () => document.getElementById('playerLoading').style.display='flex');
-video.addEventListener('playing', () => document.getElementById('playerLoading').style.display='none');
-video.addEventListener('error', () => { document.getElementById('playerLoading').style.display='none'; showToast('Could not load this stream.'); });
+
+video.addEventListener('play', () => { 
+  document.getElementById('playBtn').innerHTML = iconPause; 
+  document.getElementById('centerPlay').style.display = 'none'; 
+  document.getElementById('playerLoading').style.display = 'none'; 
+});
+video.addEventListener('pause', () => { 
+  document.getElementById('playBtn').innerHTML = iconPlay; 
+  document.getElementById('centerPlay').style.display = 'flex'; 
+});
+video.addEventListener('waiting', () => document.getElementById('playerLoading').style.display = 'flex');
+video.addEventListener('playing', () => document.getElementById('playerLoading').style.display = 'none');
+video.addEventListener('error', () => { 
+  document.getElementById('playerLoading').style.display = 'none'; 
+  showToast('Could not load this stream.'); 
+});
 
 document.getElementById('backBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 5V1L5.5 6.5 11 12V8c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H3c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>`;
 document.getElementById('fwdBtn').innerHTML  = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 5V1l5.5 5.5L13 12V8c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-3.58 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z"/></svg>`;
@@ -1139,14 +1197,34 @@ const seekbar = document.getElementById('seekbar');
 const playedBar = document.getElementById('playedBar');
 const bufferedBar = document.getElementById('bufferedBar');
 const seekKnob = document.getElementById('seekKnob');
-function fmtTime(s){ if(!isFinite(s)) return '0:00'; const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=Math.floor(s%60); return h?`${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`:`${m}:${String(sec).padStart(2,'0')}`; }
+
+function fmtTime(s){ 
+  if(!isFinite(s)) return '0:00'; 
+  const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=Math.floor(s%60); 
+  return h?`${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`:`${m}:${String(sec).padStart(2,'0')}`; 
+}
+
 video.addEventListener('timeupdate', () => {
   const pct = (video.currentTime/(video.duration||1))*100;
-  playedBar.style.width = pct+'%'; seekKnob.style.left = pct+'%';
+  playedBar.style.width = pct+'%'; 
+  seekKnob.style.left = pct+'%';
   document.getElementById('timeDisplay').textContent = `${fmtTime(video.currentTime)} / ${fmtTime(video.duration)}`;
 });
-video.addEventListener('progress', () => { if(video.buffered.length){ const end=video.buffered.end(video.buffered.length-1); bufferedBar.style.width = ((end/(video.duration||1))*100)+'%'; } });
-function seekFromEvent(e){ const rect=seekbar.getBoundingClientRect(); const clientX=e.touches?e.touches[0].clientX:e.clientX; const pct=Math.min(1,Math.max(0,(clientX-rect.left)/rect.width)); video.currentTime = pct*(video.duration||0); }
+
+video.addEventListener('progress', () => { 
+  if(video.buffered.length){ 
+    const end=video.buffered.end(video.buffered.length-1); 
+    bufferedBar.style.width = ((end/(video.duration||1))*100)+'%'; 
+  } 
+});
+
+function seekFromEvent(e){ 
+  const rect=seekbar.getBoundingClientRect(); 
+  const clientX=e.touches?e.touches[0].clientX:e.clientX; 
+  const pct=Math.min(1,Math.max(0,(clientX-rect.left)/rect.width)); 
+  video.currentTime = pct*(video.duration||0); 
+}
+
 let seeking=false;
 seekbar.addEventListener('mousedown', (e)=>{ seeking=true; seekFromEvent(e); });
 window.addEventListener('mousemove', (e)=>{ if(seeking) seekFromEvent(e); });
@@ -1169,33 +1247,50 @@ speedMenu.innerHTML = `<h5>Speed</h5>` + speeds.map(s=>`<div class="opt ${s===1?
 document.getElementById('speedBtn').onclick = (e) => { e.stopPropagation(); toggleMenu(speedMenu); };
 speedMenu.addEventListener('click', (e) => { const opt=e.target.closest('.opt'); if(!opt) return; video.playbackRate=Number(opt.dataset.speed); speedMenu.querySelectorAll('.opt').forEach(o=>o.classList.remove('active')); opt.classList.add('active'); speedMenu.classList.remove('open'); });
 
-// Subtitle menu with local upload
+// SUBTITLE MENU
 document.getElementById('subBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8 12H6v-2h2v2zm0 4H6v-2h2v2zm4-4h-2v-2h2v2zm0 4h-2v-2h2v2zm6 0h-6v-2h6v2zm0-4h-2v-2h2v2z"/></svg>`;
 const subMenu = document.getElementById('subMenu');
 
 function renderSubMenu(){
   const tracks = Array.from(video.textTracks);
-  const hasEmbedded = Object.keys(currentSubUrls).length > 0;
-  const hasLocal = tracks.some(t => t.label && t.label.startsWith('📁'));
+  const hasTracks = tracks.length > 0;
+  
   subMenu.innerHTML = `<h5>📝 Subtitles</h5>
-    <div class="opt ${tracks.every(t=>t.mode!=='showing')?'active':''}" data-idx="off">Off</div>
-    ${tracks.map((t,i)=>`<div class="opt ${t.mode==='showing'?'active':''}" data-idx="${i}">${escapeHtml(t.label||('Track '+(i+1)))}</div>`).join('')}
-    ${!hasEmbedded && !hasLocal ? `<div class="opt" style="color:var(--text-dim);cursor:default;">No subtitles available</div>` : ''}
+    <div class="opt ${!hasTracks || tracks.every(t=>t.mode!=='showing')?'active':''}" data-idx="off">Off</div>`;
+  
+  tracks.forEach((t, i) => {
+    const isActive = t.mode === 'showing';
+    subMenu.innerHTML += `<div class="opt ${isActive?'active':''}" data-idx="${i}">${escapeHtml(t.label||('Track '+(i+1)))}</div>`;
+  });
+  
+  subMenu.innerHTML += `
     <div class="upload-btn" id="uploadLocalSubBtn">📁 Upload local .srt / .vtt file</div>
+    ${!hasTracks ? `<div style="font-size:10px;color:var(--text-dim);padding:8px 10px;text-align:center;">No subtitles available</div>` : ''}
     <div style="font-size:10px;color:var(--text-dim);padding:8px 10px;border-top:1px solid var(--border);margin-top:6px;">
-      📱 Subtitle URLs from Telegram bot are auto-loaded
+      💡 Upload .srt or .vtt files locally
     </div>`;
-  document.getElementById('uploadLocalSubBtn').onclick = () => document.getElementById('subFileInput').click();
+  
+  const uploadBtn = document.getElementById('uploadLocalSubBtn');
+  if(uploadBtn) uploadBtn.onclick = () => document.getElementById('subFileInput').click();
 }
-document.getElementById('subBtn').onclick = (e) => { e.stopPropagation(); renderSubMenu(); toggleMenu(subMenu); };
+
+document.getElementById('subBtn').onclick = (e) => { 
+  e.stopPropagation(); 
+  renderSubMenu(); 
+  toggleMenu(subMenu); 
+};
+
 subMenu.addEventListener('click', (e) => { 
   const opt = e.target.closest('.opt'); 
   if(!opt || opt.dataset.idx === undefined) return; 
   const tracks = Array.from(video.textTracks); 
-  tracks.forEach(t=>t.mode='disabled'); 
+  tracks.forEach(t => t.mode = 'disabled'); 
   if(opt.dataset.idx !== 'off') {
     const idx = parseInt(opt.dataset.idx);
-    if(idx < tracks.length) tracks[idx].mode='showing';
+    if(idx < tracks.length) {
+      tracks[idx].mode = 'showing';
+      tracks[idx].default = true;
+    }
   }
   renderSubMenu(); 
   subMenu.classList.remove('open'); 
@@ -1209,24 +1304,53 @@ document.getElementById('subFileInput').addEventListener('change', function(e) {
   this.value = '';
 });
 
-function toggleMenu(menu){ document.querySelectorAll('.menu-pop').forEach(m=>{ if(m!==menu) m.classList.remove('open'); }); menu.classList.toggle('open'); }
-document.addEventListener('click', (e) => { if(!e.target.closest('.ctrl-pos')) document.querySelectorAll('.menu-pop').forEach(m=>m.classList.remove('open')); });
+function toggleMenu(menu){ 
+  document.querySelectorAll('.menu-pop').forEach(m=>{ if(m!==menu) m.classList.remove('open'); }); 
+  menu.classList.toggle('open'); 
+}
+
+document.addEventListener('click', (e) => { 
+  if(!e.target.closest('.ctrl-pos')) document.querySelectorAll('.menu-pop').forEach(m=>m.classList.remove('open')); 
+});
+
 function clearSubtitles(){ 
   Array.from(video.querySelectorAll('track')).forEach(t => { 
     if(t.src && t.src.startsWith('blob:')) URL.revokeObjectURL(t.src);
     t.remove(); 
   });
-  localSubTracks = [];
 }
 
 document.getElementById('fsBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>`;
 document.getElementById('fsBtn').onclick = () => { if(!document.fullscreenElement) watchEl.requestFullscreen?.(); else document.exitFullscreen?.(); };
-document.getElementById('pipBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 7H9c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 8H9V9h10v6zM3 5h12V3H3c-1.1 0-2 .9-2 2v12h2V5z"/></svg>`;
-document.getElementById('pipBtn').onclick = async () => { try{ document.pictureInPictureElement ? await document.exitPictureInPicture() : await video.requestPictureInPicture(); }catch(err){ showToast('Picture-in-picture not supported here'); } };
 
-function armIdle(){ playerWrap.classList.remove('idle'); clearTimeout(idleTimer); idleTimer=setTimeout(()=>{ if(!video.paused) playerWrap.classList.add('idle'); }, 3000); }
+document.getElementById('pipBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 7H9c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 8H9V9h10v6zM3 5h12V3H3c-1.1 0-2 .9-2 2v12h2V5z"/></svg>`;
+document.getElementById('pipBtn').onclick = async () => { 
+  try{ 
+    document.pictureInPictureElement ? await document.exitPictureInPicture() : await video.requestPictureInPicture(); 
+  } catch(err){ 
+    showToast('Picture-in-picture not supported here'); 
+  } 
+};
+
+function armIdle(){ 
+  playerWrap.classList.remove('idle'); 
+  clearTimeout(idleTimer); 
+  idleTimer = setTimeout(()=>{ 
+    if(!video.paused) playerWrap.classList.add('idle'); 
+  }, 3000); 
+}
 ['mousemove','click','touchstart'].forEach(ev => playerWrap.addEventListener(ev, armIdle));
-function resetPlayerUI(){ document.getElementById('centerPlay').style.display='flex'; document.getElementById('playerLoading').style.display='flex'; playedBar.style.width='0%'; bufferedBar.style.width='0%'; seekKnob.style.left='0%'; document.getElementById('timeDisplay').textContent='0:00 / 0:00'; video.playbackRate=1; video.volume=Number(volSlider.value); }
+
+function resetPlayerUI(){ 
+  document.getElementById('centerPlay').style.display = 'flex'; 
+  document.getElementById('playerLoading').style.display = 'flex'; 
+  playedBar.style.width = '0%'; 
+  bufferedBar.style.width = '0%'; 
+  seekKnob.style.left = '0%'; 
+  document.getElementById('timeDisplay').textContent = '0:00 / 0:00'; 
+  video.playbackRate = 1; 
+  video.volume = Number(volSlider.value); 
+}
 
 document.addEventListener('keydown', (e) => {
   if(!watchEl.classList.contains('open')) return;
