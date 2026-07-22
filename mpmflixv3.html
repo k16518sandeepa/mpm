@@ -99,7 +99,8 @@
   .detail-hero{position:relative; min-height:56vh; display:flex; align-items:flex-end;}
   .detail-hero .backdrop{position:absolute; inset:0; background-size:cover; background-position:center top; filter:brightness(.4);}
   .detail-hero .fade{position:absolute; inset:0; background:linear-gradient(to top, var(--bg) 5%, rgba(8,8,8,.2) 60%, rgba(8,8,8,.55) 100%);}
-  .detail-body{position:relative; z-index:2; padding:26px 4vw 0; display:flex; gap:28px; max-width:1200px;}
+  .detail-body{position:relative; z-index:2; padding:26px 4vw 0; display:flex; flex-direction:column; gap:20px; max-width:1200px;}
+  .hero-row{display:flex; gap:28px; align-items:flex-end;}
   .poster-lg{width:190px; flex:0 0 190px; border-radius:6px; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,.55); background:var(--bg-card); aspect-ratio:2/3;}
   .poster-lg img{width:100%; height:100%; object-fit:cover;}
   .detail-info h1{font-family:var(--font-display); font-size:clamp(30px,4.2vw,50px); letter-spacing:.5px; margin-bottom:8px;}
@@ -269,8 +270,6 @@
 
   /* ---------- MOBILE FIXES ---------- */
   .sub-lang-badge{display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--gold); border:1px solid rgba(232,201,106,.35); background:rgba(232,201,106,.08); padding:4px 12px; border-radius:999px; margin:8px 0;}
-  .overview-head{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;}
-  .overview-head h3{margin:0;}
 
   @media (max-width:768px){
     #searchForm input{ width:88px; font-size:12px; }
@@ -282,107 +281,102 @@
     }
     .detail-hero .backdrop{
       position:relative;
-      height:170px;
+      height:150px;
       border-radius:0;
     }
     .detail-hero .fade{
-      height:170px;
+      height:150px;
     }
     .detail-body{
       display:flex !important;
       flex-direction:column !important;
-      align-items:center !important;
-      text-align:center !important;
-      gap:0 !important;
-      padding:18px 7vw 0 !important;
-      margin-top:0 !important;
+      gap:16px !important;
+      padding:16px 6vw 0 !important;
       max-width:none !important;
     }
+    .hero-row{
+      display:flex !important;
+      flex-direction:row !important;
+      align-items:flex-start !important;
+      gap:14px !important;
+    }
     .poster-lg{
-      width:148px !important;
-      flex:0 0 148px !important;
-      margin:0 auto 16px !important;
-      border-radius:8px;
-      box-shadow:0 14px 26px rgba(0,0,0,.6);
+      width:108px !important;
+      flex:0 0 108px !important;
+      margin:0 !important;
+      border-radius:6px;
+      box-shadow:0 10px 20px rgba(0,0,0,.55);
     }
     .detail-info{
-      width:100% !important;
-      max-width:420px !important;
-      margin:0 auto !important;
-      text-align:center !important;
+      width:auto !important;
+      max-width:none !important;
+      margin:0 !important;
+      text-align:left !important;
+      flex:1 1 auto;
+      min-width:0;
     }
     .detail-info h1{
-      font-size:clamp(24px,6vw,32px) !important;
-      text-align:center !important;
-      margin-bottom:6px !important;
-      width:100%;
+      font-size:clamp(20px,5.5vw,28px) !important;
+      text-align:left !important;
+      margin-bottom:4px !important;
     }
     .detail-info .tagline{
-      text-align:center !important;
-      font-size:13px !important;
-      margin-bottom:10px !important;
-      width:100%;
+      text-align:left !important;
+      font-size:12.5px !important;
+      margin-bottom:8px !important;
     }
     .meta-row{
       display:flex !important;
-      justify-content:center !important;
-      font-size:12px !important;
-      gap:10px !important;
+      justify-content:flex-start !important;
+      font-size:11.5px !important;
+      gap:8px !important;
       flex-wrap:wrap !important;
       margin:0 0 2px !important;
-      width:100%;
     }
     .genre-pills{
       display:flex !important;
-      justify-content:center !important;
-      margin:10px 0 !important;
-      width:100%;
+      justify-content:flex-start !important;
+      margin:8px 0 !important;
     }
     .sub-lang-badge{
-      display:table !important; /* table centers reliably via margin:auto even though the base rule is inline-flex */
-      margin:2px auto 10px !important;
+      font-size:11px !important;
+      padding:3px 10px !important;
+      margin:2px 0 0 !important;
     }
     .btnrow{
       display:flex !important;
-      justify-content:center !important;
-      margin-top:6px !important;
+      justify-content:stretch !important;
       width:100% !important;
-      gap:10px !important;
+      gap:8px !important;
     }
     .btn{
       flex:1 1 0;
       justify-content:center;
-      padding:11px 16px;
-      font-size:14px;
-      max-width:170px;
-    }
-    .overview-head{
-      flex-direction:column;
-      text-align:center;
+      padding:11px 8px;
+      font-size:13px;
+      white-space:nowrap;
     }
     .btn-download{
-      width:100%;
+      flex:1 1 0;
       justify-content:center;
-      padding:11px 16px;
-      font-size:14px;
+      padding:11px 8px;
+      font-size:13px;
     }
     .overview-lg{
       font-size:14px;
-      text-align:center;
-      max-width:440px;
-      margin:0 auto;
+      text-align:left;
     }
     .section{
-      padding:24px 7vw;
+      padding:22px 6vw;
     }
     .section h3{
-      text-align:center;
+      text-align:left;
     }
     .cast-row{
       justify-content:flex-start;
       gap:14px;
-      margin:0 -7vw;
-      padding:4px 7vw 8px;
+      margin:0 -6vw;
+      padding:4px 6vw 8px;
     }
     .cast-row::after{
       content:'';
@@ -445,23 +439,23 @@
   }
   @media (max-width:480px){
     .poster-lg{
-      width:128px !important;
-      flex:0 0 128px !important;
-      margin-bottom:12px !important;
+      width:92px !important;
+      flex:0 0 92px !important;
+      margin:0 !important;
     }
     .detail-info h1{
-      font-size:22px !important;
+      font-size:20px !important;
     }
     .btn{
-      padding:9px 14px;
-      font-size:13px;
+      padding:9px 6px;
+      font-size:12px;
     }
     .btn-download{
-      padding:9px 14px;
-      font-size:13px;
+      padding:9px 6px;
+      font-size:12px;
     }
     .btnrow{
-      gap:8px;
+      gap:6px;
     }
     .card{
       width:100px;
@@ -846,29 +840,29 @@ function renderMovieDetail(entry, data){
     <div class="detail-hero">
       <div class="backdrop" style="background-image:url(${CONFIG.IMG(data.backdrop_path,'original')})"></div><div class="fade"></div>
       <div class="detail-body">
-        <div class="poster-lg">${data.poster_path ? `<img src="${CONFIG.IMG(data.poster_path,'w500')}" alt="">` : ''}</div>
-        <div class="detail-info">
-          <h1>${escapeHtml(data.title)}</h1>
-          ${data.tagline ? `<div class="tagline">${escapeHtml(data.tagline)}</div>` : ''}
-          <div class="meta-row">
-            <span class="badge-rating">★ ${ratingOf(data)}</span>
-            <span>${yearOf(data)}</span>
-            <span>${fmtRuntime(data.runtime)}</span>
+        <div class="hero-row">
+          <div class="poster-lg">${data.poster_path ? `<img src="${CONFIG.IMG(data.poster_path,'w500')}" alt="">` : ''}</div>
+          <div class="detail-info">
+            <h1>${escapeHtml(data.title)}</h1>
+            ${data.tagline ? `<div class="tagline">${escapeHtml(data.tagline)}</div>` : ''}
+            <div class="meta-row">
+              <span class="badge-rating">★ ${ratingOf(data)}</span>
+              <span>${yearOf(data)}</span>
+              <span>${fmtRuntime(data.runtime)}</span>
+            </div>
+            <div class="genre-pills">${(data.genres||[]).map(g=>`<span class="pill">${escapeHtml(g.name)}</span>`).join('')}</div>
+            ${hasSubs ? `<div class="sub-lang-badge">📝 Subtitles: ${subLabels}</div>` : ''}
           </div>
-          <div class="genre-pills">${(data.genres||[]).map(g=>`<span class="pill">${escapeHtml(g.name)}</span>`).join('')}</div>
-          ${hasSubs ? `<div class="sub-lang-badge">📝 Subtitles: ${subLabels}</div>` : ''}
-          <div class="btnrow">
-            <button class="btn btn-primary" id="playBtnDetail" ${entry.streamUrl?'':'disabled'}>${entry.streamUrl? '▶ Play' : '⏳ Coming Soon'}</button>
-            ${trailer ? `<button class="btn btn-secondary" id="trailerBtn">▶ Trailer</button>` : ''}
-          </div>
+        </div>
+        <div class="btnrow">
+          <button class="btn btn-primary" id="playBtnDetail" ${entry.streamUrl?'':'disabled'}>${entry.streamUrl? '▶ Play' : '⏳ Coming Soon'}</button>
+          ${trailer ? `<button class="btn btn-secondary" id="trailerBtn">▶ Trailer</button>` : ''}
+          ${entry.streamUrl ? `<button class="btn btn-download" id="downloadBtnDetail">⬇ Download</button>` : ''}
         </div>
       </div>
     </div>
     <div class="section" style="padding-top:16px;">
-      <div class="overview-head">
-        <h3>Overview</h3>
-        ${entry.streamUrl ? `<button class="btn btn-download" id="downloadBtnDetail">⬇ Download</button>` : ''}
-      </div>
+      <h3>Overview</h3>
       <p class="overview-lg" style="margin:0;">${escapeHtml(data.overview)}</p>
     </div>
     ${(data.credits?.cast?.length) ? `<div class="section" style="padding-top:0;"><h3>Cast</h3><div class="cast-row">${data.credits.cast.slice(0,14).map(castHtml).join('')}</div></div>` : ''}
@@ -909,18 +903,20 @@ async function renderTVDetail(entry, data){
     <div class="detail-hero">
       <div class="backdrop" style="background-image:url(${CONFIG.IMG(data.backdrop_path,'original')})"></div><div class="fade"></div>
       <div class="detail-body">
-        <div class="poster-lg">${data.poster_path ? `<img src="${CONFIG.IMG(data.poster_path,'w500')}" alt="">` : ''}</div>
-        <div class="detail-info">
-          <h1>${escapeHtml(data.name)}</h1>
-          ${data.tagline ? `<div class="tagline">${escapeHtml(data.tagline)}</div>` : ''}
-          <div class="meta-row">
-            <span class="badge-rating">★ ${ratingOf(data)}</span>
-            <span>${yearOf(data)}</span>
-            <span>${data.number_of_seasons||seasons.length} Season${(data.number_of_seasons||seasons.length)!==1?'s':''}</span>
+        <div class="hero-row">
+          <div class="poster-lg">${data.poster_path ? `<img src="${CONFIG.IMG(data.poster_path,'w500')}" alt="">` : ''}</div>
+          <div class="detail-info">
+            <h1>${escapeHtml(data.name)}</h1>
+            ${data.tagline ? `<div class="tagline">${escapeHtml(data.tagline)}</div>` : ''}
+            <div class="meta-row">
+              <span class="badge-rating">★ ${ratingOf(data)}</span>
+              <span>${yearOf(data)}</span>
+              <span>${data.number_of_seasons||seasons.length} Season${(data.number_of_seasons||seasons.length)!==1?'s':''}</span>
+            </div>
+            <div class="genre-pills">${(data.genres||[]).map(g=>`<span class="pill">${escapeHtml(g.name)}</span>`).join('')}</div>
           </div>
-          <div class="genre-pills">${(data.genres||[]).map(g=>`<span class="pill">${escapeHtml(g.name)}</span>`).join('')}</div>
-          <div class="btnrow">${trailer ? `<button class="btn btn-secondary" id="trailerBtn">▶ Trailer</button>` : ''}</div>
         </div>
+        ${trailer ? `<div class="btnrow"><button class="btn btn-secondary" id="trailerBtn">▶ Trailer</button></div>` : ''}
       </div>
     </div>
     <div class="section" style="padding-top:16px;"><p class="overview-lg">${escapeHtml(data.overview)}</p></div>
@@ -992,8 +988,8 @@ function episodeHtml(ep, url, subUrls){
 
 function detailSkeleton(){
   return `<div class="detail-hero"><div class="backdrop skeleton"></div><div class="fade"></div>
-    <div class="detail-body"><div class="poster-lg skeleton"></div>
-    <div class="detail-info"><div class="skeleton" style="width:60%;height:44px;margin-bottom:14px;"></div><div class="skeleton" style="width:40%;height:20px;"></div></div></div></div>`;
+    <div class="detail-body"><div class="hero-row"><div class="poster-lg skeleton"></div>
+    <div class="detail-info"><div class="skeleton" style="width:60%;height:44px;margin-bottom:14px;"></div><div class="skeleton" style="width:40%;height:20px;"></div></div></div></div></div>`;
 }
 function notFound(){ return `<div class="empty-state" style="padding-top:140px;"><h3>Page not found</h3><p><a href="#/" style="color:var(--gold); text-decoration:underline;">Back home</a></p></div>`; }
 function notAvailable(){ return `<div class="empty-state" style="padding-top:140px;"><h3>Not available on MPMFLIX</h3><p>This title hasn't been added yet. <a href="#/" style="color:var(--gold); text-decoration:underline;">Back home</a></p></div>`; }
