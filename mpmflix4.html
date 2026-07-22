@@ -344,7 +344,7 @@
 
 <script type="module">
 /* =========================================================
-   MPMFLIX — with subtitle support (URL + local upload)
+   MPMFLIX — with fixed download and download button on detail page
    ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -626,6 +626,7 @@ function renderMovieDetail(entry, data){
           <div class="btnrow">
             <button class="btn btn-primary" id="playBtnDetail" ${entry.streamUrl?'':'disabled'}>${entry.streamUrl? '▶ Play' : '⏳ Coming Soon'}</button>
             ${trailer ? `<button class="btn btn-secondary" id="trailerBtn">▶ Trailer</button>` : ''}
+            ${entry.streamUrl ? `<button class="btn btn-download" id="downloadBtnDetail">⬇ Download</button>` : ''}
           </div>
         </div>
       </div>
@@ -633,7 +634,10 @@ function renderMovieDetail(entry, data){
     <div class="section" style="padding-top:26px;"><p class="overview-lg">${escapeHtml(data.overview)}</p></div>
     ${(data.credits?.cast?.length) ? `<div class="section" style="padding-top:0;"><h3>Cast</h3><div class="cast-row">${data.credits.cast.slice(0,14).map(castHtml).join('')}</div></div>` : ''}
   `;
-  if(entry.streamUrl) document.getElementById('playBtnDetail').onclick = () => playMovie({...entry, ...data, subtitles: subUrls});
+  if(entry.streamUrl) {
+    document.getElementById('playBtnDetail').onclick = () => playMovie({...entry, ...data, subtitles: subUrls});
+    document.getElementById('downloadBtnDetail').onclick = () => downloadFile(entry.streamUrl, titleOf(data));
+  }
   if(trailer) document.getElementById('trailerBtn').onclick = () => openTrailer(trailer.key);
   mountLazyImages(app);
 }
@@ -701,6 +705,18 @@ async function renderTVDetail(entry, data){
         const subUrls = JSON.parse(el.dataset.subs || '{}');
         openPlayer(url, `${data.name} · S${el.dataset.season}E${el.dataset.episode} · ${el.dataset.name}`, subUrls);
       });
+      // Add download button for each episode
+      if(url) {
+        const downloadBtn = document.createElement('button');
+        downloadBtn.className = 'btn btn-download btn-sm';
+        downloadBtn.innerHTML = '⬇ Download';
+        downloadBtn.style.marginLeft = 'auto';
+        downloadBtn.onclick = (e) => {
+          e.stopPropagation();
+          downloadFile(url, `${data.name} S${el.dataset.season}E${el.dataset.episode}`);
+        };
+        el.querySelector('.info .top').appendChild(downloadBtn);
+      }
     });
     mountLazyImages(document.getElementById('episodeList'));
   };
@@ -743,6 +759,57 @@ document.getElementById('trailerOverlay').addEventListener('click', (e)=>{ if(e.
 function playMovie(entry){
   if(!entry.streamUrl){ showToast('Not available yet'); return; }
   openPlayer(entry.streamUrl, titleOf(entry), entry.subtitles || {});
+}
+
+/* =========================================================
+   DOWNLOAD FUNCTION - FIXED
+   ========================================================= */
+function downloadFile(url, filename) {
+  if(!url) { showToast('No file to download'); return; }
+  
+  // Show toast
+  showToast('Starting download...');
+  
+  // Use fetch to download the file as a blob, then trigger download
+  fetch(url, {
+    mode: 'cors',
+    credentials: 'omit'
+  })
+  .then(response => {
+    if(!response.ok) throw new Error('Download failed: ' + response.status);
+    return response.blob();
+  })
+  .then(blob => {
+    // Get file extension from URL or default to .mp4
+    let ext = '.mp4';
+    const urlPath = new URL(url).pathname;
+    const urlExt = urlPath.split('.').pop();
+    if(urlExt && urlExt.length < 5) ext = '.' + urlExt;
+    
+    // Create download link
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename + ext;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    
+    // Clean up
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    showToast('✅ Download started');
+  })
+  .catch(err => {
+    console.error('Download error:', err);
+    // Fallback: try direct download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename + '.mp4';
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    showToast('⚠️ Download may open in new tab');
+  });
 }
 
 /* =========================================================
@@ -872,7 +939,7 @@ function renderMovieEditor(data, entry, host){
         </select>
       </div>
       <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
-        <label style="font-size:12px;color:var(--text-dim);display:block;margin-bottom:8px;">📝 Subtitle URLs (from Telegram bot)</label>
+        <label style="font-size:12px;color:var(--text-dim);display:block;margin-bottom:8px;">📝 Subtitle URLs</label>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
           <div style="flex:1;min-width:180px;">
             <label style="font-size:11px;color:var(--text-dim);">🇱🇰 Sinhala</label>
@@ -883,7 +950,7 @@ function renderMovieEditor(data, entry, host){
             <input type="text" id="subEnInput" value="${escapeHtml(subs.en||'')}" placeholder="https://stream.motionpicturemafia.com/stream/73?hash=..." style="width:100%;background:var(--bg);border:1px solid var(--border);padding:8px 10px;border-radius:4px;font-size:13px;color:var(--text);">
           </div>
         </div>
-        <div class="tg-hint">💡 <strong>Important:</strong> Make sure the subtitle URLs are correct and accessible. You can also upload subtitle files locally while watching.</div>
+        <div class="tg-hint">💡 You can also upload subtitle files locally while watching the video</div>
       </div>
       <button class="btn btn-primary" id="saveMovieBtn" style="margin-top:14px;">${entry ? 'Update' : 'Add to catalog'}</button>
       ${entry ? `<button class="btn btn-ghost" id="removeMovieBtn" style="margin-left:10px;">Remove from catalog</button>` : ''}
@@ -997,7 +1064,7 @@ async function renderTVEditor(data, entry, host){
 }
 
 /* =========================================================
-   PLAYER — Fixed subtitle loading with fetch-based approach
+   PLAYER
    ========================================================= */
 const watchEl = document.getElementById('watch');
 const playerWrap = document.getElementById('playerWrap');
@@ -1021,8 +1088,6 @@ function openPlayer(url, title, subUrls){
   document.body.style.overflow = 'hidden';
   
   clearSubtitles();
-  
-  // Load subtitles using fetch to handle Telegram stream URLs
   loadSubtitlesWithFetch(subUrls);
   
   resetPlayerUI();
@@ -1045,7 +1110,6 @@ function openPlayer(url, title, subUrls){
   localStorage.setItem('mpm_current_url', url);
 }
 
-// Load subtitles using fetch to handle both direct .srt files and Telegram stream URLs
 async function loadSubtitlesWithFetch(subUrls) {
   clearSubtitles();
   
@@ -1058,7 +1122,6 @@ async function loadSubtitlesWithFetch(subUrls) {
     try {
       console.log(`Loading subtitle for ${lang} from: ${url}`);
       
-      // Fetch the subtitle content
       const response = await fetch(url, {
         mode: 'cors',
         credentials: 'omit'
@@ -1073,12 +1136,10 @@ async function loadSubtitlesWithFetch(subUrls) {
       let content = await response.text();
       console.log(`Subtitle content for ${lang} loaded, length: ${content.length}`);
       
-      // Check if it's SRT format
       const isSRT = /^\d+\s*\n\d{2}:\d{2}:\d{2}[,.]\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}[,.]\d{3}/m.test(content);
       
       let vttContent;
       if (isSRT) {
-        // Convert SRT to WebVTT
         vttContent = 'WEBVTT\n\n' + content
           .replace(/\r+/g, '')
           .replace(/^\uFEFF/, '')
@@ -1087,15 +1148,12 @@ async function loadSubtitlesWithFetch(subUrls) {
       } else if (content.trim().startsWith('WEBVTT')) {
         vttContent = content;
       } else {
-        // Try to treat as VTT or plain text
         vttContent = 'WEBVTT\n\n' + content;
       }
       
-      // Create a blob URL for the subtitle
       const blob = new Blob([vttContent], { type: 'text/vtt' });
       const blobUrl = URL.createObjectURL(blob);
       
-      // Create track element
       const track = document.createElement('track');
       track.kind = 'subtitles';
       track.label = `${langEmojis[lang] || ''} ${langNames[lang] || lang}`;
@@ -1146,7 +1204,6 @@ function loadLocalSubtitle(file) {
     const blob = new Blob([vttContent], { type: 'text/vtt' });
     const url = URL.createObjectURL(blob);
     
-    // Remove existing local subtitle tracks
     const existingTracks = Array.from(video.querySelectorAll('track'));
     existingTracks.forEach(t => {
       if (t.label && t.label.startsWith('📁')) {
@@ -1164,7 +1221,6 @@ function loadLocalSubtitle(file) {
     track.default = true;
     video.appendChild(track);
     
-    // Disable other tracks
     Array.from(video.textTracks).forEach(t => {
       if (t !== track) t.mode = 'disabled';
     });
@@ -1193,17 +1249,12 @@ function saveResume(){
 }
 setInterval(()=>{ if(!video.paused) saveResume(); }, 4000);
 
-// Download button
+// Player download button - FIXED
 document.getElementById('downloadBtn').onclick = () => {
   const url = localStorage.getItem('mpm_current_url');
+  const title = document.getElementById('playerTitle').textContent;
   if(url){
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = document.getElementById('playerTitle').textContent + '.mp4';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    showToast('Download started');
+    downloadFile(url, title || 'video');
   } else {
     showToast('No video loaded');
   }
@@ -1343,7 +1394,6 @@ subMenu.addEventListener('click', (e) => {
   subMenu.classList.remove('open'); 
 });
 
-// Local subtitle file upload
 document.getElementById('subFileInput').addEventListener('change', function(e) {
   const file = e.target.files[0];
   if(!file) return;
