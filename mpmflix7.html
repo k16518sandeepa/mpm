@@ -173,7 +173,7 @@
   #centerPlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;}
   #centerPlay button{pointer-events:auto; background:rgba(0,0,0,.5); border:2px solid rgba(255,255,255,.5); border-radius:50%; width:72px; height:72px; display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer;}
   #centerPlay svg{width:32px; height:32px;}
-  .menu-pop{position:absolute; bottom:56px; right:0; background:rgba(20,20,20,.97); border:1px solid var(--border); border-radius:6px; padding:10px; width:280px; display:none; max-height:320px; overflow-y:auto; z-index:50;}
+  .menu-pop{position:absolute; bottom:56px; right:0; background:rgba(20,20,20,.97); border:1px solid var(--border); border-radius:6px; padding:10px; width:300px; display:none; max-height:400px; overflow-y:auto; z-index:50;}
   .menu-pop.open{display:block;}
   .menu-pop h5{font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); margin-bottom:8px;}
   .menu-pop .opt{padding:8px 10px; border-radius:4px; font-size:13px; cursor:pointer; display:flex; justify-content:space-between;}
@@ -182,6 +182,11 @@
   .menu-pop .opt .lang-label{font-size:11px; color:var(--text-dim);}
   .menu-pop .upload-btn{width:100%; text-align:center; margin-top:6px; padding:9px; border:1px dashed var(--border); border-radius:4px; font-size:12.5px; color:var(--text-dim); cursor:pointer;}
   .menu-pop .upload-btn:hover{border-color:var(--gold); color:var(--gold);}
+  .menu-pop .sub-setting{display:flex; align-items:center; gap:10px; padding:6px 8px; border-bottom:1px solid var(--border);}
+  .menu-pop .sub-setting label{font-size:11px; color:var(--text-dim); min-width:80px;}
+  .menu-pop .sub-setting input[type="range"]{flex:1; accent-color:var(--red);}
+  .menu-pop .sub-setting input[type="color"]{width:30px; height:30px; border:none; background:none; cursor:pointer;}
+  .menu-pop .sub-setting .val{font-size:11px; color:var(--text-dim); min-width:30px; text-align:center;}
   .ctrl-pos{position:relative;}
 
   #toast{position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--bg-raised); border:1px solid var(--border); padding:12px 20px; border-radius:6px; font-size:13.5px; z-index:2000; opacity:0; transition:opacity .25s, transform .25s; pointer-events:none;}
@@ -344,7 +349,7 @@
 
 <script type="module">
 /* =========================================================
-   MPMFLIX — with fixed download and download button on detail page
+   MPMFLIX — with fixed download, subtitle settings, separate quality
    ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -705,7 +710,6 @@ async function renderTVDetail(entry, data){
         const subUrls = JSON.parse(el.dataset.subs || '{}');
         openPlayer(url, `${data.name} · S${el.dataset.season}E${el.dataset.episode} · ${el.dataset.name}`, subUrls);
       });
-      // Add download button for each episode
       if(url) {
         const downloadBtn = document.createElement('button');
         downloadBtn.className = 'btn btn-download btn-sm';
@@ -762,54 +766,37 @@ function playMovie(entry){
 }
 
 /* =========================================================
-   DOWNLOAD FUNCTION - FIXED
+   DOWNLOAD FUNCTION - Opens new tab, closes it, starts download
    ========================================================= */
 function downloadFile(url, filename) {
   if(!url) { showToast('No file to download'); return; }
   
-  // Show toast
-  showToast('Starting download...');
+  showToast('Preparing download...');
   
-  // Use fetch to download the file as a blob, then trigger download
-  fetch(url, {
-    mode: 'cors',
-    credentials: 'omit'
-  })
-  .then(response => {
-    if(!response.ok) throw new Error('Download failed: ' + response.status);
-    return response.blob();
-  })
-  .then(blob => {
-    // Get file extension from URL or default to .mp4
-    let ext = '.mp4';
-    const urlPath = new URL(url).pathname;
-    const urlExt = urlPath.split('.').pop();
-    if(urlExt && urlExt.length < 5) ext = '.' + urlExt;
-    
-    // Create download link
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = filename + ext;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    
-    // Clean up
-    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-    showToast('✅ Download started');
-  })
-  .catch(err => {
-    console.error('Download error:', err);
-    // Fallback: try direct download
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename + '.mp4';
-    a.target = '_blank';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    showToast('⚠️ Download may open in new tab');
-  });
+  // Open a new tab that will trigger the download
+  const win = window.open(url, '_blank');
+  
+  // Close the tab after a delay (let the download start)
+  setTimeout(() => {
+    if(win) {
+      win.close();
+      showToast('✅ Download started');
+    }
+  }, 2000);
+  
+  // Fallback: if the tab didn't open, try direct download
+  setTimeout(() => {
+    try {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename + '.mp4';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } catch(e) {
+      // Ignore
+    }
+  }, 3000);
 }
 
 /* =========================================================
@@ -933,8 +920,9 @@ function renderMovieEditor(data, entry, host){
       </div>
       <div class="field"><label>Quality</label>
         <select id="movieQualitySelect">
-          <option value="SD" ${entry?.quality==='SD'?'selected':''}>SD (480p)</option>
-          <option value="HD" ${entry?.quality==='HD'||!entry?.quality?'selected':''}>HD (720p/1080p)</option>
+          <option value="480p" ${entry?.quality==='480p'?'selected':''}>480p</option>
+          <option value="720p" ${entry?.quality==='720p'?'selected':''}>720p</option>
+          <option value="1080p" ${entry?.quality==='1080p'||!entry?.quality?'selected':''}>1080p</option>
           <option value="4K" ${entry?.quality==='4K'?'selected':''}>4K</option>
         </select>
       </div>
@@ -1073,6 +1061,48 @@ let currentStreamKey = null;
 let idleTimer = null;
 let currentSubUrls = {};
 
+// Subtitle settings with localStorage persistence
+const subSettings = {
+  fontSize: parseInt(localStorage.getItem('mpm_sub_fontsize')) || 100,
+  bgOpacity: parseInt(localStorage.getItem('mpm_sub_bgopacity')) || 70,
+  color: localStorage.getItem('mpm_sub_color') || '#ffffff',
+  bgColor: localStorage.getItem('mpm_sub_bgcolor') || '#000000',
+  position: parseInt(localStorage.getItem('mpm_sub_position')) || 50
+};
+
+function applySubtitleSettings() {
+  const style = document.createElement('style');
+  style.id = 'mpm-sub-settings';
+  const position = subSettings.position;
+  // Position: 0 = bottom, 50 = middle, 100 = top
+  const bottomOffset = 5 + (100 - position) * 0.3;
+  style.textContent = `
+    #videoEl::cue {
+      font-size: ${subSettings.fontSize}%;
+      color: ${subSettings.color};
+      background: rgba(${hexToRgb(subSettings.bgColor)}, ${subSettings.bgOpacity / 100});
+      white-space: pre-wrap;
+      line-height: 1.4;
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+    #videoEl::cue(v) {
+      background: rgba(${hexToRgb(subSettings.bgColor)}, ${subSettings.bgOpacity / 100});
+    }
+  `;
+  const old = document.getElementById('mpm-sub-settings');
+  if(old) old.remove();
+  document.head.appendChild(style);
+}
+
+function hexToRgb(hex) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : '0, 0, 0';
+}
+
+// Apply settings on load
+applySubtitleSettings();
+
 function openPlayer(url, title, subUrls){
   if(!url){ showToast('Not available yet'); return; }
   document.getElementById('playerTitle').textContent = title || '';
@@ -1099,8 +1129,11 @@ function openPlayer(url, title, subUrls){
     const badge = document.getElementById('qualityBadge');
     const entry = JSON.parse(localStorage.getItem('mpm_current_entry') || '{}');
     if(entry.quality){
-      badge.textContent = entry.quality;
-      badge.className = 'quality-badge ' + (entry.quality === '4K' ? '_4k' : entry.quality === 'HD' ? 'hd' : '');
+      let label = entry.quality;
+      if(label === '480p' || label === '720p' || label === '1080p' || label === '4K') {
+        badge.textContent = label;
+        badge.className = 'quality-badge ' + (label === '4K' ? '_4k' : '');
+      }
     }
     setTimeout(renderSubMenu, 300);
   });
@@ -1249,7 +1282,7 @@ function saveResume(){
 }
 setInterval(()=>{ if(!video.paused) saveResume(); }, 4000);
 
-// Player download button - FIXED
+// Player download button
 document.getElementById('downloadBtn').onclick = () => {
   const url = localStorage.getItem('mpm_current_url');
   const title = document.getElementById('playerTitle').textContent;
@@ -1345,7 +1378,7 @@ speedMenu.innerHTML = `<h5>Speed</h5>` + speeds.map(s=>`<div class="opt ${s===1?
 document.getElementById('speedBtn').onclick = (e) => { e.stopPropagation(); toggleMenu(speedMenu); };
 speedMenu.addEventListener('click', (e) => { const opt=e.target.closest('.opt'); if(!opt) return; video.playbackRate=Number(opt.dataset.speed); speedMenu.querySelectorAll('.opt').forEach(o=>o.classList.remove('active')); opt.classList.add('active'); speedMenu.classList.remove('open'); });
 
-// SUBTITLE MENU
+// SUBTITLE MENU with settings
 document.getElementById('subBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8 12H6v-2h2v2zm0 4H6v-2h2v2zm4-4h-2v-2h2v2zm0 4h-2v-2h2v2zm6 0h-6v-2h6v2zm0-4h-2v-2h2v2z"/></svg>`;
 const subMenu = document.getElementById('subMenu');
 
@@ -1353,7 +1386,8 @@ function renderSubMenu(){
   const tracks = Array.from(video.textTracks);
   const hasTracks = tracks.length > 0;
   
-  subMenu.innerHTML = `<h5>📝 Subtitles</h5>
+  subMenu.innerHTML = `
+    <h5>📝 Subtitles</h5>
     <div class="opt ${!hasTracks || tracks.every(t=>t.mode!=='showing')?'active':''}" data-idx="off">Off</div>`;
   
   tracks.forEach((t, i) => {
@@ -1363,10 +1397,105 @@ function renderSubMenu(){
   
   subMenu.innerHTML += `
     <div class="upload-btn" id="uploadLocalSubBtn">📁 Upload local .srt / .vtt file</div>
+    <div style="border-top:1px solid var(--border);margin:8px 0;"></div>
+    <h5>⚙️ Subtitle Settings</h5>
+    <div class="sub-setting">
+      <label>Font Size</label>
+      <input type="range" id="subFontSize" min="50" max="200" value="${subSettings.fontSize}">
+      <span class="val" id="subFontSizeVal">${subSettings.fontSize}%</span>
+    </div>
+    <div class="sub-setting">
+      <label>Position</label>
+      <input type="range" id="subPosition" min="0" max="100" value="${subSettings.position}">
+      <span class="val" id="subPositionVal">${subSettings.position}%</span>
+    </div>
+    <div class="sub-setting">
+      <label>Text Color</label>
+      <input type="color" id="subTextColor" value="${subSettings.color}">
+    </div>
+    <div class="sub-setting">
+      <label>BG Color</label>
+      <input type="color" id="subBgColor" value="${subSettings.bgColor}">
+    </div>
+    <div class="sub-setting">
+      <label>BG Opacity</label>
+      <input type="range" id="subBgOpacity" min="0" max="100" value="${subSettings.bgOpacity}">
+      <span class="val" id="subBgOpacityVal">${subSettings.bgOpacity}%</span>
+    </div>
+    <div class="sub-setting" style="border-bottom:none;padding-bottom:4px;">
+      <button class="btn btn-sm btn-ghost" id="resetSubSettings" style="width:100%;justify-content:center;">Reset Settings</button>
+    </div>
     ${!hasTracks ? `<div style="font-size:10px;color:var(--text-dim);padding:8px 10px;text-align:center;">No subtitles available. Upload a local file.</div>` : ''}
-    <div style="font-size:10px;color:var(--text-dim);padding:8px 10px;border-top:1px solid var(--border);margin-top:6px;">
-      💡 Upload .srt or .vtt files locally
-    </div>`;
+  `;
+  
+  // Attach events
+  const fontSlider = document.getElementById('subFontSize');
+  const posSlider = document.getElementById('subPosition');
+  const textColor = document.getElementById('subTextColor');
+  const bgColor = document.getElementById('subBgColor');
+  const bgOpacity = document.getElementById('subBgOpacity');
+  
+  if(fontSlider) {
+    fontSlider.oninput = () => {
+      subSettings.fontSize = parseInt(fontSlider.value);
+      document.getElementById('subFontSizeVal').textContent = subSettings.fontSize + '%';
+      localStorage.setItem('mpm_sub_fontsize', subSettings.fontSize);
+      applySubtitleSettings();
+    };
+  }
+  
+  if(posSlider) {
+    posSlider.oninput = () => {
+      subSettings.position = parseInt(posSlider.value);
+      document.getElementById('subPositionVal').textContent = subSettings.position + '%';
+      localStorage.setItem('mpm_sub_position', subSettings.position);
+      applySubtitleSettings();
+    };
+  }
+  
+  if(textColor) {
+    textColor.onchange = () => {
+      subSettings.color = textColor.value;
+      localStorage.setItem('mpm_sub_color', subSettings.color);
+      applySubtitleSettings();
+    };
+  }
+  
+  if(bgColor) {
+    bgColor.onchange = () => {
+      subSettings.bgColor = bgColor.value;
+      localStorage.setItem('mpm_sub_bgcolor', subSettings.bgColor);
+      applySubtitleSettings();
+    };
+  }
+  
+  if(bgOpacity) {
+    bgOpacity.oninput = () => {
+      subSettings.bgOpacity = parseInt(bgOpacity.value);
+      document.getElementById('subBgOpacityVal').textContent = subSettings.bgOpacity + '%';
+      localStorage.setItem('mpm_sub_bgopacity', subSettings.bgOpacity);
+      applySubtitleSettings();
+    };
+  }
+  
+  const resetBtn = document.getElementById('resetSubSettings');
+  if(resetBtn) {
+    resetBtn.onclick = () => {
+      subSettings.fontSize = 100;
+      subSettings.position = 50;
+      subSettings.color = '#ffffff';
+      subSettings.bgColor = '#000000';
+      subSettings.bgOpacity = 70;
+      localStorage.setItem('mpm_sub_fontsize', 100);
+      localStorage.setItem('mpm_sub_position', 50);
+      localStorage.setItem('mpm_sub_color', '#ffffff');
+      localStorage.setItem('mpm_sub_bgcolor', '#000000');
+      localStorage.setItem('mpm_sub_bgopacity', 70);
+      applySubtitleSettings();
+      renderSubMenu();
+      showToast('✅ Subtitle settings reset');
+    };
+  }
   
   const uploadBtn = document.getElementById('uploadLocalSubBtn');
   if(uploadBtn) uploadBtn.onclick = () => document.getElementById('subFileInput').click();
