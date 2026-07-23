@@ -1391,7 +1391,8 @@ const subSettings = {
   bgOpacity: parseInt(localStorage.getItem('mpm_sub_bgopacity')) || 70,
   color: localStorage.getItem('mpm_sub_color') || '#ffffff',
   bgColor: localStorage.getItem('mpm_sub_bgcolor') || '#000000',
-  position: localStorage.getItem('mpm_sub_position') !== null ? parseInt(localStorage.getItem('mpm_sub_position')) : 90
+  position: localStorage.getItem('mpm_sub_position') !== null ? parseInt(localStorage.getItem('mpm_sub_position')) : 90,
+  delay: parseFloat(localStorage.getItem('mpm_sub_delay')) || 0
 };
 
 function applySubtitleSettings() {
@@ -1436,6 +1437,29 @@ function applySubtitlePosition(track) {
 }
 function applySubtitlePositionAll() {
   Array.from(video.textTracks).forEach(applySubtitlePosition);
+}
+
+/* Shifts cue timing by subSettings.delay seconds. Positive delay = subtitles
+   appear later (useful when subs run ahead of the audio); negative = earlier.
+   Original cue times are cached on first run so repeated calls (e.g. from the
+   slider's oninput) always offset from the source timing, not the last-applied one. */
+function applySubtitleDelay(track) {
+  if(!track || !track.cues) return;
+  Array.from(track.cues).forEach(cue => {
+    try {
+      if(cue._origStart === undefined) {
+        cue._origStart = cue.startTime;
+        cue._origEnd = cue.endTime;
+      }
+      const newStart = Math.max(0, cue._origStart + subSettings.delay);
+      const newEnd = Math.max(newStart + 0.05, cue._origEnd + subSettings.delay);
+      cue.startTime = newStart;
+      cue.endTime = newEnd;
+    } catch(e) { /* some browsers throw on unsupported cue types */ }
+  });
+}
+function applySubtitleDelayAll() {
+  Array.from(video.textTracks).forEach(applySubtitleDelay);
 }
 
 function hexToRgb(hex) {
@@ -1566,6 +1590,7 @@ async function loadSubtitlesWithFetch(subUrls) {
       
       track.addEventListener('load', () => {
         applySubtitlePosition(track);
+        applySubtitleDelay(track);
         showToast(`✅ Loaded ${langNames[lang] || lang} subtitles`);
         renderSubMenu();
       });
@@ -1627,7 +1652,7 @@ function loadLocalSubtitle(file) {
       if (t !== track) t.mode = 'disabled';
     });
 
-    track.addEventListener('load', () => applySubtitlePosition(track));
+    track.addEventListener('load', () => { applySubtitlePosition(track); applySubtitleDelay(track); });
     showToast(`✅ Loaded local subtitle: ${file.name}`);
     renderSubMenu();
   };
@@ -1772,6 +1797,13 @@ function renderSubMenu(){
       <span class="val" id="subPositionVal">${subSettings.position}%</span>
     </div>
     <div class="sub-setting">
+      <label>Sync Delay</label>
+      <button class="btn btn-sm btn-ghost" id="subDelayMinus" style="padding:2px 8px;flex:none;">−</button>
+      <input type="range" id="subDelay" min="-10" max="10" step="0.1" value="${subSettings.delay}">
+      <button class="btn btn-sm btn-ghost" id="subDelayPlus" style="padding:2px 8px;flex:none;">+</button>
+      <span class="val" id="subDelayVal" style="min-width:44px;">${subSettings.delay > 0 ? '+' : ''}${subSettings.delay.toFixed(1)}s</span>
+    </div>
+    <div class="sub-setting">
       <label>Font Size</label>
       <input type="range" id="subFontSize" min="50" max="200" value="${subSettings.fontSize}">
       <span class="val" id="subFontSizeVal">${subSettings.fontSize}%</span>
@@ -1796,6 +1828,9 @@ function renderSubMenu(){
   `;
   
   const posSlider = document.getElementById('subPosition');
+  const delaySlider = document.getElementById('subDelay');
+  const delayMinus = document.getElementById('subDelayMinus');
+  const delayPlus = document.getElementById('subDelayPlus');
   const fontSlider = document.getElementById('subFontSize');
   const textColor = document.getElementById('subTextColor');
   const bgColor = document.getElementById('subBgColor');
@@ -1811,6 +1846,24 @@ function renderSubMenu(){
     };
   }
   
+  function setDelay(val) {
+    subSettings.delay = Math.max(-10, Math.min(10, Math.round(val * 10) / 10));
+    document.getElementById('subDelayVal').textContent = (subSettings.delay > 0 ? '+' : '') + subSettings.delay.toFixed(1) + 's';
+    if(delaySlider) delaySlider.value = subSettings.delay;
+    localStorage.setItem('mpm_sub_delay', subSettings.delay);
+    applySubtitleDelayAll();
+  }
+
+  if(delaySlider) {
+    delaySlider.oninput = () => setDelay(parseFloat(delaySlider.value));
+  }
+  if(delayMinus) {
+    delayMinus.onclick = () => setDelay(subSettings.delay - 0.1);
+  }
+  if(delayPlus) {
+    delayPlus.onclick = () => setDelay(subSettings.delay + 0.1);
+  }
+
   if(fontSlider) {
     fontSlider.oninput = () => {
       subSettings.fontSize = parseInt(fontSlider.value);
@@ -1853,13 +1906,16 @@ function renderSubMenu(){
       subSettings.color = '#ffffff';
       subSettings.bgColor = '#000000';
       subSettings.bgOpacity = 70;
+      subSettings.delay = 0;
       localStorage.setItem('mpm_sub_fontsize', 100);
       localStorage.setItem('mpm_sub_position', 90);
       localStorage.setItem('mpm_sub_color', '#ffffff');
       localStorage.setItem('mpm_sub_bgcolor', '#000000');
       localStorage.setItem('mpm_sub_bgopacity', 70);
+      localStorage.setItem('mpm_sub_delay', 0);
       applySubtitleSettings();
       applySubtitlePositionAll();
+      applySubtitleDelayAll();
       renderSubMenu();
       showToast('✅ Subtitle settings reset');
     };
@@ -1886,6 +1942,7 @@ subMenu.addEventListener('click', (e) => {
       tracks[idx].mode = 'showing';
       tracks[idx].default = true;
       applySubtitlePosition(tracks[idx]);
+      applySubtitleDelay(tracks[idx]);
     }
   }
   renderSubMenu(); 
