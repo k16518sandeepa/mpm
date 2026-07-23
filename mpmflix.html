@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MPMFLIX — Motion Picture Mafia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" type="image/png" href="Images/mpmflix.png">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -616,9 +617,7 @@
 </div>
 
 <script type="module">
-/* =========================================================
-   MPMFLIX — Fixed mobile UI with larger poster
-   ========================================================= */
+/* Mobile UI with larger poster */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, deleteField } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -653,7 +652,7 @@ const auth = getAuth(fbApp);
 let currentUser = null;
 onAuthStateChanged(auth, (u) => { currentUser = u; if(location.hash.startsWith('#/admin')) handleRoute(); });
 
-/* ---------------- Firestore catalog access ---------------- */
+/* Firestore catalog access */
 async function fetchCatalog(){
   const snap = await getDocs(collection(db, 'catalog'));
   return snap.docs.map(d => ({ docId:d.id, ...d.data() }));
@@ -680,7 +679,7 @@ async function saveEpisodeSubtitle(docId, seasonNum, epNum, lang, url){
 }
 const catalogDocId = (type, tmdbId) => `${type}_${tmdbId}`;
 
-/* ---------------- TMDB fetch helper ---------------- */
+/* TMDB fetch helper */
 const tmdbCache = new Map();
 async function tmdb(path, params={}){
   const key = path + JSON.stringify(params);
@@ -698,7 +697,7 @@ async function tmdb(path, params={}){
   }catch(err){ console.error('TMDB fetch failed', path, err); return null; }
 }
 
-/* ---------------- helpers ---------------- */
+/* helpers */
 function fmtRuntime(min){ if(!min) return ''; const h=Math.floor(min/60), m=min%60; return h? `${h}h ${m}m` : `${m}m`; }
 function yearOf(item){ return (item.release_date || item.first_air_date || '').slice(0,4); }
 function titleOf(item){ return item.title || item.name || ''; }
@@ -716,7 +715,7 @@ const io = new IntersectionObserver((entries)=>{
 function lazyImg(src, alt=''){ return `<img data-src="${src}" alt="${escapeHtml(alt)}" loading="lazy">`; }
 function mountLazyImages(root){ root.querySelectorAll('img[data-src]').forEach(img => io.observe(img)); }
 
-/* ---------------- Router ---------------- */
+/* Router  */
 const app = document.getElementById('app');
 const routes = [];
 function route(pattern, handler){ routes.push({pattern, handler}); }
@@ -751,7 +750,7 @@ function updateNavActive(hash){
 }
 window.addEventListener('scroll', ()=>{ document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40); });
 
-/* ---------------- Mobile drawer ---------------- */
+/* Mobile drawer  */
 const hamBtn = document.getElementById('hamBtn');
 const mobileDrawer = document.getElementById('mobileDrawer');
 const drawerOverlay = document.getElementById('drawerOverlay');
@@ -762,7 +761,7 @@ document.getElementById('drawerCloseBtn').addEventListener('click', closeDrawer)
 drawerOverlay.addEventListener('click', closeDrawer);
 document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && mobileDrawer.classList.contains('open')) closeDrawer(); });
 
-/* ---------------- shared card/row rendering ---------------- */
+/* shared card/row rendering */
 function renderRow(title, items){
   const rowId = 'row_' + Math.random().toString(36).slice(2,9);
   return `<div class="row"><h2>${escapeHtml(title)}</h2><div class="track-wrap">
@@ -788,7 +787,7 @@ function wireTracks(root){
   mountLazyImages(root);
 }
 
-/* ---------------- HOME ---------------- */
+/* HOME  */
 route('/', async () => {
   app.innerHTML = `<div class="rows" id="rows"><div style="padding:160px 4vw; display:flex; justify-content:center;"><div class="spinner"></div></div></div>`;
   const catalog = await fetchCatalog();
@@ -832,7 +831,7 @@ route('/', async () => {
   };
 });
 
-/* ---------------- BROWSE ---------------- */
+/* BROWSE */
 route('/browse/:kind', async (kind) => {
   const labels = {movie:'Films', tv:'Series', anime:'Anime'};
   if(!labels[kind]){ app.innerHTML = notFound(); return; }
@@ -850,7 +849,7 @@ route('/browse/:kind', async (kind) => {
   wireTracks(rowsEl);
 });
 
-/* ---------------- GENRES ---------------- */
+/*  GENRES */
 route('/genres', async () => {
   app.innerHTML = `<div style="padding-top:110px;"><div class="section" style="padding-bottom:0;"><h1 style="font-family:var(--font-display); font-size:38px;">Genres</h1></div><div class="section" id="genreGrid"><div style="padding:60px 4vw; display:flex; justify-content:center;"><div class="spinner"></div></div></div></div>`;
   const [movieGenres, tvGenres] = await Promise.all([tmdb('/genre/movie/list'), tmdb('/genre/tv/list')]);
@@ -879,7 +878,7 @@ route('/genre/:id', async (id) => {
   wireTracks(rowsEl);
 });
 
-/* ---------------- YEARS ---------------- */
+/* YEARS */
 route('/years', async () => {
   app.innerHTML = `<div style="padding-top:110px;"><div class="section" style="padding-bottom:0;"><h1 style="font-family:var(--font-display); font-size:38px;">Years</h1></div><div class="section" id="yearGrid"><div style="padding:60px 4vw; display:flex; justify-content:center;"><div class="spinner"></div></div></div></div>`;
   const catalog = await fetchCatalog();
@@ -900,7 +899,7 @@ route('/year/:y', async (y) => {
   wireTracks(rowsEl);
 });
 
-/* ---------------- SEARCH ---------------- */
+/* SEARCH  */
 route('/search', async (_x, qp) => {
   const q = (qp.get('q') || '').trim().toLowerCase();
   app.innerHTML = `<div style="padding-top:110px;"><div class="section" style="padding-bottom:0;"><h1 style="font-family:var(--font-display); font-size:32px;">Results for "${escapeHtml(q)}"</h1></div><div class="rows" id="rows"></div></div>`;
@@ -936,7 +935,7 @@ document.addEventListener('click', (e) => {
   if(!e.target.closest('#searchForm')) document.getElementById('searchDropdown').classList.remove('show');
 });
 
-/* ---------------- MOVIE DETAIL ---------------- */
+/* MOVIE DETAIL  */
 route('/movie/:id', async (id) => {
   app.innerHTML = detailSkeleton();
   const entry = await getCatalogDoc(catalogDocId('movie', id));
@@ -999,7 +998,7 @@ function castHtml(c){
   return `<div class="cast-card"><div class="ph">${img?lazyImg(img,c.name):''}</div><div class="name">${escapeHtml(c.name)}</div><div class="char">${escapeHtml(c.character||'')}</div></div>`;
 }
 
-/* ---------------- TV DETAIL ---------------- */
+/*TV DETAIL*/
 route('/tv/:id', async (id) => {
   app.innerHTML = detailSkeleton();
   const entry = await getCatalogDoc(catalogDocId('tv', id));
@@ -1119,24 +1118,13 @@ function playMovie(entry){
   openPlayer(entry.streamUrl, titleOf(entry), entry.subtitles || {});
 }
 
-/* =========================================================
-   DOWNLOAD FUNCTION
-   A real in-browser download needs the stream server to send a
-   Content-Disposition: attachment header (browsers can't force a
-   download of a cross-origin file on their own — the `download`
-   attribute on <a> only works same-origin). Until that server-side
-   change is made, the download button sends people to the Telegram
-   channel to grab the file from there instead of dropping them
-   into the stream player.
-   ========================================================= */
+/* DOWNLOAD FUNCTION  */
 function downloadFile(url, filename) {
   showToast('Opening our Telegram channel to download…');
   window.open('https://t.me/MotionPictureMafiaCentral', '_blank', 'noopener');
 }
 
-/* =========================================================
-   ADMIN
-   ========================================================= */
+/* ADMIN */
 route('/admin', async () => {
   if(!currentUser){ renderAdminLogin(); return; }
   await renderAdminConsole();
@@ -1386,9 +1374,7 @@ async function renderTVEditor(data, entry, host){
   seasonSel.addEventListener('change', () => loadSeasonEditor(seasonSel.value));
 }
 
-/* =========================================================
-   PLAYER
-   ========================================================= */
+/* PLAYER */
 const watchEl = document.getElementById('watch');
 const playerWrap = document.getElementById('playerWrap');
 const video = document.getElementById('videoEl');
@@ -1431,10 +1417,7 @@ function applySubtitleSettings() {
   document.head.appendChild(newStyle);
 }
 
-/* Font/color/background above only styles the cue box via CSS —
-   CSS can't move a cue's vertical position. That has to be set
-   per-cue in JS via VTTCue.line, which is why the position slider
-   previously did nothing. */
+/* sub fix*/
 function applySubtitlePosition(track) {
   if(!track || !track.cues) return;
   Array.from(track.cues).forEach(cue => {
