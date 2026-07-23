@@ -69,9 +69,15 @@
   @media (max-width:760px){ #navlinks{display:none;} #searchForm input{width:110px;} }
 
   #hero{position:relative; height:78vh; min-height:440px; width:100%; display:flex; align-items:flex-end; color:#fff;}
-  #hero .backdrop{position:absolute; inset:0; background-size:cover; background-position:center top; filter:brightness(.55);}
+  #hero .backdrop{position:absolute; inset:0; background-size:cover; background-position:center top; filter:brightness(.55); transition:opacity .5s ease;}
   #hero .fade{position:absolute; inset:0; background:linear-gradient(to top, var(--bg) 2%, rgba(8,8,8,.15) 55%, rgba(8,8,8,.65) 100%), linear-gradient(to right, rgba(8,8,8,.85) 0%, rgba(8,8,8,.15) 55%);}
-  #hero .content{position:relative; z-index:2; padding:0 4vw 6vw; max-width:640px;}
+  #hero .content{position:relative; z-index:2; padding:0 4vw 6vw; max-width:640px; transition:opacity .35s ease;}
+  #hero .content.swapping{opacity:0;}
+  #hero .backdrop.swapping{opacity:0;}
+  .hero-dots{display:flex; gap:8px; margin-top:22px;}
+  .hero-dots .dot{width:26px; height:3px; border-radius:2px; background:rgba(255,255,255,.3); cursor:pointer; border:none; padding:0; transition:background .2s;}
+  .hero-dots .dot.active{background:var(--gold);}
+  .hero-dots .dot:hover{background:rgba(255,255,255,.6);}
   .eyebrow{color:var(--gold); font-size:12px; letter-spacing:3px; font-weight:700; text-transform:uppercase; margin-bottom:10px;}
   #hero h1{font-family:var(--font-display); font-size:clamp(38px,7vw,72px); line-height:1; letter-spacing:.5px; margin-bottom:14px; text-shadow:0 4px 20px rgba(0,0,0,.6);}
   .meta-row{display:flex; align-items:center; gap:10px; font-size:13px; color:var(--text-dim); margin-bottom:14px; flex-wrap:wrap;}
@@ -148,11 +154,11 @@
   .episode{display:flex; gap:14px; padding:14px; border-radius:6px; background:var(--bg-card); margin-bottom:10px; cursor:pointer; border:1px solid transparent; transition:border-color .15s, background .15s;}
   .episode.disabled{cursor:default; opacity:.55;}
   .episode:not(.disabled):hover{border-color:var(--red); background:#1f1f1f;}
-  .episode .thumb{flex:0 0 150px; width:150px; aspect-ratio:16/9; border-radius:4px; overflow:hidden; background:#000; position:relative;}
-  .episode .thumb img{width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .3s;}
+  .episode .thumb{flex:0 0 150px; width:150px; aspect-ratio:16/9; border-radius:4px; overflow:hidden; background:#000; position:relative; isolation:isolate;}
+  .episode .thumb img{width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .3s; position:relative; z-index:1;}
   .episode .thumb img.loaded{opacity:1;}
-  .episode .thumb .playbadge{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.25); opacity:0; transition:opacity .15s;}
-  .episode .thumb .ep-badge{position:absolute; top:6px; left:6px; background:rgba(0,0,0,.8); color:#fff; font-size:11px; font-weight:700; letter-spacing:.4px; padding:3px 8px; border-radius:3px; z-index:2;}
+  .episode .thumb .playbadge{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.25); opacity:0; transition:opacity .15s; z-index:3;}
+  .episode .thumb .ep-badge{position:absolute; top:6px; left:6px; background:rgba(0,0,0,.85); color:#fff; font-size:11px; font-weight:700; letter-spacing:.4px; padding:3px 8px; border-radius:3px; z-index:4; pointer-events:none; line-height:1.2;}
   .episode:not(.disabled):hover .thumb .playbadge{opacity:1;}
   .episode .info{flex:1; min-width:0;}
   .episode .info .top{display:flex; justify-content:space-between; gap:10px; margin-bottom:4px; align-items:center; flex-wrap:wrap;}
@@ -672,7 +678,7 @@ async function removeCatalogDoc(docId){
 }
 async function saveEpisodeLink(docId, seasonNum, epNum, url){
   const field = `episodes.s${seasonNum}e${epNum}`;
-  if(url) await updateDoc(doc(db,'catalog',docId), { [field]: url });
+  if(url) await updateDoc(doc(db,'catalog',docId), { [field]: url, updatedAt: Date.now() });
   else await updateDoc(doc(db,'catalog',docId), { [field]: deleteField() });
 }
 async function saveEpisodeSubtitle(docId, seasonNum, epNum, lang, url){
@@ -713,13 +719,14 @@ function showToast(msg){
 function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
 const io = new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{ if(en.isIntersecting){ const img=en.target; img.src=img.dataset.src; img.onload=()=>img.classList.add('loaded'); io.unobserve(img); } });
+  entries.forEach(en=>{ if(en.isIntersecting){ const img=en.target; img.src=img.dataset.src; img.onload=()=>{ img.classList.add('loaded'); img.closest('.skeleton')?.classList.remove('skeleton'); }; io.unobserve(img); } });
 }, {rootMargin:'200px'});
 function lazyImg(src, alt=''){ return `<img data-src="${src}" alt="${escapeHtml(alt)}" loading="lazy">`; }
 function mountLazyImages(root){ root.querySelectorAll('img[data-src]').forEach(img => io.observe(img)); }
 
 /* ---------------- Router ---------------- */
 const app = document.getElementById('app');
+let heroInterval = null;
 const routes = [];
 function route(pattern, handler){ routes.push({pattern, handler}); }
 function matchRoute(hash){
@@ -731,6 +738,7 @@ function matchRoute(hash){
   return null;
 }
 async function handleRoute(){
+  clearInterval(heroInterval); heroInterval = null;
   const hash = location.hash.replace(/^#/, '') || '/';
   document.getElementById('trailerOverlay')?.classList.remove('open');
   const m = matchRoute(hash.split('?')[0]);
@@ -802,24 +810,17 @@ route('/', async () => {
   const movies = catalog.filter(c=>c.type==='movie');
   const series = catalog.filter(c=>c.type==='tv' && !c.isAnime);
   const anime = catalog.filter(c=>c.type==='tv' && c.isAnime);
-  const featured = catalog[0];
+
+  // Hero rotates through whichever titles have the most recent activity —
+  // either newly added to the catalog, or a TV show that just got a new
+  // episode link saved (which bumps updatedAt in saveEpisodeLink).
+  const lastActivity = (item) => Math.max(item.addedAt||0, item.updatedAt||0);
+  const heroItems = catalog.filter(c=>c.backdrop_path).slice().sort((a,b)=> lastActivity(b)-lastActivity(a)).slice(0,5);
+  if(!heroItems.length) heroItems.push(catalog[0]);
 
   app.innerHTML = `
-    <section id="hero"><div class="backdrop" style="background-image:url(${CONFIG.IMG(featured.backdrop_path,'original')})"></div><div class="fade"></div>
-      <div class="content">
-        <div class="eyebrow">Just added on MPMFLIX</div>
-        <h1>${escapeHtml(titleOf(featured))}</h1>
-        <div class="meta-row">
-          <span class="badge-rating">★ ${ratingOf(featured)}</span>
-          <span>${yearOf(featured)}</span>
-          <span>${featured.type==='tv' ? 'Series' : 'Film'}</span>
-        </div>
-        <p class="overview">${escapeHtml(featured.overview||'')}</p>
-        <div class="btnrow">
-          <button class="btn btn-primary" id="heroPlay">▶ Play</button>
-          <button class="btn btn-secondary" id="heroInfo">ⓘ More Info</button>
-        </div>
-      </div>
+    <section id="hero"><div class="backdrop" id="heroBackdrop"></div><div class="fade"></div>
+      <div class="content" id="heroContent"></div>
     </section>
     <div class="rows" id="rows">
       ${movies.length ? renderRow('Films', movies) : ''}
@@ -827,11 +828,62 @@ route('/', async () => {
       ${anime.length ? renderRow('Anime', anime) : ''}
     </div>`;
   wireTracks(document.getElementById('rows'));
-  document.getElementById('heroInfo').onclick = () => location.hash = `#/${featured.type}/${featured.tmdbId}`;
-  document.getElementById('heroPlay').onclick = () => {
-    if(featured.type==='movie') playMovie(featured);
-    else location.hash = `#/${featured.type}/${featured.tmdbId}`;
-  };
+
+  const heroBackdrop = document.getElementById('heroBackdrop');
+  const heroContent = document.getElementById('heroContent');
+  let heroIdx = 0;
+
+  const heroEyebrow = (item) => (item.updatedAt && item.updatedAt > (item.addedAt||0)) ? 'New episode added' : 'Just added on MPMFLIX';
+
+  function renderHero(idx){
+    const item = heroItems[idx];
+    heroBackdrop.style.backgroundImage = `url(${CONFIG.IMG(item.backdrop_path,'original')})`;
+    heroContent.innerHTML = `
+      <div class="eyebrow">${heroEyebrow(item)}</div>
+      <h1>${escapeHtml(titleOf(item))}</h1>
+      <div class="meta-row">
+        <span class="badge-rating">★ ${ratingOf(item)}</span>
+        <span>${yearOf(item)}</span>
+        <span>${item.type==='tv' ? 'Series' : 'Film'}</span>
+      </div>
+      <p class="overview">${escapeHtml(item.overview||'')}</p>
+      <div class="btnrow">
+        <button class="btn btn-primary" id="heroPlay">▶ Play</button>
+        <button class="btn btn-secondary" id="heroInfo">ⓘ More Info</button>
+      </div>
+      ${heroItems.length > 1 ? `<div class="hero-dots">${heroItems.map((_,i)=>`<button class="dot ${i===idx?'active':''}" data-idx="${i}" aria-label="Show slide ${i+1}"></button>`).join('')}</div>` : ''}
+    `;
+    document.getElementById('heroInfo').onclick = () => location.hash = `#/${item.type}/${item.tmdbId}`;
+    document.getElementById('heroPlay').onclick = () => {
+      if(item.type==='movie') playMovie(item);
+      else location.hash = `#/${item.type}/${item.tmdbId}`;
+    };
+    heroContent.querySelectorAll('.hero-dots .dot').forEach(dot => {
+      dot.onclick = () => goToHero(parseInt(dot.dataset.idx));
+    });
+  }
+
+  function goToHero(idx){
+    heroIdx = idx;
+    heroBackdrop.classList.add('swapping');
+    heroContent.classList.add('swapping');
+    setTimeout(() => {
+      renderHero(heroIdx);
+      heroBackdrop.classList.remove('swapping');
+      heroContent.classList.remove('swapping');
+    }, 350);
+    resetHeroInterval();
+  }
+
+  function resetHeroInterval(){
+    clearInterval(heroInterval);
+    if(heroItems.length > 1){
+      heroInterval = setInterval(() => goToHero((heroIdx+1) % heroItems.length), 7000);
+    }
+  }
+
+  renderHero(heroIdx);
+  resetHeroInterval();
 });
 
 /* ---------------- BROWSE ---------------- */
@@ -1088,8 +1140,9 @@ function episodeHtml(ep, url, subUrls){
   const thumb = CONFIG.IMG(ep.still_path, 'w300');
   const hasSubs = Object.keys(subUrls).length > 0;
   const subLabels = Object.keys(subUrls).map(k => k==='en'?'EN':'සිං').join(', ');
+  const epNum = (ep.episode_number ?? ep.episode ?? '?');
   return `<div class="episode ${url?'':'disabled'}" data-season="${ep.season_number}" data-episode="${ep.episode_number}" data-name="${escapeHtml(ep.name)}" data-url="${url||''}" data-subs='${JSON.stringify(subUrls)}'>
-    <div class="thumb skeleton">${thumb?lazyImg(thumb,ep.name):''}<span class="ep-badge">EP ${ep.episode_number}</span><div class="playbadge">▶</div></div>
+    <div class="thumb skeleton">${thumb?lazyImg(thumb,ep.name):''}<span class="ep-badge">EP ${epNum}</span><div class="playbadge">▶</div></div>
     <div class="info">
       <div class="top">
         <span class="num">${ep.episode_number}. ${escapeHtml(ep.name)}</span>
