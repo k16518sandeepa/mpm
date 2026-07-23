@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MPMFLIX — Motion Picture Mafia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="icon" type="image/png" href="Images/mpmflix.png">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -33,6 +32,25 @@
   #navlinks{display:flex; gap:22px; align-items:center; font-size:14px;}
   #navlinks a{color:var(--text-dim); font-weight:500; transition:color .15s; padding:4px 0; border-bottom:2px solid transparent;}
   #navlinks a:hover, #navlinks a.active{color:var(--text); border-color:var(--red);}
+
+  .mpm-ham{display:none; flex-direction:column; justify-content:center; align-items:center; gap:4px; width:36px; height:36px; background:none; border:none; cursor:pointer; margin-right:4px;}
+  .mpm-ham span{display:block; width:21px; height:2px; background:#fff; border-radius:2px; transition:transform .2s, opacity .2s;}
+
+  .drawer-overlay{position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:300; opacity:0; pointer-events:none; transition:opacity .25s;}
+  .drawer-overlay.open{opacity:1; pointer-events:auto;}
+  .mobile-drawer{position:fixed; top:0; left:0; bottom:0; width:78vw; max-width:300px; background:var(--bg-raised); z-index:301; transform:translateX(-100%); transition:transform .28s ease; display:flex; flex-direction:column; box-shadow:8px 0 30px rgba(0,0,0,.5); overflow-y:auto; -webkit-overflow-scrolling:touch;}
+  .mobile-drawer.open{transform:translateX(0);}
+  .drawer-head{display:flex; justify-content:space-between; align-items:center; padding:20px 20px 16px; border-bottom:1px solid var(--border);}
+  .drawer-head .brand{font-family:var(--font-display); font-size:24px; letter-spacing:.5px;}
+  .drawer-head .brand span{color:var(--red);}
+  .drawer-head button{background:none; border:none; color:var(--text-dim); font-size:22px; cursor:pointer; line-height:1; padding:4px;}
+  .drawer-links{display:flex; flex-direction:column; padding:8px 0;}
+  .drawer-links a{padding:15px 22px; color:var(--text); font-size:15px; font-weight:600; border-bottom:1px solid rgba(255,255,255,.06); display:flex; align-items:center; gap:12px;}
+  .drawer-links a .ic{font-size:17px; width:22px; text-align:center;}
+  .drawer-links a.active{color:var(--gold);}
+  .drawer-links a:active{background:rgba(255,255,255,.05);}
+
+  @media (max-width:768px){ .mpm-ham{display:flex;} }
   #navright{display:flex; align-items:center; gap:16px; position:relative;}
   #searchForm{display:flex; align-items:center; background:rgba(0,0,0,.55); border:1px solid var(--border); border-radius:999px; padding:6px 12px; transition:border-color .2s; position:relative;}
   #searchForm:focus-within{border-color:var(--gold);}
@@ -80,6 +98,9 @@
   .track{display:flex; gap:10px; overflow-x:auto; scroll-behavior:smooth; padding:6px 4vw 16px; scrollbar-width:none;}
   .track::-webkit-scrollbar{display:none;}
   .track.wrap-grid{flex-wrap:wrap; overflow:visible;}
+  .genre-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:14px;}
+  .genre-tile{display:flex; align-items:center; justify-content:center; padding:26px 10px; background:var(--bg-card); border:1px solid var(--border); border-radius:6px; font-family:var(--font-display); font-size:20px; letter-spacing:.5px; color:var(--text); text-align:center; transition:border-color .15s, color .15s;}
+  .genre-tile:hover{border-color:var(--gold); color:var(--gold);}
   .scrollbtn{position:absolute; top:0; bottom:16px; width:44px; display:flex; align-items:center; justify-content:center; background:linear-gradient(to right, var(--bg) 30%, transparent); border:none; cursor:pointer; color:#fff; z-index:5; font-size:22px; opacity:0; transition:opacity .2s;}
   .track-wrap:hover .scrollbtn{opacity:1;}
   .scrollbtn.right{right:0; left:auto; background:linear-gradient(to left, var(--bg) 30%, transparent);}
@@ -175,7 +196,7 @@
   #centerPlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;}
   #centerPlay button{pointer-events:auto; background:rgba(0,0,0,.5); border:2px solid rgba(255,255,255,.5); border-radius:50%; width:72px; height:72px; display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer;}
   #centerPlay svg{width:32px; height:32px;}
-  .menu-pop{position:absolute; bottom:56px; right:0; background:rgba(20,20,20,.97); border:1px solid var(--border); border-radius:6px; padding:10px; width:300px; display:none; max-height:400px; overflow-y:auto; z-index:50;}
+  .menu-pop{position:absolute; bottom:56px; right:0; background:rgba(20,20,20,.97); border:1px solid var(--border); border-radius:6px; padding:10px; width:300px; display:none; max-height:min(400px, calc(100vh - 90px)); overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; touch-action:pan-y; z-index:50;}
   .menu-pop.open{display:block;}
   .menu-pop h5{font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); margin-bottom:8px;}
   .menu-pop .opt{padding:8px 10px; border-radius:4px; font-size:13px; cursor:pointer; display:flex; justify-content:space-between;}
@@ -370,6 +391,14 @@
     .section{
       padding:22px 6vw;
     }
+    .genre-grid{
+      grid-template-columns:repeat(auto-fill, minmax(110px, 1fr));
+      gap:10px;
+    }
+    .genre-tile{
+      padding:20px 8px;
+      font-size:16px;
+    }
     .section h3{
       text-align:left;
     }
@@ -431,6 +460,7 @@
     .menu-pop{
       width:260px;
       right:-60px;
+      max-height:min(360px, calc(100vh - 80px));
     }
     footer{
       flex-direction:column;
@@ -468,6 +498,7 @@
       width:220px;
       right:-40px;
       font-size:12px;
+      max-height:min(320px, calc(100vh - 70px));
     }
     .sub-setting label{
       min-width:60px;
@@ -494,6 +525,7 @@
 <div id="topBanner" class="top-banner"></div>
 
 <nav id="nav">
+  <button id="hamBtn" class="mpm-ham" aria-label="Open menu"><span></span><span></span><span></span></button>
   <a href="#/" class="brand">MPM<span>FLIX</span></a>
   <div id="navlinks">
     <a href="#/" data-route="home">Home</a>
@@ -509,6 +541,22 @@
     </form>
   </div>
 </nav>
+
+<div id="drawerOverlay" class="drawer-overlay"></div>
+<aside id="mobileDrawer" class="mobile-drawer">
+  <div class="drawer-head">
+    <span class="brand">MPM<span>FLIX</span></span>
+    <button id="drawerCloseBtn" aria-label="Close menu">✕</button>
+  </div>
+  <nav class="drawer-links">
+    <a href="#/" data-route="home"><span class="ic">🏠</span> Home</a>
+    <a href="#/browse/movie" data-route="movie"><span class="ic">🎬</span> Films</a>
+    <a href="#/browse/tv" data-route="tv"><span class="ic">📺</span> TV Shows</a>
+    <a href="#/browse/anime" data-route="anime"><span class="ic">🍥</span> Anime</a>
+    <a href="#/genres" data-route="genres"><span class="ic">🎭</span> Genres</a>
+    <a href="#/years" data-route="years"><span class="ic">📅</span> Years</a>
+  </nav>
+</aside>
 
 <main id="app"></main>
 
@@ -691,14 +739,28 @@ async function handleRoute(){
 }
 window.addEventListener('hashchange', handleRoute);
 function updateNavActive(hash){
-  document.querySelectorAll('#navlinks a').forEach(a=>a.classList.remove('active'));
+  document.querySelectorAll('#navlinks a, .drawer-links a').forEach(a=>a.classList.remove('active'));
   let key='home';
   if(hash.startsWith('/browse/movie')) key='movie';
   else if(hash.startsWith('/browse/tv')) key='tv';
   else if(hash.startsWith('/browse/anime')) key='anime';
-  document.querySelector(`#navlinks a[data-route="${key}"]`)?.classList.add('active');
+  else if(hash.startsWith('/genre')) key='genres';
+  else if(hash.startsWith('/year')) key='years';
+  document.querySelectorAll(`[data-route="${key}"]`).forEach(a=>a.classList.add('active'));
+  closeDrawer();
 }
 window.addEventListener('scroll', ()=>{ document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40); });
+
+/* ---------------- Mobile drawer ---------------- */
+const hamBtn = document.getElementById('hamBtn');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const drawerOverlay = document.getElementById('drawerOverlay');
+function openDrawer(){ mobileDrawer.classList.add('open'); drawerOverlay.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeDrawer(){ mobileDrawer.classList.remove('open'); drawerOverlay.classList.remove('open'); document.body.style.overflow=''; }
+hamBtn.addEventListener('click', openDrawer);
+document.getElementById('drawerCloseBtn').addEventListener('click', closeDrawer);
+drawerOverlay.addEventListener('click', closeDrawer);
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && mobileDrawer.classList.contains('open')) closeDrawer(); });
 
 /* ---------------- shared card/row rendering ---------------- */
 function renderRow(title, items){
@@ -781,6 +843,56 @@ route('/browse/:kind', async (kind) => {
   else if(kind==='tv') items = catalog.filter(c=>c.type==='tv' && !c.isAnime);
   else items = catalog.filter(c=>c.type==='tv' && c.isAnime);
   items.sort((a,b)=> (b.addedAt||0)-(a.addedAt||0));
+  const rowsEl = document.getElementById('rows');
+  rowsEl.innerHTML = items.length
+    ? `<div class="row"><div class="track wrap-grid">${items.map(cardHtml).join('')}</div></div>`
+    : `<div class="empty-state"><h3>Nothing here yet</h3></div>`;
+  wireTracks(rowsEl);
+});
+
+/* ---------------- GENRES ---------------- */
+route('/genres', async () => {
+  app.innerHTML = `<div style="padding-top:110px;"><div class="section" style="padding-bottom:0;"><h1 style="font-family:var(--font-display); font-size:38px;">Genres</h1></div><div class="section" id="genreGrid"><div style="padding:60px 4vw; display:flex; justify-content:center;"><div class="spinner"></div></div></div></div>`;
+  const [movieGenres, tvGenres] = await Promise.all([tmdb('/genre/movie/list'), tmdb('/genre/tv/list')]);
+  const merged = new Map();
+  [...(movieGenres?.genres||[]), ...(tvGenres?.genres||[])].forEach(g => { if(!merged.has(g.id)) merged.set(g.id, g.name); });
+  const list = [...merged.entries()].sort((a,b)=>a[1].localeCompare(b[1]));
+  const grid = document.getElementById('genreGrid');
+  grid.innerHTML = `<div class="genre-grid">${list.map(([id,name])=>`<a href="#/genre/${id}" class="genre-tile">${escapeHtml(name)}</a>`).join('')}</div>`;
+});
+route('/genre/:id', async (id) => {
+  app.innerHTML = `<div style="padding-top:110px;"><div class="section" style="padding-bottom:0;"><h1 id="genreTitle" style="font-family:var(--font-display); font-size:38px;">Genre</h1></div><div class="rows" id="rows"><div style="padding:60px 4vw; display:flex; justify-content:center;"><div class="spinner"></div></div></div></div>`;
+  const [movieGenres, tvGenres] = await Promise.all([tmdb('/genre/movie/list'), tmdb('/genre/tv/list')]);
+  const name = [...(movieGenres?.genres||[]), ...(tvGenres?.genres||[])].find(g=>String(g.id)===String(id))?.name || 'Genre';
+  document.getElementById('genreTitle').textContent = name;
+  const catalog = await fetchCatalog();
+  const withGenres = await Promise.all(catalog.map(async c => {
+    if(c.genre_ids) return c;
+    const details = await tmdb(`/${c.type}/${c.tmdbId}`);
+    return { ...c, genre_ids: (details?.genres||[]).map(g=>g.id) };
+  }));
+  const items = withGenres.filter(c => (c.genre_ids||[]).includes(Number(id)));
+  const rowsEl = document.getElementById('rows');
+  rowsEl.innerHTML = items.length
+    ? `<div class="row"><div class="track wrap-grid">${items.map(cardHtml).join('')}</div></div>`
+    : `<div class="empty-state"><h3>Nothing here yet</h3></div>`;
+  wireTracks(rowsEl);
+});
+
+/* ---------------- YEARS ---------------- */
+route('/years', async () => {
+  app.innerHTML = `<div style="padding-top:110px;"><div class="section" style="padding-bottom:0;"><h1 style="font-family:var(--font-display); font-size:38px;">Years</h1></div><div class="section" id="yearGrid"><div style="padding:60px 4vw; display:flex; justify-content:center;"><div class="spinner"></div></div></div></div>`;
+  const catalog = await fetchCatalog();
+  const years = [...new Set(catalog.map(yearOf).filter(Boolean))].sort((a,b)=>b-a);
+  const grid = document.getElementById('yearGrid');
+  grid.innerHTML = years.length
+    ? `<div class="genre-grid">${years.map(y=>`<a href="#/year/${y}" class="genre-tile">${y}</a>`).join('')}</div>`
+    : `<div class="empty-state"><h3>Nothing here yet</h3></div>`;
+});
+route('/year/:y', async (y) => {
+  app.innerHTML = `<div style="padding-top:110px;"><div class="section" style="padding-bottom:0;"><h1 style="font-family:var(--font-display); font-size:38px;">${escapeHtml(y)}</h1></div><div class="rows" id="rows"></div></div>`;
+  const catalog = await fetchCatalog();
+  const items = catalog.filter(c => yearOf(c) === y);
   const rowsEl = document.getElementById('rows');
   rowsEl.innerHTML = items.length
     ? `<div class="row"><div class="track wrap-grid">${items.map(cardHtml).join('')}</div></div>`
