@@ -152,6 +152,7 @@
   .episode .thumb img{width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .3s;}
   .episode .thumb img.loaded{opacity:1;}
   .episode .thumb .playbadge{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.25); opacity:0; transition:opacity .15s;}
+  .episode .thumb .ep-badge{position:absolute; top:6px; left:6px; background:rgba(0,0,0,.8); color:#fff; font-size:11px; font-weight:700; letter-spacing:.4px; padding:3px 8px; border-radius:3px; z-index:2;}
   .episode:not(.disabled):hover .thumb .playbadge{opacity:1;}
   .episode .info{flex:1; min-width:0;}
   .episode .info .top{display:flex; justify-content:space-between; gap:10px; margin-bottom:4px; align-items:center; flex-wrap:wrap;}
@@ -533,6 +534,8 @@
     <a href="#/browse/movie" data-route="movie">Films</a>
     <a href="#/browse/tv" data-route="tv">Series</a>
     <a href="#/browse/anime" data-route="anime">Anime</a>
+    <a href="#/genres" data-route="genres">Genres</a>
+    <a href="#/years" data-route="years">Years</a>
   </div>
   <div id="navright">
     <form id="searchForm">
@@ -564,7 +567,7 @@
 <footer>
   <div>
     <div class="brand" style="font-family:var(--font-display); color:var(--red);">MPM<span style="color:var(--gold); font-size:12px; margin-left:6px;">FLIX</span></div>
-    <p style="margin-top:10px;">An MPM Network property · Metadata by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener" style="text-decoration:underline;">TMDB</a> · <a href="https://motionpicturemafia.com/support-us" target="_blank" rel="noopener" style="text-decoration:underline;">Support Us! </a></p> 
+    <p style="margin-top:10px;">An MPM Network property · Metadata by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener" style="text-decoration:underline;">TMDB</a> · <a href="https://motionpicturemafia.com/support-us" target="_blank" rel="noopener" style="text-decoration:underline;">Support Us!</a></p>
   </div>
   <a href="#/admin" class="admin-link">Admin</a>
 </footer>
@@ -652,7 +655,7 @@ const auth = getAuth(fbApp);
 let currentUser = null;
 onAuthStateChanged(auth, (u) => { currentUser = u; if(location.hash.startsWith('#/admin')) handleRoute(); });
 
-/* Firestore catalog access */
+/* ---------------- Firestore catalog access ---------------- */
 async function fetchCatalog(){
   const snap = await getDocs(collection(db, 'catalog'));
   return snap.docs.map(d => ({ docId:d.id, ...d.data() }));
@@ -679,7 +682,7 @@ async function saveEpisodeSubtitle(docId, seasonNum, epNum, lang, url){
 }
 const catalogDocId = (type, tmdbId) => `${type}_${tmdbId}`;
 
-/* TMDB fetch helper */
+/* ---------------- TMDB fetch helper ---------------- */
 const tmdbCache = new Map();
 async function tmdb(path, params={}){
   const key = path + JSON.stringify(params);
@@ -697,7 +700,7 @@ async function tmdb(path, params={}){
   }catch(err){ console.error('TMDB fetch failed', path, err); return null; }
 }
 
-/* helpers */
+/* ---------------- helpers ---------------- */
 function fmtRuntime(min){ if(!min) return ''; const h=Math.floor(min/60), m=min%60; return h? `${h}h ${m}m` : `${m}m`; }
 function yearOf(item){ return (item.release_date || item.first_air_date || '').slice(0,4); }
 function titleOf(item){ return item.title || item.name || ''; }
@@ -715,7 +718,7 @@ const io = new IntersectionObserver((entries)=>{
 function lazyImg(src, alt=''){ return `<img data-src="${src}" alt="${escapeHtml(alt)}" loading="lazy">`; }
 function mountLazyImages(root){ root.querySelectorAll('img[data-src]').forEach(img => io.observe(img)); }
 
-/* Router  */
+/* ---------------- Router ---------------- */
 const app = document.getElementById('app');
 const routes = [];
 function route(pattern, handler){ routes.push({pattern, handler}); }
@@ -750,7 +753,7 @@ function updateNavActive(hash){
 }
 window.addEventListener('scroll', ()=>{ document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40); });
 
-/* Mobile drawer  */
+/* ---------------- Mobile drawer ---------------- */
 const hamBtn = document.getElementById('hamBtn');
 const mobileDrawer = document.getElementById('mobileDrawer');
 const drawerOverlay = document.getElementById('drawerOverlay');
@@ -761,7 +764,7 @@ document.getElementById('drawerCloseBtn').addEventListener('click', closeDrawer)
 drawerOverlay.addEventListener('click', closeDrawer);
 document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && mobileDrawer.classList.contains('open')) closeDrawer(); });
 
-/* shared card/row rendering */
+/* ---------------- shared card/row rendering ---------------- */
 function renderRow(title, items){
   const rowId = 'row_' + Math.random().toString(36).slice(2,9);
   return `<div class="row"><h2>${escapeHtml(title)}</h2><div class="track-wrap">
@@ -787,7 +790,7 @@ function wireTracks(root){
   mountLazyImages(root);
 }
 
-/* HOME  */
+/* ---------------- HOME ---------------- */
 route('/', async () => {
   app.innerHTML = `<div class="rows" id="rows"><div style="padding:160px 4vw; display:flex; justify-content:center;"><div class="spinner"></div></div></div>`;
   const catalog = await fetchCatalog();
@@ -831,7 +834,7 @@ route('/', async () => {
   };
 });
 
-/* BROWSE */
+/* ---------------- BROWSE ---------------- */
 route('/browse/:kind', async (kind) => {
   const labels = {movie:'Films', tv:'Series', anime:'Anime'};
   if(!labels[kind]){ app.innerHTML = notFound(); return; }
@@ -849,7 +852,7 @@ route('/browse/:kind', async (kind) => {
   wireTracks(rowsEl);
 });
 
-/*  GENRES */
+/* ---------------- GENRES ---------------- */
 route('/genres', async () => {
   app.innerHTML = `<div style="padding-top:110px;"><div class="section" style="padding-bottom:0;"><h1 style="font-family:var(--font-display); font-size:38px;">Genres</h1></div><div class="section" id="genreGrid"><div style="padding:60px 4vw; display:flex; justify-content:center;"><div class="spinner"></div></div></div></div>`;
   const [movieGenres, tvGenres] = await Promise.all([tmdb('/genre/movie/list'), tmdb('/genre/tv/list')]);
@@ -878,7 +881,7 @@ route('/genre/:id', async (id) => {
   wireTracks(rowsEl);
 });
 
-/* YEARS */
+/* ---------------- YEARS ---------------- */
 route('/years', async () => {
   app.innerHTML = `<div style="padding-top:110px;"><div class="section" style="padding-bottom:0;"><h1 style="font-family:var(--font-display); font-size:38px;">Years</h1></div><div class="section" id="yearGrid"><div style="padding:60px 4vw; display:flex; justify-content:center;"><div class="spinner"></div></div></div></div>`;
   const catalog = await fetchCatalog();
@@ -899,7 +902,7 @@ route('/year/:y', async (y) => {
   wireTracks(rowsEl);
 });
 
-/* SEARCH  */
+/* ---------------- SEARCH ---------------- */
 route('/search', async (_x, qp) => {
   const q = (qp.get('q') || '').trim().toLowerCase();
   app.innerHTML = `<div style="padding-top:110px;"><div class="section" style="padding-bottom:0;"><h1 style="font-family:var(--font-display); font-size:32px;">Results for "${escapeHtml(q)}"</h1></div><div class="rows" id="rows"></div></div>`;
@@ -935,7 +938,7 @@ document.addEventListener('click', (e) => {
   if(!e.target.closest('#searchForm')) document.getElementById('searchDropdown').classList.remove('show');
 });
 
-/* MOVIE DETAIL  */
+/* ---------------- MOVIE DETAIL ---------------- */
 route('/movie/:id', async (id) => {
   app.innerHTML = detailSkeleton();
   const entry = await getCatalogDoc(catalogDocId('movie', id));
@@ -998,7 +1001,7 @@ function castHtml(c){
   return `<div class="cast-card"><div class="ph">${img?lazyImg(img,c.name):''}</div><div class="name">${escapeHtml(c.name)}</div><div class="char">${escapeHtml(c.character||'')}</div></div>`;
 }
 
-/*TV DETAIL*/
+/* ---------------- TV DETAIL ---------------- */
 route('/tv/:id', async (id) => {
   app.innerHTML = detailSkeleton();
   const entry = await getCatalogDoc(catalogDocId('tv', id));
@@ -1086,7 +1089,7 @@ function episodeHtml(ep, url, subUrls){
   const hasSubs = Object.keys(subUrls).length > 0;
   const subLabels = Object.keys(subUrls).map(k => k==='en'?'EN':'සිං').join(', ');
   return `<div class="episode ${url?'':'disabled'}" data-season="${ep.season_number}" data-episode="${ep.episode_number}" data-name="${escapeHtml(ep.name)}" data-url="${url||''}" data-subs='${JSON.stringify(subUrls)}'>
-    <div class="thumb skeleton">${thumb?lazyImg(thumb,ep.name):''}<div class="playbadge">▶</div></div>
+    <div class="thumb skeleton">${thumb?lazyImg(thumb,ep.name):''}<span class="ep-badge">EP ${ep.episode_number}</span><div class="playbadge">▶</div></div>
     <div class="info">
       <div class="top">
         <span class="num">${ep.episode_number}. ${escapeHtml(ep.name)}</span>
@@ -1118,7 +1121,7 @@ function playMovie(entry){
   openPlayer(entry.streamUrl, titleOf(entry), entry.subtitles || {});
 }
 
-/* DOWNLOAD FUNCTION  */
+/* DOWNLOAD FUNCTION */
 function downloadFile(url, filename) {
   showToast('Opening our Telegram channel to download…');
   window.open('https://t.me/MotionPictureMafiaCentral', '_blank', 'noopener');
@@ -1417,7 +1420,10 @@ function applySubtitleSettings() {
   document.head.appendChild(newStyle);
 }
 
-/* sub fix*/
+/* Font/color/background above only styles the cue box via CSS —
+   CSS can't move a cue's vertical position. That has to be set
+   per-cue in JS via VTTCue.line, which is why the position slider
+   previously did nothing. */
 function applySubtitlePosition(track) {
   if(!track || !track.cues) return;
   Array.from(track.cues).forEach(cue => {
@@ -1451,11 +1457,25 @@ document.getElementById('playerBack').onclick = function() {
   }
 };
 
+/* Simple string hash (djb2) — used to build a short, collision-safe
+   localStorage key per stream URL. The previous approach base64-encoded
+   the URL and sliced the first 40 chars, but since every stream shares
+   the same long domain+path prefix, the part that actually differs
+   between movies (the id/hash) fell after that cutoff — so every title
+   collided on the same key, which is why resuming one movie could jump
+   to wherever a *different* movie was last stopped. Hashing the whole
+   string avoids that. */
+function hashStr(s){
+  let h = 5381;
+  for(let i=0; i<s.length; i++){ h = ((h << 5) + h) + s.charCodeAt(i); h |= 0; }
+  return (h >>> 0).toString(36);
+}
+
 function openPlayer(url, title, subUrls){
   if(!url){ showToast('Not available yet'); return; }
   document.getElementById('playerTitle').textContent = title || '';
   currentSubUrls = subUrls || {};
-  currentStreamKey = 'mpmflix_time_' + btoa(unescape(encodeURIComponent(url))).slice(0,40);
+  currentStreamKey = 'mpmflix_time_' + hashStr(url);
   
   video.removeAttribute('src');
   video.load();
