@@ -1,7 +1,7 @@
 export default async (request, context) => {
   const country = context.geo?.country?.code || "XX";
 
-  const allowedCountries = ["LK", "SA"];
+  const allowedCountries = ["LK"];
 
   if (!allowedCountries.includes(country)) {
     return new Response(
@@ -17,7 +17,7 @@ export default async (request, context) => {
       </head>
       <body>
         <h1>Access Restricted 🇱🇰</h1>
-        <p>Downloads & Subtitles are available only in Sri Lanka and Saudi Arabia.</p>
+        <p>Access Denied: This page is not available in your region.</p>
         <p>Please disable VPN or proxy and try again.</p>
       </body>
       </html>`,

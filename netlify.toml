@@ -1,7 +1,8 @@
 [[edge_functions]]
-function = "geo-block"
-path = "/downloads"
-
-[[edge_functions]]
-function = "geo-block"
-path = "/downloads/*"
+  function = "geo-block"
+  path = [
+    "/downloads",
+    "/downloads/*",
+    "/mpmflix.html",
+    "/mpmflix*"
+  ]
