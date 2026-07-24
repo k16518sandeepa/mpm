@@ -1,9 +1,19 @@
 [[edge_functions]]
   function = "geo-block"
-  path = [
-    "/downloads",
-    "/downloads/*",
-    "/mpmflix",
-    "/mpmflix.html",
-    "/mpmflix*"
-  ]
+  path = "/downloads"
+
+[[edge_functions]]
+  function = "geo-block"
+  path = "/downloads/*"
+
+[[edge_functions]]
+  function = "geo-block"
+  path = "/mpmflix"
+
+[[edge_functions]]
+  function = "geo-block"
+  path = "/mpmflix.html"
+
+[[edge_functions]]
+  function = "geo-block"
+  path = "/mpmflix/*"
