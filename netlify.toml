@@ -3,6 +3,7 @@
   path = [
     "/downloads",
     "/downloads/*",
+    "/mpmflix",
     "/mpmflix.html",
     "/mpmflix*"
   ]
