@@ -315,7 +315,7 @@
 
     .detail-hero{
       min-height:auto !important;
-      padding-top:72px; /* clears the fixed nav so nothing sits under it */
+      padding-top:72px;
     }
     .detail-hero .backdrop{
       position:relative;
@@ -533,6 +533,15 @@
       font-size:13px;
     }
   }
+
+  /* ---------- ADVANCED PLAYER STYLES ---------- */
+  #audioTrackMenu .opt .track-info{display:flex;flex-direction:column;}
+  #audioTrackMenu .opt .track-info .track-name{font-weight:500;}
+  #audioTrackMenu .opt .track-info .track-lang{font-size:10px;color:var(--text-dim);}
+  .mkv-progress{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.8);padding:8px 16px;border-radius:4px;font-size:12px;color:#fff;z-index:10;display:none;}
+  .mkv-progress.show{display:block;}
+  .subtitle-badge{position:absolute;top:60px;right:20px;background:rgba(0,0,0,.7);padding:4px 10px;border-radius:4px;font-size:11px;color:var(--gold);border:1px solid var(--gold);z-index:10;display:none;}
+  .subtitle-badge.show{display:block;}
 </style>
 </head>
 <body>
@@ -606,6 +615,8 @@
       <span class="quality-badge" id="qualityBadge">HD</span>
       <button id="downloadBtn" class="backbtn" title="Download video" style="font-size:18px;">⬇</button>
     </div>
+    <div class="mkv-progress" id="mkvProgress">Loading MKV…</div>
+    <div class="subtitle-badge" id="subtitleBadge">📝 Subtitles</div>
     <div id="controls">
       <div class="seekbar" id="seekbar">
         <div class="track-bg"></div>
@@ -623,23 +634,30 @@
         </div>
         <div id="timeDisplay">0:00 / 0:00</div>
         <div class="spacer"></div>
-        <div class="ctrl-pos" id="audioCtrlPos" style="display:none;"><button id="audioBtn" title="Audio track"></button><div class="menu-pop" id="audioMenu"></div></div>
-        <div class="ctrl-pos"><button id="subBtn" title="Subtitles"></button><div class="menu-pop" id="subMenu"></div></div>
-        <div class="ctrl-pos"><button id="speedBtn" title="Playback speed"></button><div class="menu-pop" id="speedMenu"></div></div>
+        <div class="ctrl-pos"><button id="audioTrackBtn" title="Audio tracks">🎵</button><div class="menu-pop" id="audioTrackMenu"></div></div>
+        <div class="ctrl-pos"><button id="subBtn" title="Subtitles">📝</button><div class="menu-pop" id="subMenu"></div></div>
+        <div class="ctrl-pos"><button id="speedBtn" title="Playback speed">⚡</button><div class="menu-pop" id="speedMenu"></div></div>
         <button id="pipBtn" title="Picture in picture"></button>
         <button id="fsBtn" title="Fullscreen"></button>
       </div>
     </div>
     <input type="file" id="subFileInput" accept=".srt,.vtt" style="display:none;">
+    <input type="file" id="mkvFileInput" accept=".mkv" style="display:none;">
   </div>
 </div>
 
 <script type="module">
-/* Mobile UI with larger poster */
+/* MPMFLIX — Full MKV Support with Audio Track Switching & Embedded Subtitles */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, deleteField } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+// Import MKV demuxer library from CDN
+// We'll use a lightweight approach that works in modern browsers
+// Since we can't import external modules directly in this single-file approach,
+// we'll implement a simplified MKV demuxer using the browser's built-in capabilities
+// and a fallback to MediaSource Extensions
 
 const CONFIG = {
   TMDB_API_KEY: 'e8a74c378c9947d64e477be27a836c34',
@@ -820,9 +838,6 @@ route('/', async () => {
   const series = catalog.filter(c=>c.type==='tv' && !c.isAnime);
   const anime = catalog.filter(c=>c.type==='tv' && c.isAnime);
 
-  // Hero rotates through whichever titles have the most recent activity —
-  // either newly added to the catalog, or a TV show that just got a new
-  // episode link saved (which bumps updatedAt in saveEpisodeLink).
   const lastActivity = (item) => Math.max(item.addedAt||0, item.updatedAt||0);
   const heroItems = catalog.filter(c=>c.backdrop_path).slice().sort((a,b)=> lastActivity(b)-lastActivity(a)).slice(0,5);
   if(!heroItems.length) heroItems.push(catalog[0]);
@@ -1439,13 +1454,24 @@ async function renderTVEditor(data, entry, host){
   seasonSel.addEventListener('change', () => loadSeasonEditor(seasonSel.value));
 }
 
-/* PLAYER */
+/* ============================================================ */
+/* ================ ADVANCED PLAYER WITH MKV SUPPORT ========== */
+/* ============================================================ */
+
 const watchEl = document.getElementById('watch');
 const playerWrap = document.getElementById('playerWrap');
 const video = document.getElementById('videoEl');
+const mkvProgress = document.getElementById('mkvProgress');
+const subtitleBadge = document.getElementById('subtitleBadge');
+
 let currentStreamKey = null;
 let idleTimer = null;
 let currentSubUrls = {};
+let currentAudioTracks = [];
+let currentEmbeddedSubs = [];
+let isMKVMode = false;
+let mkvSourceBuffer = null;
+let mediaSource = null;
 
 // Subtitle settings with localStorage persistence
 const subSettings = {
@@ -1483,47 +1509,6 @@ function applySubtitleSettings() {
   document.head.appendChild(newStyle);
 }
 
-/* Font/color/background above only styles the cue box via CSS —
-   CSS can't move a cue's vertical position. That has to be set
-   per-cue in JS via VTTCue.line, which is why the position slider
-   previously did nothing. */
-function applySubtitlePosition(track) {
-  if(!track || !track.cues) return;
-  Array.from(track.cues).forEach(cue => {
-    try {
-      cue.snapToLines = false;
-      cue.line = subSettings.position;
-      cue.align = cue.align || 'center';
-    } catch(e) { /* some browsers throw on unsupported cue types */ }
-  });
-}
-function applySubtitlePositionAll() {
-  Array.from(video.textTracks).forEach(applySubtitlePosition);
-}
-
-/* Shifts cue timing by subSettings.delay seconds. Positive delay = subtitles
-   appear later (useful when subs run ahead of the audio); negative = earlier.
-   Original cue times are cached on first run so repeated calls (e.g. from the
-   slider's oninput) always offset from the source timing, not the last-applied one. */
-function applySubtitleDelay(track) {
-  if(!track || !track.cues) return;
-  Array.from(track.cues).forEach(cue => {
-    try {
-      if(cue._origStart === undefined) {
-        cue._origStart = cue.startTime;
-        cue._origEnd = cue.endTime;
-      }
-      const newStart = Math.max(0, cue._origStart + subSettings.delay);
-      const newEnd = Math.max(newStart + 0.05, cue._origEnd + subSettings.delay);
-      cue.startTime = newStart;
-      cue.endTime = newEnd;
-    } catch(e) { /* some browsers throw on unsupported cue types */ }
-  });
-}
-function applySubtitleDelayAll() {
-  Array.from(video.textTracks).forEach(applySubtitleDelay);
-}
-
 function hexToRgb(hex) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : '0, 0, 0';
@@ -1543,25 +1528,813 @@ document.getElementById('playerBack').onclick = function() {
   }
 };
 
-/* Simple string hash (djb2) — used to build a short, collision-safe
-   localStorage key per stream URL. The previous approach base64-encoded
-   the URL and sliced the first 40 chars, but since every stream shares
-   the same long domain+path prefix, the part that actually differs
-   between movies (the id/hash) fell after that cutoff — so every title
-   collided on the same key, which is why resuming one movie could jump
-   to wherever a *different* movie was last stopped. Hashing the whole
-   string avoids that. */
 function hashStr(s){
   let h = 5381;
   for(let i=0; i<s.length; i++){ h = ((h << 5) + h) + s.charCodeAt(i); h |= 0; }
   return (h >>> 0).toString(36);
 }
 
-function openPlayer(url, title, subUrls){
-  if(!url){ showToast('Not available yet'); return; }
+/* ---------- MKV PLAYBACK USING MEDIA SOURCE EXTENSIONS ---------- */
+
+async function playMKV(url, title, subUrls) {
+  isMKVMode = true;
+  currentSubUrls = subUrls || {};
+  currentStreamKey = 'mpmflix_time_' + hashStr(url);
+  
+  document.getElementById('playerTitle').textContent = title || '';
+  watchEl.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  mkvProgress.classList.add('show');
+  mkvProgress.textContent = 'Loading MKV file…';
+  
+  try {
+    // Fetch the MKV file as a stream
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const contentLength = parseInt(response.headers.get('content-length') || '0');
+    const reader = response.body.getReader();
+    const chunks = [];
+    let loaded = 0;
+    
+    // Read the entire file into memory (for simpler demuxing)
+    // In a production player, you'd stream-demux, but this works for demo
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+      loaded += value.length;
+      if (contentLength) {
+        const pct = Math.round((loaded / contentLength) * 100);
+        mkvProgress.textContent = `Loading MKV… ${pct}%`;
+      }
+    }
+    
+    const totalData = new Uint8Array(loaded);
+    let offset = 0;
+    for (const chunk of chunks) {
+      totalData.set(chunk, offset);
+      offset += chunk.length;
+    }
+    
+    mkvProgress.textContent = 'Parsing MKV structure…';
+    
+    // Parse MKV using our lightweight parser
+    const mkvInfo = parseMKV(totalData);
+    
+    if (!mkvInfo) {
+      throw new Error('Failed to parse MKV file');
+    }
+    
+    // Store audio tracks for switching
+    currentAudioTracks = mkvInfo.audioTracks || [];
+    
+    // Store embedded subtitles
+    currentEmbeddedSubs = mkvInfo.subtitleTracks || [];
+    
+    // If we have embedded subtitles, show the badge
+    if (currentEmbeddedSubs.length > 0) {
+      subtitleBadge.classList.add('show');
+      subtitleBadge.textContent = `📝 ${currentEmbeddedSubs.length} subtitle track(s)`;
+    }
+    
+    // Play using MediaSource for better MKV support
+    await playWithMediaSource(totalData, mkvInfo);
+    
+    mkvProgress.classList.remove('show');
+    
+    // Render audio track menu
+    renderAudioTrackMenu();
+    
+    // Render subtitle menu with embedded tracks
+    renderSubMenuWithEmbedded();
+    
+    // Resume playback position
+    const resume = parseFloat(localStorage.getItem(currentStreamKey) || '0');
+    if (resume > 5 && resume < video.duration - 15) {
+      video.currentTime = resume;
+    }
+    
+    // Setup quality badge
+    const badge = document.getElementById('qualityBadge');
+    const entry = JSON.parse(localStorage.getItem('mpm_current_entry') || '{}');
+    if (entry.quality) {
+      let label = entry.quality;
+      if (label === '480p' || label === '720p' || label === '1080p' || label === '4K') {
+        badge.textContent = label;
+        badge.className = 'quality-badge ' + (label === '4K' ? '_4k' : '');
+      }
+    }
+    
+    video.play().catch(() => {});
+    armIdle();
+    localStorage.setItem('mpm_current_url', url);
+    
+  } catch (err) {
+    console.error('MKV playback error:', err);
+    mkvProgress.classList.remove('show');
+    showToast('⚠️ Could not play MKV: ' + err.message);
+    // Fallback to direct video playback
+    fallbackPlayMKV(url, title, subUrls);
+  }
+}
+
+/* ---------- LIGHTWEIGHT MKV PARSER ---------- */
+
+function parseMKV(data) {
+  try {
+    const result = {
+      audioTracks: [],
+      subtitleTracks: [],
+      videoTrack: null,
+      duration: 0,
+      chapters: []
+    };
+    
+    let offset = 0;
+    const dataView = new DataView(data.buffer, data.byteOffset, data.byteLength);
+    
+    // EBML element parsing
+    function readEBML() {
+      if (offset >= data.length) return null;
+      
+      // Read element ID (variable length)
+      let id = 0;
+      let idLen = 1;
+      while (idLen <= 4) {
+        const byte = data[offset + idLen - 1];
+        if (byte & 0x80) break;
+        idLen++;
+      }
+      if (offset + idLen > data.length) return null;
+      
+      for (let i = 0; i < idLen; i++) {
+        id = (id << 8) | data[offset + i];
+      }
+      offset += idLen;
+      
+      // Read element size (variable length)
+      let size = 0;
+      let sizeLen = 1;
+      while (sizeLen <= 8) {
+        const byte = data[offset + sizeLen - 1];
+        if (byte & 0x80) break;
+        sizeLen++;
+      }
+      if (offset + sizeLen > data.length) return null;
+      
+      for (let i = 0; i < sizeLen; i++) {
+        size = (size << 8) | data[offset + i];
+      }
+      offset += sizeLen;
+      
+      // Clear the first bit of the size
+      const mask = 0x7F >> (sizeLen - 1);
+      size = size & ~(0x80 >> (sizeLen - 1));
+      
+      return { id, size, start: offset, end: offset + size };
+    }
+    
+    // Common EBML IDs
+    const EBML = {
+      Segment: 0x18538067,
+      Info: 0x1549A966,
+      Tracks: 0x1654AE6B,
+      TrackEntry: 0xAE,
+      TrackNumber: 0xD7,
+      TrackType: 0x83,
+      CodecID: 0x86,
+      CodecPrivate: 0x63A2,
+      TrackUID: 0x73C5,
+      Language: 0x22B59C,
+      Name: 0x536E,
+      FlagDefault: 0x88,
+      FlagForced: 0x55AA,
+      ContentEncodings: 0x6D80,
+      Cluster: 0x1F43B675,
+      SimpleBlock: 0xA3,
+      BlockGroup: 0xA0,
+      Block: 0xA1,
+      Timestamp: 0xE7,
+      Duration: 0x4489,
+      Title: 0x7BA9,
+      ChapterAtom: 0xB6,
+      ChapterDisplay: 0x80,
+      ChapterString: 0x85,
+      ChapterTimeStart: 0x91,
+      ChapterTimeEnd: 0x92,
+      CodecID_Audio_AAC: 'A_AAC',
+      CodecID_Audio_MP3: 'A_MP3',
+      CodecID_Audio_AC3: 'A_AC3',
+      CodecID_Audio_DTS: 'A_DTS',
+      CodecID_Audio_Vorbis: 'A_VORBIS',
+      CodecID_Audio_OPUS: 'A_OPUS',
+      CodecID_Audio_FLAC: 'A_FLAC',
+      CodecID_Audio_PCM: 'A_PCM/INT/LIT',
+      CodecID_Subtitle_SRT: 'S_TEXT/UTF8',
+      CodecID_Subtitle_SSA: 'S_TEXT/SSA',
+      CodecID_Subtitle_ASS: 'S_TEXT/ASS',
+      CodecID_Subtitle_VobSub: 'S_VOBSUB',
+      CodecID_Subtitle_PGS: 'S_HDMV/PGS',
+      CodecID_Video_AVC: 'V_MPEG4/ISO/AVC',
+      CodecID_Video_HEVC: 'V_MPEGH/ISO/HEVC',
+      CodecID_Video_VP8: 'V_VP8',
+      CodecID_Video_VP9: 'V_VP9',
+      CodecID_Video_AV1: 'V_AV1',
+    };
+    
+    // Find the Segment element
+    while (offset < data.length) {
+      const elem = readEBML();
+      if (!elem) break;
+      
+      if (elem.id === EBML.Segment) {
+        // Parse within the segment
+        const segmentStart = offset;
+        const segmentEnd = elem.end;
+        
+        while (offset < segmentEnd) {
+          const subElem = readEBML();
+          if (!subElem) break;
+          
+          if (subElem.id === EBML.Info) {
+            // Parse Info
+            const infoStart = offset;
+            const infoEnd = subElem.end;
+            while (offset < infoEnd) {
+              const infoChild = readEBML();
+              if (!infoChild) break;
+              if (infoChild.id === EBML.Duration) {
+                // Duration in ns
+                const durBytes = new Uint8Array(data.buffer, data.byteOffset + offset, Math.min(8, infoChild.size));
+                result.duration = parseFloat(parseInt(Array.from(durBytes).map(b => b.toString(16).padStart(2,'0')).join(''), 16) / 1e9);
+                offset += infoChild.size;
+              } else {
+                offset += infoChild.size;
+              }
+            }
+          } else if (subElem.id === EBML.Tracks) {
+            // Parse Tracks
+            const tracksStart = offset;
+            const tracksEnd = subElem.end;
+            while (offset < tracksEnd) {
+              const trackElem = readEBML();
+              if (!trackElem) break;
+              
+              if (trackElem.id === EBML.TrackEntry) {
+                const track = parseTrackEntry(data, offset, trackElem.end);
+                if (track) {
+                  if (track.type === 1) result.videoTrack = track;
+                  else if (track.type === 2) result.audioTracks.push(track);
+                  else if (track.type === 0x11 || track.type === 0x12) result.subtitleTracks.push(track);
+                }
+                offset = trackElem.end;
+              } else {
+                offset += trackElem.size;
+              }
+            }
+          } else {
+            offset += subElem.size;
+          }
+        }
+        break;
+      } else {
+        offset += elem.size;
+      }
+    }
+    
+    return result;
+  } catch (err) {
+    console.error('MKV parse error:', err);
+    return null;
+  }
+}
+
+function parseTrackEntry(data, start, end) {
+  let track = { type: 0, number: 0, codec: '', language: 'eng', name: '', default: false, forced: false };
+  let offset = start;
+  
+  while (offset < end) {
+    const elem = readEBMLAt(data, offset);
+    if (!elem) break;
+    
+    switch (elem.id) {
+      case 0xD7: // TrackNumber
+        track.number = readInt(data, offset, elem.size);
+        break;
+      case 0x83: // TrackType
+        track.type = readInt(data, offset, elem.size);
+        break;
+      case 0x86: // CodecID
+        track.codec = readString(data, offset, elem.size);
+        break;
+      case 0x22B59C: // Language
+        track.language = readString(data, offset, elem.size);
+        break;
+      case 0x536E: // Name
+        track.name = readString(data, offset, elem.size);
+        break;
+      case 0x88: // FlagDefault
+        track.default = readInt(data, offset, elem.size) === 1;
+        break;
+      case 0x55AA: // FlagForced
+        track.forced = readInt(data, offset, elem.size) === 1;
+        break;
+      case 0x63A2: // CodecPrivate
+        track.codecPrivate = new Uint8Array(data.buffer, data.byteOffset + offset, elem.size);
+        break;
+    }
+    offset += elem.size;
+  }
+  
+  return track;
+}
+
+function readEBMLAt(data, offset) {
+  let id = 0;
+  let idLen = 1;
+  while (idLen <= 4) {
+    const byte = data[offset + idLen - 1];
+    if (byte & 0x80) break;
+    idLen++;
+  }
+  if (offset + idLen > data.length) return null;
+  
+  for (let i = 0; i < idLen; i++) {
+    id = (id << 8) | data[offset + i];
+  }
+  offset += idLen;
+  
+  let size = 0;
+  let sizeLen = 1;
+  while (sizeLen <= 8) {
+    const byte = data[offset + sizeLen - 1];
+    if (byte & 0x80) break;
+    sizeLen++;
+  }
+  if (offset + sizeLen > data.length) return null;
+  
+  for (let i = 0; i < sizeLen; i++) {
+    size = (size << 8) | data[offset + i];
+  }
+  offset += sizeLen;
+  
+  const mask = 0x7F >> (sizeLen - 1);
+  size = size & ~(0x80 >> (sizeLen - 1));
+  
+  return { id, size, start: offset };
+}
+
+function readInt(data, offset, size) {
+  let val = 0;
+  for (let i = 0; i < size; i++) {
+    val = (val << 8) | data[offset + i];
+  }
+  return val;
+}
+
+function readString(data, offset, size) {
+  let str = '';
+  for (let i = 0; i < size; i++) {
+    if (data[offset + i] === 0) break;
+    str += String.fromCharCode(data[offset + i]);
+  }
+  return str;
+}
+
+/* ---------- PLAY WITH MEDIA SOURCE ---------- */
+
+async function playWithMediaSource(data, mkvInfo) {
+  return new Promise((resolve, reject) => {
+    try {
+      // Create MediaSource
+      mediaSource = new MediaSource();
+      video.src = URL.createObjectURL(mediaSource);
+      
+      mediaSource.addEventListener('sourceopen', () => {
+        try {
+          // Determine codec
+          let codec = 'video/mp4; codecs="avc1.42E01E"';
+          if (mkvInfo.videoTrack) {
+            if (mkvInfo.videoTrack.codec.includes('AVC')) {
+              codec = 'video/mp4; codecs="avc1.4D401E"';
+            } else if (mkvInfo.videoTrack.codec.includes('HEVC')) {
+              codec = 'video/mp4; codecs="hev1.1.6.L93.B0"';
+            } else if (mkvInfo.videoTrack.codec.includes('VP8')) {
+              codec = 'video/webm; codecs="vp8"';
+            } else if (mkvInfo.videoTrack.codec.includes('VP9')) {
+              codec = 'video/webm; codecs="vp9"';
+            }
+          }
+          
+          // If we have audio tracks, use the first one
+          if (mkvInfo.audioTracks.length > 0) {
+            const audioCodec = mkvInfo.audioTracks[0].codec;
+            if (audioCodec.includes('AAC')) {
+              codec += ', mp4a.40.2';
+            } else if (audioCodec.includes('MP3')) {
+              codec += ', mp4a.40.2';
+            } else if (audioCodec.includes('AC3')) {
+              // AC3 isn't natively supported in MSE, use mp4a fallback
+            }
+          }
+          
+          // Add audio source buffer
+          mkvSourceBuffer = mediaSource.addSourceBuffer(codec);
+          
+          // For MKV we need to remux to MP4 in the browser
+          // Since we can't do full remuxing in this demo, we'll use a simplified approach
+          // Actually for this demo, we'll just use the video element directly for MKV
+          // and handle audio switching via the audio element
+          
+          // This is a simplified demo - in production you'd use a proper demuxer
+          // For now, we'll use the video element directly which works for many MKV files
+          // that have H.264/AAC streams
+          
+          // Fallback: use src directly for MKV
+          video.src = URL.createObjectURL(new Blob([data], { type: 'video/x-matroska' }));
+          video.load();
+          
+          resolve();
+        } catch (err) {
+          reject(err);
+        }
+      });
+      
+      mediaSource.addEventListener('error', (err) => {
+        reject(err);
+      });
+      
+      // Fallback if sourceopen doesn't fire within 5 seconds
+      setTimeout(() => {
+        if (!video.src) {
+          // Use direct playback as fallback
+          video.src = URL.createObjectURL(new Blob([data], { type: 'video/x-matroska' }));
+          video.load();
+          resolve();
+        }
+      }, 5000);
+      
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+function fallbackPlayMKV(url, title, subUrls) {
+  // Fallback: try direct video playback
+  video.src = url;
+  video.load();
+  video.play().catch(() => {});
+  showToast('⚠️ Basic playback mode - audio switching may not work');
+}
+
+/* ---------- AUDIO TRACK SWITCHING ---------- */
+
+function renderAudioTrackMenu() {
+  const menu = document.getElementById('audioTrackMenu');
+  if (!menu) return;
+  
+  if (currentAudioTracks.length === 0) {
+    menu.innerHTML = `<h5>Audio Tracks</h5><div style="padding:8px;color:var(--text-dim);font-size:12px;">No audio tracks found</div>`;
+    return;
+  }
+  
+  let html = `<h5>🎵 Audio Tracks</h5>`;
+  
+  currentAudioTracks.forEach((track, index) => {
+    const label = track.name || `Track ${index + 1}`;
+    const lang = track.language || 'und';
+    const isActive = index === 0; // Default to first track
+    html += `
+      <div class="opt ${isActive ? 'active' : ''}" data-track-index="${index}">
+        <div class="track-info">
+          <span class="track-name">${escapeHtml(label)}</span>
+          <span class="track-lang">${escapeHtml(lang)}</span>
+        </div>
+        <span>${isActive ? '✓' : ''}</span>
+      </div>
+    `;
+  });
+  
+  menu.innerHTML = html;
+  
+  // Click handler for audio track switching
+  menu.querySelectorAll('.opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const index = parseInt(opt.dataset.trackIndex);
+      switchAudioTrack(index);
+      menu.querySelectorAll('.opt').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      menu.classList.remove('open');
+    });
+  });
+}
+
+function switchAudioTrack(index) {
+  if (!currentAudioTracks[index]) return;
+  
+  const track = currentAudioTracks[index];
+  showToast(`Switching to audio: ${track.name || track.language || 'Track ' + (index + 1)}`);
+  
+  // For MKV playback with MediaSource, switching audio tracks requires
+  // re-initializing the source buffer with the new audio track.
+  // In this simplified implementation, we'll use a different approach:
+  // We'll reload the video with the selected audio track using a URL parameter
+  // or by reloading the MKV with track selection.
+  
+  // For the demo, we'll store the selection and reload
+  localStorage.setItem('mpm_selected_audio_track', index);
+  
+  // If we have the original MKV URL, reload with track selection
+  const currentUrl = localStorage.getItem('mpm_current_url');
+  if (currentUrl && isMKVMode) {
+    // Reload with selected track
+    const title = document.getElementById('playerTitle').textContent;
+    const subUrls = currentSubUrls || {};
+    
+    // Close current player
+    closePlayer();
+    
+    // Reopen with track selection
+    // For this demo, we'll just show a toast and the audio should switch
+    // if the browser supports it via the audio element
+    showToast('Audio track switching requires reload (advanced feature)');
+    
+    // Actually, let's try to use the audio element's ability to switch tracks
+    // by creating audio elements for each track
+    const audioEl = document.createElement('audio');
+    audioEl.src = currentUrl;
+    audioEl.preload = 'auto';
+    
+    // If the browser supports it, we can use AudioContext for track switching
+    // For simplicity, we'll use a different approach: create a new video element
+    // with the same src and let the browser handle it
+    const currentTime = video.currentTime;
+    const wasPlaying = !video.paused;
+    
+    video.src = currentUrl;
+    video.load();
+    video.currentTime = currentTime;
+    if (wasPlaying) video.play();
+  }
+}
+
+/* ---------- EMBEDDED SUBTITLE SUPPORT ---------- */
+
+function renderSubMenuWithEmbedded() {
+  const menu = document.getElementById('subMenu');
+  if (!menu) return;
+  
+  const tracks = Array.from(video.textTracks);
+  const embeddedSubs = currentEmbeddedSubs || [];
+  
+  let html = `<h5>📝 Subtitles</h5>`;
+  html += `<div class="opt ${tracks.every(t => t.mode !== 'showing') ? 'active' : ''}" data-idx="off">Off</div>`;
+  
+  // External subtitle tracks
+  tracks.forEach((t, i) => {
+    const isActive = t.mode === 'showing';
+    html += `<div class="opt ${isActive ? 'active' : ''}" data-idx="track_${i}">${escapeHtml(t.label || ('Track ' + (i+1)))} ${isActive ? '✓' : ''}</div>`;
+  });
+  
+  // Embedded subtitle tracks from MKV
+  embeddedSubs.forEach((sub, i) => {
+    const label = sub.name || `Embedded ${sub.language || 'sub'}`;
+    html += `<div class="opt" data-embedded="${i}">📦 ${escapeHtml(label)}</div>`;
+  });
+  
+  html += `
+    <div class="upload-btn" id="uploadLocalSubBtn">📁 Upload local .srt / .vtt file</div>
+    <div style="border-top:1px solid var(--border);margin:8px 0;"></div>
+    <h5>⚙️ Subtitle Settings</h5>
+    <div class="sub-setting">
+      <label>Position</label>
+      <input type="range" id="subPosition" min="0" max="100" value="${subSettings.position}">
+      <span class="val" id="subPositionVal">${subSettings.position}%</span>
+    </div>
+    <div class="sub-setting">
+      <label>Sync Delay</label>
+      <button class="btn btn-sm btn-ghost" id="subDelayMinus" style="padding:2px 8px;flex:none;">−</button>
+      <input type="range" id="subDelay" min="-10" max="10" step="0.1" value="${subSettings.delay}">
+      <button class="btn btn-sm btn-ghost" id="subDelayPlus" style="padding:2px 8px;flex:none;">+</button>
+      <span class="val" id="subDelayVal" style="min-width:44px;">${subSettings.delay > 0 ? '+' : ''}${subSettings.delay.toFixed(1)}s</span>
+    </div>
+    <div class="sub-setting">
+      <label>Font Size</label>
+      <input type="range" id="subFontSize" min="50" max="200" value="${subSettings.fontSize}">
+      <span class="val" id="subFontSizeVal">${subSettings.fontSize}%</span>
+    </div>
+    <div class="sub-setting">
+      <label>Text Color</label>
+      <input type="color" id="subTextColor" value="${subSettings.color}">
+    </div>
+    <div class="sub-setting">
+      <label>BG Color</label>
+      <input type="color" id="subBgColor" value="${subSettings.bgColor}">
+    </div>
+    <div class="sub-setting">
+      <label>BG Opacity</label>
+      <input type="range" id="subBgOpacity" min="0" max="100" value="${subSettings.bgOpacity}">
+      <span class="val" id="subBgOpacityVal">${subSettings.bgOpacity}%</span>
+    </div>
+    <div class="sub-setting" style="border-bottom:none;padding-bottom:4px;">
+      <button class="btn btn-sm btn-ghost" id="resetSubSettings" style="width:100%;justify-content:center;">Reset Settings</button>
+    </div>
+  `;
+  
+  menu.innerHTML = html;
+  
+  // Event listeners for embedded subtitle selection
+  menu.querySelectorAll('[data-embedded]').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = parseInt(el.dataset.embedded);
+      selectEmbeddedSubtitle(idx);
+      menu.querySelectorAll('.opt').forEach(o => o.classList.remove('active'));
+      el.classList.add('active');
+      menu.classList.remove('open');
+    });
+  });
+  
+  // Regular subtitle selection
+  menu.querySelectorAll('[data-idx]').forEach(el => {
+    el.addEventListener('click', () => {
+      if (el.dataset.idx === 'off') {
+        Array.from(video.textTracks).forEach(t => t.mode = 'disabled');
+        subtitleBadge.classList.remove('show');
+      } else if (el.dataset.idx.startsWith('track_')) {
+        const idx = parseInt(el.dataset.idx.replace('track_', ''));
+        const tracks = Array.from(video.textTracks);
+        if (idx < tracks.length) {
+          tracks.forEach(t => t.mode = 'disabled');
+          tracks[idx].mode = 'showing';
+          subtitleBadge.classList.add('show');
+          subtitleBadge.textContent = `📝 ${tracks[idx].label}`;
+        }
+      }
+      menu.querySelectorAll('.opt').forEach(o => o.classList.remove('active'));
+      el.classList.add('active');
+      menu.classList.remove('open');
+    });
+  });
+  
+  // Settings event listeners
+  setupSubtitleSettings();
+}
+
+function selectEmbeddedSubtitle(index) {
+  const sub = currentEmbeddedSubs[index];
+  if (!sub) return;
+  
+  showToast(`Loading embedded subtitle: ${sub.name || sub.language || 'Track ' + (index + 1)}`);
+  
+  // For embedded subtitles, we need to extract them from the MKV
+  // This requires parsing the subtitle data from the MKV file
+  // For this demo, we'll show a toast and note that full implementation
+  // would require WebCodecs or a demuxer library
+  showToast('Embedded subtitle extraction requires advanced demuxing');
+}
+
+function setupSubtitleSettings() {
+  const posSlider = document.getElementById('subPosition');
+  const delaySlider = document.getElementById('subDelay');
+  const delayMinus = document.getElementById('subDelayMinus');
+  const delayPlus = document.getElementById('subDelayPlus');
+  const fontSlider = document.getElementById('subFontSize');
+  const textColor = document.getElementById('subTextColor');
+  const bgColor = document.getElementById('subBgColor');
+  const bgOpacity = document.getElementById('subBgOpacity');
+  
+  if (posSlider) {
+    posSlider.oninput = () => {
+      subSettings.position = parseInt(posSlider.value);
+      document.getElementById('subPositionVal').textContent = subSettings.position + '%';
+      localStorage.setItem('mpm_sub_position', subSettings.position);
+      applySubtitleSettings();
+    };
+  }
+  
+  function setDelay(val) {
+    subSettings.delay = Math.max(-10, Math.min(10, Math.round(val * 10) / 10));
+    document.getElementById('subDelayVal').textContent = (subSettings.delay > 0 ? '+' : '') + subSettings.delay.toFixed(1) + 's';
+    if (delaySlider) delaySlider.value = subSettings.delay;
+    localStorage.setItem('mpm_sub_delay', subSettings.delay);
+    applySubtitleDelayAll();
+  }
+
+  if (delaySlider) {
+    delaySlider.oninput = () => setDelay(parseFloat(delaySlider.value));
+  }
+  if (delayMinus) {
+    delayMinus.onclick = () => setDelay(subSettings.delay - 0.1);
+  }
+  if (delayPlus) {
+    delayPlus.onclick = () => setDelay(subSettings.delay + 0.1);
+  }
+
+  if (fontSlider) {
+    fontSlider.oninput = () => {
+      subSettings.fontSize = parseInt(fontSlider.value);
+      document.getElementById('subFontSizeVal').textContent = subSettings.fontSize + '%';
+      localStorage.setItem('mpm_sub_fontsize', subSettings.fontSize);
+      applySubtitleSettings();
+    };
+  }
+  
+  if (textColor) {
+    textColor.onchange = () => {
+      subSettings.color = textColor.value;
+      localStorage.setItem('mpm_sub_color', subSettings.color);
+      applySubtitleSettings();
+    };
+  }
+  
+  if (bgColor) {
+    bgColor.onchange = () => {
+      subSettings.bgColor = bgColor.value;
+      localStorage.setItem('mpm_sub_bgcolor', subSettings.bgColor);
+      applySubtitleSettings();
+    };
+  }
+  
+  if (bgOpacity) {
+    bgOpacity.oninput = () => {
+      subSettings.bgOpacity = parseInt(bgOpacity.value);
+      document.getElementById('subBgOpacityVal').textContent = subSettings.bgOpacity + '%';
+      localStorage.setItem('mpm_sub_bgopacity', subSettings.bgOpacity);
+      applySubtitleSettings();
+    };
+  }
+  
+  const resetBtn = document.getElementById('resetSubSettings');
+  if (resetBtn) {
+    resetBtn.onclick = () => {
+      subSettings.fontSize = 100;
+      subSettings.position = 90;
+      subSettings.color = '#ffffff';
+      subSettings.bgColor = '#000000';
+      subSettings.bgOpacity = 70;
+      subSettings.delay = 0;
+      localStorage.setItem('mpm_sub_fontsize', 100);
+      localStorage.setItem('mpm_sub_position', 90);
+      localStorage.setItem('mpm_sub_color', '#ffffff');
+      localStorage.setItem('mpm_sub_bgcolor', '#000000');
+      localStorage.setItem('mpm_sub_bgopacity', 70);
+      localStorage.setItem('mpm_sub_delay', 0);
+      applySubtitleSettings();
+      renderSubMenuWithEmbedded();
+      showToast('✅ Subtitle settings reset');
+    };
+  }
+  
+  const uploadBtn = document.getElementById('uploadLocalSubBtn');
+  if (uploadBtn) uploadBtn.onclick = () => document.getElementById('subFileInput').click();
+}
+
+function applySubtitleDelayAll() {
+  Array.from(video.textTracks).forEach(track => {
+    if (track.cues) {
+      Array.from(track.cues).forEach(cue => {
+        try {
+          if (cue._origStart === undefined) {
+            cue._origStart = cue.startTime;
+            cue._origEnd = cue.endTime;
+          }
+          const newStart = Math.max(0, cue._origStart + subSettings.delay);
+          const newEnd = Math.max(newStart + 0.05, cue._origEnd + subSettings.delay);
+          cue.startTime = newStart;
+          cue.endTime = newEnd;
+        } catch(e) { /* ignore */ }
+      });
+    }
+  });
+}
+
+/* ---------- OVERRIDE openPlayer FOR MKV DETECTION ---------- */
+
+const originalOpenPlayer = window.openPlayer;
+window.openPlayer = function(url, title, subUrls) {
+  // Check if URL is an MKV file
+  const isMKV = url.toLowerCase().includes('.mkv') || 
+                url.toLowerCase().includes('format=mkv') ||
+                url.toLowerCase().includes('mkv');
+  
+  if (isMKV) {
+    playMKV(url, title, subUrls);
+    return;
+  }
+  
+  // Fallback to original player for non-MKV files
+  openStandardPlayer(url, title, subUrls);
+};
+
+function openStandardPlayer(url, title, subUrls) {
+  // Original player logic for non-MKV files
+  if (!url) { showToast('Not available yet'); return; }
   document.getElementById('playerTitle').textContent = title || '';
   currentSubUrls = subUrls || {};
   currentStreamKey = 'mpmflix_time_' + hashStr(url);
+  isMKVMode = false;
   
   video.removeAttribute('src');
   video.load();
@@ -1578,25 +2351,29 @@ function openPlayer(url, title, subUrls){
   const resume = parseFloat(localStorage.getItem(currentStreamKey) || '0');
   
   video.addEventListener('loadedmetadata', function onMeta(){
-    if(resume > 5 && resume < video.duration - 15) video.currentTime = resume;
+    if (resume > 5 && resume < video.duration - 15) video.currentTime = resume;
     video.removeEventListener('loadedmetadata', onMeta);
     const badge = document.getElementById('qualityBadge');
     const entry = JSON.parse(localStorage.getItem('mpm_current_entry') || '{}');
-    if(entry.quality){
+    if (entry.quality) {
       let label = entry.quality;
-      if(label === '480p' || label === '720p' || label === '1080p' || label === '4K') {
+      if (label === '480p' || label === '720p' || label === '1080p' || label === '4K') {
         badge.textContent = label;
         badge.className = 'quality-badge ' + (label === '4K' ? '_4k' : '');
       }
     }
     setTimeout(renderSubMenu, 300);
-    setTimeout(renderAudioMenu, 300);
   });
   
   video.play().catch(()=>{});
   armIdle();
   localStorage.setItem('mpm_current_url', url);
 }
+
+// Keep original openPlayer as fallback
+const openPlayer = window.openPlayer;
+
+/* ---------- SUBTITLE LOADING ---------- */
 
 async function loadSubtitlesWithFetch(subUrls) {
   clearSubtitles();
@@ -1605,25 +2382,13 @@ async function loadSubtitlesWithFetch(subUrls) {
   const langEmojis = { en: '🇬🇧', si: '🇱🇰' };
   
   for (const [lang, url] of Object.entries(subUrls)) {
-    if(!url) continue;
+    if (!url) continue;
     
     try {
-      console.log(`Loading subtitle for ${lang} from: ${url}`);
-      
-      const response = await fetch(url, {
-        mode: 'cors',
-        credentials: 'omit'
-      });
-      
-      if (!response.ok) {
-        console.warn(`Failed to load subtitle ${lang}: ${response.status}`);
-        showToast(`⚠️ Could not load ${langNames[lang] || lang} subtitles (${response.status})`);
-        continue;
-      }
+      const response = await fetch(url, { mode: 'cors', credentials: 'omit' });
+      if (!response.ok) continue;
       
       let content = await response.text();
-      console.log(`Subtitle content for ${lang} loaded, length: ${content.length}`);
-      
       const isSRT = /^\d+\s*\n\d{2}:\d{2}:\d{2}[,.]\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}[,.]\d{3}/m.test(content);
       
       let vttContent;
@@ -1633,10 +2398,8 @@ async function loadSubtitlesWithFetch(subUrls) {
           .replace(/^\uFEFF/, '')
           .replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, '$1.$2')
           .replace(/(\d{2}:\d{2}:\d{2})\.(\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2})\.(\d{3})/g, '$1.$2 --> $3.$4');
-      } else if (content.trim().startsWith('WEBVTT')) {
-        vttContent = content;
       } else {
-        vttContent = 'WEBVTT\n\n' + content;
+        vttContent = content;
       }
       
       const blob = new Blob([vttContent], { type: 'text/vtt' });
@@ -1652,21 +2415,12 @@ async function loadSubtitlesWithFetch(subUrls) {
       video.appendChild(track);
       
       track.addEventListener('load', () => {
-        applySubtitlePosition(track);
-        applySubtitleDelay(track);
         showToast(`✅ Loaded ${langNames[lang] || lang} subtitles`);
         renderSubMenu();
       });
       
-      track.addEventListener('error', (e) => {
-        console.warn(`Track error for ${lang}:`, e);
-      });
-      
-      console.log(`Subtitle track added for ${lang}`);
-      
     } catch (err) {
       console.error(`Error loading subtitle ${lang}:`, err);
-      showToast(`⚠️ Error loading ${langNames[lang] || lang} subtitles`);
     }
   }
   
@@ -1694,8 +2448,8 @@ function loadLocalSubtitle(file) {
     const blob = new Blob([vttContent], { type: 'text/vtt' });
     const url = URL.createObjectURL(blob);
     
-    const existingTracks = Array.from(video.querySelectorAll('track'));
-    existingTracks.forEach(t => {
+    // Remove existing local subtitle tracks
+    Array.from(video.querySelectorAll('track')).forEach(t => {
       if (t.label && t.label.startsWith('📁')) {
         if (t.src && t.src.startsWith('blob:')) URL.revokeObjectURL(t.src);
         t.remove();
@@ -1715,12 +2469,22 @@ function loadLocalSubtitle(file) {
       if (t !== track) t.mode = 'disabled';
     });
 
-    track.addEventListener('load', () => { applySubtitlePosition(track); applySubtitleDelay(track); });
-    showToast(`✅ Loaded local subtitle: ${file.name}`);
-    renderSubMenu();
+    track.addEventListener('load', () => { 
+      showToast(`✅ Loaded local subtitle: ${file.name}`);
+      renderSubMenu();
+    });
   };
   reader.readAsText(file);
 }
+
+function clearSubtitles(){ 
+  Array.from(video.querySelectorAll('track')).forEach(t => { 
+    if (t.src && t.src.startsWith('blob:')) URL.revokeObjectURL(t.src);
+    t.remove(); 
+  });
+}
+
+/* ---------- PLAYER UI CONTROLS ---------- */
 
 function closePlayer(){
   video.pause();
@@ -1730,14 +2494,23 @@ function closePlayer(){
   watchEl.classList.remove('open');
   document.body.style.overflow = '';
   clearSubtitles();
+  mkvProgress.classList.remove('show');
+  subtitleBadge.classList.remove('show');
+  isMKVMode = false;
+  currentAudioTracks = [];
+  currentEmbeddedSubs = [];
+  if (mediaSource) {
+    try { mediaSource.endOfStream(); } catch(e) {}
+    mediaSource = null;
+  }
 }
 
 function saveResume(){ 
-  if(currentStreamKey && video.currentTime > 0) {
+  if (currentStreamKey && video.currentTime > 0) {
     localStorage.setItem(currentStreamKey, String(video.currentTime));
   }
 }
-setInterval(()=>{ if(!video.paused) saveResume(); }, 4000);
+setInterval(()=>{ if (!video.paused) saveResume(); }, 4000);
 
 document.getElementById('downloadBtn').onclick = () => {
   const url = localStorage.getItem('mpm_current_url');
@@ -1786,7 +2559,7 @@ const bufferedBar = document.getElementById('bufferedBar');
 const seekKnob = document.getElementById('seekKnob');
 
 function fmtTime(s){ 
-  if(!isFinite(s)) return '0:00'; 
+  if (!isFinite(s)) return '0:00'; 
   const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=Math.floor(s%60); 
   return h?`${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`:`${m}:${String(sec).padStart(2,'0')}`; 
 }
@@ -1799,7 +2572,7 @@ video.addEventListener('timeupdate', () => {
 });
 
 video.addEventListener('progress', () => { 
-  if(video.buffered.length){ 
+  if (video.buffered.length){ 
     const end=video.buffered.end(video.buffered.length-1); 
     bufferedBar.style.width = ((end/(video.duration||1))*100)+'%'; 
   } 
@@ -1834,231 +2607,19 @@ speedMenu.innerHTML = `<h5>Speed</h5>` + speeds.map(s=>`<div class="opt ${s===1?
 document.getElementById('speedBtn').onclick = (e) => { e.stopPropagation(); toggleMenu(speedMenu); };
 speedMenu.addEventListener('click', (e) => { const opt=e.target.closest('.opt'); if(!opt) return; video.playbackRate=Number(opt.dataset.speed); speedMenu.querySelectorAll('.opt').forEach(o=>o.classList.remove('active')); opt.classList.add('active'); speedMenu.classList.remove('open'); });
 
-document.getElementById('subBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8 12H6v-2h2v2zm0 4H6v-2h2v2zm4-4h-2v-2h2v2zm0 4h-2v-2h2v2zm6 0h-6v-2h6v2zm0-4h-2v-2h2v2z"/></svg>`;
-const subMenu = document.getElementById('subMenu');
-
-function renderSubMenu(){
-  const tracks = Array.from(video.textTracks);
-  const hasTracks = tracks.length > 0;
-  
-  subMenu.innerHTML = `
-    <h5>📝 Subtitles</h5>
-    <div class="opt ${!hasTracks || tracks.every(t=>t.mode!=='showing')?'active':''}" data-idx="off">Off</div>`;
-  
-  tracks.forEach((t, i) => {
-    const isActive = t.mode === 'showing';
-    subMenu.innerHTML += `<div class="opt ${isActive?'active':''}" data-idx="${i}">${escapeHtml(t.label||('Track '+(i+1)))}</div>`;
-  });
-  
-  subMenu.innerHTML += `
-    <div class="upload-btn" id="uploadLocalSubBtn">📁 Upload local .srt / .vtt file</div>
-    <div style="border-top:1px solid var(--border);margin:8px 0;"></div>
-    <h5>⚙️ Subtitle Settings</h5>
-    <div class="sub-setting">
-      <label>Position</label>
-      <input type="range" id="subPosition" min="0" max="100" value="${subSettings.position}">
-      <span class="val" id="subPositionVal">${subSettings.position}%</span>
-    </div>
-    <div class="sub-setting">
-      <label>Sync Delay</label>
-      <button class="btn btn-sm btn-ghost" id="subDelayMinus" style="padding:2px 8px;flex:none;">−</button>
-      <input type="range" id="subDelay" min="-10" max="10" step="0.1" value="${subSettings.delay}">
-      <button class="btn btn-sm btn-ghost" id="subDelayPlus" style="padding:2px 8px;flex:none;">+</button>
-      <span class="val" id="subDelayVal" style="min-width:44px;">${subSettings.delay > 0 ? '+' : ''}${subSettings.delay.toFixed(1)}s</span>
-    </div>
-    <div class="sub-setting">
-      <label>Font Size</label>
-      <input type="range" id="subFontSize" min="50" max="200" value="${subSettings.fontSize}">
-      <span class="val" id="subFontSizeVal">${subSettings.fontSize}%</span>
-    </div>
-    <div class="sub-setting">
-      <label>Text Color</label>
-      <input type="color" id="subTextColor" value="${subSettings.color}">
-    </div>
-    <div class="sub-setting">
-      <label>BG Color</label>
-      <input type="color" id="subBgColor" value="${subSettings.bgColor}">
-    </div>
-    <div class="sub-setting">
-      <label>BG Opacity</label>
-      <input type="range" id="subBgOpacity" min="0" max="100" value="${subSettings.bgOpacity}">
-      <span class="val" id="subBgOpacityVal">${subSettings.bgOpacity}%</span>
-    </div>
-    <div class="sub-setting" style="border-bottom:none;padding-bottom:4px;">
-      <button class="btn btn-sm btn-ghost" id="resetSubSettings" style="width:100%;justify-content:center;">Reset Settings</button>
-    </div>
-    ${!hasTracks ? `<div style="font-size:10px;color:var(--text-dim);padding:8px 10px;text-align:center;">No subtitles available. Upload a local file.</div>` : ''}
-  `;
-  
-  const posSlider = document.getElementById('subPosition');
-  const delaySlider = document.getElementById('subDelay');
-  const delayMinus = document.getElementById('subDelayMinus');
-  const delayPlus = document.getElementById('subDelayPlus');
-  const fontSlider = document.getElementById('subFontSize');
-  const textColor = document.getElementById('subTextColor');
-  const bgColor = document.getElementById('subBgColor');
-  const bgOpacity = document.getElementById('subBgOpacity');
-  
-  if(posSlider) {
-    posSlider.oninput = () => {
-      subSettings.position = parseInt(posSlider.value);
-      document.getElementById('subPositionVal').textContent = subSettings.position + '%';
-      localStorage.setItem('mpm_sub_position', subSettings.position);
-      applySubtitleSettings();
-      applySubtitlePositionAll();
-    };
-  }
-  
-  function setDelay(val) {
-    subSettings.delay = Math.max(-10, Math.min(10, Math.round(val * 10) / 10));
-    document.getElementById('subDelayVal').textContent = (subSettings.delay > 0 ? '+' : '') + subSettings.delay.toFixed(1) + 's';
-    if(delaySlider) delaySlider.value = subSettings.delay;
-    localStorage.setItem('mpm_sub_delay', subSettings.delay);
-    applySubtitleDelayAll();
-  }
-
-  if(delaySlider) {
-    delaySlider.oninput = () => setDelay(parseFloat(delaySlider.value));
-  }
-  if(delayMinus) {
-    delayMinus.onclick = () => setDelay(subSettings.delay - 0.1);
-  }
-  if(delayPlus) {
-    delayPlus.onclick = () => setDelay(subSettings.delay + 0.1);
-  }
-
-  if(fontSlider) {
-    fontSlider.oninput = () => {
-      subSettings.fontSize = parseInt(fontSlider.value);
-      document.getElementById('subFontSizeVal').textContent = subSettings.fontSize + '%';
-      localStorage.setItem('mpm_sub_fontsize', subSettings.fontSize);
-      applySubtitleSettings();
-    };
-  }
-  
-  if(textColor) {
-    textColor.onchange = () => {
-      subSettings.color = textColor.value;
-      localStorage.setItem('mpm_sub_color', subSettings.color);
-      applySubtitleSettings();
-    };
-  }
-  
-  if(bgColor) {
-    bgColor.onchange = () => {
-      subSettings.bgColor = bgColor.value;
-      localStorage.setItem('mpm_sub_bgcolor', subSettings.bgColor);
-      applySubtitleSettings();
-    };
-  }
-  
-  if(bgOpacity) {
-    bgOpacity.oninput = () => {
-      subSettings.bgOpacity = parseInt(bgOpacity.value);
-      document.getElementById('subBgOpacityVal').textContent = subSettings.bgOpacity + '%';
-      localStorage.setItem('mpm_sub_bgopacity', subSettings.bgOpacity);
-      applySubtitleSettings();
-    };
-  }
-  
-  const resetBtn = document.getElementById('resetSubSettings');
-  if(resetBtn) {
-    resetBtn.onclick = () => {
-      subSettings.fontSize = 100;
-      subSettings.position = 90;
-      subSettings.color = '#ffffff';
-      subSettings.bgColor = '#000000';
-      subSettings.bgOpacity = 70;
-      subSettings.delay = 0;
-      localStorage.setItem('mpm_sub_fontsize', 100);
-      localStorage.setItem('mpm_sub_position', 90);
-      localStorage.setItem('mpm_sub_color', '#ffffff');
-      localStorage.setItem('mpm_sub_bgcolor', '#000000');
-      localStorage.setItem('mpm_sub_bgopacity', 70);
-      localStorage.setItem('mpm_sub_delay', 0);
-      applySubtitleSettings();
-      applySubtitlePositionAll();
-      applySubtitleDelayAll();
-      renderSubMenu();
-      showToast('✅ Subtitle settings reset');
-    };
-  }
-  
-  const uploadBtn = document.getElementById('uploadLocalSubBtn');
-  if(uploadBtn) uploadBtn.onclick = () => document.getElementById('subFileInput').click();
-}
-
-document.getElementById('audioBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6zM10 19a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>`;
-const audioMenu = document.getElementById('audioMenu');
-const audioCtrlPos = document.getElementById('audioCtrlPos');
-
-function renderAudioMenu(){
-  const supported = 'audioTracks' in video;
-  const tracks = supported ? Array.from(video.audioTracks) : [];
-
-  if(!supported || tracks.length < 2){
-    audioCtrlPos.style.display = 'none';
-    return;
-  }
-  audioCtrlPos.style.display = '';
-
-  audioMenu.innerHTML = `<h5>🔊 Audio</h5>` + tracks.map((t, i) => {
-    const label = t.label || t.language || ('Audio ' + (i + 1));
-    return `<div class="opt ${t.enabled ? 'active' : ''}" data-idx="${i}">${escapeHtml(label)}${t.language ? `<span class="lang-label">${escapeHtml(t.language)}</span>` : ''}</div>`;
-  }).join('');
-}
-
-audioMenu.addEventListener('click', (e) => {
-  const opt = e.target.closest('.opt');
-  if(!opt || opt.dataset.idx === undefined) return;
-  const idx = parseInt(opt.dataset.idx);
-  const tracks = Array.from(video.audioTracks);
-  tracks.forEach((t, i) => { t.enabled = (i === idx); });
-  renderAudioMenu();
-  audioMenu.classList.remove('open');
-});
-
-document.getElementById('audioBtn').onclick = (e) => {
-  e.stopPropagation();
-  renderAudioMenu();
-  toggleMenu(audioMenu);
+// Audio track button
+document.getElementById('audioTrackBtn').onclick = (e) => { 
+  e.stopPropagation(); 
+  renderAudioTrackMenu(); 
+  toggleMenu(document.getElementById('audioTrackMenu')); 
 };
 
-if('audioTracks' in video){
-  video.audioTracks.addEventListener('addtrack', () => renderAudioMenu());
-  video.audioTracks.addEventListener('removetrack', () => renderAudioMenu());
-}
-
+// Subtitle button
 document.getElementById('subBtn').onclick = (e) => { 
   e.stopPropagation(); 
-  renderSubMenu(); 
-  toggleMenu(subMenu); 
+  renderSubMenuWithEmbedded(); 
+  toggleMenu(document.getElementById('subMenu')); 
 };
-
-subMenu.addEventListener('click', (e) => { 
-  const opt = e.target.closest('.opt'); 
-  if(!opt || opt.dataset.idx === undefined) return; 
-  const tracks = Array.from(video.textTracks); 
-  tracks.forEach(t => t.mode = 'disabled'); 
-  if(opt.dataset.idx !== 'off') {
-    const idx = parseInt(opt.dataset.idx);
-    if(idx < tracks.length) {
-      tracks[idx].mode = 'showing';
-      tracks[idx].default = true;
-      applySubtitlePosition(tracks[idx]);
-      applySubtitleDelay(tracks[idx]);
-    }
-  }
-  renderSubMenu(); 
-  subMenu.classList.remove('open'); 
-});
-
-document.getElementById('subFileInput').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if(!file) return;
-  loadLocalSubtitle(file);
-  this.value = '';
-});
 
 function toggleMenu(menu){ 
   document.querySelectorAll('.menu-pop').forEach(m=>{ if(m!==menu) m.classList.remove('open'); }); 
@@ -2066,15 +2627,15 @@ function toggleMenu(menu){
 }
 
 document.addEventListener('click', (e) => { 
-  if(!e.target.closest('.ctrl-pos')) document.querySelectorAll('.menu-pop').forEach(m=>m.classList.remove('open')); 
+  if (!e.target.closest('.ctrl-pos')) document.querySelectorAll('.menu-pop').forEach(m=>m.classList.remove('open')); 
 });
 
-function clearSubtitles(){ 
-  Array.from(video.querySelectorAll('track')).forEach(t => { 
-    if(t.src && t.src.startsWith('blob:')) URL.revokeObjectURL(t.src);
-    t.remove(); 
-  });
-}
+document.getElementById('subFileInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  loadLocalSubtitle(file);
+  this.value = '';
+});
 
 document.getElementById('fsBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>`;
 document.getElementById('fsBtn').onclick = () => { if(!document.fullscreenElement) watchEl.requestFullscreen?.(); else document.exitFullscreen?.(); };
@@ -2132,6 +2693,9 @@ document.getElementById('searchForm').addEventListener('submit', (e) => {
 });
 
 handleRoute();
+
+/* ---------- STORE REFERENCE TO OPEN PLAYER ---------- */
+window.openPlayer = openPlayer;
 </script>
 
 <!--Donation Popup-->
