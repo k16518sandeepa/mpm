@@ -623,6 +623,7 @@
         </div>
         <div id="timeDisplay">0:00 / 0:00</div>
         <div class="spacer"></div>
+        <div class="ctrl-pos" id="audioCtrlPos" style="display:none;"><button id="audioBtn" title="Audio track"></button><div class="menu-pop" id="audioMenu"></div></div>
         <div class="ctrl-pos"><button id="subBtn" title="Subtitles"></button><div class="menu-pop" id="subMenu"></div></div>
         <div class="ctrl-pos"><button id="speedBtn" title="Playback speed"></button><div class="menu-pop" id="speedMenu"></div></div>
         <button id="pipBtn" title="Picture in picture"></button>
@@ -1589,6 +1590,7 @@ function openPlayer(url, title, subUrls){
       }
     }
     setTimeout(renderSubMenu, 300);
+    setTimeout(renderAudioMenu, 300);
   });
   
   video.play().catch(()=>{});
@@ -1984,6 +1986,47 @@ function renderSubMenu(){
   
   const uploadBtn = document.getElementById('uploadLocalSubBtn');
   if(uploadBtn) uploadBtn.onclick = () => document.getElementById('subFileInput').click();
+}
+
+document.getElementById('audioBtn').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6zM10 19a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>`;
+const audioMenu = document.getElementById('audioMenu');
+const audioCtrlPos = document.getElementById('audioCtrlPos');
+
+function renderAudioMenu(){
+  const supported = 'audioTracks' in video;
+  const tracks = supported ? Array.from(video.audioTracks) : [];
+
+  if(!supported || tracks.length < 2){
+    audioCtrlPos.style.display = 'none';
+    return;
+  }
+  audioCtrlPos.style.display = '';
+
+  audioMenu.innerHTML = `<h5>🔊 Audio</h5>` + tracks.map((t, i) => {
+    const label = t.label || t.language || ('Audio ' + (i + 1));
+    return `<div class="opt ${t.enabled ? 'active' : ''}" data-idx="${i}">${escapeHtml(label)}${t.language ? `<span class="lang-label">${escapeHtml(t.language)}</span>` : ''}</div>`;
+  }).join('');
+}
+
+audioMenu.addEventListener('click', (e) => {
+  const opt = e.target.closest('.opt');
+  if(!opt || opt.dataset.idx === undefined) return;
+  const idx = parseInt(opt.dataset.idx);
+  const tracks = Array.from(video.audioTracks);
+  tracks.forEach((t, i) => { t.enabled = (i === idx); });
+  renderAudioMenu();
+  audioMenu.classList.remove('open');
+});
+
+document.getElementById('audioBtn').onclick = (e) => {
+  e.stopPropagation();
+  renderAudioMenu();
+  toggleMenu(audioMenu);
+};
+
+if('audioTracks' in video){
+  video.audioTracks.addEventListener('addtrack', () => renderAudioMenu());
+  video.audioTracks.addEventListener('removetrack', () => renderAudioMenu());
 }
 
 document.getElementById('subBtn').onclick = (e) => { 
