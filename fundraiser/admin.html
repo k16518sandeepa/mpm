@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MPM Fundraiser — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#EDEAE0; --ink-dim:#B9B4A8;
+    --bg:#141019; --bg-2:#1B1622; --bg-3:#221B2B;
+    --gold:#E8B454; --cyan:#4FB6A8; --red:#D9634F;
+    --line: rgba(237,234,224,0.14);
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'Work Sans',sans-serif;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 20px 60px;}
+  header{border-bottom:1px solid var(--line); padding:20px 0; margin-bottom:26px;}
+  .brand{font-family:'Anton',sans-serif; font-size:20px; text-transform:uppercase; letter-spacing:0.05em; color:var(--gold);}
+  .brand span{color:var(--ink-dim); font-family:'Space Mono',monospace; font-size:12px; margin-left:10px; text-transform:none;}
+
+  .notice{
+    background:var(--bg-2); border:1px solid var(--line); border-left:3px solid var(--cyan);
+    padding:14px 16px; font-size:13px; color:var(--ink-dim); border-radius:var(--radius); margin-bottom:26px; line-height:1.6;
+  }
+  .notice b{color:var(--ink);}
+
+  .toolbar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:30px;}
+  button{
+    font-family:'Space Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.04em;
+    background:var(--bg-2); color:var(--ink); border:1px solid var(--line); padding:10px 16px; border-radius:var(--radius);
+    cursor:pointer; transition:all .15s;
+  }
+  button:hover{border-color:var(--gold); color:var(--gold);}
+  button.primary{background:var(--gold); color:#1B1622; border-color:var(--gold); font-weight:700;}
+  button.primary:hover{background:#f0c26e; color:#1B1622;}
+  button.danger:hover{border-color:var(--red); color:var(--red);}
+  input[type=file]{display:none;}
+
+  h2{font-family:'Anton',sans-serif; font-size:17px; text-transform:uppercase; letter-spacing:0.03em; border-bottom:1px solid var(--line); padding-bottom:10px; margin:38px 0 18px;}
+
+  .settings-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:12px; margin-bottom:10px;}
+  @media(max-width:640px){.settings-grid{grid-template-columns:1fr;}}
+
+  label{display:block; font-family:'Space Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-dim); margin-bottom:5px;}
+  input[type=text], input[type=number], input[type=date], select, textarea{
+    width:100%; background:var(--bg-2); border:1px solid var(--line); color:var(--ink);
+    font-family:'Work Sans',sans-serif; font-size:14px; padding:10px 12px; border-radius:var(--radius);
+  }
+  input:focus, select:focus, textarea:focus{outline:none; border-color:var(--gold);}
+
+  .field{margin-bottom:12px;}
+  .form-card{background:var(--bg-2); border:1px solid var(--line); border-radius:var(--radius); padding:18px; margin-bottom:10px;}
+  .form-row{display:grid; grid-template-columns:2fr 1fr 1fr; gap:12px;}
+  .form-row2{display:grid; grid-template-columns:1fr auto; gap:12px; align-items:end;}
+  @media(max-width:640px){.form-row, .form-row2{grid-template-columns:1fr;}}
+  .checkline{display:flex; align-items:center; gap:8px; margin-top:6px;}
+  .checkline input{width:auto;}
+  .checkline label{margin:0; text-transform:none; font-size:13px; color:var(--ink);}
+
+  table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  th, td{text-align:left; padding:10px 8px; border-bottom:1px solid var(--line);}
+  th{font-family:'Space Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-dim);}
+  td.amt{font-family:'Space Mono',monospace; text-align:right;}
+  td.actions{text-align:right; white-space:nowrap;}
+  td.actions button{padding:5px 10px; font-size:11px; margin-left:6px;}
+  .muted{color:var(--ink-dim); font-size:12px;}
+  .empty-row td{color:var(--ink-dim); font-family:'Space Mono',monospace; font-size:12px; padding:16px 8px;}
+
+  .totals-bar{display:flex; gap:24px; flex-wrap:wrap; margin:14px 0 8px; font-family:'Space Mono',monospace; font-size:13px;}
+  .totals-bar div span{color:var(--ink-dim); margin-right:6px;}
+  .t-raised{color:var(--cyan);} .t-spent{color:var(--red);} .t-balance{color:var(--gold);}
+
+  .status-toast{
+    position:fixed; bottom:20px; right:20px; background:var(--gold); color:#1B1622; font-weight:700;
+    font-family:'Space Mono',monospace; font-size:12.5px; padding:12px 18px; border-radius:var(--radius);
+    box-shadow:0 6px 18px rgba(0,0,0,.4); opacity:0; transform:translateY(10px); transition:all .25s; pointer-events:none; z-index:50;
+  }
+  .status-toast.show{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap" style="border:0; padding:0; margin:0;">
+    <div class="brand">MPM Fundraiser <span>/// Admin — local entry tool</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="notice">
+    <b>How this works:</b> everything here is stored in this browser only — nothing is sent anywhere, there's no server.
+    Click <b>Load current data.js</b> to pull in what's already live, make your changes, then click <b>Export data.js</b>
+    and upload the downloaded file to your host, replacing the old one next to <code>index.html</code>. That single file is what
+    powers the public page.
+  </div>
+
+  <div class="toolbar">
+    <button class="primary" id="btnExport">⬇ Export data.js</button>
+    <button id="btnLoadLive">↻ Load current data.js</button>
+    <button id="btnImportFile">Import a data.js file</button>
+    <input type="file" id="fileInput" accept=".js,.json">
+    <button class="danger" id="btnReset">Reset all entries</button>
+  </div>
+
+  <h2>Project settings</h2>
+  <div class="form-card">
+    <div class="settings-grid">
+      <div class="field"><label>Project name</label><input type="text" id="projName"></div>
+      <div class="field"><label>Goal amount</label><input type="number" id="projGoal" min="0" step="1"></div>
+      <div class="field"><label>Currency</label><input type="text" id="projCurrency" maxlength="6"></div>
+    </div>
+    <div class="field"><label>Start date</label><input type="date" id="projStart" style="max-width:220px;"></div>
+  </div>
+
+  <h2>Add a donation</h2>
+  <div class="form-card">
+    <div class="form-row">
+      <div class="field"><label>Donor name</label><input type="text" id="dName" placeholder="e.g. Kasun P."></div>
+      <div class="field"><label>Amount</label><input type="number" id="dAmount" min="0" step="1"></div>
+      <div class="field"><label>Date</label><input type="date" id="dDate"></div>
+    </div>
+    <div class="field"><label>Note (optional)</label><input type="text" id="dNote" placeholder="e.g. For the anime section"></div>
+    <div class="checkline"><input type="checkbox" id="dAnon"><label for="dAnon">Show as "Anonymous" on the public page</label></div>
+    <div style="margin-top:12px;"><button class="primary" id="btnAddDonation">+ Add donation</button></div>
+  </div>
+
+  <table id="donationTable">
+    <thead><tr><th>Name</th><th>Note</th><th>Date</th><th style="text-align:right;">Amount</th><th></th></tr></thead>
+    <tbody id="donationBody"></tbody>
+  </table>
+
+  <h2>Add an expense</h2>
+  <div class="form-card">
+    <div class="form-row">
+      <div class="field"><label>Description</label><input type="text" id="eTitle" placeholder="e.g. VPS renewal — 6 months"></div>
+      <div class="field"><label>Amount</label><input type="number" id="eAmount" min="0" step="1"></div>
+      <div class="field"><label>Date</label><input type="date" id="eDate"></div>
+    </div>
+    <div class="field"><label>Category (optional)</label><input type="text" id="eCategory" placeholder="e.g. Hosting, Storage, Infrastructure"></div>
+    <div style="margin-top:12px;"><button class="primary" id="btnAddExpense">+ Add expense</button></div>
+  </div>
+
+  <table id="expenseTable">
+    <thead><tr><th>Description</th><th>Category</th><th>Date</th><th style="text-align:right;">Amount</th><th></th></tr></thead>
+    <tbody id="expenseBody"></tbody>
+  </table>
+
+  <h2>Summary</h2>
+  <div class="totals-bar">
+    <div><span>Raised</span><b class="t-raised" id="sumRaised">—</b></div>
+    <div><span>Spent</span><b class="t-spent" id="sumSpent">—</b></div>
+    <div><span>Balance</span><b class="t-balance" id="sumBalance">—</b></div>
+    <div><span>Donors</span><b id="sumDonors">—</b></div>
+  </div>
+  <p class="muted">Don't forget to click <b>Export data.js</b> after making changes — nothing goes live until you upload that file.</p>
+</div>
+
+<div class="status-toast" id="toast"></div>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'mpm_fundraiser_admin_draft_v1';
+  let data = null;
+
+  const defaultData = () => ({
+    projectName: "MPM Fundraiser",
+    goal: 0,
+    currency: "LKR",
+    startDate: new Date().toISOString().slice(0,10),
+    donations: [],
+    expenses: []
+  });
+
+  function load(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      try{ data = JSON.parse(raw); return; }catch(e){}
+    }
+    data = defaultData();
+  }
+  function persist(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toast._h);
+    toast._h = setTimeout(()=> t.classList.remove('show'), 2200);
+  }
+
+  // ---------- settings ----------
+  function fillSettings(){
+    document.getElementById('projName').value = data.projectName || '';
+    document.getElementById('projGoal').value = data.goal || 0;
+    document.getElementById('projCurrency').value = data.currency || 'LKR';
+    document.getElementById('projStart').value = data.startDate || '';
+  }
+  ['projName','projGoal','projCurrency','projStart'].forEach(id=>{
+    document.getElementById(id).addEventListener('input', ()=>{
+      data.projectName = document.getElementById('projName').value;
+      data.goal = Number(document.getElementById('projGoal').value)||0;
+      data.currency = document.getElementById('projCurrency').value || 'LKR';
+      data.startDate = document.getElementById('projStart').value;
+      persist(); renderSummary();
+    });
+  });
+
+  // ---------- donations ----------
+  function renderDonations(){
+    const body = document.getElementById('donationBody');
+    body.innerHTML = '';
+    if(data.donations.length===0){
+      body.innerHTML = '<tr class="empty-row"><td colspan="5">No donations yet — add one above.</td></tr>';
+    } else {
+      data.donations.slice().sort((a,b)=> new Date(b.date)-new Date(a.date)).forEach((d)=>{
+        const realIndex = data.donations.indexOf(d);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHtml(d.anonymous ? 'Anonymous' : d.name)}${d.anonymous?' <span class="muted">(real: '+escapeHtml(d.name)+')</span>':''}</td>
+          <td class="muted">${escapeHtml(d.note||'—')}</td>
+          <td>${d.date||''}</td>
+          <td class="amt">${fmt(d.amount)}</td>
+          <td class="actions"><button data-i="${realIndex}" class="editD">Edit</button><button data-i="${realIndex}" class="danger delD">Delete</button></td>
+        `;
+        body.appendChild(tr);
+      });
+    }
+    body.querySelectorAll('.delD').forEach(b=> b.addEventListener('click', e=>{
+      const i = Number(e.target.dataset.i);
+      if(confirm('Delete this donation?')){ data.donations.splice(i,1); persist(); renderDonations(); renderSummary(); toast('Donation deleted'); }
+    }));
+    body.querySelectorAll('.editD').forEach(b=> b.addEventListener('click', e=>{
+      const i = Number(e.target.dataset.i);
+      const d = data.donations[i];
+      document.getElementById('dName').value = d.name;
+      document.getElementById('dAmount').value = d.amount;
+      document.getElementById('dDate').value = d.date;
+      document.getElementById('dNote').value = d.note||'';
+      document.getElementById('dAnon').checked = !!d.anonymous;
+      data.donations.splice(i,1);
+      persist(); renderDonations(); renderSummary();
+      window.scrollTo({top: document.getElementById('dName').getBoundingClientRect().top + window.scrollY - 100, behavior:'smooth'});
+      toast('Editing — update fields and click Add donation');
+    }));
+  }
+  document.getElementById('btnAddDonation').addEventListener('click', ()=>{
+    const name = document.getElementById('dName').value.trim();
+    const amount = Number(document.getElementById('dAmount').value);
+    const date = document.getElementById('dDate').value;
+    const note = document.getElementById('dNote').value.trim();
+    const anonymous = document.getElementById('dAnon').checked;
+    if(!name || !amount || !date){ toast('Name, amount and date are required'); return; }
+    data.donations.push({name, amount, date, note, anonymous});
+    persist(); renderDonations(); renderSummary();
+    document.getElementById('dName').value=''; document.getElementById('dAmount').value='';
+    document.getElementById('dDate').value=''; document.getElementById('dNote').value=''; document.getElementById('dAnon').checked=false;
+    toast('Donation added');
+  });
+
+  // ---------- expenses ----------
+  function renderExpenses(){
+    const body = document.getElementById('expenseBody');
+    body.innerHTML = '';
+    if(data.expenses.length===0){
+      body.innerHTML = '<tr class="empty-row"><td colspan="5">No expenses yet — add one above.</td></tr>';
+    } else {
+      data.expenses.slice().sort((a,b)=> new Date(b.date)-new Date(a.date)).forEach((e)=>{
+        const realIndex = data.expenses.indexOf(e);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHtml(e.title)}</td>
+          <td class="muted">${escapeHtml(e.category||'—')}</td>
+          <td>${e.date||''}</td>
+          <td class="amt">${fmt(e.amount)}</td>
+          <td class="actions"><button data-i="${realIndex}" class="editE">Edit</button><button data-i="${realIndex}" class="danger delE">Delete</button></td>
+        `;
+        body.appendChild(tr);
+      });
+    }
+    body.querySelectorAll('.delE').forEach(b=> b.addEventListener('click', e=>{
+      const i = Number(e.target.dataset.i);
+      if(confirm('Delete this expense?')){ data.expenses.splice(i,1); persist(); renderExpenses(); renderSummary(); toast('Expense deleted'); }
+    }));
+    body.querySelectorAll('.editE').forEach(b=> b.addEventListener('click', e=>{
+      const i = Number(e.target.dataset.i);
+      const ex = data.expenses[i];
+      document.getElementById('eTitle').value = ex.title;
+      document.getElementById('eAmount').value = ex.amount;
+      document.getElementById('eDate').value = ex.date;
+      document.getElementById('eCategory').value = ex.category||'';
+      data.expenses.splice(i,1);
+      persist(); renderExpenses(); renderSummary();
+      window.scrollTo({top: document.getElementById('eTitle').getBoundingClientRect().top + window.scrollY - 100, behavior:'smooth'});
+      toast('Editing — update fields and click Add expense');
+    }));
+  }
+  document.getElementById('btnAddExpense').addEventListener('click', ()=>{
+    const title = document.getElementById('eTitle').value.trim();
+    const amount = Number(document.getElementById('eAmount').value);
+    const date = document.getElementById('eDate').value;
+    const category = document.getElementById('eCategory').value.trim();
+    if(!title || !amount || !date){ toast('Description, amount and date are required'); return; }
+    data.expenses.push({title, amount, date, category});
+    persist(); renderExpenses(); renderSummary();
+    document.getElementById('eTitle').value=''; document.getElementById('eAmount').value='';
+    document.getElementById('eDate').value=''; document.getElementById('eCategory').value='';
+    toast('Expense added');
+  });
+
+  // ---------- summary ----------
+  function fmt(n){ return (data.currency||'LKR') + ' ' + Number(n||0).toLocaleString('en-LK'); }
+  function renderSummary(){
+    const raised = data.donations.reduce((s,d)=>s+Number(d.amount||0),0);
+    const spent = data.expenses.reduce((s,e)=>s+Number(e.amount||0),0);
+    document.getElementById('sumRaised').textContent = fmt(raised);
+    document.getElementById('sumSpent').textContent = fmt(spent);
+    document.getElementById('sumBalance').textContent = fmt(raised-spent);
+    document.getElementById('sumDonors').textContent = data.donations.length;
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function renderAll(){ fillSettings(); renderDonations(); renderExpenses(); renderSummary(); }
+
+  // ---------- export ----------
+  document.getElementById('btnExport').addEventListener('click', ()=>{
+    const header = `/*\n  MPM FUNDRAISER — DATA FILE\n  Generated by admin.html — replace the copy next to index.html on your host.\n*/\n`;
+    const content = header + `const FUNDRAISING_DATA = ${JSON.stringify(data, null, 2)};\n`;
+    const blob = new Blob([content], {type:'text/javascript'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'data.js';
+    a.click();
+    toast('data.js downloaded — upload it to your host');
+  });
+
+  // ---------- load current live data.js (works if served over http/https) ----------
+  document.getElementById('btnLoadLive').addEventListener('click', async ()=>{
+    try{
+      const res = await fetch('data.js?_=' + Date.now());
+      if(!res.ok) throw new Error('not found');
+      const text = await res.text();
+      parseAndLoad(text);
+      toast('Loaded current data.js');
+    }catch(e){
+      toast('Could not fetch data.js — use "Import a data.js file" instead');
+    }
+  });
+
+  // ---------- import via file picker (works even opened as a local file) ----------
+  document.getElementById('btnImportFile').addEventListener('click', ()=> document.getElementById('fileInput').click());
+  document.getElementById('fileInput').addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{ parseAndLoad(reader.result); toast('Imported ' + file.name); };
+    reader.readAsText(file);
+  });
+
+  function parseAndLoad(text){
+    const match = text.match(/FUNDRAISING_DATA\s*=\s*(\{[\s\S]*\})\s*;?\s*$/);
+    const jsonStr = match ? match[1] : text;
+    const parsed = JSON.parse(jsonStr);
+    data = Object.assign(defaultData(), parsed);
+    persist();
+    renderAll();
+  }
+
+  // ---------- reset ----------
+  document.getElementById('btnReset').addEventListener('click', ()=>{
+    if(confirm('This clears all donations and expenses in this editor (not the live site until you export). Continue?')){
+      data = defaultData();
+      persist(); renderAll();
+      toast('Cleared — export when ready');
+    }
+  });
+
+  load();
+  renderAll();
+})();
+</script>
+</body>
+</html>

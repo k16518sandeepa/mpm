@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MPM Fundraiser — Open Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#EDEAE0;
+    --ink-dim:#B9B4A8;
+    --bg:#141019;
+    --bg-2:#1B1622;
+    --bg-3:#221B2B;
+    --gold:#E8B454;
+    --cyan:#4FB6A8;
+    --red:#D9634F;
+    --line: rgba(237,234,224,0.12);
+    --radius: 2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+  a{color:var(--gold);}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 24px;}
+  .mono{font-family:'Space Mono', monospace;}
+
+  /* ---------- Marquee header ---------- */
+  header.marquee{
+    border-bottom:1px solid var(--line);
+    padding:22px 0;
+    background:
+      repeating-linear-gradient(90deg, var(--bg-2) 0 2px, transparent 2px 14px) top / 100% 4px no-repeat,
+      var(--bg);
+  }
+  .marquee-inner{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  .brand{
+    font-family:'Anton', sans-serif;
+    font-size:22px;
+    letter-spacing:0.06em;
+    color:var(--gold);
+    text-transform:uppercase;
+  }
+  .brand span{color:var(--ink-dim); font-family:'Space Mono',monospace; font-size:13px; letter-spacing:0.02em; margin-left:10px; text-transform:none;}
+  .status-pill{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    border:1px solid var(--cyan);
+    padding:5px 10px;
+    border-radius:999px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{padding:64px 0 40px; text-align:center;}
+  .hero-eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    font-size:clamp(32px, 6vw, 56px);
+    line-height:1.08;
+    margin:0 0 22px;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+  }
+  .hero h1 em{font-style:normal; color:var(--gold);}
+
+  .raised-figure{font-family:'Anton', sans-serif; font-size:clamp(48px,10vw,84px); color:var(--gold); line-height:1;}
+  .raised-of{font-family:'Space Mono', monospace; color:var(--ink-dim); font-size:15px; margin-top:6px;}
+
+  /* ---------- Filmstrip progress bar (signature element) ---------- */
+  .filmstrip-wrap{max-width:720px; margin:34px auto 8px;}
+  .filmstrip{
+    position:relative;
+    height:46px;
+    background:var(--bg-3);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .filmstrip::before, .filmstrip::after{
+    content:"";
+    position:absolute; left:0; right:0; height:9px;
+    background-image: radial-gradient(circle, var(--bg) 3px, transparent 3.2px);
+    background-size: 20px 9px;
+    background-repeat:repeat-x;
+    background-position: 4px center;
+    z-index:3;
+  }
+  .filmstrip::before{top:0;}
+  .filmstrip::after{bottom:0;}
+  .filmstrip-fill{
+    position:absolute; top:0; bottom:0; left:0;
+    width:0%;
+    background: linear-gradient(90deg, var(--cyan), var(--gold));
+    transition: width 1.1s cubic-bezier(.2,.9,.25,1);
+  }
+  .filmstrip-pct{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono', monospace; font-weight:700; font-size:13px; letter-spacing:0.04em;
+    color:var(--bg); mix-blend-mode:normal; z-index:4;
+    text-shadow:0 1px 0 rgba(255,255,255,0.15);
+  }
+  .goal-caption{
+    display:flex; justify-content:space-between;
+    font-family:'Space Mono', monospace; font-size:12px; color:var(--ink-dim); margin-top:8px;
+  }
+
+  /* ---------- Stats row ---------- */
+  .stats{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin:48px 0;
+  }
+  .stat{background:var(--bg); padding:22px 18px;}
+  .stat .k{font-family:'Space Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-dim); margin-bottom:8px;}
+  .stat .v{font-family:'Anton', sans-serif; font-size:26px;}
+  .stat.raised .v{color:var(--cyan);}
+  .stat.spent .v{color:var(--red);}
+  .stat.balance .v{color:var(--gold);}
+  @media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr);}}
+
+  /* ---------- Section shell ---------- */
+  section.block{padding:36px 0;}
+  .block-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:10px; flex-wrap:wrap;}
+  .block-title{font-family:'Anton', sans-serif; font-size:20px; text-transform:uppercase; letter-spacing:0.03em;}
+  .block-sub{font-family:'Space Mono', monospace; font-size:12px; color:var(--ink-dim);}
+
+  /* ---------- Chart ---------- */
+  .chart-card{background:var(--bg-2); border:1px solid var(--line); padding:20px; border-radius:var(--radius);}
+  canvas{width:100%; display:block;}
+
+  /* ---------- Controls (search/sort) ---------- */
+  .controls{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;}
+  .controls input, .controls select{
+    background:var(--bg-2); border:1px solid var(--line); color:var(--ink);
+    font-family:'Work Sans',sans-serif; font-size:13px; padding:9px 12px; border-radius:var(--radius);
+  }
+  .controls input{flex:1; min-width:160px;}
+
+  /* ---------- Ledger list (credits reel) ---------- */
+  .reel{border-top:1px solid var(--line);}
+  .reel-row{
+    display:grid; grid-template-columns:56px 1fr auto 100px; gap:14px; align-items:center;
+    padding:13px 4px; border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .reel-row .idx{font-family:'Space Mono',monospace; color:var(--ink-dim); font-size:12px;}
+  .reel-row .name{font-weight:600;}
+  .reel-row .note{display:block; color:var(--ink-dim); font-size:12.5px; font-weight:400; margin-top:2px;}
+  .reel-row .amt{font-family:'Space Mono',monospace; font-weight:700; color:var(--cyan); text-align:right;}
+  .reel-row .amt.exp{color:var(--red);}
+  .reel-row .date{font-family:'Space Mono',monospace; font-size:12px; color:var(--ink-dim); text-align:right;}
+  @media (max-width:560px){
+    .reel-row{grid-template-columns:32px 1fr auto; grid-template-areas:"idx name amt" "idx date date";}
+    .reel-row .idx{grid-area:idx;} .reel-row .name{grid-area:name;} .reel-row .amt{grid-area:amt;} .reel-row .date{grid-area:date; text-align:left; margin-top:2px;}
+  }
+  .empty{padding:30px 4px; color:var(--ink-dim); font-family:'Space Mono',monospace; font-size:13px;}
+
+  .cat-tag{
+    font-family:'Space Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em;
+    color:var(--ink-dim); border:1px solid var(--line); padding:2px 7px; border-radius:999px; margin-top:4px; display:inline-block;
+  }
+
+  footer{border-top:1px solid var(--line); padding:30px 0 50px; text-align:center; color:var(--ink-dim); font-family:'Space Mono',monospace; font-size:12px;}
+</style>
+</head>
+<body>
+
+<header class="marquee">
+  <div class="wrap marquee-inner">
+    <div class="brand">Motion Picture Mafia <span>/// Open Ledger</span></div>
+    <div class="status-pill" id="statusPill">Loading…</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">Community-funded · Fully public</div>
+    <h1 id="projectTitle">Loading project<em>.</em></h1>
+    <div class="raised-figure" id="raisedFigure">—</div>
+    <div class="raised-of" id="raisedOf">of goal</div>
+
+    <div class="filmstrip-wrap">
+      <div class="filmstrip">
+        <div class="filmstrip-fill" id="filmFill"></div>
+        <div class="filmstrip-pct" id="filmPct">0%</div>
+      </div>
+      <div class="goal-caption">
+        <span id="capStart">start</span>
+        <span id="capGoal">goal</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat raised"><div class="k">Raised</div><div class="v" id="statRaised">—</div></div>
+    <div class="stat spent"><div class="k">Spent</div><div class="v" id="statSpent">—</div></div>
+    <div class="stat balance"><div class="k">Balance</div><div class="v" id="statBalance">—</div></div>
+    <div class="stat"><div class="k">Donors</div><div class="v" id="statDonors">—</div></div>
+  </div>
+</div>
+
+<section class="block wrap">
+  <div class="block-head">
+    <div class="block-title">Funds raised over time</div>
+    <div class="block-sub">cumulative, by donation date</div>
+  </div>
+  <div class="chart-card"><canvas id="chart" height="220"></canvas></div>
+</section>
+
+<section class="block wrap">
+  <div class="block-head">
+    <div class="block-title" id="donorsTitle">Opening credits — Donors</div>
+    <div class="block-sub" id="donorsSub">newest first</div>
+  </div>
+  <div class="controls">
+    <input type="text" id="donorSearch" placeholder="Search a name or note…">
+    <select id="donorSort">
+      <option value="date_desc">Newest first</option>
+      <option value="date_asc">Oldest first</option>
+      <option value="amt_desc">Largest amount</option>
+      <option value="amt_asc">Smallest amount</option>
+    </select>
+  </div>
+  <div class="reel" id="donorList"></div>
+</section>
+
+<section class="block wrap">
+  <div class="block-head">
+    <div class="block-title" id="expTitle">Production costs — Expenses</div>
+    <div class="block-sub">where the money went</div>
+  </div>
+  <div class="reel" id="expList"></div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Every rupee in, every rupee out — logged here as it happens.<br>
+    Questions about an entry? Reach out to the MPM team.
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  const D = window.FUNDRAISING_DATA || { projectName:"Fundraiser", goal:0, currency:"LKR", donations:[], expenses:[] };
+  const fmt = n => Number(n||0).toLocaleString('en-LK', {maximumFractionDigits:0});
+  const money = n => `${D.currency} ${fmt(n)}`;
+
+  const totalRaised = D.donations.reduce((s,d)=>s+Number(d.amount||0),0);
+  const totalSpent  = D.expenses.reduce((s,e)=>s+Number(e.amount||0),0);
+  const balance = totalRaised - totalSpent;
+  const pct = D.goal>0 ? Math.min(100, Math.round((totalRaised/D.goal)*1000)/10) : 0;
+
+  document.getElementById('projectTitle').innerHTML = D.projectName + '<em>.</em>';
+  document.title = D.projectName + ' — Open Ledger';
+  document.getElementById('raisedFigure').textContent = money(totalRaised);
+  document.getElementById('raisedOf').textContent = `raised of ${money(D.goal)} goal`;
+  document.getElementById('capStart').textContent = D.startDate ? `since ${D.startDate}` : '';
+  document.getElementById('capGoal').textContent = `goal: ${money(D.goal)}`;
+  document.getElementById('statRaised').textContent = money(totalRaised);
+  document.getElementById('statSpent').textContent = money(totalSpent);
+  document.getElementById('statBalance').textContent = money(balance);
+  document.getElementById('statDonors').textContent = D.donations.length;
+  document.getElementById('donorsSub').textContent = `${D.donations.length} contribution${D.donations.length===1?'':'s'} · newest first`;
+
+  const pill = document.getElementById('statusPill');
+  pill.textContent = pct >= 100 ? 'Goal reached' : `${pct}% funded`;
+
+  requestAnimationFrame(()=>{
+    document.getElementById('filmFill').style.width = pct + '%';
+    document.getElementById('filmPct').textContent = pct + '%';
+  });
+
+  // ---------- Donor list ----------
+  const donorListEl = document.getElementById('donorList');
+  const searchEl = document.getElementById('donorSearch');
+  const sortEl = document.getElementById('donorSort');
+
+  function renderDonors(){
+    let rows = D.donations.slice();
+    const q = searchEl.value.trim().toLowerCase();
+    if(q){
+      rows = rows.filter(d => (d.anonymous? 'anonymous' : (d.name||'')).toLowerCase().includes(q) || (d.note||'').toLowerCase().includes(q));
+    }
+    const sortMode = sortEl.value;
+    rows.sort((a,b)=>{
+      if(sortMode==='date_desc') return new Date(b.date) - new Date(a.date);
+      if(sortMode==='date_asc') return new Date(a.date) - new Date(b.date);
+      if(sortMode==='amt_desc') return b.amount - a.amount;
+      if(sortMode==='amt_asc') return a.amount - b.amount;
+    });
+    donorListEl.innerHTML = '';
+    if(rows.length===0){
+      donorListEl.innerHTML = '<div class="empty">No matching donations.</div>';
+      return;
+    }
+    rows.forEach((d,i)=>{
+      const displayName = d.anonymous ? 'Anonymous' : (d.name || 'Anonymous');
+      const el = document.createElement('div');
+      el.className = 'reel-row';
+      el.innerHTML = `
+        <div class="idx">${String(i+1).padStart(2,'0')}</div>
+        <div class="name">${escapeHtml(displayName)}${d.note ? `<span class="note">${escapeHtml(d.note)}</span>` : ''}</div>
+        <div class="amt">+${money(d.amount)}</div>
+        <div class="date">${d.date||''}</div>
+      `;
+      donorListEl.appendChild(el);
+    });
+  }
+  searchEl.addEventListener('input', renderDonors);
+  sortEl.addEventListener('change', renderDonors);
+  renderDonors();
+
+  // ---------- Expense list ----------
+  const expListEl = document.getElementById('expList');
+  function renderExpenses(){
+    const rows = D.expenses.slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
+    expListEl.innerHTML = '';
+    if(rows.length===0){
+      expListEl.innerHTML = '<div class="empty">No expenses logged yet.</div>';
+      return;
+    }
+    rows.forEach((e,i)=>{
+      const el = document.createElement('div');
+      el.className = 'reel-row';
+      el.innerHTML = `
+        <div class="idx">${String(i+1).padStart(2,'0')}</div>
+        <div class="name">${escapeHtml(e.title)}${e.category ? `<span class="cat-tag">${escapeHtml(e.category)}</span>` : ''}</div>
+        <div class="amt exp">−${money(e.amount)}</div>
+        <div class="date">${e.date||''}</div>
+      `;
+      expListEl.appendChild(el);
+    });
+  }
+  renderExpenses();
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  // ---------- Chart: cumulative raised over time ----------
+  const canvas = document.getElementById('chart');
+  function drawChart(){
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth, h = canvas.clientHeight || 220;
+    canvas.width = w*dpr; canvas.height = h*dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr,dpr);
+    ctx.clearRect(0,0,w,h);
+
+    const sorted = D.donations.slice().sort((a,b)=> new Date(a.date)-new Date(b.date));
+    if(sorted.length===0){
+      ctx.fillStyle = '#B9B4A8'; ctx.font = '12px monospace';
+      ctx.fillText('No donations yet.', 10, h/2);
+      return;
+    }
+    let running = 0;
+    const points = sorted.map(d=>{ running += Number(d.amount||0); return {date:new Date(d.date), val:running}; });
+
+    const padL=54, padR=16, padT=16, padB=28;
+    const minT = points[0].date.getTime(), maxT = points[points.length-1].date.getTime();
+    const maxV = Math.max(points[points.length-1].val, D.goal||0);
+
+    const x = t => padL + (maxT===minT? 0 : (t-minT)/(maxT-minT)) * (w-padL-padR);
+    const y = v => padT + (1 - v/maxV) * (h-padT-padB);
+
+    // gridlines + y labels
+    ctx.strokeStyle = 'rgba(237,234,224,0.1)'; ctx.fillStyle = '#B9B4A8'; ctx.font = '10px monospace'; ctx.lineWidth=1;
+    for(let i=0;i<=4;i++){
+      const v = maxV * i/4;
+      const yy = y(v);
+      ctx.beginPath(); ctx.moveTo(padL, yy); ctx.lineTo(w-padR, yy); ctx.stroke();
+      ctx.fillText(fmt(Math.round(v)), 4, yy+3);
+    }
+
+    // goal line
+    if(D.goal>0){
+      ctx.strokeStyle = '#E8B454'; ctx.setLineDash([4,4]);
+      const gy = y(D.goal);
+      ctx.beginPath(); ctx.moveTo(padL,gy); ctx.lineTo(w-padR,gy); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // area
+    ctx.beginPath();
+    ctx.moveTo(x(points[0].date.getTime()), y(0));
+    points.forEach(p=> ctx.lineTo(x(p.date.getTime()), y(p.val)));
+    ctx.lineTo(x(points[points.length-1].date.getTime()), y(0));
+    ctx.closePath();
+    const grad = ctx.createLinearGradient(0,padT,0,h-padB);
+    grad.addColorStop(0,'rgba(79,182,168,0.35)');
+    grad.addColorStop(1,'rgba(79,182,168,0.02)');
+    ctx.fillStyle = grad; ctx.fill();
+
+    // line
+    ctx.beginPath();
+    points.forEach((p,i)=>{
+      const px=x(p.date.getTime()), py=y(p.val);
+      if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+    });
+    ctx.strokeStyle = '#4FB6A8'; ctx.lineWidth = 2; ctx.stroke();
+
+    // points
+    ctx.fillStyle = '#E8B454';
+    points.forEach(p=>{
+      ctx.beginPath(); ctx.arc(x(p.date.getTime()), y(p.val), 2.6, 0, Math.PI*2); ctx.fill();
+    });
+  }
+  drawChart();
+  window.addEventListener('resize', drawChart);
+})();
+</script>
+</body>
+</html>
