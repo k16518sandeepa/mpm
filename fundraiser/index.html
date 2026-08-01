@@ -264,10 +264,17 @@
   </div>
 </footer>
 
-<script src="data.js"></script>
 <script>
-(function(){
-  const D = window.FUNDRAISING_DATA || { projectName:"Fundraiser", goal:0, currency:"LKR", donations:[], expenses:[] };
+(async function(){
+  let D = { projectName:"Fundraiser", goal:0, currency:"LKR", donations:[], expenses:[] };
+  try{
+    const res = await fetch('data.js?_=' + Date.now(), { cache:'no-store' });
+    const text = await res.text();
+    const match = text.match(/FUNDRAISING_DATA\s*=\s*(\{[\s\S]*\})\s*;?\s*$/);
+    if(match) D = Object.assign(D, JSON.parse(match[1]));
+  }catch(e){
+    console.error('Could not load data.js', e);
+  }
   const fmt = n => Number(n||0).toLocaleString('en-LK', {maximumFractionDigits:0});
   const money = n => `${D.currency} ${fmt(n)}`;
 
