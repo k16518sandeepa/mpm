@@ -245,6 +245,31 @@
   .top-banner.show{display:block;}
   .top-banner a{text-decoration:underline; color:var(--gold);}
 
+  /* ---------- LIVE STATUS BAR ---------- */
+  #liveBar{position:fixed; top:0; left:0; right:0; z-index:250; display:none; background:linear-gradient(90deg, #4a0000, var(--red), #4a0000); color:#fff; box-shadow:0 2px 14px rgba(0,0,0,.5);}
+  #liveBar.show{display:block;}
+  #liveBar .lb-inner{display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; padding:9px 16px; font-size:13px; text-align:center;}
+  #liveBar .lb-dot{width:8px; height:8px; border-radius:50%; background:#fff; flex:0 0 auto; animation:lbpulse 1.4s ease-in-out infinite;}
+  @keyframes lbpulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  #liveBar strong{font-weight:700;}
+  #liveBar .lb-support{display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.35); color:#fff; font-weight:700; padding:4px 12px; border-radius:999px; font-size:12.5px; transition:background .15s;}
+  #liveBar .lb-support:hover{background:rgba(255,255,255,.3);}
+  #nav{top:var(--livebar-h, 0px); transition:top .25s ease;}
+
+  /* ---------- ADMIN STREAM TOGGLE ---------- */
+  .stream-toggle{display:flex; align-items:center; gap:12px; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:12px 16px; margin-bottom:22px; flex-wrap:wrap;}
+  .stream-toggle .st-label{font-size:13.5px; color:var(--text-dim);}
+  .stream-toggle .st-status{font-family:var(--font-display); font-size:16px; letter-spacing:.5px;}
+  .stream-toggle .st-status.on{color:#3a9e4a;}
+  .stream-toggle .st-status.off{color:var(--red);}
+  .switch{position:relative; display:inline-block; width:46px; height:26px; flex:0 0 auto;}
+  .switch input{opacity:0; width:0; height:0;}
+  .switch .slider{position:absolute; cursor:pointer; inset:0; background:#555; border-radius:999px; transition:.2s;}
+  .switch .slider::before{content:''; position:absolute; height:20px; width:20px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:.2s;}
+  .switch input:checked + .slider{background:#3a9e4a;}
+  .switch input:checked + .slider::before{transform:translateX(20px);}
+  .stream-toggle .st-hint{font-size:11.5px; color:var(--text-dim); width:100%;}
+
   /* ---------- ADMIN ---------- */
   .admin-wrap{padding:120px 4vw 60px; max-width:1100px;}
   .admin-login{max-width:380px; margin:80px auto; text-align:center;}
@@ -539,6 +564,13 @@
 
 <div class="grain"></div>
 <div id="topBanner" class="top-banner"></div>
+<div id="liveBar">
+  <div class="lb-inner">
+    <span class="lb-dot"></span>
+    <span><strong>Streaming is temporarily offline</strong> — our server is down while we're between hosts.</span>
+    <a class="lb-support" href="https://motionpicturemafia.com/support-us" target="_blank" rel="noopener">❤ Support Us</a>
+  </div>
+</div>
 
 <nav id="nav">
   <button id="hamBtn" class="mpm-ham" aria-label="Open menu"><span></span><span></span><span></span></button>
@@ -637,7 +669,7 @@
 /* Mobile UI with larger poster */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, deleteField } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, deleteField, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const CONFIG = {
@@ -668,6 +700,26 @@ const db = getFirestore(fbApp);
 const auth = getAuth(fbApp);
 let currentUser = null;
 onAuthStateChanged(auth, (u) => { currentUser = u; if(location.hash.startsWith('#/admin')) handleRoute(); });
+
+/* ---------------- Streaming on/off (live bar + admin toggle) ---------------- */
+const SITE_CONFIG_DOC = doc(db, 'config', 'site');
+let streamingEnabled = true; // optimistic default until Firestore responds
+function updateLiveBarOffset(){
+  const bar = document.getElementById('liveBar');
+  const h = bar.classList.contains('show') ? bar.offsetHeight : 0;
+  document.documentElement.style.setProperty('--livebar-h', h + 'px');
+}
+function applyLiveBarState(){
+  const bar = document.getElementById('liveBar');
+  bar.classList.toggle('show', !streamingEnabled);
+  updateLiveBarOffset();
+}
+window.addEventListener('resize', updateLiveBarOffset);
+onSnapshot(SITE_CONFIG_DOC, (snap) => {
+  const data = snap.data();
+  streamingEnabled = data ? (data.streamingEnabled !== false) : true;
+  applyLiveBarState();
+}, () => { /* if rules block reads while signed out, keep default (on) */ });
 
 /* ---------------- Firestore catalog access ---------------- */
 async function fetchCatalog(){
@@ -1223,6 +1275,17 @@ async function renderAdminConsole(){
           <button class="btn btn-ghost btn-sm" id="logoutBtn">Sign out</button>
         </div>
       </div>
+      <div class="stream-toggle">
+        <label class="switch">
+          <input type="checkbox" id="streamToggleInput" ${streamingEnabled ? 'checked' : ''}>
+          <span class="slider"></span>
+        </label>
+        <div>
+          <div class="st-label">Streaming service</div>
+          <div class="st-status ${streamingEnabled ? 'on' : 'off'}" id="streamToggleStatus">${streamingEnabled ? 'ON — live bar hidden' : 'OFF — live bar showing to visitors'}</div>
+        </div>
+        <div class="st-hint">Switch this off when the VPS/server is down (e.g. it expired) — visitors will see a live bar with a Support Us link instead of a broken player. Switch it back on once streaming is restored.</div>
+      </div>
       <div class="admin-search">
         <div class="type-toggle"><button data-t="movie" class="active">Film</button><button data-t="tv">Series</button></div>
         <input type="text" id="adminSearchInput" placeholder="Search TMDB by title…">
@@ -1234,6 +1297,24 @@ async function renderAdminConsole(){
       <div class="catalog-list" id="catalogList"><div style="padding:20px;"><div class="spinner"></div></div></div>
     </div>`;
   document.getElementById('logoutBtn').onclick = () => signOut(auth).then(()=>location.hash='#/');
+
+  const streamToggleInput = document.getElementById('streamToggleInput');
+  streamToggleInput.onchange = async () => {
+    const next = streamToggleInput.checked;
+    streamToggleInput.disabled = true;
+    try{
+      await setDoc(SITE_CONFIG_DOC, { streamingEnabled: next }, { merge:true });
+      const statusEl = document.getElementById('streamToggleStatus');
+      statusEl.textContent = next ? 'ON — live bar hidden' : 'OFF — live bar showing to visitors';
+      statusEl.className = 'st-status ' + (next ? 'on' : 'off');
+      showToast(next ? '✅ Streaming turned ON' : '🔴 Streaming turned OFF — live bar is now visible to visitors');
+    }catch(err){
+      showToast('Failed to update — check Firestore permissions');
+      streamToggleInput.checked = !next;
+    }finally{
+      streamToggleInput.disabled = false;
+    }
+  };
 
   let searchType = 'movie';
   document.querySelectorAll('.type-toggle button').forEach(b=>{
@@ -1557,6 +1638,7 @@ function hashStr(s){
 }
 
 function openPlayer(url, title, subUrls){
+  if(!streamingEnabled){ showToast('🔴 Streaming is offline right now — support us to help bring it back!'); return; }
   if(!url){ showToast('Not available yet'); return; }
   document.getElementById('playerTitle').textContent = title || '';
   currentSubUrls = subUrls || {};
