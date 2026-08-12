@@ -7,6 +7,14 @@ const FUNDRAISING_DATA = {
   "goal": 5000,
   "currency": "LKR",
   "startDate": "2026-08-01",
-  "donations": [],
+  "donations": [
+    {
+      "name": "Dulminda",
+      "amount": 2000,
+      "date": "2026-08-12",
+      "note": "",
+      "anonymous": false
+    }
+  ],
   "expenses": []
 };
