@@ -1,5 +1,25 @@
 [
   {
+    "id": "cardpocalypse",
+    "platform": "epic",
+    "title": "Cardpocalypse",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/904400/header.jpg?t=1784798137",
+    "description": "Make friends, play cards, twist the rules, become a Mega Mutant Power Pets master, and try to save the world in this single-player RPG about being a 90's kid.",
+    "claimUrl": "https://store.epicgames.com/p/cardpocalypse",
+    "startDate": "2026-08-20T20:30:00",
+    "endDate": "2026-08-27T20:30:00"
+  },
+  {
+    "id": "caravan_sandwitch",
+    "platform": "epic",
+    "title": "Caravan SandWitch",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1582650/header.jpg?t=1757404894",
+    "description": "Embark on a journey across vast landscapes in Caravan SandWitch, a captivating narrative-driven exploration adventure.",
+    "claimUrl": "https://store.epicgames.com/p/caravan-sandwitch-05ff58",
+    "startDate": "2026-08-13T20:30:00",
+    "endDate": "2026-08-20T20:30:00"
+  },
+  {
     "id": "The_Life_and_Suffering_of_Sir_Brante",
     "platform": "steam",
     "title": "The Life and Suffering of Sir Brante",
