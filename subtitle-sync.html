@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sync Deck — Subtitle Sync Tool Powered by MPM Studio</title>
+<link rel="icon" type="image/png" href="Images/mpm logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0D10;
+    --panel:#14171C;
+    --panel-alt:#1B1F26;
+    --border:#262B33;
+    --text:#E7E9EC;
+    --text-dim:#8A919C;
+    --ref:#4FD1C5;
+    --ref-dim:#2A5652;
+    --tgt:#F5A623;
+    --tgt-dim:#5A3F10;
+    --danger:#EF5350;
+    --success:#6BCB77;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1280px;margin:0 auto;padding:28px 24px 80px;}
+
+  header.top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--border);padding-bottom:18px;margin-bottom:22px;}
+  header.top h1{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;margin:0;letter-spacing:-0.01em;}
+  header.top h1 span{color:var(--tgt);}
+  header.top p{margin:4px 0 0;color:var(--text-dim);font-size:13px;}
+  .crash-note{font-size:12px;color:var(--text-dim);background:var(--panel-alt);border:1px solid var(--border);padding:8px 12px;border-radius:6px;max-width:260px;}
+
+  .upload-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;}
+  .dropzone{background:var(--panel);border:1.5px dashed var(--border);border-radius:10px;padding:18px;cursor:pointer;transition:border-color .15s, background .15s;position:relative;}
+  .dropzone.ref{border-color:var(--ref-dim);} .dropzone.tgt{border-color:var(--tgt-dim);}
+  .dropzone:hover{background:var(--panel-alt);}
+  .dropzone.dragover.ref{border-color:var(--ref);background:#12201f;}
+  .dropzone.dragover.tgt{border-color:var(--tgt);background:#241a0c;}
+  .dz-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+  .dz-label .dot{width:8px;height:8px;border-radius:50%;}
+  .ref .dot{background:var(--ref);} .tgt .dot{background:var(--tgt);}
+  .ref .dz-label{color:var(--ref);} .tgt .dz-label{color:var(--tgt);}
+  .dz-main{font-size:14px;color:var(--text-dim);}
+  .dz-file{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--text);word-break:break-all;}
+  .dz-count{font-size:12px;color:var(--text-dim);margin-top:2px;}
+  input[type=file]{display:none;}
+
+  .tabs{display:flex;gap:8px;margin-bottom:18px;border-bottom:1px solid var(--border);}
+  .tab-btn{background:none;border:none;color:var(--text-dim);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:10px 4px;cursor:pointer;border-bottom:2px solid transparent;margin-right:18px;}
+  .tab-btn:hover{color:var(--text);}
+  .tab-btn.active{color:var(--tgt);border-bottom-color:var(--tgt);}
+  .mode-section{display:none;}
+  .mode-section.active{display:block;}
+
+  .diagram{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:20px;}
+  .diagram-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);margin-bottom:10px;font-weight:600;}
+  svg{display:block;width:100%;height:auto;}
+
+  .sync-panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:20px;}
+  .sync-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .point-box{background:var(--panel-alt);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
+  .point-box h3{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);font-weight:600;}
+  .field-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+  .field-row label{width:78px;font-size:12px;color:var(--text-dim);flex-shrink:0;}
+  .field-row input{font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:6px 8px;width:100%;}
+  .field-row input:focus{outline:none;border-color:var(--tgt);}
+  .grab-btn{font-size:11px;background:none;border:1px solid var(--border);color:var(--text-dim);border-radius:5px;padding:6px 8px;cursor:pointer;white-space:nowrap;}
+  .grab-btn:hover{border-color:var(--text-dim);color:var(--text);}
+
+  .result-row{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);}
+  .metric{font-family:'IBM Plex Mono',monospace;font-size:14px;}
+  .metric .k{color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;font-family:'Inter',sans-serif;}
+  .lock-toggle{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim);cursor:pointer;margin-left:auto;}
+  .lock-toggle input{width:14px;height:14px;}
+
+  .nudge-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap;}
+  .nudge-row .k{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;margin-right:4px;}
+  .nudge-btn{font-family:'IBM Plex Mono',monospace;font-size:12px;background:var(--panel-alt);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:6px 10px;cursor:pointer;}
+  .nudge-btn:hover{border-color:var(--tgt);}
+  .nudge-val{font-family:'IBM Plex Mono',monospace;font-size:13px;min-width:80px;text-align:center;color:var(--tgt);}
+
+  .lists{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .list-panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;height:420px;}
+  .list-head{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+  .list-head .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .list-head input{flex:1;background:var(--panel-alt);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:5px 8px;font-size:12px;}
+  .list-body{overflow-y:auto;flex:1;}
+  .cue-row{padding:8px 14px;border-bottom:1px solid var(--border);cursor:pointer;font-size:13px;}
+  .cue-row:hover{background:var(--panel-alt);}
+  .cue-row.selected{background:var(--panel-alt);box-shadow:inset 3px 0 0 var(--tgt);}
+  .list-panel.ref .cue-row.selected{box-shadow:inset 3px 0 0 var(--ref);}
+  .cue-time{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:2px;}
+  .cue-time.adjusted{color:var(--success);}
+  .cue-text{color:var(--text);line-height:1.4;}
+  .empty-hint{padding:40px 20px;text-align:center;color:var(--text-dim);font-size:13px;}
+
+  .lm-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+  .lm-btn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;background:var(--panel-alt);border:1px solid var(--border);color:var(--text);border-radius:7px;padding:9px 16px;cursor:pointer;}
+  .lm-btn:hover{border-color:var(--tgt);}
+  .lm-btn.primary{background:var(--tgt);color:#1A1200;border-color:var(--tgt);}
+  .lm-stats{font-size:12px;color:var(--text-dim);margin-left:auto;}
+  .lm-stats b{color:var(--text);}
+
+  .match-table{background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+  .match-row{display:grid;grid-template-columns:1fr 110px 1fr;border-bottom:1px solid var(--border);font-size:13px;}
+  .match-row:last-child{border-bottom:none;}
+  .match-cell{padding:10px 14px;}
+  .match-cell.tgt-cell{border-right:1px solid var(--border);}
+  .match-cell .idx{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:2px;}
+  .match-cell .txt{color:var(--text);line-height:1.4;}
+  .match-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+  .chip{font-size:10px;text-transform:uppercase;letter-spacing:.04em;padding:3px 7px;border-radius:20px;font-weight:600;}
+  .chip.good{background:#123321;color:var(--success);}
+  .chip.low{background:#3a2a0c;color:var(--tgt);}
+  .chip.guess{background:#3a1414;color:var(--danger);}
+  .chip.manual{background:#1c2a3a;color:#6bb7ff;}
+  .chip.cascaded{background:#0f2e2c;color:var(--ref);}
+  .chip.removed{background:#26292f;color:var(--text-dim);}
+  .row-actions{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin-top:2px;}
+  .fix-btn{font-size:11px;background:none;border:1px solid var(--border);color:var(--text-dim);border-radius:5px;padding:3px 8px;cursor:pointer;}
+  .fix-btn:hover{border-color:var(--text-dim);color:var(--text);}
+  .fix-btn.danger:hover{border-color:var(--danger);color:var(--danger);}
+  .fix-btn.active{border-color:var(--tgt);color:var(--tgt);}
+  .ref-cell{position:relative;}
+  .ref-cell.empty .txt{color:var(--text-dim);font-style:italic;}
+  .match-row.removed{opacity:.45;}
+  .match-row.removed .tgt-cell .txt{text-decoration:line-through;}
+  .merge-note{font-size:10px;color:var(--text-dim);margin-top:3px;font-style:italic;}
+  .picker{position:absolute;top:100%;left:8px;right:8px;background:var(--panel-alt);border:1px solid var(--tgt);border-radius:8px;z-index:20;box-shadow:0 8px 20px rgba(0,0,0,.5);}
+  .picker .picker-head{display:flex;align-items:center;gap:6px;padding:6px 8px;border-bottom:1px solid var(--border);font-size:11px;color:var(--text-dim);}
+  .picker input[type=text]{width:100%;background:var(--bg);border:none;border-bottom:1px solid var(--border);color:var(--text);padding:8px 10px;font-size:12px;border-radius:8px 8px 0 0;}
+  .picker input:focus{outline:none;}
+  .picker-list{max-height:180px;overflow-y:auto;}
+  .picker-opt{padding:7px 10px;font-size:12px;cursor:pointer;border-bottom:1px solid var(--border);}
+  .picker-opt:hover{background:var(--panel);}
+  .picker-opt .idx{color:var(--text-dim);font-family:'IBM Plex Mono',monospace;font-size:10px;}
+  .picker-opt.none-opt{color:var(--text-dim);font-style:italic;}
+  .picker-opt.picked{outline:1px solid var(--tgt);}
+
+  .export-bar{margin-top:22px;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .export-bar .info{font-size:12px;color:var(--text-dim);}
+  .export-btn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;background:var(--tgt);color:#1A1200;border:none;border-radius:7px;padding:11px 22px;cursor:pointer;}
+  .export-btn:hover{filter:brightness(1.08);}
+  .export-btn:disabled{background:var(--border);color:var(--text-dim);cursor:not-allowed;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <h1>Sync <span>Deck</span></h1>
+      <p>Subtitle synchronization — runs entirely in your browser.</p>
+    </div>
+    <div class="crash-note">No install, no upload to a server.</div>
+  </header>
+
+  <div class="upload-row">
+    <div class="dropzone ref" id="dz-ref">
+      <div class="dz-label"><span class="dot"></span>Reference — correct timing</div>
+      <div class="dz-main" id="dz-ref-main">Drop the subtitle extracted from the video, or click to browse</div>
+      <input type="file" id="file-ref" accept=".srt,.vtt,.txt">
+    </div>
+    <div class="dropzone tgt" id="dz-tgt">
+      <div class="dz-label"><span class="dot"></span>To Sync — needs correcting</div>
+      <div class="dz-main" id="dz-tgt-main">Drop the subtitle you want to line up, or click to browse</div>
+      <input type="file" id="file-tgt" accept=".srt,.vtt,.txt">
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-mode="2point">2-Point Sync</button>
+    <button class="tab-btn" data-mode="linematch">Line-by-Line Match</button>
+  </div>
+
+  <!-- ===================== MODE: 2-POINT SYNC ===================== -->
+  <div class="mode-section active" id="mode-2point">
+    <div class="diagram">
+      <div class="diagram-title">Correction map</div>
+      <svg id="diagram-svg" viewBox="0 0 1000 90"></svg>
+    </div>
+
+    <div class="sync-panel">
+      <div class="sync-grid">
+        <div class="point-box">
+          <h3>Point 1 — near the start</h3>
+          <div class="field-row"><label>Reference</label><input type="text" id="p1-ref" placeholder="00:00:00.000"><button class="grab-btn" data-grab="p1-ref" data-side="ref">Use selected</button></div>
+          <div class="field-row"><label>To Sync</label><input type="text" id="p1-tgt" placeholder="00:00:00.000"><button class="grab-btn" data-grab="p1-tgt" data-side="tgt">Use selected</button></div>
+        </div>
+        <div class="point-box">
+          <h3>Point 2 — near the end</h3>
+          <div class="field-row"><label>Reference</label><input type="text" id="p2-ref" placeholder="00:00:00.000"><button class="grab-btn" data-grab="p2-ref" data-side="ref">Use selected</button></div>
+          <div class="field-row"><label>To Sync</label><input type="text" id="p2-tgt" placeholder="00:00:00.000"><button class="grab-btn" data-grab="p2-tgt" data-side="tgt">Use selected</button></div>
+        </div>
+      </div>
+      <div class="result-row">
+        <div class="metric"><span class="k">Offset</span><span id="m-offset">—</span></div>
+        <div class="metric"><span class="k">Speed factor</span><span id="m-speed">—</span></div>
+        <label class="lock-toggle"><input type="checkbox" id="lock-speed">Shift only (ignore Point 2, no speed change)</label>
+      </div>
+      <div class="nudge-row">
+        <span class="k">Fine-tune</span>
+        <button class="nudge-btn" data-nudge="-1000">−1s</button>
+        <button class="nudge-btn" data-nudge="-100">−100ms</button>
+        <span class="nudge-val" id="nudge-val">0 ms</span>
+        <button class="nudge-btn" data-nudge="100">+100ms</button>
+        <button class="nudge-btn" data-nudge="1000">+1s</button>
+        <button class="nudge-btn" id="nudge-reset" style="margin-left:10px;">Reset</button>
+      </div>
+    </div>
+
+    <div class="lists">
+      <div class="list-panel ref">
+        <div class="list-head"><span class="dot" style="background:var(--ref)"></span><input type="text" id="search-ref" placeholder="Search reference lines…"></div>
+        <div class="list-body" id="list-ref"><div class="empty-hint">Upload the reference subtitle to see its lines here.</div></div>
+      </div>
+      <div class="list-panel tgt">
+        <div class="list-head"><span class="dot" style="background:var(--tgt)"></span><input type="text" id="search-tgt" placeholder="Search lines to sync…"></div>
+        <div class="list-body" id="list-tgt"><div class="empty-hint">Upload the subtitle you want to sync to see its lines here.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MODE: LINE-BY-LINE MATCH ===================== -->
+  <div class="mode-section" id="mode-linematch">
+    <div class="lm-toolbar">
+      <button class="lm-btn primary" id="lm-autoalign">Auto-detect matches</button>
+      <button class="lm-btn" id="lm-reset">Reset manual fixes</button>
+      <div class="nudge-row" style="margin-top:0;">
+        <span class="k">Fine-tune</span>
+        <button class="nudge-btn" data-nudge2="-1000">−1s</button>
+        <button class="nudge-btn" data-nudge2="-100">−100ms</button>
+        <span class="nudge-val" id="nudge-val2">0 ms</span>
+        <button class="nudge-btn" data-nudge2="100">+100ms</button>
+        <button class="nudge-btn" data-nudge2="1000">+1s</button>
+      </div>
+      <div class="lm-stats" id="lm-stats">Upload both files, then click "Auto-detect matches".</div>
+    </div>
+    <div class="match-table" id="match-table">
+      <div class="empty-hint">Upload both subtitle files to build the line-by-line match.</div>
+    </div>
+  </div>
+
+  <div class="export-bar">
+    <div class="info" id="export-info">Set both sync points to enable export.</div>
+    <button class="export-btn" id="export-btn" disabled>Download synced subtitle</button>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const state = {
+    ref: { cues: [], filename: '', ext: 'srt' },
+    tgt: { cues: [], filename: '', ext: 'srt' },
+    selected: { ref: null, tgt: null },
+    nudge: 0,
+    nudge2: 0,
+    transform: null,
+    mode: '2point',
+    match: [],       // parallel to tgt.cues: {refIdx:number|null, auto:boolean, score:number}
+    openPicker: null
+  };
+
+  // ---------- parsing ----------
+  function parseTimeToken(tok){
+    if(!tok) return null;
+    tok = tok.trim().replace(',', '.');
+    const m = tok.match(/^(?:(\d+):)?(\d{1,2}):(\d{1,2})\.(\d{1,3})$/);
+    if(!m) return null;
+    const h = m[1] ? parseInt(m[1],10) : 0;
+    const mi = parseInt(m[2],10);
+    const s = parseInt(m[3],10);
+    const ms = parseInt(m[4].padEnd(3,'0'),10);
+    return ((h*60+mi)*60+s)*1000 + ms;
+  }
+
+  function parseSRT(text){
+    const cues = [];
+    const blocks = text.replace(/\r/g,'').split(/\n\n+/);
+    for(const block of blocks){
+      const lines = block.split('\n').filter(l=>l.trim().length);
+      if(lines.length < 2) continue;
+      let idx = 0;
+      if(/^\d+$/.test(lines[0].trim())) idx = 1;
+      const timeLine = lines[idx];
+      const tm = timeLine.match(/(\d+:\d{1,2}:\d{1,2}[,.]\d{1,3})\s*-->\s*(\d+:\d{1,2}:\d{1,2}[,.]\d{1,3})/);
+      if(!tm) continue;
+      const start = parseTimeToken(tm[1]);
+      const end = parseTimeToken(tm[2]);
+      const text = lines.slice(idx+1).join('\n');
+      cues.push({start, end, text});
+    }
+    return cues;
+  }
+
+  function parseVTT(text){
+    const cues = [];
+    const blocks = text.replace(/\r/g,'').replace(/^WEBVTT.*\n/,'').split(/\n\n+/);
+    for(const block of blocks){
+      const lines = block.split('\n').filter(l=>l.trim().length);
+      if(!lines.length) continue;
+      let idx = 0;
+      if(!lines[0].includes('-->')) idx = 1;
+      if(!lines[idx]) continue;
+      const tm = lines[idx].match(/(\d+:\d{1,2}:\d{1,2}[.,]\d{1,3}|\d{1,2}:\d{1,2}\.\d{1,3})\s*-->\s*(\d+:\d{1,2}:\d{1,2}[.,]\d{1,3}|\d{1,2}:\d{1,2}\.\d{1,3})/);
+      if(!tm) continue;
+      const norm = t => (t.includes(':') && t.split(':').length===2) ? '0:'+t : t;
+      const start = parseTimeToken(norm(tm[1]));
+      const end = parseTimeToken(norm(tm[2]));
+      const text = lines.slice(idx+1).join('\n');
+      cues.push({start, end, text});
+    }
+    return cues;
+  }
+
+  function detectAndParse(filename, text){
+    const ext = filename.toLowerCase().endsWith('.vtt') ? 'vtt' : 'srt';
+    const cues = ext === 'vtt' ? parseVTT(text) : parseSRT(text);
+    return { cues, ext };
+  }
+
+  function formatSRTTime(ms){
+    ms = Math.max(0, Math.round(ms));
+    const h = Math.floor(ms/3600000); ms -= h*3600000;
+    const m = Math.floor(ms/60000); ms -= m*60000;
+    const s = Math.floor(ms/1000); ms -= s*1000;
+    return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+','+String(ms).padStart(3,'0');
+  }
+  function formatVTTTime(ms){ return formatSRTTime(ms).replace(',', '.'); }
+  function formatDisplay(ms){ return formatSRTTime(ms).replace(',', '.'); }
+
+  function serialize(cues, ext){
+    if(ext === 'vtt'){
+      let out = 'WEBVTT\n\n';
+      cues.forEach((c,i)=>{ out += (i+1)+'\n'+formatVTTTime(c.start)+' --> '+formatVTTTime(c.end)+'\n'+c.text+'\n\n'; });
+      return out;
+    }
+    return cues.map((c,i)=>(i+1)+'\n'+formatSRTTime(c.start)+' --> '+formatSRTTime(c.end)+'\n'+c.text).join('\n\n') + '\n';
+  }
+
+  function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // ---------- text similarity for auto-align ----------
+  function normWords(text){
+    return text.toLowerCase()
+      .replace(/<[^>]+>/g,' ')
+      .replace(/[^a-z0-9\u00C0-\u024F\u0400-\u04FF\s]/g,' ')
+      .split(/\s+/).filter(Boolean);
+  }
+  function similarity(a,b){
+    const wa = new Set(normWords(a));
+    const wb = new Set(normWords(b));
+    if(!wa.size && !wb.size) return 0;
+    let inter = 0;
+    wa.forEach(w=>{ if(wb.has(w)) inter++; });
+    const union = new Set([...wa, ...wb]).size || 1;
+    return inter/union;
+  }
+
+  // ---------- file loading ----------
+  function loadFile(file, side){
+    const reader = new FileReader();
+    reader.onload = e => {
+      const parsed = detectAndParse(file.name, e.target.result);
+      state[side] = { cues: parsed.cues, filename: file.name, ext: parsed.ext };
+      document.getElementById('dz-'+side+'-main').innerHTML =
+        '<div class="dz-file">'+escapeHtml(file.name)+'</div><div class="dz-count">'+parsed.cues.length+' lines loaded</div>';
+      state.selected[side] = null;
+      state.match = [];
+      renderList(side);
+      renderDiagram();
+      renderMatchTable();
+      updateExportState();
+    };
+    reader.readAsText(file);
+  }
+
+  ['ref','tgt'].forEach(side=>{
+    const dz = document.getElementById('dz-'+side);
+    const input = document.getElementById('file-'+side);
+    dz.addEventListener('click', ()=>input.click());
+    input.addEventListener('change', e=>{ if(e.target.files[0]) loadFile(e.target.files[0], side); });
+    dz.addEventListener('dragover', e=>{ e.preventDefault(); dz.classList.add('dragover'); });
+    dz.addEventListener('dragleave', ()=> dz.classList.remove('dragover'));
+    dz.addEventListener('drop', e=>{
+      e.preventDefault(); dz.classList.remove('dragover');
+      if(e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0], side);
+    });
+  });
+
+  // ---------- tabs ----------
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.mode-section').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      state.mode = btn.dataset.mode;
+      document.getElementById('mode-'+state.mode).classList.add('active');
+      updateExportState();
+    });
+  });
+
+  // ---------- 2-point lists ----------
+  function adjustedTimeTransform(ms){
+    const t = state.transform;
+    const base = t ? (ms*t.scale + t.offset) : ms;
+    return base + state.nudge;
+  }
+
+  function renderList(side){
+    const container = document.getElementById('list-'+side);
+    const cues = state[side].cues;
+    const filterVal = document.getElementById('search-'+side).value.trim().toLowerCase();
+    if(!cues.length){ container.innerHTML = '<div class="empty-hint">Upload a subtitle to see its lines here.</div>'; return; }
+    let html = '';
+    cues.forEach((c, i)=>{
+      if(filterVal && !c.text.toLowerCase().includes(filterVal)) return;
+      const isSel = state.selected[side] === i;
+      let timeHtml;
+      if(side === 'tgt' && state.transform){
+        const adj = adjustedTimeTransform(c.start);
+        timeHtml = formatDisplay(c.start)+' <span class="cue-time adjusted">→ '+formatDisplay(adj)+'</span>';
+      } else {
+        timeHtml = formatDisplay(c.start)+' → '+formatDisplay(c.end);
+      }
+      html += '<div class="cue-row'+(isSel?' selected':'')+'" data-idx="'+i+'" data-side="'+side+'"><div class="cue-time">#'+(i+1)+' · '+timeHtml+'</div><div class="cue-text">'+escapeHtml(c.text).replace(/\n/g,'<br>')+'</div></div>';
+    });
+    container.innerHTML = html || '<div class="empty-hint">No lines match your search.</div>';
+  }
+
+  ['ref','tgt'].forEach(side=>{
+    document.getElementById('list-'+side).addEventListener('click', e=>{
+      const row = e.target.closest('.cue-row');
+      if(!row) return;
+      state.selected[side] = parseInt(row.dataset.idx,10);
+      renderList(side);
+    });
+    document.getElementById('search-'+side).addEventListener('input', ()=> renderList(side));
+  });
+
+  document.querySelectorAll('.grab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const targetInput = document.getElementById(btn.dataset.grab);
+      const side = btn.dataset.side;
+      const idx = state.selected[side];
+      if(idx === null || idx === undefined || !state[side].cues[idx]){
+        targetInput.style.borderColor = 'var(--danger)';
+        setTimeout(()=> targetInput.style.borderColor = '', 600);
+        return;
+      }
+      targetInput.value = formatDisplay(state[side].cues[idx].start);
+      recompute();
+    });
+  });
+
+  ['p1-ref','p1-tgt','p2-ref','p2-tgt'].forEach(id=>{
+    document.getElementById(id).addEventListener('input', recompute);
+  });
+  document.getElementById('lock-speed').addEventListener('change', recompute);
+
+  function recompute(){
+    const p1r = parseTimeToken(document.getElementById('p1-ref').value);
+    const p1t = parseTimeToken(document.getElementById('p1-tgt').value);
+    const p2r = parseTimeToken(document.getElementById('p2-ref').value);
+    const p2t = parseTimeToken(document.getElementById('p2-tgt').value);
+    const lock = document.getElementById('lock-speed').checked;
+
+    let transform = null;
+    if(p1r !== null && p1t !== null){
+      if(!lock && p2r !== null && p2t !== null && p2t !== p1t){
+        const scale = (p2r - p1r) / (p2t - p1t);
+        const offset = p1r - p1t*scale;
+        transform = { scale, offset };
+      } else {
+        transform = { scale: 1, offset: p1r - p1t };
+      }
+    }
+    state.transform = transform;
+
+    const offsetEl = document.getElementById('m-offset');
+    const speedEl = document.getElementById('m-speed');
+    if(transform){
+      const offSec = transform.offset/1000;
+      offsetEl.textContent = (offSec>=0?'+':'') + offSec.toFixed(3) + 's';
+      speedEl.textContent = (transform.scale*100).toFixed(3) + '%';
+      speedEl.style.color = Math.abs(transform.scale-1) > 0.0005 ? 'var(--tgt)' : 'var(--text)';
+    } else {
+      offsetEl.textContent = '—';
+      speedEl.textContent = '—';
+    }
+    renderList('tgt');
+    renderDiagram();
+    updateExportState();
+  }
+
+  document.querySelectorAll('.nudge-btn[data-nudge]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.nudge += parseInt(btn.dataset.nudge,10);
+      document.getElementById('nudge-val').textContent = state.nudge + ' ms';
+      renderList('tgt');
+      updateExportState();
+    });
+  });
+  document.getElementById('nudge-reset').addEventListener('click', ()=>{
+    state.nudge = 0;
+    document.getElementById('nudge-val').textContent = '0 ms';
+    renderList('tgt');
+    updateExportState();
+  });
+
+  document.querySelectorAll('.nudge-btn[data-nudge2]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.nudge2 += parseInt(btn.dataset.nudge2,10);
+      document.getElementById('nudge-val2').textContent = state.nudge2 + ' ms';
+      updateExportState();
+    });
+  });
+
+  function renderDiagram(){
+    const svg = document.getElementById('diagram-svg');
+    const refCues = state.ref.cues, tgtCues = state.tgt.cues;
+    if(!refCues.length || !tgtCues.length){
+      svg.innerHTML = '<text x="500" y="48" text-anchor="middle" fill="#8A919C" font-size="12" font-family="Inter">Upload both files to preview the correction map</text>';
+      return;
+    }
+    const refMax = Math.max(...refCues.map(c=>c.end));
+    const tgtMax = Math.max(...tgtCues.map(c=>c.end));
+    const maxT = Math.max(refMax, tgtMax, 1);
+    const x = t => 40 + (t/maxT)*920;
+    let els = '';
+    els += '<line x1="40" y1="20" x2="960" y2="20" stroke="#262B33" stroke-width="1"/>';
+    els += '<line x1="40" y1="70" x2="960" y2="70" stroke="#262B33" stroke-width="1"/>';
+    els += '<text x="10" y="24" fill="#4FD1C5" font-size="10" font-family="IBM Plex Mono">REF</text>';
+    els += '<text x="10" y="74" fill="#F5A623" font-size="10" font-family="IBM Plex Mono">SYNC</text>';
+    const p1r = parseTimeToken(document.getElementById('p1-ref').value);
+    const p1t = parseTimeToken(document.getElementById('p1-tgt').value);
+    const p2r = parseTimeToken(document.getElementById('p2-ref').value);
+    const p2t = parseTimeToken(document.getElementById('p2-tgt').value);
+    if(p1r!==null) els += '<circle cx="'+x(p1r)+'" cy="20" r="4" fill="#4FD1C5"/>';
+    if(p1t!==null) els += '<circle cx="'+x(p1t)+'" cy="70" r="4" fill="#F5A623"/>';
+    if(p2r!==null) els += '<circle cx="'+x(p2r)+'" cy="20" r="4" fill="#4FD1C5"/>';
+    if(p2t!==null) els += '<circle cx="'+x(p2t)+'" cy="70" r="4" fill="#F5A623"/>';
+    if(p1r!==null && p1t!==null) els += '<line x1="'+x(p1r)+'" y1="24" x2="'+x(p1t)+'" y2="66" stroke="#EF5350" stroke-width="1" stroke-dasharray="3,3"/>';
+    if(p2r!==null && p2t!==null) els += '<line x1="'+x(p2r)+'" y1="24" x2="'+x(p2t)+'" y2="66" stroke="#EF5350" stroke-width="1" stroke-dasharray="3,3"/>';
+    svg.innerHTML = els;
+  }
+
+  // ---------- line-by-line match mode ----------
+  // state.match[i] = { refIdx, refEndIdx, manual, removed, kind, score }
+  // state.mergeBoundary = Set of tgt indices i meaning row i is grouped with row i+1
+  state.mergeBoundary = new Set();
+
+  function groupOf(i){
+    let lo = i, hi = i;
+    while(state.mergeBoundary.has(lo-1)) lo--;
+    while(state.mergeBoundary.has(hi)) hi++;
+    const g = [];
+    for(let k=lo;k<=hi;k++) g.push(k);
+    return g;
+  }
+
+  function initMatchIfNeeded(){
+    if(state.match.length !== state.tgt.cues.length){
+      state.match = state.tgt.cues.map(()=> ({ refIdx:null, refEndIdx:null, manual:false, removed:false, kind:'guess', score:0 }));
+    }
+  }
+
+  // Pass A: text-similarity window search, used only where no anchor is available.
+  function similarityGuess(i){
+    const rC = state.ref.cues.length, tC = state.tgt.cues.length;
+    const guess = Math.round(i * (rC-1)/Math.max(tC-1,1));
+    const window = Math.max(15, Math.round(rC*0.06));
+    const lo = Math.max(0, guess-window), hi = Math.min(rC-1, guess+window);
+    let best = guess, bestScore = -1;
+    for(let j=lo;j<=hi;j++){
+      const sc = similarity(state.tgt.cues[i].text, state.ref.cues[j].text);
+      if(sc > bestScore){ bestScore = sc; best = j; }
+    }
+    return { refIdx: best, score: bestScore };
+  }
+
+  // Pass B: cascade refIdx from the nearest manual/merge anchor so a single fix
+  // re-aligns every line after (and before) it until the next fix.
+  function recalcCascade(){
+    const rC = state.ref.cues.length, tC = state.tgt.cues.length;
+    if(!rC || !tC || !state.match.length) return;
+    const anchors = [];
+    for(let i=0;i<tC;i++){
+      const e = state.match[i];
+      if(e && e.manual && !e.removed && e.refIdx!==null && e.refIdx!==undefined){
+        anchors.push({ i, ref: (e.refEndIdx!=null ? e.refEndIdx : e.refIdx) });
+      }
+    }
+    anchors.sort((a,b)=>a.i-b.i);
+    for(let i=0;i<tC;i++){
+      const e = state.match[i];
+      if(!e || e.manual || e.removed) continue;
+      let prev=null, next=null;
+      for(const a of anchors){ if(a.i<=i) prev=a; if(a.i>i && !next) next=a; }
+      if(prev || next){
+        const anchor = prev || next;
+        const refGuess = Math.max(0, Math.min(rC-1, i + (anchor.ref - anchor.i)));
+        e.refIdx = refGuess; e.refEndIdx = null; e.kind = 'cascaded'; e.score = 0;
+      } else if(e.kind !== 'similarity'){
+        const g = similarityGuess(i);
+        e.refIdx = g.refIdx; e.refEndIdx = null; e.score = g.score;
+        e.kind = g.score >= 0.15 ? 'similarity' : 'guess';
+      }
+    }
+  }
+
+  function autoAlign(preserveManual){
+    const rC = state.ref.cues.length, tC = state.tgt.cues.length;
+    if(!rC || !tC) return;
+    initMatchIfNeeded();
+    if(!preserveManual){
+      state.match = state.tgt.cues.map(()=> ({ refIdx:null, refEndIdx:null, manual:false, removed:false, kind:'guess', score:0 }));
+      state.mergeBoundary = new Set();
+    }
+    for(let i=0;i<tC;i++){
+      const e = state.match[i];
+      if(e.manual || e.removed) continue;
+      const g = similarityGuess(i);
+      e.refIdx = g.refIdx; e.score = g.score;
+      e.kind = g.score >= 0.15 ? 'similarity' : 'guess';
+    }
+    recalcCascade();
+    renderMatchTable();
+    updateExportState();
+  }
+
+  document.getElementById('lm-autoalign').addEventListener('click', ()=> autoAlign(true));
+  document.getElementById('lm-reset').addEventListener('click', ()=> autoAlign(false));
+
+  function confidenceChip(entry){
+    if(!entry) return '<span class="chip guess">No match</span>';
+    if(entry.removed) return '<span class="chip removed">Removed</span>';
+    if(entry.refIdx === null || entry.refIdx === undefined) return '<span class="chip guess">No match</span>';
+    if(entry.manual) return '<span class="chip manual">Manual</span>';
+    if(entry.kind === 'cascaded') return '<span class="chip cascaded">Cascaded</span>';
+    if(entry.kind === 'similarity' && entry.score >= 0.4) return '<span class="chip good">Auto</span>';
+    if(entry.kind === 'similarity') return '<span class="chip low">Low confidence</span>';
+    return '<span class="chip guess">Position guess</span>';
+  }
+
+  function renderMatchTable(){
+    const container = document.getElementById('match-table');
+    const stats = document.getElementById('lm-stats');
+    if(!state.ref.cues.length || !state.tgt.cues.length){
+      container.innerHTML = '<div class="empty-hint">Upload both subtitle files to build the line-by-line match.</div>';
+      stats.textContent = 'Upload both files, then click "Auto-detect matches".';
+      return;
+    }
+    if(!state.match.length){
+      container.innerHTML = '<div class="empty-hint">Click "Auto-detect matches" to generate an initial line-by-line pairing, then fix any wrong ones manually.</div>';
+      stats.textContent = state.tgt.cues.length + ' lines to sync.';
+      return;
+    }
+    let manual=0, cascaded=0, good=0, low=0, guess=0, removed=0, none=0;
+    let html = '';
+    state.tgt.cues.forEach((tc, i)=>{
+      const entry = state.match[i];
+      const refIdx = entry ? entry.refIdx : null;
+      const rc = (refIdx !== null && refIdx !== undefined) ? state.ref.cues[refIdx] : null;
+      const rcEnd = (entry && entry.refEndIdx!=null) ? state.ref.cues[entry.refEndIdx] : null;
+      if(entry && entry.removed) removed++;
+      else if(!entry || refIdx===null || refIdx===undefined) none++;
+      else if(entry.manual) manual++;
+      else if(entry.kind==='cascaded') cascaded++;
+      else if(entry.kind==='similarity' && entry.score>=0.4) good++;
+      else if(entry.kind==='similarity') low++;
+      else guess++;
+
+      const refCellClass = 'ref-cell' + (rc?'':' empty') + (entry && entry.removed ? '' : '');
+      let refTxt, refTime;
+      if(entry && entry.removed){
+        refTxt = 'Excluded from output (extra credit / ad line)';
+        refTime = '';
+      } else if(rc){
+        refTxt = escapeHtml(rc.text).replace(/\n/g,'<br>') + (rcEnd ? '<br>&hellip;<br>' + escapeHtml(rcEnd.text).replace(/\n/g,'<br>') : '');
+        refTime = '#'+(refIdx+1)+(rcEnd?'–#'+(entry.refEndIdx+1):'')+' · '+formatDisplay(rc.start);
+      } else {
+        refTxt = 'No match — original timing kept (or interpolated)';
+        refTime = '';
+      }
+
+      const mergedWithNext = state.mergeBoundary.has(i);
+      const mergedWithPrev = state.mergeBoundary.has(i-1);
+      let mergeNote = '';
+      if(mergedWithPrev && mergedWithNext) mergeNote = '<div class="merge-note">merged with #'+i+' and #'+(i+2)+'</div>';
+      else if(mergedWithPrev) mergeNote = '<div class="merge-note">merged with #'+i+'</div>';
+      else if(mergedWithNext) mergeNote = '<div class="merge-note">merged with #'+(i+2)+'</div>';
+
+      const rowClass = 'match-row' + (entry && entry.removed ? ' removed' : '');
+      html += '<div class="'+rowClass+'" data-row="'+i+'">'
+        + '<div class="match-cell tgt-cell"><div class="idx">#'+(i+1)+' · '+formatDisplay(tc.start)+'</div><div class="txt">'+escapeHtml(tc.text).replace(/\n/g,'<br>')+'</div>'+mergeNote+'</div>'
+        + '<div class="match-cell match-mid">'+confidenceChip(entry)
+          + '<div class="row-actions">'
+          + '<button class="fix-btn" data-fix="'+i+'">Fix</button>'
+          + '<button class="fix-btn'+(mergedWithNext?' active':'')+'" data-merge="'+i+'">'+(mergedWithNext?'Unmerge':'Merge ↓')+'</button>'
+          + '<button class="fix-btn danger" data-remove="'+i+'">'+((entry&&entry.removed)?'Restore':'Remove')+'</button>'
+          + '</div></div>'
+        + '<div class="match-cell '+refCellClass+'"><div class="idx">'+refTime+'</div><div class="txt">'+refTxt+'</div></div>'
+        + '</div>';
+    });
+    container.innerHTML = html;
+    stats.innerHTML = '<b>'+manual+'</b> manually fixed · <b>'+cascaded+'</b> cascaded · <b>'+good+'</b> auto-matched · <b>'+low+'</b> low confidence · <b>'+guess+'</b> position guess · <b>'+removed+'</b> removed · <b>'+none+'</b> unmatched';
+  }
+
+  document.getElementById('match-table').addEventListener('click', e=>{
+    const fixBtn = e.target.closest('[data-fix]');
+    if(fixBtn){ openPicker(parseInt(fixBtn.dataset.fix,10)); return; }
+    const mergeBtn = e.target.closest('[data-merge]');
+    if(mergeBtn){ toggleMerge(parseInt(mergeBtn.dataset.merge,10)); return; }
+    const removeBtn = e.target.closest('[data-remove]');
+    if(removeBtn){ toggleRemove(parseInt(removeBtn.dataset.remove,10)); return; }
+    const refCell = e.target.closest('.ref-cell');
+    if(refCell){
+      const row = refCell.closest('.match-row');
+      openPicker(parseInt(row.dataset.row,10));
+    }
+  });
+
+  function toggleRemove(rowIdx){
+    const e = state.match[rowIdx];
+    if(!e) return;
+    e.removed = !e.removed;
+    if(e.removed){ e.manual = false; }
+    recalcCascade();
+    renderMatchTable();
+    updateExportState();
+  }
+
+  function toggleMerge(rowIdx){
+    if(rowIdx >= state.tgt.cues.length - 1) return;
+    if(state.mergeBoundary.has(rowIdx)){
+      state.mergeBoundary.delete(rowIdx);
+    } else {
+      state.mergeBoundary.add(rowIdx);
+      // propagate whichever row already has a real match to the whole new group
+      const group = groupOf(rowIdx);
+      const source = group.find(k => state.match[k] && state.match[k].refIdx !== null && state.match[k].refIdx !== undefined && !state.match[k].removed);
+      if(source !== undefined){
+        applyMatchToGroup(rowIdx, state.match[source].refIdx, state.match[source].refEndIdx);
+      }
+    }
+    recalcCascade();
+    renderMatchTable();
+    updateExportState();
+  }
+
+  function applyMatchToGroup(rowIdx, refIdx, refEndIdx){
+    const group = groupOf(rowIdx);
+    group.forEach(k=>{
+      state.match[k] = { refIdx, refEndIdx: refEndIdx!=null?refEndIdx:null, manual: refIdx!==null, removed:false, kind: refIdx!==null?'manual':'guess', score: 1 };
+    });
+  }
+
+  function openPicker(rowIdx){
+    closePicker();
+    const row = document.querySelector('.match-row[data-row="'+rowIdx+'"]');
+    if(!row) return;
+    const refCell = row.querySelector('.ref-cell');
+    let pendingStart = null;
+    const picker = document.createElement('div');
+    picker.className = 'picker';
+    picker.innerHTML = '<div class="picker-head"><label><input type="checkbox" id="picker-range"> this line spans a range of reference lines (split line)</label></div>'
+      + '<input type="text" placeholder="Search reference lines…" autofocus>'
+      + '<div class="picker-list"></div>';
+    refCell.appendChild(picker);
+    const input = picker.querySelector('input[type=text]');
+    const list = picker.querySelector('.picker-list');
+    const rangeBox = picker.querySelector('#picker-range');
+
+    function renderOptions(q){
+      const qq = q.trim().toLowerCase();
+      let html = '';
+      if(!rangeBox.checked || pendingStart===null){
+        html += '<div class="picker-opt none-opt" data-none="1">— No match (keep original / interpolate) —</div>';
+      }
+      state.ref.cues.forEach((rc, j)=>{
+        if(qq && !rc.text.toLowerCase().includes(qq)) return;
+        const isPicked = pendingStart===j;
+        html += '<div class="picker-opt'+(isPicked?' picked':'')+'" data-refidx="'+j+'"><span class="idx">#'+(j+1)+' · '+formatDisplay(rc.start)+'</span><br>'+escapeHtml(rc.text).replace(/\n/g,' ')+'</div>';
+      });
+      list.innerHTML = html;
+    }
+    renderOptions('');
+    input.addEventListener('input', ()=> renderOptions(input.value));
+    rangeBox.addEventListener('change', ()=>{ pendingStart=null; renderOptions(input.value); });
+    list.addEventListener('click', e=>{
+      const opt = e.target.closest('.picker-opt');
+      if(!opt) return;
+      if(opt.dataset.none){
+        applyMatchToGroup(rowIdx, null, null);
+        recalcCascade(); closePicker(); renderMatchTable(); updateExportState();
+        return;
+      }
+      const j = parseInt(opt.dataset.refidx,10);
+      if(rangeBox.checked && pendingStart===null){
+        pendingStart = j;
+        renderOptions(input.value);
+        return;
+      }
+      const start = rangeBox.checked ? Math.min(pendingStart, j) : j;
+      const end = rangeBox.checked ? Math.max(pendingStart, j) : null;
+      applyMatchToGroup(rowIdx, start, end===start?null:end);
+      recalcCascade();
+      closePicker();
+      renderMatchTable();
+      updateExportState();
+    });
+    state.openPicker = picker;
+    setTimeout(()=> document.addEventListener('click', outsideClick), 0);
+    input.focus();
+  }
+  function outsideClick(e){
+    if(state.openPicker && !state.openPicker.contains(e.target) && !e.target.closest('[data-fix]')){
+      closePicker();
+    }
+  }
+  function closePicker(){
+    if(state.openPicker){ state.openPicker.remove(); state.openPicker = null; }
+    document.removeEventListener('click', outsideClick);
+  }
+
+  function lineMatchAdjustedTimes(){
+    const tc = state.tgt.cues;
+    const n = tc.length;
+    const out = new Array(n).fill(null);
+    for(let i=0;i<n;i++){
+      const entry = state.match[i];
+      if(entry && !entry.removed && entry.refIdx !== null && entry.refIdx !== undefined){
+        const rc = state.ref.cues[entry.refIdx];
+        const rcEnd = entry.refEndIdx!=null ? state.ref.cues[entry.refEndIdx] : rc;
+        const dur = tc[i].end - tc[i].start;
+        out[i] = { start: rc.start, end: Math.max(rcEnd.end, rc.start + Math.max(dur,200)) };
+      }
+    }
+    for(let i=0;i<n;i++){
+      if(out[i] || (state.match[i] && state.match[i].removed)) continue;
+      let before=-1, after=-1;
+      for(let j=i-1;j>=0;j--){ if(out[j]){ before=j; break; } }
+      for(let j=i+1;j<n;j++){ if(out[j]){ after=j; break; } }
+      let delta;
+      if(before>=0 && after>=0){
+        const db = out[before].start - tc[before].start;
+        const da = out[after].start - tc[after].start;
+        const frac = (tc[i].start - tc[before].start)/Math.max(1,(tc[after].start - tc[before].start));
+        delta = db + (da-db)*frac;
+      } else if(before>=0){
+        delta = out[before].start - tc[before].start;
+      } else if(after>=0){
+        delta = out[after].start - tc[after].start;
+      } else {
+        delta = 0;
+      }
+      out[i] = { start: tc[i].start + delta, end: tc[i].end + delta };
+    }
+    return out.map(o => o ? ({ start: o.start + state.nudge2, end: o.end + state.nudge2 }) : null);
+  }
+
+  // ---------- export ----------
+  function updateExportState(){
+    const btn = document.getElementById('export-btn');
+    const info = document.getElementById('export-info');
+    if(state.mode === '2point'){
+      const ready = state.transform && state.tgt.cues.length;
+      btn.disabled = !ready;
+      info.textContent = ready
+        ? 'Ready — '+state.tgt.cues.length+' lines will be exported as .'+state.tgt.ext+', offset '+(state.transform.offset/1000).toFixed(3)+'s, speed '+(state.transform.scale*100).toFixed(3)+'%'+(state.nudge?(', nudge '+state.nudge+'ms'):'')+'.'
+        : 'Set both sync points to enable export.';
+    } else {
+      const ready = state.match.length && state.tgt.cues.length;
+      btn.disabled = !ready;
+      info.textContent = ready
+        ? 'Ready — '+state.tgt.cues.length+' lines will be exported as .'+state.tgt.ext+' using the line-by-line match.'
+        : 'Run "Auto-detect matches" to enable export.';
+    }
+  }
+
+  document.getElementById('export-btn').addEventListener('click', ()=>{
+    let adjusted;
+    if(state.mode === '2point'){
+      if(!state.transform) return;
+      adjusted = state.tgt.cues.map(c=>({ start: adjustedTimeTransform(c.start), end: adjustedTimeTransform(c.end), text: c.text }));
+    } else {
+      if(!state.match.length) return;
+      const times = lineMatchAdjustedTimes();
+      adjusted = state.tgt.cues
+        .map((c,i)=> times[i] ? ({ start: times[i].start, end: times[i].end, text: c.text }) : null)
+        .filter(Boolean);
+    }
+    const out = serialize(adjusted, state.tgt.ext);
+    const blob = new Blob([out], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const base = state.tgt.filename.replace(/\.[^.]+$/, '');
+    a.href = url;
+    a.download = base+'.synced.'+state.tgt.ext;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  renderDiagram();
+})();
+</script>
+</body>
+</html>
