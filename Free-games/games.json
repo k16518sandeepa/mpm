@@ -1,4 +1,24 @@
 [
+    {
+    "id": "Rival_Stars_Horse_Racing_Desktop_Edition",
+    "platform": "epic",
+    "title": "Rival Stars Horse Racing: Desktop Edition",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1166860/3a916dd8a000ab822baccba6aa4f76638382d0af/header.jpg?t=1775184582",
+    "description": "With stunning, realistic horses, an in-depth breeding system, and a range of exciting game modes, Rival Stars Horse Racing offers horse fans the ultimate racing and riding experience. Take the reins and become an equestrian legend!",
+    "claimUrl": "https://store.epicgames.com/p/rival-stars-horse-racing-dd09de",
+    "startDate": "2026-08-27T20:30:00",
+    "endDate": "2026-09-03T20:30:00"
+  },
+    {
+    "id": "breathedge",
+    "platform": "epic",
+    "title": "Breathedge",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/738520/5d14286459f7eaaeb0e5e5f7ad959f03ee724f25/header_alt_assets_1.jpg?t=1786133858",
+    "description": "Survive in outer space! Together with your immortal chicken, discover the truth behind your sudden spaceship crash. Craft tools, pilot vehicles, and even control space stations to survive and explore the wreckage.",
+    "claimUrl": "https://store.epicgames.com/p/breathedge",
+    "startDate": "2026-08-27T20:30:00",
+    "endDate": "2026-09-03T20:30:00"
+  },
   {
     "id": "Deponia",
     "platform": "steam",
