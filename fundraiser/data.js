@@ -4,7 +4,7 @@
 */
 const FUNDRAISING_DATA = {
   "projectName": "Server Renewal",
-  "goal": 2000,
+  "goal": 5000,
   "currency": "LKR",
   "startDate": "2026-09-01",
   "donations": [
