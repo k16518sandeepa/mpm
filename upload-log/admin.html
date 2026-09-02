@@ -134,6 +134,7 @@
     </div>
     <div class="header-right">
       <span class="who">Signed in as <b id="whoEmail"></b></span>
+      <button class="linklike" id="nicknameBtn">Change nickname</button>
       <a class="community-link" href="./community.html">Community view</a>
       <button class="linklike" id="logoutBtn">Sign out</button>
     </div>
@@ -188,7 +189,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBlecm5RsujfPeKRy1LzIVs2ZyJ-1RYen0",
@@ -217,7 +218,10 @@ onAuthStateChanged(auth, user=>{
   if(user){
     $('#loginWrap').style.display='none';
     $('#app').style.display='block';
-    $('#whoEmail').textContent = user.email;
+    $('#whoEmail').textContent = user.displayName || user.email;
+    if(!user.displayName){
+      promptNickname(true);
+    }
     if(!unsub){
       unsub = onSnapshot(collection(db,'uploads'), snap=>{
         entries = snap.docs.map(d=>({id:d.id, ...d.data()}));
@@ -230,6 +234,38 @@ onAuthStateChanged(auth, user=>{
     if(unsub){ unsub(); unsub=null; }
   }
 });
+
+function promptNickname(firstTime){
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  overlay.innerHTML = `
+    <div class="modal">
+      <h2>${firstTime ? 'Pick a nickname' : 'Change nickname'}</h2>
+      <p class="sub" style="margin-top:-8px;">This is the name shown on entries you add — like "Sandeepa" instead of your email.</p>
+      <div class="field"><label>Nickname</label><input type="text" id="fNickname" value="${escapeHtml(currentUser.displayName||'')}" maxlength="24" placeholder="e.g. Sandeepa"></div>
+      <div class="modal-actions">
+        ${firstTime ? '' : '<button class="btn btn-ghost" id="nickCancel">Cancel</button>'}
+        <button class="btn btn-accent" id="nickSave" style="width:auto">Save</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  if(!firstTime){
+    overlay.addEventListener('click', e=>{ if(e.target===overlay) overlay.remove(); });
+    $('#nickCancel').onclick = ()=>overlay.remove();
+  }
+  $('#nickSave').onclick = async ()=>{
+    const name = $('#fNickname').value.trim();
+    if(!name){ toast('Enter a nickname.'); return; }
+    try{
+      await updateProfile(currentUser, {displayName: name});
+      $('#whoEmail').textContent = name;
+      overlay.remove();
+      toast('Nickname saved.');
+    }catch(e){
+      toast('Could not save nickname: ' + e.message);
+    }
+  };
+}
 
 $('#loginBtn').addEventListener('click', doLogin);
 $('#loginPassword').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
@@ -248,6 +284,7 @@ async function doLogin(){
   }
 }
 $('#logoutBtn').addEventListener('click', ()=> signOut(auth));
+$('#nicknameBtn').addEventListener('click', ()=> promptNickname(false));
 
 // ---------- size helpers ----------
 function toGB(value, unit){
@@ -402,7 +439,7 @@ function openModal(id){
       } else {
         await addDoc(collection(db,'uploads'), {
           title, category, sizeGB, date,
-          addedBy: currentUser.email,
+          addedBy: currentUser.displayName || currentUser.email,
           addedByUid: currentUser.uid,
           createdAt: serverTimestamp()
         });
