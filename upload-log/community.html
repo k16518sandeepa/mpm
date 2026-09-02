@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MPM Upload Log — Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14161C; --surface:#1B1E27; --surface2:#232734; --border:#31353F;
+    --text:#EDEEF2; --muted:#8A8F9C;
+    --accent:#E8B94A; --film:#E8B94A; --tv:#5FA8D3; --anime:#D65F8A; --game:#6FCF97;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;}
+  ::selection{background:var(--accent);color:#14161C;}
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px;}
+
+  header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:18px;margin-bottom:26px;}
+  .brand{display:flex;flex-direction:column;gap:2px;}
+  .brand .mark{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:1px;line-height:1;color:var(--accent);}
+  .brand .sub{font-size:12.5px;color:var(--muted);}
+  a.admin-link{color:var(--muted);font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid var(--border);padding:9px 16px;border-radius:8px;background:var(--surface);}
+  a.admin-link:hover{color:var(--text);border-color:var(--muted);}
+
+  .stat-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px;}
+  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+  .stat-card .num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--text);line-height:1;}
+  .stat-card .lbl{font-size:12px;color:var(--muted);margin-top:6px;}
+  .stat-card.accent .num{color:var(--accent);}
+
+  .breakdown{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:26px;}
+  .breakdown h3{margin:0 0 14px;font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.5px;font-size:18px;color:var(--text);}
+  .bd-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:13px;}
+  .bd-row:last-child{margin-bottom:0;}
+  .bd-label{width:64px;flex-shrink:0;color:var(--muted);font-weight:600;}
+  .bd-track{flex:1;height:8px;background:var(--surface2);border-radius:5px;overflow:hidden;}
+  .bd-fill{height:100%;border-radius:5px;transition:width .4s ease;}
+  .bd-value{width:96px;flex-shrink:0;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);}
+
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px;}
+  .chip-row{display:flex;gap:6px;flex-wrap:wrap;}
+  .chip{border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:20px;cursor:pointer;user-select:none;transition:.15s;}
+  .chip.active{border-color:transparent;color:#14161C;}
+  .chip[data-cat="All"].active{background:var(--text);}
+  .chip[data-cat="Film"].active{background:var(--film);}
+  .chip[data-cat="TV"].active{background:var(--tv);}
+  .chip[data-cat="Anime"].active{background:var(--anime);}
+  .chip[data-cat="Game"].active{background:var(--game);}
+  select, input[type=text], input[type=search], input[type=date]{
+    background:var(--surface2);border:1px solid var(--border);color:var(--text);
+    border-radius:8px;padding:8px 11px;font-family:'Inter',sans-serif;font-size:13px;outline:none;
+  }
+  select:focus, input:focus{border-color:var(--accent);}
+  .spacer{flex:1;}
+  .btn{border:none;border-radius:8px;padding:9px 16px;font-weight:600;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;transition:.15s;}
+  .btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+  .btn-ghost:hover{border-color:var(--muted);}
+
+  .list{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  thead th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600;padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;white-space:nowrap;}
+  thead th:hover{color:var(--text);}
+  tbody td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--surface2);}
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;color:#14161C;}
+  .badge.Film{background:var(--film);}
+  .badge.TV{background:var(--tv);}
+  .badge.Anime{background:var(--anime);}
+  .badge.Game{background:var(--game);}
+  .size-cell{font-family:'JetBrains Mono',monospace;font-size:12.5px;}
+  .empty{padding:48px 20px;text-align:center;color:var(--muted);font-size:13.5px;}
+  .empty b{color:var(--text);}
+
+  .live-dot{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);}
+  .live-dot span{width:7px;height:7px;border-radius:50%;background:var(--game);display:inline-block;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+  footer.note{margin-top:34px;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.6;}
+
+  @media(max-width:640px){
+    .stat-strip{grid-template-columns:1fr;}
+    thead th:nth-child(4), tbody td:nth-child(4){display:none;}
+    .bd-label{width:48px;}
+    .bd-value{width:78px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="mark">MPM UPLOAD LOG</div>
+      <div class="sub">Motion Picture Mafia — WhatsApp upload tracker · <span class="live-dot"><span></span>Live</span></div>
+    </div>
+    <a class="admin-link" href="./admin.html">Admin login →</a>
+  </header>
+
+  <div id="statStrip" class="stat-strip"></div>
+  <div id="breakdown" class="breakdown"></div>
+
+  <div class="controls">
+    <div class="chip-row" id="catChips">
+      <span class="chip active" data-cat="All">All</span>
+      <span class="chip" data-cat="Film">Film</span>
+      <span class="chip" data-cat="TV">TV</span>
+      <span class="chip" data-cat="Anime">Anime</span>
+      <span class="chip" data-cat="Game">Game</span>
+    </div>
+    <select id="periodSelect">
+      <option value="all">All time</option>
+      <option value="7">Last 7 days</option>
+      <option value="30">Last 30 days</option>
+      <option value="month">This month</option>
+      <option value="custom">Custom range</option>
+    </select>
+    <input type="date" id="customFrom" style="display:none">
+    <input type="date" id="customTo" style="display:none">
+    <input type="search" id="searchInput" placeholder="Search title…">
+    <div class="spacer"></div>
+    <button class="btn btn-ghost" id="exportBtn">Export CSV</button>
+  </div>
+
+  <div class="list">
+    <table>
+      <thead>
+        <tr>
+          <th data-sort="title">Title</th>
+          <th data-sort="category">Category</th>
+          <th data-sort="sizeGB">Size</th>
+          <th data-sort="date">Date</th>
+          <th data-sort="addedBy">Added by</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div id="emptyState" class="empty" style="display:none"></div>
+  </div>
+
+  <footer class="note">Read-only community view. Data updates live as the admin team logs new uploads.</footer>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBlecm5RsujfPeKRy1LzIVs2ZyJ-1RYen0",
+  authDomain: "mpm-upload-log.firebaseapp.com",
+  projectId: "mpm-upload-log",
+  storageBucket: "mpm-upload-log.firebasestorage.app",
+  messagingSenderId: "787488833223",
+  appId: "1:787488833223:web:0805ddb643a6ca53a508e2"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDb(app);
+function getDb(app){ return getFirestore(app); }
+
+const CATS = ['Film','TV','Anime','Game'];
+let entries = [];
+let sortKey = 'date', sortDir = 'desc';
+
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+onSnapshot(collection(db,'uploads'), snap=>{
+  entries = snap.docs.map(d=>({id:d.id, ...d.data()}));
+  render();
+}, err=>{
+  $('#emptyState').style.display='block';
+  $('#emptyState').innerHTML = '<b>Could not load data.</b><br>' + err.message;
+});
+
+function fmtSize(gb){
+  if(gb >= 1024) return (gb/1024).toFixed(2)+' TB';
+  if(gb < 1) return Math.round(gb*1024)+' MB';
+  return gb.toFixed(2)+' GB';
+}
+function escapeHtml(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+function formatDate(d){ const dt=new Date(d+'T00:00:00'); return dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+
+function activeCategory(){ const el=document.querySelector('.chip.active'); return el?el.dataset.cat:'All'; }
+
+function filteredEntries(){
+  const cat = activeCategory();
+  const period = $('#periodSelect').value;
+  const q = $('#searchInput').value.trim().toLowerCase();
+  let list = entries.slice();
+  if(cat!=='All') list = list.filter(e=>e.category===cat);
+  if(q) list = list.filter(e=>(e.title||'').toLowerCase().includes(q));
+
+  const now = new Date();
+  if(period==='7'||period==='30'){
+    const days=parseInt(period); const cutoff=new Date(now); cutoff.setDate(cutoff.getDate()-days);
+    list = list.filter(e=>new Date(e.date)>=cutoff);
+  } else if(period==='month'){
+    list = list.filter(e=>{ const d=new Date(e.date); return d.getMonth()===now.getMonth() && d.getFullYear()===now.getFullYear(); });
+  } else if(period==='custom'){
+    const from=$('#customFrom').value, to=$('#customTo').value;
+    if(from) list = list.filter(e=>e.date>=from);
+    if(to) list = list.filter(e=>e.date<=to);
+  }
+
+  list.sort((a,b)=>{
+    let av=a[sortKey], bv=b[sortKey];
+    if(sortKey==='sizeGB'){ av=+av||0; bv=+bv||0; }
+    if(av<bv) return sortDir==='asc'?-1:1;
+    if(av>bv) return sortDir==='asc'?1:-1;
+    return 0;
+  });
+  return list;
+}
+
+function render(){
+  renderStrip(); renderBreakdown(); renderTable();
+}
+
+function renderStrip(){
+  const totalFiles = entries.length;
+  const totalGB = entries.reduce((s,e)=>s+(+e.sizeGB||0),0);
+  const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate()-7);
+  const weekEntries = entries.filter(e=>new Date(e.date)>=weekAgo);
+  const weekGB = weekEntries.reduce((s,e)=>s+(+e.sizeGB||0),0);
+  $('#statStrip').innerHTML = `
+    <div class="stat-card"><div class="num">${totalFiles}</div><div class="lbl">Total files uploaded</div></div>
+    <div class="stat-card accent"><div class="num">${fmtSize(totalGB)}</div><div class="lbl">Total size on WhatsApp</div></div>
+    <div class="stat-card"><div class="num">+${weekEntries.length}</div><div class="lbl">Added last 7 days · ${fmtSize(weekGB)}</div></div>`;
+}
+
+function renderBreakdown(){
+  const list = filteredEntries();
+  const totalGB = list.reduce((s,e)=>s+(+e.sizeGB||0),0) || 1;
+  const colors = {Film:'var(--film)',TV:'var(--tv)',Anime:'var(--anime)',Game:'var(--game)'};
+  let rows='';
+  CATS.forEach(cat=>{
+    const catList = list.filter(e=>e.category===cat);
+    const gb = catList.reduce((s,e)=>s+(+e.sizeGB||0),0);
+    const pct = Math.round((gb/totalGB)*100);
+    rows += `<div class="bd-row">
+      <div class="bd-label">${cat}</div>
+      <div class="bd-track"><div class="bd-fill" style="width:${gb>0?Math.max(pct,3):0}%;background:${colors[cat]}"></div></div>
+      <div class="bd-value">${catList.length} · ${fmtSize(gb)}</div>
+    </div>`;
+  });
+  $('#breakdown').innerHTML = `<h3>Breakdown — current filter</h3>${rows}`;
+}
+
+function renderTable(){
+  const list = filteredEntries();
+  const tbody = $('#tbody'); const empty = $('#emptyState');
+  if(list.length===0){
+    tbody.innerHTML='';
+    empty.style.display='block';
+    empty.innerHTML = entries.length===0
+      ? '<b>No uploads logged yet.</b>'
+      : '<b>Nothing matches these filters.</b><br>Try a different category, period, or search term.';
+    return;
+  }
+  empty.style.display='none';
+  tbody.innerHTML = list.map(e=>`
+    <tr>
+      <td>${escapeHtml(e.title)}</td>
+      <td><span class="badge ${e.category}">${e.category}</span></td>
+      <td class="size-cell">${fmtSize(+e.sizeGB||0)}</td>
+      <td>${formatDate(e.date)}</td>
+      <td>${escapeHtml(e.addedBy||'—')}</td>
+    </tr>`).join('');
+}
+
+$('#catChips').addEventListener('click', e=>{
+  if(!e.target.classList.contains('chip')) return;
+  $$('.chip').forEach(c=>c.classList.remove('active'));
+  e.target.classList.add('active');
+  render();
+});
+$('#periodSelect').addEventListener('change', ()=>{
+  const custom = $('#periodSelect').value==='custom';
+  $('#customFrom').style.display = custom?'inline-block':'none';
+  $('#customTo').style.display = custom?'inline-block':'none';
+  render();
+});
+$('#customFrom').addEventListener('change', render);
+$('#customTo').addEventListener('change', render);
+$('#searchInput').addEventListener('input', render);
+$$('thead th[data-sort]').forEach(th=>{
+  th.addEventListener('click', ()=>{
+    const key = th.dataset.sort;
+    if(sortKey===key) sortDir = sortDir==='asc'?'desc':'asc';
+    else { sortKey=key; sortDir='desc'; }
+    render();
+  });
+});
+$('#exportBtn').addEventListener('click', ()=>{
+  const list = filteredEntries();
+  if(list.length===0){ alert('Nothing to export for this filter.'); return; }
+  const rows=[['Title','Category','Size (GB)','Date','Added by']];
+  list.forEach(e=>rows.push([e.title, e.category, (+e.sizeGB||0).toFixed(3), e.date, e.addedBy||'']));
+  const csv = rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='mpm-upload-log.csv'; a.click();
+  URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>
