@@ -6,6 +6,7 @@
 <title>MPM Upload Log — Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../Images/mpm logo.png">
 <style>
   :root{
     --bg:#14161C; --surface:#1B1E27; --surface2:#232734; --border:#31353F;
@@ -121,7 +122,7 @@
     <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="you@mpm.team"></div>
     <div class="field"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
     <button class="btn btn-accent" id="loginBtn">Sign in</button>
-    <p class="sub" style="margin-top:16px;">No account? Ask a team lead to add you in Firebase Console → Authentication → Users.</p>
+    <p class="sub" style="margin-top:16px;">No account? Ask a team lead to add you</p>
     <p class="sub"><a href="./community.html" style="color:var(--muted)">← Back to community view</a></p>
   </div>
 </div>
@@ -336,15 +337,26 @@ function filteredEntries(){
 // ---------- render ----------
 function render(){ renderStrip(); renderBreakdown(); renderTable(); }
 
+function periodLabel(){
+  const period = $('#periodSelect').value;
+  if(period==='7') return 'Last 7 days';
+  if(period==='30') return 'Last 30 days';
+  if(period==='month') return 'This month';
+  if(period==='custom') return 'Selected range';
+  return 'All time';
+}
+
 function renderStrip(){
-  const totalFiles = entries.length;
-  const totalGB = entries.reduce((s,e)=>s+(+e.sizeGB||0),0);
+  const list = filteredEntries();
+  const totalFiles = list.length;
+  const totalGB = list.reduce((s,e)=>s+(+e.sizeGB||0),0);
   const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate()-7);
-  const weekEntries = entries.filter(e=>new Date(e.date)>=weekAgo);
+  const cat = activeCategory();
+  const weekEntries = entries.filter(e=> new Date(e.date)>=weekAgo && (cat==='All' || e.category===cat) );
   const weekGB = weekEntries.reduce((s,e)=>s+(+e.sizeGB||0),0);
   $('#statStrip').innerHTML = `
-    <div class="stat-card"><div class="num">${totalFiles}</div><div class="lbl">Total files uploaded</div></div>
-    <div class="stat-card accent"><div class="num">${fmtSize(totalGB)}</div><div class="lbl">Total size on WhatsApp</div></div>
+    <div class="stat-card"><div class="num">${totalFiles}</div><div class="lbl">Files uploaded · ${periodLabel()}</div></div>
+    <div class="stat-card accent"><div class="num">${fmtSize(totalGB)}</div><div class="lbl">Total size · ${periodLabel()}</div></div>
     <div class="stat-card"><div class="num">+${weekEntries.length}</div><div class="lbl">Added last 7 days · ${fmtSize(weekGB)}</div></div>`;
 }
 
