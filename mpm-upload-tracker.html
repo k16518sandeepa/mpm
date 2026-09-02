@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MPM Upload Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14161C;
+    --surface:#1B1E27;
+    --surface2:#232734;
+    --border:#31353F;
+    --text:#EDEEF2;
+    --muted:#8A8F9C;
+    --accent:#E8B94A;
+    --film:#E8B94A;
+    --tv:#5FA8D3;
+    --anime:#D65F8A;
+    --game:#6FCF97;
+    --danger:#E0665F;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;}
+  ::selection{background:var(--accent);color:#14161C;}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px;}
+
+  /* Header */
+  header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:18px;margin-bottom:26px;}
+  .brand{display:flex;flex-direction:column;gap:2px;}
+  .brand .mark{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:1px;line-height:1;color:var(--accent);}
+  .brand .sub{font-size:12.5px;color:var(--muted);}
+  nav.tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px;}
+  nav.tabs button{background:transparent;border:none;color:var(--muted);font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;padding:8px 16px;border-radius:7px;cursor:pointer;transition:.15s;}
+  nav.tabs button.active{background:var(--accent);color:#14161C;}
+  nav.tabs button:not(.active):hover{color:var(--text);}
+
+  /* Quick stat strip */
+  .stat-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px;}
+  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+  .stat-card .num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--text);line-height:1;}
+  .stat-card .lbl{font-size:12px;color:var(--muted);margin-top:6px;}
+  .stat-card.accent .num{color:var(--accent);}
+
+  /* Category breakdown bars */
+  .breakdown{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:26px;}
+  .breakdown h3{margin:0 0 14px;font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.5px;font-size:18px;color:var(--text);}
+  .bd-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:13px;}
+  .bd-row:last-child{margin-bottom:0;}
+  .bd-label{width:64px;flex-shrink:0;color:var(--muted);font-weight:600;}
+  .bd-track{flex:1;height:8px;background:var(--surface2);border-radius:5px;overflow:hidden;}
+  .bd-fill{height:100%;border-radius:5px;transition:width .4s ease;}
+  .bd-value{width:96px;flex-shrink:0;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);}
+
+  /* Controls */
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px;}
+  .chip-row{display:flex;gap:6px;flex-wrap:wrap;}
+  .chip{border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:20px;cursor:pointer;user-select:none;transition:.15s;}
+  .chip.active{border-color:transparent;color:#14161C;}
+  .chip[data-cat="All"].active{background:var(--text);}
+  .chip[data-cat="Film"].active{background:var(--film);}
+  .chip[data-cat="TV"].active{background:var(--tv);}
+  .chip[data-cat="Anime"].active{background:var(--anime);}
+  .chip[data-cat="Game"].active{background:var(--game);}
+  select, input[type=text], input[type=search], input[type=date], input[type=number]{
+    background:var(--surface2);border:1px solid var(--border);color:var(--text);
+    border-radius:8px;padding:8px 11px;font-family:'Inter',sans-serif;font-size:13px;outline:none;
+  }
+  select:focus, input:focus{border-color:var(--accent);}
+  .spacer{flex:1;}
+  .btn{border:none;border-radius:8px;padding:9px 16px;font-weight:600;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;transition:.15s;}
+  .btn-accent{background:var(--accent);color:#14161C;}
+  .btn-accent:hover{filter:brightness(1.08);}
+  .btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+  .btn-ghost:hover{border-color:var(--muted);}
+  .btn-danger{background:transparent;color:var(--danger);border:1px solid #4a2a29;}
+  .btn-danger:hover{background:#2a1717;}
+  .btn:disabled{opacity:.45;cursor:not-allowed;}
+
+  /* Table */
+  .list{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  thead th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600;padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;white-space:nowrap;}
+  thead th:hover{color:var(--text);}
+  tbody td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--surface2);}
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;color:#14161C;}
+  .badge.Film{background:var(--film);}
+  .badge.TV{background:var(--tv);}
+  .badge.Anime{background:var(--anime);}
+  .badge.Game{background:var(--game);}
+  .size-cell{font-family:'JetBrains Mono',monospace;font-size:12.5px;}
+  .row-actions{display:flex;gap:8px;}
+  .icon-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;padding:2px 4px;}
+  .icon-btn:hover{color:var(--text);}
+  .icon-btn.del:hover{color:var(--danger);}
+  .empty{padding:48px 20px;text-align:center;color:var(--muted);font-size:13.5px;}
+  .empty b{color:var(--text);}
+
+  /* Modal */
+  .overlay{position:fixed;inset:0;background:rgba(10,11,14,.72);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px;}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;width:100%;max-width:420px;}
+  .modal h2{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.5px;font-size:22px;margin:0 0 18px;color:var(--accent);}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600;}
+  .field input, .field select{width:100%;}
+  .size-row{display:flex;gap:8px;}
+  .size-row input{flex:1;}
+  .size-row select{width:90px;}
+  .modal-actions{display:flex;gap:10px;margin-top:20px;}
+  .modal-actions .btn{flex:1;}
+  .modal .hint{font-size:11.5px;color:var(--muted);margin-top:-8px;margin-bottom:14px;line-height:1.5;}
+  .pin-dots{display:flex;gap:10px;justify-content:center;margin:18px 0;}
+  .pin-dots input{width:44px;height:52px;text-align:center;font-size:20px;}
+
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:11px 18px;border-radius:9px;font-size:13px;z-index:80;box-shadow:0 6px 24px rgba(0,0,0,.4);}
+
+  footer.note{margin-top:34px;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.6;}
+
+  @media(max-width:640px){
+    .stat-strip{grid-template-columns:1fr;}
+    thead th:nth-child(4), tbody td:nth-child(4){display:none;}
+    .bd-label{width:48px;}
+    .bd-value{width:78px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <header class="top">
+    <div class="brand">
+      <div class="mark">MPM UPLOAD LOG</div>
+      <div class="sub">Motion Picture Mafia — WhatsApp upload tracker</div>
+    </div>
+    <nav class="tabs">
+      <button id="tabPublic" class="active">Community</button>
+      <button id="tabAdmin">Admin</button>
+    </nav>
+  </header>
+
+  <div id="statStrip" class="stat-strip"></div>
+  <div id="breakdown" class="breakdown"></div>
+
+  <div class="controls">
+    <div class="chip-row" id="catChips">
+      <span class="chip active" data-cat="All">All</span>
+      <span class="chip" data-cat="Film">Film</span>
+      <span class="chip" data-cat="TV">TV</span>
+      <span class="chip" data-cat="Anime">Anime</span>
+      <span class="chip" data-cat="Game">Game</span>
+    </div>
+    <select id="periodSelect">
+      <option value="all">All time</option>
+      <option value="7">Last 7 days</option>
+      <option value="30">Last 30 days</option>
+      <option value="month">This month</option>
+      <option value="custom">Custom range</option>
+    </select>
+    <input type="date" id="customFrom" style="display:none">
+    <input type="date" id="customTo" style="display:none">
+    <input type="search" id="searchInput" placeholder="Search title…">
+    <div class="spacer"></div>
+    <button class="btn btn-ghost" id="exportBtn">Export CSV</button>
+    <button class="btn btn-accent" id="addBtn" style="display:none">+ Add upload</button>
+  </div>
+
+  <div class="list">
+    <table>
+      <thead>
+        <tr>
+          <th data-sort="title">Title</th>
+          <th data-sort="category">Category</th>
+          <th data-sort="sizeGB">Size</th>
+          <th data-sort="date">Date</th>
+          <th data-sort="addedBy">Added by</th>
+          <th id="actionsHeader" style="display:none">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div id="emptyState" class="empty" style="display:none"></div>
+  </div>
+
+  <footer class="note">Data syncs to all admins and viewers automatically. Admin access is a single shared PIN for the team, not individual accounts.</footer>
+</div>
+
+<script>
+const CATS = ['Film','TV','Anime','Game'];
+const CAT_UNIT = {Film:'film', TV:'series', Anime:'anime', Game:'game'};
+
+let entries = [];
+let isAdmin = false;
+let view = 'public';
+let sortKey = 'date', sortDir = 'desc';
+let editingId = null;
+
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+// ---------- storage helpers ----------
+async function loadEntries(){
+  try{
+    const res = await window.storage.get('entries', true);
+    entries = res && res.value ? JSON.parse(res.value) : [];
+  }catch(e){
+    entries = [];
+  }
+  render();
+}
+async function saveEntries(){
+  await window.storage.set('entries', JSON.stringify(entries), true);
+}
+async function getAdminPin(){
+  try{
+    const res = await window.storage.get('admin_pin', true);
+    return res && res.value ? res.value : null;
+  }catch(e){ return null; }
+}
+async function setAdminPin(pin){
+  await window.storage.set('admin_pin', pin, true);
+}
+
+// ---------- size helpers ----------
+function toGB(value, unit){
+  value = parseFloat(value)||0;
+  if(unit==='MB') return value/1024;
+  if(unit==='TB') return value*1024;
+  return value;
+}
+function fmtSize(gb){
+  if(gb >= 1024) return (gb/1024).toFixed(2)+' TB';
+  if(gb < 1) return Math.round(gb*1024)+' MB';
+  return gb.toFixed(2)+' GB';
+}
+
+// ---------- filtering ----------
+function activeCategory(){
+  const el = document.querySelector('.chip.active');
+  return el ? el.dataset.cat : 'All';
+}
+function filteredEntries(){
+  const cat = activeCategory();
+  const period = $('#periodSelect').value;
+  const q = $('#searchInput').value.trim().toLowerCase();
+  let list = entries.slice();
+
+  if(cat !== 'All') list = list.filter(e => e.category === cat);
+  if(q) list = list.filter(e => e.title.toLowerCase().includes(q));
+
+  const now = new Date();
+  if(period === '7' || period === '30'){
+    const days = parseInt(period);
+    const cutoff = new Date(now); cutoff.setDate(cutoff.getDate()-days);
+    list = list.filter(e => new Date(e.date) >= cutoff);
+  } else if(period === 'month'){
+    list = list.filter(e => {
+      const d = new Date(e.date);
+      return d.getMonth()===now.getMonth() && d.getFullYear()===now.getFullYear();
+    });
+  } else if(period === 'custom'){
+    const from = $('#customFrom').value, to = $('#customTo').value;
+    if(from) list = list.filter(e => e.date >= from);
+    if(to) list = list.filter(e => e.date <= to);
+  }
+
+  list.sort((a,b)=>{
+    let av=a[sortKey], bv=b[sortKey];
+    if(sortKey==='sizeGB'){ av=+av; bv=+bv; }
+    if(av<bv) return sortDir==='asc'?-1:1;
+    if(av>bv) return sortDir==='asc'?1:-1;
+    return 0;
+  });
+  return list;
+}
+
+// ---------- render ----------
+function render(){
+  renderStrip();
+  renderBreakdown();
+  renderTable();
+  $('#addBtn').style.display = isAdmin ? 'inline-block' : 'none';
+  $('#actionsHeader').style.display = isAdmin ? 'table-cell' : 'none';
+}
+
+function renderStrip(){
+  const totalFiles = entries.length;
+  const totalGB = entries.reduce((s,e)=>s+e.sizeGB,0);
+  const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate()-7);
+  const weekEntries = entries.filter(e=>new Date(e.date)>=weekAgo);
+  const weekGB = weekEntries.reduce((s,e)=>s+e.sizeGB,0);
+
+  $('#statStrip').innerHTML = `
+    <div class="stat-card"><div class="num">${totalFiles}</div><div class="lbl">Total files uploaded</div></div>
+    <div class="stat-card accent"><div class="num">${fmtSize(totalGB)}</div><div class="lbl">Total size on WhatsApp</div></div>
+    <div class="stat-card"><div class="num">+${weekEntries.length}</div><div class="lbl">Added last 7 days · ${fmtSize(weekGB)}</div></div>
+  `;
+}
+
+function renderBreakdown(){
+  const list = filteredEntries();
+  const totalGB = list.reduce((s,e)=>s+e.sizeGB,0) || 1;
+  const colors = {Film:'var(--film)',TV:'var(--tv)',Anime:'var(--anime)',Game:'var(--game)'};
+  let rows = '';
+  CATS.forEach(cat=>{
+    const catList = list.filter(e=>e.category===cat);
+    const gb = catList.reduce((s,e)=>s+e.sizeGB,0);
+    const pct = Math.round((gb/totalGB)*100);
+    rows += `<div class="bd-row">
+      <div class="bd-label">${cat}</div>
+      <div class="bd-track"><div class="bd-fill" style="width:${gb>0?Math.max(pct,3):0}%;background:${colors[cat]}"></div></div>
+      <div class="bd-value">${catList.length} · ${fmtSize(gb)}</div>
+    </div>`;
+  });
+  $('#breakdown').innerHTML = `<h3>Breakdown — current filter</h3>${rows}`;
+}
+
+function renderTable(){
+  const list = filteredEntries();
+  const tbody = $('#tbody');
+  const empty = $('#emptyState');
+  if(list.length===0){
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    empty.innerHTML = entries.length===0
+      ? '<b>No uploads logged yet.</b><br>Switch to Admin to add the first entry.'
+      : '<b>Nothing matches these filters.</b><br>Try a different category, period, or search term.';
+    return;
+  }
+  empty.style.display = 'none';
+  tbody.innerHTML = list.map(e=>`
+    <tr>
+      <td>${escapeHtml(e.title)}</td>
+      <td><span class="badge ${e.category}">${e.category}</span></td>
+      <td class="size-cell">${fmtSize(e.sizeGB)}</td>
+      <td>${formatDate(e.date)}</td>
+      <td>${escapeHtml(e.addedBy||'—')}</td>
+      ${isAdmin ? `<td><div class="row-actions">
+        <button class="icon-btn edit" data-id="${e.id}">Edit</button>
+        <button class="icon-btn del" data-id="${e.id}">Delete</button>
+      </div></td>` : ''}
+    </tr>
+  `).join('');
+
+  if(isAdmin){
+    $$('.icon-btn.edit').forEach(b=>b.addEventListener('click',()=>openModal(b.dataset.id)));
+    $$('.icon-btn.del').forEach(b=>b.addEventListener('click',()=>deleteEntry(b.dataset.id)));
+  }
+}
+
+function escapeHtml(s){
+  const d = document.createElement('div'); d.textContent = s; return d.innerHTML;
+}
+function formatDate(d){
+  const dt = new Date(d+'T00:00:00');
+  return dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+}
+
+// ---------- CRUD ----------
+function openModal(id){
+  editingId = id || null;
+  const existing = id ? entries.find(e=>e.id===id) : null;
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  overlay.innerHTML = `
+    <div class="modal">
+      <h2>${existing ? 'Edit upload' : 'Add upload'}</h2>
+      <div class="field"><label>Title</label><input type="text" id="fTitle" value="${existing?escapeHtml(existing.title):''}" placeholder="e.g. The Bear S03E05"></div>
+      <div class="field"><label>Category</label>
+        <select id="fCategory">
+          ${CATS.map(c=>`<option value="${c}" ${existing&&existing.category===c?'selected':''}>${c}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field"><label>File size</label>
+        <div class="size-row">
+          <input type="number" id="fSizeValue" min="0" step="0.01" value="${existing?(existing.sizeGB<1?(existing.sizeGB*1024).toFixed(0):existing.sizeGB.toFixed(2)):''}" placeholder="e.g. 850">
+          <select id="fSizeUnit">
+            <option value="MB" ${existing&&existing.sizeGB<1?'selected':''}>MB</option>
+            <option value="GB" ${!existing||existing.sizeGB>=1?'selected':''}>GB</option>
+            <option value="TB">TB</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Upload date</label><input type="date" id="fDate" value="${existing?existing.date:new Date().toISOString().slice(0,10)}"></div>
+      <div class="field"><label>Added by (optional)</label><input type="text" id="fAddedBy" value="${existing?escapeHtml(existing.addedBy||''):''}" placeholder="Admin name"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="mCancel">Cancel</button>
+        <button class="btn btn-accent" id="mSave">${existing?'Save changes':'Add upload'}</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  $('#mCancel').onclick = ()=>overlay.remove();
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) overlay.remove(); });
+  $('#mSave').onclick = async ()=>{
+    const title = $('#fTitle').value.trim();
+    const category = $('#fCategory').value;
+    const sizeValue = $('#fSizeValue').value;
+    const sizeUnit = $('#fSizeUnit').value;
+    const date = $('#fDate').value;
+    const addedBy = $('#fAddedBy').value.trim();
+    if(!title || !sizeValue || !date){
+      toast('Fill in title, size and date.');
+      return;
+    }
+    const sizeGB = toGB(sizeValue, sizeUnit);
+    if(existing){
+      Object.assign(existing, {title, category, sizeGB, date, addedBy});
+    } else {
+      entries.push({id: Date.now()+'-'+Math.random().toString(36).slice(2,7), title, category, sizeGB, date, addedBy, createdAt: Date.now()});
+    }
+    await saveEntries();
+    overlay.remove();
+    render();
+    toast(existing ? 'Entry updated.' : 'Upload added.');
+  };
+}
+
+async function deleteEntry(id){
+  if(!confirm('Delete this entry? This cannot be undone.')) return;
+  entries = entries.filter(e=>e.id!==id);
+  await saveEntries();
+  render();
+  toast('Entry deleted.');
+}
+
+function toast(msg){
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(), 2200);
+}
+
+// ---------- CSV export ----------
+function exportCSV(){
+  const list = filteredEntries();
+  if(list.length===0){ toast('Nothing to export for this filter.'); return; }
+  const rows = [['Title','Category','Size (GB)','Date','Added by']];
+  list.forEach(e=>rows.push([e.title, e.category, e.sizeGB.toFixed(3), e.date, e.addedBy||'']));
+  const csv = rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'mpm-upload-log.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ---------- admin gate ----------
+async function openAdminGate(){
+  const existingPin = await getAdminPin();
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  if(!existingPin){
+    overlay.innerHTML = `
+      <div class="modal">
+        <h2>Set up admin PIN</h2>
+        <div class="hint">No admin PIN is set yet. Create one now — this single PIN is shared across your whole admin team, so anyone who has it can add and edit entries.</div>
+        <div class="field"><label>New PIN (4–8 digits)</label><input type="text" id="pinNew" maxlength="8" placeholder="e.g. 4821"></div>
+        <div class="field"><label>Confirm PIN</label><input type="text" id="pinConfirm" maxlength="8"></div>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="pinCancel">Cancel</button>
+          <button class="btn btn-accent" id="pinSet">Create PIN</button>
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+    $('#pinCancel').onclick = ()=>overlay.remove();
+    $('#pinSet').onclick = async ()=>{
+      const a = $('#pinNew').value.trim(), b = $('#pinConfirm').value.trim();
+      if(a.length<4){ toast('PIN must be at least 4 digits.'); return; }
+      if(a!==b){ toast("PIN's don't match."); return; }
+      await setAdminPin(a);
+      overlay.remove();
+      isAdmin = true;
+      setView('admin');
+      toast('Admin PIN created. Share it only with your admin team.');
+    };
+  } else {
+    overlay.innerHTML = `
+      <div class="modal">
+        <h2>Admin access</h2>
+        <div class="hint">Enter the shared team PIN. You'll need to re-enter it if you reload the page.</div>
+        <div class="field"><label>PIN</label><input type="text" id="pinEnter" maxlength="8" autofocus></div>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="pinCancel2">Cancel</button>
+          <button class="btn btn-accent" id="pinGo">Enter</button>
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+    $('#pinCancel2').onclick = ()=>overlay.remove();
+    const tryPin = async ()=>{
+      const val = $('#pinEnter').value.trim();
+      if(val === existingPin){
+        overlay.remove();
+        isAdmin = true;
+        setView('admin');
+      } else {
+        toast('Incorrect PIN.');
+      }
+    };
+    $('#pinGo').onclick = tryPin;
+    overlay.querySelector('#pinEnter').addEventListener('keydown', e=>{ if(e.key==='Enter') tryPin(); });
+  }
+}
+
+function setView(v){
+  view = v;
+  $('#tabPublic').classList.toggle('active', v==='public');
+  $('#tabAdmin').classList.toggle('active', v==='admin');
+  render();
+}
+
+// ---------- events ----------
+$('#tabPublic').addEventListener('click', ()=> setView('public'));
+$('#tabAdmin').addEventListener('click', ()=>{
+  if(isAdmin) setView('admin');
+  else openAdminGate();
+});
+$('#catChips').addEventListener('click', e=>{
+  if(!e.target.classList.contains('chip')) return;
+  $$('.chip').forEach(c=>c.classList.remove('active'));
+  e.target.classList.add('active');
+  render();
+});
+$('#periodSelect').addEventListener('change', ()=>{
+  const custom = $('#periodSelect').value==='custom';
+  $('#customFrom').style.display = custom?'inline-block':'none';
+  $('#customTo').style.display = custom?'inline-block':'none';
+  render();
+});
+$('#customFrom').addEventListener('change', render);
+$('#customTo').addEventListener('change', render);
+$('#searchInput').addEventListener('input', render);
+$('#exportBtn').addEventListener('click', exportCSV);
+$('#addBtn').addEventListener('click', ()=>openModal(null));
+$$('thead th[data-sort]').forEach(th=>{
+  th.addEventListener('click', ()=>{
+    const key = th.dataset.sort;
+    if(sortKey===key) sortDir = sortDir==='asc'?'desc':'asc';
+    else { sortKey = key; sortDir = 'desc'; }
+    render();
+  });
+});
+
+// ---------- init + live sync ----------
+loadEntries();
+setInterval(loadEntries, 8000); // near-live sync across admin + community viewers
+</script>
+</body>
+</html>
