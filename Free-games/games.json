@@ -1,5 +1,15 @@
 [
     {
+    "id": "for_honor",
+    "platform": "ubisoft",
+    "title": "For Honor Standard Edition",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/304390/65a6661529025663339f27c352d2b2223ad21083/header_alt_assets_11.jpg?t=1789073260",
+    "description": "For Honor is a groundbreaking team-based PvP melee fighting game where Knights, Samurai, Vikings, Wu Lin, and more clash in endless battles. Pick unique heroes and master intense 4v4, 2v2, or 1v1 battles.",
+    "claimUrl": "https://store.ubisoft.com/ie/for-honor/659ea92329c01c38968dce1a.html?lang=en-ZW",
+    "startDate": "2026-09-15T18:30:00",
+    "endDate": "2026-09-28T18:30:00"
+  },
+    {
     "id": "crystal_crisis",
     "platform": "steam",
     "title": "Crystal Crisis",
