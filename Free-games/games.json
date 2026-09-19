@@ -1,5 +1,55 @@
 [
     {
+    "id": "Mechabellum",
+    "platform": "epic",
+    "title": "Mechabellum",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/669330/f3f37756ab2d419f107d9656d04a4b5311a108fe/header.jpg?t=1788508863",
+    "description": "Command massive armies in this epic mech auto-battler. Draft your troops, customize your units, master your formations, and crush enemies in spectacular 3D battles. All strategy, no clickfest. Outsmart opponents in 1v1, 2v2, free-for-all, or Survival Mode.",
+    "claimUrl": "https://store.epicgames.com/p/mechabellum-88a843",
+    "startDate": "2026-09-24T20:30:00",
+    "endDate": "2026-10-01T20:30:00"
+  },
+    {
+    "id": "astrea",
+    "platform": "epic",
+    "title": "Astrea: Six Sided Oracles",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1755830/0a034d750802c570aabef6af262c154ae46fedfa/header.jpg?t=1788710368",
+    "description": "Astrea is a DICE-deck-building roguelike that flips the script on deckbuilders by using dice instead of cards and a unique dual “damage” system: Purification vs Corruption. Build a dice pool strong enough to purify Astrea's out-of-control corruption and save the Star System.",
+    "claimUrl": "https://store.epicgames.com/p/astrea-six-sided-oracles-33c949",
+    "startDate": "2026-09-24T20:30:00",
+    "endDate": "2026-10-01T20:30:00"
+  },
+    {
+    "id": "Mindcop",
+    "platform": "epic",
+    "title": "Mindcop",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1517180/header.jpg?t=1744981735",
+    "description": "Mindcop is a non-linear „whodunnit“ detective game. It mixes a story driven adventure with real-time puzzle gaming. As the infamous Mindcop, you can dive into the minds of your suspects to uncover their secrets and unravel their lies.",
+    "claimUrl": "https://store.epicgames.com/p/mindcop-78e6c1",
+    "startDate": "2026-09-17T20:30:00",
+    "endDate": "2026-10-24T20:30:00"
+  },
+    {
+    "id": "shogun",
+    "platform": "epic",
+    "title": "Shogun Showdown",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2084000/header.jpg?t=1763395118",
+    "description": "Shogun Showdown is a turn-based combat game with rogue-like and deck-building elements. Position yourself and attack at the right time, upgrade your tiles and combo them to get ready to face the Shogun!",
+    "claimUrl": "https://store.epicgames.com/p/shogun-showdown-61832d",
+    "startDate": "2026-09-17T20:30:00",
+    "endDate": "2026-10-24T20:30:00"
+  },
+    {
+    "id": "Deadshot",
+    "platform": "steam",
+    "title": "Deadshot",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2484180/header.jpg?t=1789750382",
+    "description": "You wake up as an army soldier in the middle of a mutant apocalypse, trying to figure out what the hell happened and blasting some heads on the way. Deadshot is a retro styled first person shooter inspired from classics like Half Life, Doom, Quake and many alike.",
+    "claimUrl": "https://store.steampowered.com/app/2484180/Deadshot/",
+    "startDate": "2026-09-18T18:30:00",
+    "endDate": "2026-09-23T22:30:00"
+  },
+    {
     "id": "for_honor",
     "platform": "ubi",
     "title": "For Honor Standard Edition",
