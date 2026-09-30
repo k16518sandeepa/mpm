@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MPM Studio Poster Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&family=Bangers&family=Bebas+Neue&family=Cinzel:wght@700&family=Cormorant+Garamond:ital,wght@1,700&family=Great+Vibes&family=Lobster&family=Montserrat:wght@300;400;500;900&family=Orbitron:wght@900&family=Oswald:wght@700&family=Pacifico&family=Playfair+Display:ital,wght@1,700&family=Poppins:wght@400;500;700&family=Righteous&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f4f5;--panel:#fff;--ink:#141416;--mute:#6b6b73;--line:#d9d9de;--red:#e50914;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c0c0e;--panel:#17171a;--ink:#f2f2f4;--mute:#9a9aa3;--line:#2c2c32}}
+:root[data-theme="dark"]{--bg:#0c0c0e;--panel:#17171a;--ink:#f2f2f4;--mute:#9a9aa3;--line:#2c2c32}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 Poppins,system-ui,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:16px}
+h1{font:900 22px Montserrat,sans-serif;margin:4px 0 14px}
+h1 span{color:var(--red)}
+canvas{width:100%;height:auto;display:block;border-radius:8px;border:1px solid var(--line);background:#000}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mute)}
+input,select,textarea{font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%}
+input[type=color]{padding:2px;height:38px}
+input[type=range]{padding:0}
+textarea{min-height:80px;resize:vertical}
+.wide{grid-column:1/-1}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{font:500 15px Poppins,sans-serif;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:10px 16px;border-radius:6px;cursor:pointer}
+button.primary{background:var(--red);border-color:var(--red);color:#fff}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.hint{font-size:12px;color:var(--mute);margin:8px 0 0}
+.tabs{display:flex;gap:8px;margin-top:14px}
+.tabs button.on{background:var(--red);border-color:var(--red);color:#fff}
+.res{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.item{display:flex;align-items:center;gap:10px;text-align:left;padding:6px 10px;width:100%}
+.item img,.item i{width:34px;height:50px;object-fit:cover;border-radius:3px;background:var(--line);flex:none}
+#bds img{width:calc(33.3% - 6px);max-width:170px;border-radius:6px;cursor:pointer;border:2px solid transparent}
+#bds img:hover,#bds img:focus-visible{border-color:var(--red);outline:none}
+</style>
+</head>
+<body>
+<main>
+<h1><span>MPM</span> Studio poster generator</h1>
+<canvas id="c" width="1672" height="941"></canvas>
+
+<div class="tabs"><button id="tm" class="on">Manual</button><button id="ta">Auto (TMDB)</button></div>
+<div class="panel" id="auto" hidden>
+<div class="grid">
+<label class="wide">TMDB API key or read access token<input id="key" type="password" placeholder="Paste once. It is saved in this browser."></label>
+<label class="wide">Search movie, TV or anime<input id="q" placeholder="e.g. Sasaki and Peeps"></label>
+</div>
+<div class="row"><button class="primary" id="go">Search</button></div>
+<div id="res" class="res"></div>
+<div id="bds" class="res"></div>
+<p class="hint" id="st"></p>
+</div>
+
+<div class="panel">
+<div class="grid">
+<label>Title<input id="title" value="Sasaki and Peeps"></label>
+<label>Title font<select id="tfont"></select></label>
+<label>Title case<select id="tcase"><option value="">As typed</option><option value="u">UPPERCASE</option></select></label>
+<label>Title size<input id="tsz" type="range" min="0.5" max="1.3" step="0.01" value="1"></label>
+<label class="wide">Add your own fonts (.ttf .otf .woff .woff2)<input id="ff" type="file" accept=".ttf,.otf,.woff,.woff2" multiple></label>
+<div class="wide"><button id="ffc" type="button">Remove my saved fonts</button><p class="hint" id="fmsg">Fonts you add are saved in this browser only. To give the whole team the same fonts, list them in HOSTED_FONTS at the top of the script.</p></div>
+<label>Category<select id="cat"><option>Anime</option><option>TV Series</option><option>Movie</option><option>Gaming</option></select></label>
+<label>Year<input id="year" value="2024"></label>
+<label>Format<input id="fmt" value="TV"></label>
+<label>Episodes / runtime<input id="ep" value="12 Episodes"></label>
+<label>Rating<input id="rate" value="6.5"></label>
+<label>Rating source<input id="src" value="IMDb"></label>
+<label>Accent colour<input id="accent" type="color" value="#2fe0c0"></label>
+<label class="wide">Tagline<input id="tag" value="An ordinary man. An extraordinary bird."></label>
+<label class="wide">Synopsis<textarea id="syn">An office worker buys a mysterious bird that gives him the power to cross between worlds, drawing him into magic, adventure, and unexpected encounters.</textarea></label>
+<label class="wide">Genres (comma separated)<input id="gen" value="Animation, Adventure, Comedy, Fantasy"></label>
+<label class="wide">Footer line<input id="foot" value="Anime brings people together"></label>
+<label class="wide">Artwork image<input id="img" type="file" accept="image/*"></label>
+<label>Zoom<input id="zoom" type="range" min="1" max="3" step="0.01" value="1"></label>
+<label>Move left / right<input id="px" type="range" min="-1" max="1" step="0.01" value="0"></label>
+<label>Move up / down<input id="py" type="range" min="-1" max="1" step="0.01" value="0"></label>
+</div>
+<div class="row">
+<button class="primary" id="dl">Download PNG</button>
+</div>
+<p class="hint">Artwork stays in your browser. Use a wide key-art image for the best crop.</p>
+</div>
+</main>
+
+<script>
+const W=1672,H=941,cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const $=id=>document.getElementById(id);
+let art=null;
+const RED='#e50914',GOLD='#f2b94b';
+// ---- Team config ----
+const TMDB_KEY='';            // optional: paste a TMDB key here so the team never has to
+const HOSTED_FONTS=[];        // optional: e.g. ['fonts/MyTitle.ttf','fonts/Other.otf'] (files uploaded next to this page)
+// ---------------------
+const FONTS=[{n:'Playfair Display',s:'italic',w:700},{n:'Cormorant Garamond',s:'italic',w:700},{n:'Abril Fatface',s:'normal',w:400},{n:'Cinzel',s:'normal',w:700},{n:'Bebas Neue',s:'normal',w:400},{n:'Anton',s:'normal',w:400},{n:'Oswald',s:'normal',w:700},{n:'Orbitron',s:'normal',w:900},{n:'Righteous',s:'normal',w:400},{n:'Bangers',s:'normal',w:400},{n:'Lobster',s:'normal',w:400},{n:'Pacifico',s:'normal',w:400},{n:'Great Vibes',s:'normal',w:400}];
+const fspec=(f,s)=>`${f.s} ${f.w} ${s}px "${f.n}"`;
+function fillFonts(sel){const s=$('tfont');s.innerHTML='';FONTS.forEach((f,i)=>{const o=document.createElement('option');o.value=i;o.textContent=f.n+(f.c?' (yours)':'');s.appendChild(o)});s.value=sel||0}
+async function regFont(n,src){if(FONTS.some(f=>f.n==n))return;const ff=new FontFace(n,src);await ff.load();document.fonts.add(ff);FONTS.push({n,s:'normal',w:400,c:1})}
+const DB=new Promise(r=>{try{const q=indexedDB.open('mpm-poster',1);q.onupgradeneeded=()=>q.result.createObjectStore('f');q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)}catch(e){r(null)}});
+async function dbOp(m,...a){const d=await DB;if(!d)return;return new Promise(r=>{try{const q=d.transaction('f',/^get/.test(m)?'readonly':'readwrite').objectStore('f')[m](...a);q.onsuccess=()=>r(q.result);q.onerror=()=>r()}catch(e){r()}})}
+
+function spaced(t,x,y,sp){for(const ch of t){ctx.fillText(ch,x,y);x+=ctx.measureText(ch).width+sp}return x}
+function spacedW(t,sp){let w=0;for(const ch of t)w+=ctx.measureText(ch).width+sp;return w}
+function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function cover(img,x,y,w,h,z,ox,oy){
+  const s=Math.max(w/img.width,h/img.height)*z,iw=img.width*s,ih=img.height*s;
+  const dx=x+(w-iw)/2+ox*(iw-w)/2,dy=y+(h-ih)/2+oy*(ih-h)/2;
+  ctx.drawImage(img,dx,dy,iw,ih);
+}
+function wrap(t,maxW,maxLines){
+  const words=t.split(/\s+/),lines=[];let cur='';
+  for(const w of words){const test=cur?cur+' '+w:w;if(ctx.measureText(test).width>maxW&&cur){lines.push(cur);cur=w}else cur=test}
+  if(cur)lines.push(cur);
+  if(lines.length>maxLines){lines.length=maxLines;lines[maxLines-1]=lines[maxLines-1].replace(/\s*\S*$/,'')+'…'}
+  return lines;
+}
+
+function draw(){
+  const accent=$('accent').value,z=+$('zoom').value,ox=+$('px').value,oy=+$('py').value;
+  ctx.clearRect(0,0,W,H);ctx.textBaseline='alphabetic';
+  // base
+  ctx.fillStyle='#08080a';ctx.fillRect(0,0,W,H);
+  if(art){ctx.save();ctx.globalAlpha=.22;ctx.filter='blur(40px)';cover(art,0,0,W,H,1.3,ox,oy);ctx.restore()}
+  let g=ctx.createLinearGradient(0,0,W*.6,0);g.addColorStop(0,'rgba(8,8,10,.92)');g.addColorStop(1,'rgba(8,8,10,.6)');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  g=ctx.createRadialGradient(0,H,0,0,H,520);g.addColorStop(0,'rgba(229,9,20,.4)');g.addColorStop(1,'rgba(229,9,20,0)');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+
+  // artwork panel
+  ctx.save();
+  ctx.beginPath();ctx.moveTo(975,0);ctx.lineTo(W,0);ctx.lineTo(W,H);ctx.lineTo(780,H);ctx.closePath();ctx.clip();
+  if(art)cover(art,780,0,W-780,H,z,ox,oy);
+  else{const p=ctx.createLinearGradient(780,0,W,H);p.addColorStop(0,'#1b2a4a');p.addColorStop(1,accent);ctx.fillStyle=p;ctx.fillRect(780,0,W-780,H);
+    ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='500 28px Poppins';ctx.textAlign='center';ctx.fillText('Upload artwork',1300,H/2);ctx.textAlign='left'}
+  ctx.restore();
+  // red edge
+  ctx.save();ctx.shadowColor=RED;ctx.shadowBlur=14;ctx.strokeStyle=RED;ctx.lineWidth=4;
+  ctx.beginPath();ctx.moveTo(975,0);ctx.lineTo(780,H);ctx.stroke();ctx.restore();
+
+  // logo
+  ctx.fillStyle=RED;ctx.font='900 56px Montserrat';ctx.fillText('MPM',78,96);
+  const mw=ctx.measureText('MPM').width;
+  ctx.fillStyle=GOLD;ctx.font='300 48px Montserrat';ctx.fillText('STUDIO',78+mw+22,96);
+  ctx.fillStyle='#fff';ctx.font='500 15px Montserrat';
+  let x=78;
+  ['MOVIES','ANIME','TV','MORE'].forEach((w,i)=>{
+    if(i){ctx.fillStyle=RED;ctx.beginPath();ctx.arc(x+14,117,3,0,7);ctx.fill();x+=30;ctx.fillStyle='#fff'}
+    x=spaced(w,x,123,3.4)
+  });
+
+  // meta
+  const meta=[$('cat').value,$('year').value,$('fmt').value,$('ep').value].filter(Boolean);
+  ctx.font='400 25px Poppins';x=80;
+  meta.forEach((m,i)=>{
+    if(i){ctx.fillStyle='rgba(255,255,255,.7)';ctx.beginPath();ctx.arc(x+22,193,3,0,7);ctx.fill();x+=44}
+    ctx.fillStyle='#fff';ctx.fillText(m,x,203);x+=ctx.measureText(m).width;
+  });
+
+  // title: fit to width, last word in accent
+  let title=$('title').value.trim()||'Title';if($('tcase').value)title=title.toUpperCase();
+  const parts=title.split(/\s+/),last=parts.pop(),head=parts.length?parts.join(' ')+' ':'';
+  const F=FONTS[+$('tfont').value]||FONTS[0];
+  let size=Math.round(170*$('tsz').value);ctx.font=fspec(F,size);
+  const tw=ctx.measureText(head+last).width;
+  if(tw>760)size=Math.floor(size*760/tw);
+  ctx.font=fspec(F,size);
+  ctx.save();ctx.shadowColor='rgba(0,0,0,.6)';ctx.shadowBlur=18;
+  ctx.fillStyle='#fff';ctx.fillText(head,78,375);
+  const hw=ctx.measureText(head).width;
+  ctx.fillStyle=accent;ctx.shadowColor=accent;ctx.shadowBlur=22;ctx.fillText(last,78+hw,375);
+  ctx.restore();
+
+  // tagline
+  ctx.fillStyle='rgba(255,255,255,.85)';ctx.font='400 21px Montserrat';
+  spaced(($('tag').value||'').toUpperCase(),82,449,4.2);
+
+  // synopsis
+  ctx.fillStyle='#fff';ctx.font='400 30px Poppins';
+  wrap($('syn').value,680,4).forEach((l,i)=>ctx.fillText(l,82,503+i*38));
+
+  // rating
+  const ry=690;
+  ctx.fillStyle=GOLD;ctx.beginPath();
+  for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,r=i%2?12:29;ctx.lineTo(109+Math.cos(a)*r,ry-10+Math.sin(a)*r)}
+  ctx.closePath();ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='700 58px Poppins';ctx.fillText($('rate').value,158,ry+12);
+  const rw=ctx.measureText($('rate').value).width;
+  ctx.fillStyle='rgba(255,255,255,.75)';ctx.font='400 34px Poppins';ctx.fillText('/10',158+rw+6,ry+12);
+  const bx=158+rw+6+ctx.measureText('/10').width+30;
+  ctx.font='700 25px Poppins';const bw=ctx.measureText($('src').value).width+34;
+  ctx.strokeStyle=GOLD;ctx.lineWidth=2.5;rr(bx,ry-26,bw,42,7);ctx.stroke();
+  ctx.fillStyle=GOLD;ctx.fillText($('src').value,bx+17,ry+6);
+
+  // genre pills
+  ctx.font='400 22px Poppins';x=80;
+  $('gen').value.split(',').map(s=>s.trim()).filter(Boolean).slice(0,5).forEach(gn=>{
+    const w=ctx.measureText(gn).width+52;
+    ctx.fillStyle='rgba(255,255,255,.07)';rr(x,733,w,46,23);ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillStyle='#fff';ctx.fillText(gn,x+26,764);x+=w+18;
+  });
+
+  // footer
+  ctx.fillStyle=RED;ctx.font='900 30px Montserrat';ctx.fillText('MPM',82,864);
+  const fw=ctx.measureText('MPM').width;
+  ctx.fillStyle=GOLD;ctx.font='300 27px Montserrat';ctx.fillText('STUDIO',82+fw+8,864);
+  const sx=82+fw+8+ctx.measureText('STUDIO').width+28;
+  ctx.fillStyle='rgba(255,255,255,.6)';ctx.fillRect(sx,845,2,22);
+  ctx.fillStyle='rgba(255,255,255,.85)';ctx.font='400 16px Montserrat';
+  spaced(($('foot').value||'').toUpperCase(),sx+30,862,4);
+}
+
+document.querySelectorAll('input:not([type=file]),textarea,select').forEach(e=>e.addEventListener('input',draw));
+$('img').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  const im=new Image();im.onload=()=>{art=im;draw()};im.src=URL.createObjectURL(f);
+});
+$('dl').addEventListener('click',()=>{
+  const a=document.createElement('a');
+  a.download=($('title').value||'poster').replace(/[^\w]+/g,'-').toLowerCase()+'-mpm-poster.png';
+  a.href=cv.toDataURL('image/png');a.click();
+});
+$('tfont').addEventListener('change',()=>{document.fonts.load(fspec(FONTS[+$('tfont').value],100)).then(draw)});
+$('ff').addEventListener('change',async e=>{
+  let ok=0;
+  for(const f of e.target.files){try{const n=f.name.replace(/\.[^.]+$/,'').replace(/["'\\]/g,'');const b=await f.arrayBuffer();await regFont(n,b.slice(0));dbOp('put',b,n);ok++}catch(x){}}
+  $('fmsg').textContent=ok?ok+' font(s) added and saved in this browser.':'Could not read that font file.';
+  fillFonts(FONTS.length-1);draw();
+});
+$('ffc').addEventListener('click',async()=>{await dbOp('clear');location.reload()});
+
+// ---- TMDB ----
+const TB='https://api.themoviedb.org/3',IM='https://image.tmdb.org/t/p/';
+$('key').value=localStorage.getItem('tk')||TMDB_KEY;
+const st=t=>$('st').textContent=t;
+function tab(a){$('auto').hidden=!a;$('tm').classList.toggle('on',!a);$('ta').classList.toggle('on',!!a)}
+$('tm').onclick=()=>tab(0);$('ta').onclick=()=>tab(1);
+async function tm(path,p={}){
+  const k=$('key').value.trim();if(!k)throw new Error('Paste your TMDB API key first.');
+  try{localStorage.setItem('tk',k)}catch(e){}
+  const u=new URL(TB+path);Object.entries(p).forEach(([a,b])=>u.searchParams.set(a,b));
+  const o={};if(k.length>40)o.headers={Authorization:'Bearer '+k};else u.searchParams.set('api_key',k);
+  const r=await fetch(u,o);
+  if(!r.ok)throw new Error(r.status==401?'TMDB rejected that key.':'TMDB error '+r.status);
+  return r.json();
+}
+$('go').onclick=async()=>{try{
+  st('Searching…');
+  const d=await tm('/search/multi',{query:$('q').value,include_adult:'false'});
+  const items=d.results.filter(x=>x.media_type!='person').slice(0,10);
+  $('res').innerHTML='';$('bds').innerHTML='';
+  items.forEach(x=>{
+    const b=document.createElement('button');b.className='item';
+    b.innerHTML=(x.poster_path?`<img src="${IM}w92${x.poster_path}" alt="">`:'<i></i>')+'<span></span>';
+    const y=(x.release_date||x.first_air_date||'').slice(0,4);
+    b.lastChild.textContent=`${x.title||x.name} (${y||'n/a'}) · ${x.media_type=='tv'?'TV':'Movie'}`;
+    b.onclick=()=>pick(x);$('res').appendChild(b);
+  });
+  st(items.length?'Pick a title.':'No results.');
+}catch(e){st(e.message)}};
+$('q').addEventListener('keydown',e=>{if(e.key=='Enter')$('go').click()});
+function setArt(p){
+  st('Loading artwork…');
+  const im=new Image();im.crossOrigin='anonymous';
+  im.onload=()=>{art=im;$('zoom').value=1;$('px').value=0;$('py').value=0;draw();st('Ready. Edit any field, then download.')};
+  im.onerror=()=>st('Artwork failed to load.');
+  im.src=IM+'w1280'+p;
+}
+async function pick(x){try{
+  st('Loading details…');const t=x.media_type;
+  const d=await tm(`/${t}/${x.id}`,{append_to_response:'images',include_image_language:'en,null'});
+  const g=(d.genres||[]).map(a=>a.name);
+  const anime=g.includes('Animation')&&(d.original_language=='ja'||(d.origin_country||[]).includes('JP'));
+  $('title').value=d.title||d.name;
+  $('cat').value=anime?'Anime':t=='tv'?'TV Series':'Movie';
+  $('year').value=(d.release_date||d.first_air_date||'').slice(0,4);
+  $('fmt').value=t=='tv'?'TV':'Movie';
+  $('ep').value=t=='tv'?(d.number_of_episodes?d.number_of_episodes+' Episodes':''):(d.runtime?Math.floor(d.runtime/60)+'h '+d.runtime%60+'m':'');
+  $('rate').value=(d.vote_average||0).toFixed(1);$('src').value='TMDB';
+  $('tag').value=d.tagline||'';$('syn').value=d.overview||'';$('gen').value=g.join(', ');
+  $('foot').value=anime?'Anime brings people together':t=='tv'?'TV brings people together':'Movies bring people together';
+  const bd=(d.images&&d.images.backdrops||[]).slice(0,12);
+  if(d.backdrop_path)bd.unshift({file_path:d.backdrop_path});
+  $('bds').innerHTML='';
+  bd.forEach(b=>{const im=document.createElement('img');im.src=IM+'w300'+b.file_path;im.alt='Backdrop option';im.tabIndex=0;
+    im.onclick=()=>setArt(b.file_path);im.onkeydown=e=>{if(e.key=='Enter')setArt(b.file_path)};$('bds').appendChild(im)});
+  draw();
+  if(bd.length)setArt(bd[0].file_path);else st('No artwork on TMDB for this title. Upload your own below.');
+}catch(e){st(e.message)}}
+
+// ---- start ----
+(async()=>{
+  fillFonts(0);
+  for(const u of HOSTED_FONTS){try{await regFont(decodeURIComponent(u.split('/').pop().replace(/\.[^.]+$/,'')),`url(${u})`)}catch(e){}}
+  try{const k=await dbOp('getAllKeys'),v=await dbOp('getAll');for(let i=0;i<(k||[]).length;i++)await regFont(k[i],v[i])}catch(e){}
+  fillFonts(0);
+  await Promise.all(['900 56px Montserrat','300 48px Montserrat','500 15px Montserrat','400 21px Montserrat','400 30px Poppins','500 28px Poppins','700 58px Poppins',fspec(FONTS[0],100)].map(f=>document.fonts.load(f).catch(()=>{})));
+  draw();
+})();
+draw();
+</script>
+</body>
+</html>
