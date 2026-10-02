@@ -21,6 +21,13 @@ const FUNDRAISING_DATA = {
       "date": "2026-09-01",
       "note": "",
       "anonymous": false
+    },
+    {
+      "name": "Kavindya",
+      "amount": 500,
+      "date": "2026-10-02",
+      "note": "",
+      "anonymous": false
     }
   ],
   "expenses": [
