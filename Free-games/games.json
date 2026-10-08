@@ -1,5 +1,15 @@
 [
     {
+    "id": "pony_island",
+    "platform": "steam",
+    "title": "Pony Island",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/405640/header.jpg?t=1791477267",
+    "description": "Pony Island is a suspense puzzle game in disguise. You are in limbo, trapped in a malevolent and malfunctioning arcade machine devised by the devil himself. It is not a game about ponies.",
+    "claimUrl": "https://store.steampowered.com/app/405640/Pony_Island/",
+    "startDate": "2026-10-08T22:30:00",
+    "endDate": "2026-10-12T22:30:00"
+  },
+  {
     "id": "Terrascape",
     "platform": "epic",
     "title": "TerraScape",
