@@ -73,7 +73,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <label class="wide">Tagline<input id="tag" value="An ordinary man. An extraordinary bird."></label>
 <label class="wide">Synopsis<textarea id="syn">An office worker buys a mysterious bird that gives him the power to cross between worlds, drawing him into magic, adventure, and unexpected encounters.</textarea></label>
 <label class="wide">Genres (comma separated)<input id="gen" value="Animation, Adventure, Comedy, Fantasy"></label>
-<label class="wide">Footer line<input id="foot" value="Anime brings people together"></label>
+<label class="wide">Footer line<input id="foot" value="© 2026 Powered by MPM"></label>
 <label class="wide">Artwork image<input id="img" type="file" accept="image/*"></label>
 <label>Zoom<input id="zoom" type="range" min="1" max="3" step="0.01" value="1"></label>
 <label>Move left / right<input id="px" type="range" min="-1" max="1" step="0.01" value="0"></label>
@@ -281,7 +281,7 @@ async function pick(x){try{
   $('ep').value=t=='tv'?(d.number_of_episodes?d.number_of_episodes+' Episodes':''):(d.runtime?Math.floor(d.runtime/60)+'h '+d.runtime%60+'m':'');
   $('rate').value=(d.vote_average||0).toFixed(1);$('src').value='TMDB';
   $('tag').value=d.tagline||'';$('syn').value=d.overview||'';$('gen').value=g.join(', ');
-  $('foot').value=anime?'Anime brings people together':t=='tv'?'TV brings people together':'Movies bring people together';
+  $('foot').value=anime?'© 2026 Powered by MPM':t=='tv'?'© 2026 Powered by MPM':'© 2026 Powered by MPM';
   const bd=(d.images&&d.images.backdrops||[]).slice(0,12);
   if(d.backdrop_path)bd.unshift({file_path:d.backdrop_path});
   $('bds').innerHTML='';
