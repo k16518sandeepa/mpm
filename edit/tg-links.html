@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MPM Link Generator</title>
+<style>
+:root{--bg:#f4f1f8;--card:#fff;--ink:#1b1530;--mute:#6b6585;--line:#d9d3e6;--accent:#6d28d9;--accent-ink:#fff;--ok:#0f766e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#120e1f;--card:#1c1630;--ink:#f1edfa;--mute:#a59fc0;--line:#352d52;--accent:#a78bfa;--accent-ink:#150f28;--ok:#5eead4}}
+:root[data-theme="dark"]{--bg:#120e1f;--card:#1c1630;--ink:#f1edfa;--mute:#a59fc0;--line:#352d52;--accent:#a78bfa;--accent-ink:#150f28;--ok:#5eead4}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;line-height:1.5}
+main{max-width:640px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.5rem;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--mute);margin:0 0 20px;font-size:.95rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+label{display:block;font-weight:600;font-size:.9rem;margin:0 0 6px}
+input[type=text],input[type=number],textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:flex;gap:12px;margin-top:14px}
+.row>div{flex:1}
+.check{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:.92rem}
+.check input{width:18px;height:18px;accent-color:var(--accent)}
+textarea{min-height:240px;resize:vertical;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;line-height:1.6;white-space:pre}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:20px 0 8px}
+.bar span{font-weight:600;font-size:.9rem}
+button{font:inherit;font-weight:600;border:0;border-radius:10px;padding:10px 16px;cursor:pointer;background:var(--accent);color:var(--accent-ink)}
+button.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.msg{min-height:1.4em;margin-top:8px;font-size:.88rem;color:var(--mute)}
+.msg.ok{color:var(--ok)}.msg.err{color:#dc2626}
+.btns{display:flex;gap:8px}
+</style>
+</head>
+<body>
+<main>
+<h1>Telegram link generator</h1>
+<p class="sub">Paste the first post link, set how many you need, copy them all.</p>
+
+<div class="card">
+  <label for="first">First link</label>
+  <input type="text" id="first" inputmode="url" autocomplete="off" placeholder="https://t.me/mpm_download_zone/4004" value="https://t.me/mpm_download_zone/4004">
+  <div class="row">
+    <div><label for="count">How many links</label><input type="number" id="count" min="1" max="1000" value="12"></div>
+    <div><label for="step">Step</label><input type="number" id="step" min="1" max="100" value="1"></div>
+  </div>
+  <div class="check"><input type="checkbox" id="incl" checked><label for="incl" style="margin:0;font-weight:400">Include the first link in the count</label></div>
+  <div class="msg" id="msg"></div>
+</div>
+
+<div class="bar">
+  <span id="total">0 links</span>
+  <div class="btns"><button class="alt" id="clear" type="button">Clear</button><button id="copy" type="button">Copy all</button></div>
+</div>
+<textarea id="out" readonly aria-label="Generated links" placeholder="Links appear here"></textarea>
+</main>
+
+<script>
+(function(){
+  var first=document.getElementById('first'),count=document.getElementById('count'),step=document.getElementById('step'),
+      incl=document.getElementById('incl'),out=document.getElementById('out'),msg=document.getElementById('msg'),total=document.getElementById('total');
+
+  function say(t,c){msg.textContent=t;msg.className='msg '+(c||'')}
+
+  function generate(){
+    var raw=first.value.trim();
+    if(!raw){out.value='';total.textContent='0 links';say('');return}
+    var m=raw.match(/^(https?:\/\/t\.me\/(?:c\/)?[^\/\s]+\/)(\d+)(\/?[^\s]*)$/i);
+    if(!m){out.value='';total.textContent='0 links';say('Use a link like https://t.me/channel/4004','err');return}
+    var n=Math.max(1,Math.min(1000,parseInt(count.value,10)||0));
+    var s=Math.max(1,parseInt(step.value,10)||1);
+    var base=m[1],num=parseInt(m[2],10),tail=m[3]&&m[3]!=='/'?m[3]:'';
+    var lines=[],start=incl.checked?0:1;
+    for(var i=0;i<n;i++){lines.push(base+(num+(start+i)*s)+tail)}
+    out.value=lines.join('\n');
+    total.textContent=lines.length+' link'+(lines.length===1?'':'s');
+    say('From '+lines[0].split('/').pop()+' to '+lines[lines.length-1].split('/').pop()+'.');
+  }
+
+  function copy(){
+    if(!out.value){say('Nothing to copy yet.','err');return}
+    function done(){say('Copied '+total.textContent+'.','ok')}
+    function fallback(){out.removeAttribute('readonly');out.select();out.setSelectionRange(0,out.value.length);
+      try{document.execCommand('copy')?done():say('Copy failed. Select the text and copy manually.','err')}catch(e){say('Copy failed. Select the text and copy manually.','err')}
+      out.setAttribute('readonly','')}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value).then(done,fallback)}else{fallback()}
+  }
+
+  [first,count,step,incl].forEach(function(el){el.addEventListener('input',generate);el.addEventListener('change',generate)});
+  document.getElementById('copy').addEventListener('click',copy);
+  document.getElementById('clear').addEventListener('click',function(){first.value='';generate();first.focus()});
+  generate();
+})();
+</script>
+</body>
+</html>
