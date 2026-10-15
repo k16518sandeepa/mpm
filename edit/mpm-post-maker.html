@@ -1,0 +1,948 @@
+<title>MPM Post Maker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@500;800&family=Abhaya+Libre:wght@600;800&family=Yaldevi:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: a sticky live preview on the left, one control rail on the right; stacks to preview-first on phones. */
+:root{
+  --bg:#EBEEF2; --panel:#FFFFFF; --ink:#0E1116; --muted:#586170; --line:#D7DCE3;
+  --field:#F5F7F9; --stage:#D9DEE5; --accent:#D8261C; --accent-ink:#FFFFFF; --good:#1C7A4B;
+  --f-ui:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-display:'Anton',Impact,'Arial Narrow',sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A0C10; --panel:#13171E; --ink:#ECEFF3; --muted:#8C95A3; --line:#262C37;
+    --field:#0E1116; --stage:#06080B; --accent:#FF4A3D; --accent-ink:#1A0604; --good:#4CC38A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A0C10; --panel:#13171E; --ink:#ECEFF3; --muted:#8C95A3; --line:#262C37;
+  --field:#0E1116; --stage:#06080B; --accent:#FF4A3D; --accent-ink:#1A0604; --good:#4CC38A;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:14px;line-height:1.45}
+*{box-sizing:border-box}
+.app{max-width:1180px;margin:0 auto;padding-block:20px 40px;padding-inline:16px}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.mark{font:400 24px/1 var(--f-display);letter-spacing:.03em;background:var(--accent);color:var(--accent-ink);padding:9px 11px 6px;border-radius:3px}
+.top h1{margin:0;font:700 20px/1.1 var(--f-ui);letter-spacing:-.01em}
+.top p{margin:3px 0 0;color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:24px;align-items:start}
+.stage{min-width:0;background:var(--stage);border-radius:6px;padding:16px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;justify-items:center}
+.stage canvas{display:block;max-width:100%;max-height:min(76vh,920px);width:auto;height:auto;cursor:grab;touch-action:none;box-shadow:0 10px 30px rgba(0,0,0,.28);border-radius:2px;background:#222}
+.stage-foot{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.dims{font:500 12px var(--f-mono);color:var(--muted);letter-spacing:.04em}
+.rail{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:6px}
+.sec{padding:16px;border-top:1px solid var(--line);display:grid;gap:12px;min-width:0}
+.sec:first-child{border-top:0}
+.sec h2{margin:0;font:600 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.field{display:grid;gap:5px;min-width:0}
+.field>label,.lbl{font-weight:600;font-size:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row input[type=text]{width:auto;flex:1 1 140px}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+input[type=text],textarea,select{width:100%;min-width:0;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:8px 10px;font:inherit}
+input[type=text]:disabled{opacity:.5}
+input[type=color]{width:100%;height:38px;padding:3px;background:var(--field);border:1px solid var(--line);border-radius:4px;cursor:pointer}
+textarea{resize:vertical;min-height:74px}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.rng{display:grid;grid-template-columns:minmax(0,1fr) 54px;align-items:center;gap:10px}
+.rng output{font:500 12px var(--f-mono);color:var(--muted);text-align:right}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:var(--field);color:var(--ink);border-radius:4px;padding:8px 12px;font:600 13px var(--f-ui);cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn[disabled]{opacity:.45;cursor:default}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);padding:10px 18px;font-size:14px}
+.btn-primary:hover{border-color:var(--accent);filter:brightness(1.06)}
+.vh{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none}
+.vh:focus-visible + .btn,.btn:focus-visible,.chip:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--field)}
+.seg label{position:relative;display:block;min-width:0}
+.seg input{position:absolute;opacity:0;inset:0}
+.seg span{display:block;text-align:center;padding:8px 6px;font-weight:600;font-size:13px;color:var(--muted);cursor:pointer;border-left:1px solid var(--line)}
+.seg label:first-child span{border-left:0}
+.seg input:checked + span{background:var(--ink);color:var(--panel)}
+.seg input:focus-visible + span{outline:2px solid var(--accent);outline-offset:-2px}
+.check{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13px}
+.check input{accent-color:var(--accent);width:16px;height:16px;margin:0}
+.checks{display:flex;gap:16px;flex-wrap:wrap}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border:1px solid var(--line);background:var(--field);color:var(--ink);border-radius:999px;padding:5px 12px;font:600 12.5px var(--f-ui);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.chip.rm::after{content:"  ×";color:var(--muted)}
+.led{display:grid;gap:12px;padding:12px;border:1px solid var(--line);border-radius:4px;background:var(--field)}
+.led textarea,.led input[type=color],.led select{background:var(--panel)}
+.hint{margin:0;color:var(--muted);font-size:12.5px}
+#msg{min-height:1.4em}
+#fallback{width:100%;display:grid;gap:8px;justify-items:center}
+#fallback img{max-width:100%;max-height:70vh;width:auto;height:auto;border-radius:2px}
+@media (min-width:900px){ .stage{position:sticky;top:16px} }
+@media (max-width:899px){ .grid{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:600px){ input[type=text],textarea,select{font-size:16px} .stage{padding:12px} }
+@media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="mark">MPM</div>
+    <div>
+      <h1>Post Maker</h1>
+      <p>Type the headline, drop in a picture, save the post.</p>
+    </div>
+  </header>
+
+  <div class="grid">
+    <section class="stage" aria-label="Live preview">
+      <canvas id="cv" width="1080" height="1350" aria-label="Post preview. Drag to move the picture or any extra text."></canvas>
+      <div class="stage-foot">
+        <span class="dims" id="dims">1080 × 1350 px</span>
+        <button class="btn btn-primary" id="save" type="button">Save PNG</button>
+      </div>
+      <p class="hint" id="msg" role="status" aria-live="polite"></p>
+      <figure id="fallback" hidden>
+        <img id="outimg" alt="Finished post">
+        <figcaption class="hint">Press and hold the image (or right-click it) to save.</figcaption>
+      </figure>
+    </section>
+
+    <div class="rail">
+      <div class="sec">
+        <h2>Picture</h2>
+        <div class="row">
+          <input class="vh" id="bgfile" type="file" accept="image/*">
+          <label class="btn" for="bgfile">Choose image</label>
+          <button class="btn" id="recenter" type="button">Re-center</button>
+        </div>
+        <div class="field">
+          <label for="zoom">Zoom</label>
+          <div class="rng"><input id="zoom" type="range" min="100" max="300" step="1"><output id="zoomO" for="zoom"></output></div>
+        </div>
+        <p class="hint" id="sampleNote">Showing a sample background. You can also paste or drop an image on the preview, and drag the preview to reposition it.</p>
+      </div>
+
+      <div class="sec">
+        <h2>Text</h2>
+        <div class="field">
+          <label for="headline">Headline</label>
+          <textarea id="headline" rows="3" spellcheck="true"></textarea>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="tag">Tag</label><input id="tag" type="text" maxlength="24" autocomplete="off"></div>
+          <div class="field"><label for="brand">Brand</label><input id="brand" type="text" maxlength="24" autocomplete="off"></div>
+        </div>
+        <label class="check"><input id="showVia" type="checkbox"> Show source line</label>
+        <div class="row2">
+          <div class="field"><label for="viaLabel">Label</label><input id="viaLabel" type="text" maxlength="20" autocomplete="off" placeholder="VIA"></div>
+          <div class="field"><label for="via">Source</label><input id="via" type="text" maxlength="40" autocomplete="off" placeholder="Gamesbeat"></div>
+        </div>
+        <div class="checks">
+          <label class="check"><input id="upper" type="checkbox"> Capitals in headline</label>
+          <label class="check"><input id="upperSmall" type="checkbox"> Capitals in tag and source</label>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h2>Fonts</h2>
+        <div class="field"><label for="headFont">Headline font</label><select id="headFont"></select></div>
+        <div class="field"><label for="smallFont">Tag and source font</label><select id="smallFont"></select></div>
+        <label class="check"><input id="headBold" type="checkbox"> Bold headline (for fonts you added)</label>
+        <div class="field">
+          <label for="lead">Line spacing</label>
+          <div class="rng"><input id="lead" type="range" min="100" max="220" step="1"><output id="leadO" for="lead"></output></div>
+        </div>
+        <div class="row">
+          <input class="vh" id="fontfile" type="file" accept=".ttf,.otf,.woff,.woff2" multiple>
+          <label class="btn" for="fontfile">Add font files</label>
+        </div>
+        <div class="field">
+          <label for="localName">Font installed on this computer</label>
+          <div class="row">
+            <input id="localName" type="text" list="localFamilies" placeholder="Iskoola Pota" autocomplete="off" spellcheck="false">
+            <button class="btn" id="addLocal" type="button">Add</button>
+            <button class="btn" id="listLocal" type="button">List fonts</button>
+          </div>
+          <datalist id="localFamilies"></datalist>
+        </div>
+        <div class="chips" id="fontChips" aria-label="Added fonts. Press one to remove it."></div>
+        <p class="hint" id="fmsg" role="status" aria-live="polite"></p>
+        <p class="hint">Added font files are kept in this browser. Sinhala text works with any font that has Sinhala letters.</p>
+      </div>
+
+      <div class="sec">
+        <h2>Extra text</h2>
+        <div class="row"><button class="btn" id="addText" type="button">Add text</button></div>
+        <div class="chips" id="chips" aria-label="Extra text layers"></div>
+        <div class="led" id="layerEd" hidden>
+          <div class="field"><label for="layerText">Text</label><textarea id="layerText" rows="2" spellcheck="true"></textarea></div>
+          <div class="field">
+            <label for="layerSize">Size</label>
+            <div class="rng"><input id="layerSize" type="range" min="20" max="240" step="1"><output id="layerSizeO" for="layerSize"></output></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="layerColor">Color</label><input id="layerColor" type="color" value="#ffffff"></div>
+            <div class="field"><label for="layerFont">Font</label><select id="layerFont"></select></div>
+          </div>
+          <div class="checks">
+            <label class="check"><input id="layerShadow" type="checkbox"> Soft shadow</label>
+            <label class="check"><input id="layerBold" type="checkbox"> Bold</label>
+          </div>
+          <div class="row">
+            <button class="btn" id="layerCenter" type="button">Center across</button>
+            <button class="btn" id="layerDelete" type="button">Delete</button>
+          </div>
+        </div>
+        <p class="hint">Drag any extra text on the preview to place it anywhere.</p>
+      </div>
+
+      <div class="sec">
+        <h2>Look</h2>
+        <div class="field">
+          <span class="lbl" id="toneL">Tone</span>
+          <div class="seg" role="radiogroup" aria-labelledby="toneL">
+            <label><input type="radio" name="tone" value="light"><span>Light</span></label>
+            <label><input type="radio" name="tone" value="dark"><span>Dark</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl" id="posL">Text position</span>
+          <div class="seg" role="radiogroup" aria-labelledby="posL">
+            <label><input type="radio" name="pos" value="top"><span>Top</span></label>
+            <label><input type="radio" name="pos" value="bottom"><span>Bottom</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="size">Headline size</label>
+          <div class="rng"><input id="size" type="range" min="60" max="130" step="1"><output id="sizeO" for="size"></output></div>
+        </div>
+        <div class="field">
+          <label for="fade">Fade length</label>
+          <div class="rng"><input id="fade" type="range" min="25" max="70" step="1"><output id="fadeO" for="fade"></output></div>
+        </div>
+        <button class="btn" id="fadeReset" type="button">Reset fade to default</button>
+      </div>
+
+      <div class="sec">
+        <h2>Badge</h2>
+        <div class="field">
+          <label for="badge">Position</label>
+          <select id="badge">
+            <option value="br">Bottom right</option>
+            <option value="bl">Bottom left</option>
+            <option value="tr">Top right</option>
+            <option value="tl">Top left</option>
+            <option value="off">Hidden</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="badgeSize">Badge / logo size</label>
+          <div class="rng"><input id="badgeSize" type="range" min="40" max="320" step="1"><output id="badgeSizeO" for="badgeSize"></output></div>
+        </div>
+        <div class="row">
+          <input class="vh" id="logofile" type="file" accept="image/*">
+          <label class="btn" for="logofile">Upload logo</label>
+          <button class="btn" id="logoclear" type="button" disabled>Use text badge</button>
+        </div>
+        <label class="check"><input id="round" type="checkbox"> Crop logo to a circle</label>
+        <p class="hint">The logo is drawn as it is, with no outline. Without a logo, the badge shows the brand name.</p>
+      </div>
+
+      <div class="sec">
+        <h2>Format</h2>
+        <div class="seg" role="radiogroup" aria-label="Post format">
+          <label><input type="radio" name="fmt" value="1080x1350"><span>Feed 4:5</span></label>
+          <label><input type="radio" name="fmt" value="1080x1080"><span>Square 1:1</span></label>
+          <label><input type="radio" name="fmt" value="1080x1920"><span>Story 9:16</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id);};
+function clamp(v,a,b){return Math.min(b,Math.max(a,v));}
+
+/* ---------- fonts ---------- */
+var FB="'Noto Sans Sinhala','Iskoola Pota','Nirmala UI',sans-serif";
+var BUILT={
+  display:{label:'Anton (bold condensed)',w:'',f:"'Anton', Impact, 'Arial Narrow', "+FB},
+  sans:{label:'Archivo (bold)',w:'700',f:"'Archivo', system-ui, -apple-system, 'Segoe UI', "+FB},
+  mono:{label:'IBM Plex Mono',w:'600',f:"'IBM Plex Mono', ui-monospace, Menlo, Consolas, "+FB},
+  si_noto:{label:'Noto Sans Sinhala (Sinhala)',w:'800',f:"'Noto Sans Sinhala', 'Iskoola Pota', 'Nirmala UI', sans-serif"},
+  si_abhaya:{label:'Abhaya Libre (Sinhala serif)',w:'800',f:"'Abhaya Libre', 'Iskoola Pota', 'Nirmala UI', serif"},
+  si_yaldevi:{label:'Yaldevi (Sinhala)',w:'700',f:"Yaldevi, 'Iskoola Pota', 'Nirmala UI', sans-serif"}
+};
+var BUILT_KEYS=['display','sans','mono','si_noto','si_abhaya','si_yaldevi'];
+var SAMPLE='Hඅ';
+var NONLATIN=/[^\u0000-\u024F\u2000-\u206F]/;
+
+var KEY='mpm-post-maker-v4',OLD_KEYS=['mpm-post-maker-v3','mpm-post-maker-v2'];
+var DEFAULT_FADE=34;
+var DEFAULTS={tag:'NEWS',headline:'GTA 6 reportedly set for PC Q1 2027',brand:'MPM',via:'',viaLabel:'VIA',showVia:false,tone:'light',pos:'top',size:100,fade:DEFAULT_FADE,upper:false,upperSmall:false,badge:'br',badgeSize:100,round:false,fmt:'1080x1350',zoom:100,ox:0,oy:0,headFont:'display',smallFont:'mono',headBold:false,lead:134,layers:[],customFonts:[]};
+var state=JSON.parse(JSON.stringify(DEFAULTS));
+try{
+  var raw=localStorage.getItem(KEY),migrated=false;
+  if(!raw){for(var q=0;q<OLD_KEYS.length&&!raw;q++){raw=localStorage.getItem(OLD_KEYS[q]);migrated=!!raw;}}
+  if(raw){
+    var o=JSON.parse(raw);
+    for(var k in DEFAULTS){if(k!=='layers'&&k!=='customFonts'&&k in o&&typeof o[k]===typeof DEFAULTS[k])state[k]=o[k];}
+    if(migrated){state.upper=false;state.upperSmall=false;}
+    if(Array.isArray(o.customFonts)){
+      state.customFonts=o.customFonts.filter(function(c){
+        return c&&typeof c.key==='string'&&typeof c.label==='string'&&typeof c.family==='string'&&(c.kind==='file'||c.kind==='local')&&c.key.length<120;
+      }).map(function(c){return{key:c.key,label:c.label.slice(0,60),family:cleanFamily(c.family),kind:c.kind};});
+    }
+    if(Array.isArray(o.layers)){
+      state.layers=o.layers.filter(function(L){
+        return L&&typeof L.text==='string'&&typeof L.id==='number'&&typeof L.x==='number'&&typeof L.y==='number'&&typeof L.size==='number'&&typeof L.color==='string'&&/^#[0-9a-fA-F]{6}$/.test(L.color);
+      }).map(function(L){
+        return{id:L.id,text:L.text,x:clamp(L.x,0,1),y:clamp(L.y,0,1),size:clamp(L.size,20,240),color:L.color,font:typeof L.font==='string'?L.font:'display',shadow:L.shadow!==false,bold:L.bold===true};
+      });
+    }
+  }
+}catch(e){}
+state.ox=0;state.oy=0;
+state.fade=clamp(state.fade,25,70);
+state.badgeSize=clamp(state.badgeSize,40,320);
+state.lead=clamp(state.lead,100,220);
+
+function cleanFamily(n){return String(n).replace(/["'\\;{}<>]/g,'').trim().slice(0,80);}
+function customByKey(key){
+  for(var i=0;i<state.customFonts.length;i++){if(state.customFonts[i].key===key)return state.customFonts[i];}
+  return null;
+}
+function fontSpec(key){
+  if(BUILT[key])return BUILT[key];
+  var c=customByKey(key);
+  if(c)return{w:'',f:"'"+c.family+"', "+FB,custom:true};
+  return BUILT.display;
+}
+function fontCss(key,px,bold){
+  var s=fontSpec(key),w=s.w;
+  if(s.custom&&bold)w='bold';
+  return (w?w+' ':'')+px+'px '+s.f;
+}
+
+var cv=$('cv'),ctx=cv.getContext('2d');
+var bg=null,logo=null,sampleOn=true,raf=0,saveTimer=0,selId=null;
+var facesByKey={};
+
+/* ---------- font storage (IndexedDB, best effort) ---------- */
+function idb(){
+  return new Promise(function(res,rej){
+    try{
+      var r=indexedDB.open('mpm-post-fonts',1);
+      r.onupgradeneeded=function(){r.result.createObjectStore('f');};
+      r.onsuccess=function(){res(r.result);};
+      r.onerror=function(){rej(r.error);};
+    }catch(e){rej(e);}
+  });
+}
+function idbPut(k,v){return idb().then(function(db){return new Promise(function(res,rej){var t=db.transaction('f','readwrite');t.objectStore('f').put(v,k);t.oncomplete=function(){res();};t.onerror=function(){rej(t.error);};});});}
+function idbGet(k){return idb().then(function(db){return new Promise(function(res,rej){var q=db.transaction('f','readonly').objectStore('f').get(k);q.onsuccess=function(){res(q.result);};q.onerror=function(){rej(q.error);};});});}
+function idbDel(k){return idb().then(function(db){return new Promise(function(res,rej){var t=db.transaction('f','readwrite');t.objectStore('f').delete(k);t.oncomplete=function(){res();};t.onerror=function(){rej(t.error);};});});}
+function registerFont(family,buf,key){
+  var face=new FontFace(family,buf);
+  return face.load().then(function(){document.fonts.add(face);if(key)facesByKey[key]=face;});
+}
+
+/* ---------- sample background ---------- */
+function makeSample(){
+  var w=1200,h=1600,c=document.createElement('canvas');c.width=w;c.height=h;var g=c.getContext('2d');
+  var seed=7;
+  function rnd(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}
+  var sky=g.createLinearGradient(0,0,0,h*.62);
+  sky.addColorStop(0,'#16294d');sky.addColorStop(.55,'#b4507b');sky.addColorStop(1,'#f4a95e');
+  g.fillStyle=sky;g.fillRect(0,0,w,h);
+  var sy=h*.56,sg=g.createRadialGradient(w*.62,sy,10,w*.62,sy,w*.5);
+  sg.addColorStop(0,'rgba(255,236,190,.95)');sg.addColorStop(.25,'rgba(255,190,120,.55)');sg.addColorStop(1,'rgba(255,170,100,0)');
+  g.fillStyle=sg;g.fillRect(0,0,w,h);
+  var layers=[{y:h*.62,a:60,b:300,col:'#6a3a66'},{y:h*.66,a:80,b:380,col:'#3d2a56'},{y:h*.70,a:100,b:460,col:'#1b1636'}];
+  layers.forEach(function(L){
+    var x=-20;g.fillStyle=L.col;
+    while(x<w){var bw=40+rnd()*90,bh=L.a+rnd()*(L.b-L.a);g.fillRect(x,L.y-bh,bw,bh+h*.4);x+=bw+rnd()*6;}
+  });
+  var wy=h*.74,wg=g.createLinearGradient(0,wy,0,h);
+  wg.addColorStop(0,'#27406b');wg.addColorStop(1,'#0d1b36');
+  g.fillStyle=wg;g.fillRect(0,wy,w,h-wy);
+  for(var i=0;i<60;i++){
+    var y=wy+rnd()*(h-wy),x=w*.62+(rnd()-.5)*w*.5;
+    g.fillStyle='rgba(255,200,140,'+(0.05+rnd()*0.18)+')';
+    g.fillRect(x-rnd()*120,y,60+rnd()*160,2+rnd()*3);
+  }
+  return c;
+}
+bg=makeSample();
+
+/* ---------- helpers ---------- */
+function dims(){var p=state.fmt.split('x');return{W:+p[0],H:+p[1]};}
+function srcSize(im){return{w:im.naturalWidth||im.width,h:im.naturalHeight||im.height};}
+function coverGeom(W,H){
+  var s=srcSize(bg),base=Math.max(W/s.w,H/s.h),sc=base*state.zoom/100,dw=s.w*sc,dh=s.h*sc;
+  return{dw:dw,dh:dh,mx:Math.max(0,(dw-W)/2),my:Math.max(0,(dh-H)/2)};
+}
+function reclamp(){
+  var d=dims(),g=coverGeom(d.W,d.H);
+  state.ox=clamp(state.ox,-g.mx/d.W,g.mx/d.W);
+  state.oy=clamp(state.oy,-g.my/d.H,g.my/d.H);
+}
+function ascOf(size){
+  var m=ctx.measureText(SAMPLE);
+  return m.actualBoundingBoxAscent||size*.72;
+}
+function spacedWidth(t,sp){
+  if(!sp||NONLATIN.test(t))return ctx.measureText(t).width;
+  var w=0,n=0;for(var ch of t){w+=ctx.measureText(ch).width;n++;}
+  return w+sp*Math.max(0,n-1);
+}
+function drawSpaced(t,x,y,sp){
+  ctx.textAlign='left';
+  if(!sp||NONLATIN.test(t)){ctx.fillText(t,x,y);return;}
+  var cx=x;
+  for(var ch of t){ctx.fillText(ch,cx,y);cx+=ctx.measureText(ch).width+sp;}
+}
+function wrapLines(text,maxW){
+  var out=[];
+  text.split('\n').forEach(function(par){
+    var words=par.trim().split(/\s+/).filter(Boolean);
+    if(!words.length)return;
+    var line='';
+    words.forEach(function(w){
+      var t=line?line+' '+w:w;
+      if(!line||ctx.measureText(t).width<=maxW){line=t;}else{out.push(line);line=w;}
+    });
+    out.push(line);
+  });
+  return out;
+}
+function selLayer(){
+  for(var i=0;i<state.layers.length;i++){if(state.layers[i].id===selId)return state.layers[i];}
+  return null;
+}
+
+/* ---------- headline fitting ---------- */
+function layoutHeadline(W,s){
+  var text=state.headline.replace(/\r/g,'').trim();
+  if(!text)return null;
+  if(state.upper)text=text.toUpperCase();
+  var maxW=W-2*56*s;
+  function hf(size){ctx.font=fontCss(state.headFont,size,state.headBold);}
+  function fitAt(size){
+    hf(size);
+    var lines=wrapLines(text,maxW),widest=0;
+    lines.forEach(function(l){widest=Math.max(widest,ctx.measureText(l).width);});
+    return{lines:lines,widest:widest};
+  }
+  var size=null,passes=[[2,96*s],[3,72*s],[5,40*s]];
+  outer:for(var p=0;p<passes.length;p++){
+    for(var z=168*s;z>=passes[p][1];z-=3*s){
+      var r=fitAt(z);
+      if(r.lines.length<=passes[p][0]&&r.widest<=maxW){size=z;break outer;}
+    }
+  }
+  if(size===null)size=40*s;
+  size*=state.size/100;
+  var res=fitAt(size),guard=0;
+  while(res.widest>maxW&&guard++<60){size*=.97;res=fitAt(size);}
+  var lines=res.lines;
+  if(lines.length>1){
+    var best=lines,n=lines.length;
+    for(var w=maxW*.98;w>maxW*.45;w-=maxW*.02){
+      var t=wrapLines(text,w);
+      if(t.length>n)break;
+      best=t;
+    }
+    lines=best;
+  }
+  hf(size);
+  var asc=ascOf(size);
+  return{lines:lines,size:size,asc:asc,pitch:asc*state.lead/100};
+}
+
+/* ---------- wash gradient (smooth cosine fade) ---------- */
+function wash(W,H,solid,fade,rgb,alpha,fromTop){
+  var total=solid+fade,y0=fromTop?0:H,y1=fromTop?total:H-total;
+  var g=ctx.createLinearGradient(0,y0,0,y1),sp=Math.min(.999,solid/total);
+  g.addColorStop(0,'rgba('+rgb+','+alpha+')');
+  g.addColorStop(sp,'rgba('+rgb+','+alpha+')');
+  var steps=12;
+  for(var i=1;i<=steps;i++){
+    var t=i/steps,a=alpha*0.5*(1+Math.cos(Math.PI*t));
+    g.addColorStop(sp+(1-sp)*t,'rgba('+rgb+','+a.toFixed(4)+')');
+  }
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+}
+
+/* ---------- badge ---------- */
+function drawBadge(W,H,s){
+  if(state.badge==='off')return;
+  var D=state.badgeSize*s,m=46*s,left=state.badge.charAt(1)==='l',top=state.badge.charAt(0)==='t';
+  var cx=left?m+D/2:W-m-D/2,cy=top?m+D/2:H-m-D/2;
+  if(logo){
+    var z=srcSize(logo);
+    if(!z.w||!z.h)return;
+    if(state.round){
+      ctx.save();ctx.beginPath();ctx.arc(cx,cy,D/2,0,Math.PI*2);ctx.clip();
+      var kc=Math.max(D/z.w,D/z.h);
+      ctx.drawImage(logo,cx-z.w*kc/2,cy-z.h*kc/2,z.w*kc,z.h*kc);
+      ctx.restore();
+    }else{
+      var k=Math.min(D/z.w,D/z.h);
+      ctx.drawImage(logo,cx-z.w*k/2,cy-z.h*k/2,z.w*k,z.h*k);
+    }
+    return;
+  }
+  ctx.save();
+  ctx.shadowColor='rgba(0,0,0,.30)';ctx.shadowBlur=18*s;ctx.shadowOffsetY=4*s;
+  ctx.fillStyle='#FFFFFF';ctx.beginPath();ctx.arc(cx,cy,D/2,0,Math.PI*2);ctx.fill();
+  ctx.restore();
+  var label=((state.upperSmall?state.brand.trim().toUpperCase():state.brand.trim())||'MPM').slice(0,4),fs=D*.5;
+  ctx.font=fontCss('display',fs,false);
+  while(ctx.measureText(label).width>D*.72&&fs>8){fs-=1;ctx.font=fontCss('display',fs,false);}
+  var a=ctx.measureText('H').actualBoundingBoxAscent||fs*.72;
+  ctx.fillStyle='#0A0C10';ctx.textAlign='center';ctx.textBaseline='alphabetic';
+  ctx.fillText(label,cx,cy+a/2);
+}
+
+/* ---------- extra text layers ---------- */
+function drawLayers(W,H,s,exporting){
+  state.layers.forEach(function(L){
+    var fs=L.size*s;
+    ctx.font=fontCss(L.font,fs,L.bold);
+    var lines=L.text.split('\n'),n=lines.length,pitch=fs*1.25;
+    var asc=ascOf(fs);
+    var cx=L.x*W,cy=L.y*H,wmax=0;
+    lines.forEach(function(l){wmax=Math.max(wmax,ctx.measureText(l).width);});
+    ctx.save();
+    if(L.shadow){ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=14*s;ctx.shadowOffsetY=3*s;}
+    ctx.fillStyle=L.color;ctx.textAlign='center';ctx.textBaseline='alphabetic';
+    lines.forEach(function(l,i){
+      var lc=cy+(i-(n-1)/2)*pitch;
+      ctx.fillText(l,cx,lc+asc/2);
+    });
+    ctx.restore();
+    var bw=Math.max(wmax,40*s),bh=(n-1)*pitch+asc;
+    L._b={x:cx-bw/2,y:cy-bh/2,w:bw,h:bh};
+    if(!exporting&&L.id===selId){
+      var pad=10*s;
+      ctx.save();
+      ctx.setLineDash([9*s,6*s]);ctx.lineWidth=2*s;ctx.strokeStyle='#4DA3FF';
+      ctx.strokeRect(L._b.x-pad,L._b.y-pad,L._b.w+pad*2,L._b.h+pad*2);
+      ctx.restore();
+    }
+  });
+}
+
+/* ---------- render ---------- */
+function render(exporting){
+  raf=0;
+  var d=dims(),W=d.W,H=d.H,s=W/1080;
+  if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H;}
+  var dark=state.tone==='dark',ink=dark?'#FFFFFF':'#0A0C10',rgb=dark?'6,8,12':'255,255,255',alpha=dark?0.94:1;
+  var top=state.pos==='top';
+  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,W,H);ctx.textBaseline='alphabetic';
+  ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
+
+  reclamp();
+  var g=coverGeom(W,H);
+  ctx.drawImage(bg,(W-g.dw)/2+state.ox*W,(H-g.dh)/2+state.oy*H,g.dw,g.dh);
+
+  var cs=function(t){t=t.trim();return state.upperSmall?t.toUpperCase():t;};
+  var tagTxt=cs(state.tag),hl=layoutHeadline(W,s);
+  var tagFs=21*s,tagAsc=tagFs*.7,tagSp=tagFs*.85,gapTag=46*s;
+  var crFs=22*s,crAsc=crFs*.7,crSp=crFs*.25,gapCr=50*s;
+  var brand=cs(state.brand);
+  var viaSrc=cs(state.via),viaLab=cs(state.viaLabel);
+  var viaTxt=(state.showVia&&viaSrc)?(viaLab?viaLab+': '+viaSrc:viaSrc):'';
+  var hasCr=!!(brand||viaTxt);
+  var y=0,tagBase=0,firstBase=0,crBase=0;
+  if(tagTxt){tagBase=tagAsc;y=tagBase+gapTag;}
+  if(hl){firstBase=y+hl.asc;y=firstBase+(hl.lines.length-1)*hl.pitch;}
+  if(hasCr){y+=((hl||tagTxt)?gapCr:0)+crAsc;crBase=y;}
+  var blockH=y,oy=top?80*s:H-80*s-blockH;
+
+  var solid=top?oy+blockH+34*s:(H-oy)+34*s;
+  wash(W,H,solid,state.fade/100*H,rgb,alpha,top);
+
+  ctx.fillStyle=ink;
+  if(tagTxt){
+    ctx.font=fontCss(state.smallFont,tagFs,false);
+    var tw=spacedWidth(tagTxt,tagSp);
+    drawSpaced(tagTxt,(W-tw)/2,oy+tagBase,tagSp);
+  }
+  if(hl){
+    ctx.font=fontCss(state.headFont,hl.size,state.headBold);ctx.textAlign='center';
+    hl.lines.forEach(function(l,i){ctx.fillText(l,W/2,oy+firstBase+i*hl.pitch);});
+  }
+  if(hasCr){
+    ctx.font=fontCss(state.smallFont,crFs,false);
+    var bw=brand?spacedWidth(brand,crSp):0,vw=viaTxt?spacedWidth(viaTxt,crSp):0;
+    var barW=3*s,gap=22*s,total=bw+vw+((brand&&viaTxt)?gap*2+barW:0),x=(W-total)/2;
+    if(brand){drawSpaced(brand,x,oy+crBase,crSp);x+=bw;}
+    if(brand&&viaTxt){ctx.fillRect(x+gap,oy+crBase-crAsc-5*s,barW,crAsc+10*s);x+=gap*2+barW;}
+    if(viaTxt){drawSpaced(viaTxt,x,oy+crBase,crSp);}
+  }
+  drawBadge(W,H,s);
+  drawLayers(W,H,s,!!exporting);
+  $('dims').textContent=W+' × '+H+' px';
+}
+function schedule(){if(!raf)raf=requestAnimationFrame(function(){render(false);});persist();}
+function persist(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(function(){
+    try{localStorage.setItem(KEY,JSON.stringify(state,function(k,v){return k.charAt(0)==='_'?undefined:v;}));}catch(e){}
+  },300);
+}
+
+/* ---------- font pickers ---------- */
+function fillSelect(sel,current){
+  sel.textContent='';
+  var g1=document.createElement('optgroup');g1.label='Built in';
+  BUILT_KEYS.forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=BUILT[k].label;g1.appendChild(o);});
+  sel.appendChild(g1);
+  if(state.customFonts.length){
+    var g2=document.createElement('optgroup');g2.label='Added fonts';
+    state.customFonts.forEach(function(c){var o=document.createElement('option');o.value=c.key;o.textContent=c.label;g2.appendChild(o);});
+    sel.appendChild(g2);
+  }
+  sel.value=(BUILT[current]||customByKey(current))?current:'display';
+}
+function refreshFontUi(){
+  fillSelect($('headFont'),state.headFont);
+  fillSelect($('smallFont'),state.smallFont);
+  var L=selLayer();
+  fillSelect($('layerFont'),L?L.font:'display');
+  var box=$('fontChips');box.textContent='';
+  state.customFonts.forEach(function(c){
+    var b=document.createElement('button');
+    b.type='button';b.className='chip rm';b.textContent=c.label;
+    b.setAttribute('aria-label','Remove font '+c.label);
+    b.addEventListener('click',function(){removeFont(c.key);});
+    box.appendChild(b);
+  });
+}
+function removeFont(key){
+  var c=customByKey(key);if(!c)return;
+  state.customFonts=state.customFonts.filter(function(x){return x.key!==key;});
+  if(facesByKey[key]){try{document.fonts.delete(facesByKey[key]);}catch(e){}delete facesByKey[key];}
+  if(c.kind==='file'){idbDel(key).catch(function(){});}
+  if(state.headFont===key)state.headFont='display';
+  if(state.smallFont===key)state.smallFont='mono';
+  state.layers.forEach(function(L){if(L.font===key)L.font='display';});
+  $('fmsg').textContent='Removed '+c.label+'.';
+  refreshFontUi();schedule();
+}
+function fontExists(name){
+  var t='mmmmmmmmmmlli අආඉඊ',c=document.createElement('canvas').getContext('2d');
+  function w(f){c.font='72px '+f;return c.measureText(t).width;}
+  var q="'"+name+"'";
+  return w(q+',monospace')!==w('monospace')||w(q+',serif')!==w('serif');
+}
+
+$('fontfile').addEventListener('change',async function(e){
+  var files=Array.prototype.slice.call(e.target.files||[]);e.target.value='';
+  var fm=$('fmsg');fm.textContent='';
+  var added=[],bad=[],unsaved=false;
+  for(var i=0;i<files.length;i++){
+    var f=files[i];
+    if(!/\.(ttf|otf|woff2?)$/i.test(f.name)){bad.push(f.name);continue;}
+    try{
+      var buf=await f.arrayBuffer();
+      var id=Date.now().toString(36)+i,fam='MPMUF'+id,key='u:'+id;
+      await registerFont(fam,buf.slice(0),key);
+      state.customFonts.push({key:key,label:f.name.replace(/\.[^.]+$/,'').slice(0,60),family:fam,kind:'file'});
+      try{await idbPut(key,buf);}catch(x){unsaved=true;}
+      added.push(key);
+    }catch(err){bad.push(f.name);}
+  }
+  if(added.length){
+    state.headFont=added[added.length-1];
+    refreshFontUi();syncUi();schedule();
+    fm.textContent='Added '+added.length+' font'+(added.length>1?'s':'')+' and applied it to the headline.'+(unsaved?' This browser would not keep the file, so add it again next time.':'');
+  }
+  if(bad.length){fm.textContent=(fm.textContent?fm.textContent+' ':'')+'Could not use: '+bad.join(', ')+'. Use .ttf, .otf, .woff or .woff2 files.';}
+});
+$('addLocal').addEventListener('click',function(){
+  var name=cleanFamily($('localName').value),fm=$('fmsg');
+  if(!name){fm.textContent='Type the font name first, for example Iskoola Pota.';return;}
+  var key='l:'+name;
+  if(customByKey(key)){fm.textContent=name+' is already in the list.';return;}
+  var found=fontExists(name);
+  state.customFonts.push({key:key,label:name,family:name,kind:'local'});
+  state.headFont=key;
+  $('localName').value='';
+  refreshFontUi();syncUi();schedule();
+  fm.textContent=found?'Added '+name+' and applied it to the headline.':'Added '+name+', but this computer does not seem to have it. Check the spelling, or add the font file instead.';
+});
+$('localName').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();$('addLocal').click();}});
+$('listLocal').addEventListener('click',async function(){
+  var fm=$('fmsg');
+  if(!window.queryLocalFonts){fm.textContent='This browser cannot list installed fonts. Type the font name instead, or add the font file.';return;}
+  try{
+    var arr=await window.queryLocalFonts(),seen={},dl=$('localFamilies');
+    arr.forEach(function(f){seen[f.family]=1;});
+    var names=Object.keys(seen).sort();
+    dl.textContent='';
+    names.forEach(function(n){var o=document.createElement('option');o.value=n;dl.appendChild(o);});
+    fm.textContent='Found '+names.length+' font families. Click the name box and start typing to see them.';
+  }catch(err){
+    fm.textContent='Listing installed fonts is blocked here. Type the font name instead, or add the font file.';
+  }
+});
+
+/* ---------- UI binding ---------- */
+function refreshLayerUi(){
+  var box=$('chips');box.textContent='';
+  state.layers.forEach(function(L){
+    var b=document.createElement('button');
+    b.type='button';b.className='chip';
+    b.setAttribute('aria-pressed',L.id===selId?'true':'false');
+    b.textContent=(L.text.trim().split('\n')[0]||'(empty)').slice(0,18);
+    b.addEventListener('click',function(){selId=L.id;refreshLayerUi();schedule();});
+    box.appendChild(b);
+  });
+  var L=selLayer();
+  $('layerEd').hidden=!L;
+  if(L){
+    if($('layerText').value!==L.text)$('layerText').value=L.text;
+    $('layerSize').value=L.size;$('layerSizeO').textContent=L.size+'px';
+    $('layerColor').value=L.color;
+    $('layerShadow').checked=L.shadow;
+    $('layerBold').checked=L.bold;
+    fillSelect($('layerFont'),L.font);
+  }
+}
+function syncUi(){
+  ['tag','headline','brand','via','viaLabel'].forEach(function(k){if($(k).value!==state[k])$(k).value=state[k];});
+  $('showVia').checked=state.showVia;
+  $('via').disabled=!state.showVia;$('viaLabel').disabled=!state.showVia;
+  $('upper').checked=state.upper;
+  $('upperSmall').checked=state.upperSmall;
+  $('round').checked=state.round;
+  $('headBold').checked=state.headBold;
+  $('badge').value=state.badge;
+  ['zoom','size','fade','lead'].forEach(function(k){$(k).value=state[k];$(k+'O').textContent=state[k]+'%';});
+  $('badgeSize').value=state.badgeSize;$('badgeSizeO').textContent=state.badgeSize+'px';
+  ['tone','pos','fmt'].forEach(function(n){
+    document.querySelectorAll('input[name="'+n+'"]').forEach(function(r){r.checked=(r.value===state[n]);});
+  });
+  $('sampleNote').hidden=!sampleOn;
+  $('logoclear').disabled=!logo;
+  refreshFontUi();
+  refreshLayerUi();
+}
+['tag','headline','brand','via','viaLabel'].forEach(function(k){
+  $(k).addEventListener('input',function(){state[k]=$(k).value;schedule();});
+});
+$('showVia').addEventListener('change',function(){
+  state.showVia=$('showVia').checked;
+  $('via').disabled=!state.showVia;$('viaLabel').disabled=!state.showVia;
+  if(state.showVia)$('via').focus();
+  schedule();
+});
+$('upper').addEventListener('change',function(){state.upper=$('upper').checked;schedule();});
+$('upperSmall').addEventListener('change',function(){state.upperSmall=$('upperSmall').checked;schedule();});
+$('round').addEventListener('change',function(){state.round=$('round').checked;schedule();});
+$('headBold').addEventListener('change',function(){state.headBold=$('headBold').checked;schedule();});
+$('headFont').addEventListener('change',function(){state.headFont=$('headFont').value;schedule();});
+$('smallFont').addEventListener('change',function(){state.smallFont=$('smallFont').value;schedule();});
+$('badge').addEventListener('change',function(){state.badge=$('badge').value;schedule();});
+['zoom','size','fade','lead'].forEach(function(k){
+  $(k).addEventListener('input',function(){state[k]=+$(k).value;$(k+'O').textContent=state[k]+'%';schedule();});
+});
+$('badgeSize').addEventListener('input',function(){state.badgeSize=+$('badgeSize').value;$('badgeSizeO').textContent=state.badgeSize+'px';schedule();});
+$('fadeReset').addEventListener('click',function(){state.fade=DEFAULT_FADE;syncUi();schedule();});
+document.querySelectorAll('input[name="tone"],input[name="pos"],input[name="fmt"]').forEach(function(r){
+  r.addEventListener('change',function(){
+    if(!r.checked)return;
+    state[r.name]=r.value;
+    if(r.name==='pos'){
+      var b=state.badge;
+      if(r.value==='bottom'&&b.charAt(0)==='b')state.badge='t'+b.charAt(1);
+      if(r.value==='top'&&b.charAt(0)==='t')state.badge='b'+b.charAt(1);
+      $('badge').value=state.badge;
+    }
+    schedule();
+  });
+});
+$('recenter').addEventListener('click',function(){state.ox=0;state.oy=0;state.zoom=100;syncUi();schedule();});
+$('logoclear').addEventListener('click',function(){logo=null;syncUi();schedule();});
+
+/* extra text controls */
+$('addText').addEventListener('click',function(){
+  var id=state.layers.reduce(function(m,l){return Math.max(m,l.id);},0)+1;
+  var L={id:id,text:'New text',x:.5,y:clamp(.5+state.layers.length*.07,.1,.9),size:72,color:'#FFFFFF',font:state.headFont,shadow:true,bold:false};
+  state.layers.push(L);selId=id;
+  refreshLayerUi();schedule();
+  $('layerText').focus();$('layerText').select();
+});
+$('layerText').addEventListener('input',function(){var L=selLayer();if(!L)return;L.text=$('layerText').value;refreshLayerUi();schedule();});
+$('layerSize').addEventListener('input',function(){var L=selLayer();if(!L)return;L.size=+$('layerSize').value;$('layerSizeO').textContent=L.size+'px';schedule();});
+$('layerColor').addEventListener('input',function(){var L=selLayer();if(!L)return;L.color=$('layerColor').value;schedule();});
+$('layerShadow').addEventListener('change',function(){var L=selLayer();if(!L)return;L.shadow=$('layerShadow').checked;schedule();});
+$('layerBold').addEventListener('change',function(){var L=selLayer();if(!L)return;L.bold=$('layerBold').checked;schedule();});
+$('layerFont').addEventListener('change',function(){var L=selLayer();if(!L)return;L.font=$('layerFont').value;schedule();});
+$('layerCenter').addEventListener('click',function(){var L=selLayer();if(!L)return;L.x=.5;schedule();});
+$('layerDelete').addEventListener('click',function(){
+  var L=selLayer();if(!L)return;
+  state.layers=state.layers.filter(function(x){return x.id!==L.id;});
+  selId=null;refreshLayerUi();schedule();
+});
+
+/* ---------- images ---------- */
+function loadFile(file,kind){
+  if(!file||!/^image\//.test(file.type))return;
+  var fr=new FileReader();
+  fr.onload=function(){
+    var im=new Image();
+    im.onload=function(){
+      if(kind==='logo'){logo=im;}
+      else{bg=im;sampleOn=false;state.ox=0;state.oy=0;}
+      syncUi();schedule();
+    };
+    im.onerror=function(){$('msg').textContent='That file could not be read as an image.';};
+    im.src=fr.result;
+  };
+  fr.readAsDataURL(file);
+}
+$('bgfile').addEventListener('change',function(e){loadFile(e.target.files[0],'bg');e.target.value='';});
+$('logofile').addEventListener('change',function(e){loadFile(e.target.files[0],'logo');e.target.value='';});
+document.addEventListener('paste',function(e){
+  var t=e.target&&e.target.tagName;
+  if(t==='INPUT'||t==='TEXTAREA')return;
+  var items=(e.clipboardData&&e.clipboardData.items)||[];
+  for(var i=0;i<items.length;i++){
+    if(items[i].kind==='file'&&/^image\//.test(items[i].type)){loadFile(items[i].getAsFile(),'bg');e.preventDefault();return;}
+  }
+});
+var stage=document.querySelector('.stage');
+stage.addEventListener('dragover',function(e){e.preventDefault();});
+stage.addEventListener('drop',function(e){
+  e.preventDefault();
+  var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];
+  if(f)loadFile(f,'bg');
+});
+
+/* ---------- drag: extra text first, then the picture ---------- */
+var drag=null;
+function pointOnCanvas(e){
+  var r=cv.getBoundingClientRect(),d=dims();
+  return{x:(e.clientX-r.left)*(d.W/r.width),y:(e.clientY-r.top)*(d.H/r.height),W:d.W,H:d.H};
+}
+function hitLayer(p){
+  var pad=14*(p.W/1080);
+  for(var i=state.layers.length-1;i>=0;i--){
+    var b=state.layers[i]._b;
+    if(b&&p.x>=b.x-pad&&p.x<=b.x+b.w+pad&&p.y>=b.y-pad&&p.y<=b.y+b.h+pad)return state.layers[i];
+  }
+  return null;
+}
+cv.addEventListener('pointerdown',function(e){
+  try{cv.setPointerCapture(e.pointerId);}catch(x){}
+  var p=pointOnCanvas(e),L=hitLayer(p);
+  if(L){
+    selId=L.id;refreshLayerUi();
+    drag={mode:'layer',L:L,x:e.clientX,y:e.clientY,lx:L.x,ly:L.y};
+  }else{
+    if(selId!==null){selId=null;refreshLayerUi();}
+    drag={mode:'img',x:e.clientX,y:e.clientY,ox:state.ox,oy:state.oy};
+  }
+  cv.style.cursor=L?'move':'grabbing';
+  schedule();
+});
+cv.addEventListener('pointermove',function(e){
+  var r=cv.getBoundingClientRect(),d=dims();
+  if(!drag){cv.style.cursor=hitLayer(pointOnCanvas(e))?'move':'grab';return;}
+  var dx=(e.clientX-drag.x)*(d.W/r.width),dy=(e.clientY-drag.y)*(d.H/r.height);
+  if(drag.mode==='layer'){
+    drag.L.x=clamp(drag.lx+dx/d.W,0,1);
+    drag.L.y=clamp(drag.ly+dy/d.H,0,1);
+  }else{
+    var g=coverGeom(d.W,d.H);
+    state.ox=clamp(drag.ox+dx/d.W,-g.mx/d.W,g.mx/d.W);
+    state.oy=clamp(drag.oy+dy/d.H,-g.my/d.H,g.my/d.H);
+  }
+  schedule();
+});
+function endDrag(){drag=null;cv.style.cursor='grab';}
+cv.addEventListener('pointerup',endDrag);
+cv.addEventListener('pointercancel',endDrag);
+
+/* ---------- saving ---------- */
+var dlPromise=(async function(){
+  try{if(window.claude&&window.claude.use)return await window.claude.use('downloads');}catch(e){}
+  return null;
+})();
+function fileName(){
+  var slug=state.headline.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').split('-').slice(0,7).join('-');
+  return 'mpm-'+(slug||'post')+'.png';
+}
+function showFallback(blob,note){
+  var url=URL.createObjectURL(blob);
+  $('outimg').src=url;
+  $('fallback').hidden=false;
+  $('msg').textContent=note;
+  return url;
+}
+$('save').addEventListener('click',async function(){
+  var msg=$('msg');msg.textContent='';
+  render(true);
+  var blob=await new Promise(function(res){cv.toBlob(res,'image/png');});
+  schedule();
+  if(!blob){msg.textContent='The image could not be created. Try a smaller picture.';return;}
+  var dl=await dlPromise;
+  if(!dl){
+    var url=showFallback(blob,'If the file did not download, press and hold the image below (or right-click it) to save.');
+    try{var a=document.createElement('a');a.href=url;a.download=fileName();document.body.appendChild(a);a.click();a.remove();}catch(e){}
+    return;
+  }
+  try{
+    await dl.save({filename:fileName(),data:blob});
+    $('fallback').hidden=true;
+    msg.textContent='Saved as '+fileName();
+  }catch(err){
+    if(err&&err.code==='declined'){msg.textContent='Save cancelled.';}
+    else if(err&&err.code==='rate_limited'){msg.textContent='A save prompt is already open. Answer it, then try again.';}
+    else{showFallback(blob,'Saving a file is not available in this view. Use the image below.');}
+  }
+});
+
+/* ---------- start ---------- */
+syncUi();render(false);
+if(document.fonts){
+  document.fonts.addEventListener&&document.fonts.addEventListener('loadingdone',function(){schedule();});
+  if(document.fonts.load){
+    Promise.all([
+      document.fonts.load('120px Anton'),
+      document.fonts.load('600 24px "IBM Plex Mono"'),
+      document.fonts.load('700 24px Archivo'),
+      document.fonts.load('800 24px "Noto Sans Sinhala"','අ'),
+      document.fonts.load('800 24px "Abhaya Libre"','අ'),
+      document.fonts.load('700 24px Yaldevi','අ')
+    ]).then(function(){schedule();}).catch(function(){});
+  }
+  if(document.fonts.ready)document.fonts.ready.then(function(){schedule();});
+}
+(async function restoreFonts(){
+  var keep=[],changed=false;
+  for(var i=0;i<state.customFonts.length;i++){
+    var c=state.customFonts[i];
+    if(c.kind==='local'){keep.push(c);continue;}
+    try{
+      var buf=await idbGet(c.key);
+      if(buf){await registerFont(c.family,buf,c.key);keep.push(c);}else{changed=true;}
+    }catch(e){changed=true;}
+  }
+  if(changed){
+    state.customFonts=keep;
+    $('fmsg').textContent='Some added font files were not kept by this browser. Add them again.';
+  }
+  refreshFontUi();schedule();
+})();
+})();
+</script>
