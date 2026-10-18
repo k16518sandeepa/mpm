@@ -1,5 +1,25 @@
 [
     {
+    "id": "sker_ritual",
+    "platform": "epic",
+    "title": "Sker Ritual",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1492070/8e288958e8c203003f00852e73dba95558b94992/header.jpg?t=1790608407",
+    "description": "Tear through endless waves of supernatural enemies in this co-op horror horde shooter. Play solo or with up to 4 players, unleash god-like Miracle powers, supercharge your arsenal, and survive devastating boss encounters on Sker Island.",
+    "claimUrl": "https://store.epicgames.com/p/sker-ritual-aac702",
+    "startDate": "2026-10-22T20:30:00",
+    "endDate": "2026-10-29T20:30:00"
+  },
+   {
+    "id": "home",
+    "platform": "epic",
+    "title": "Home - A Unique Horror Adventure",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/215670/header.jpg?t=1704052890",
+    "description": "Home is a unique horror adventure set in a beautifully-realized pixel world. It’s a murder mystery with a twist—because you decide what ultimately happens.",
+    "claimUrl": "https://store.epicgames.com/p/home-19212a",
+    "startDate": "2026-10-22T20:30:00",
+    "endDate": "2026-10-29T20:30:00"
+  },
+   {
     "id": "fireside",
     "platform": "steam",
     "title": "Fireside Feelings",
