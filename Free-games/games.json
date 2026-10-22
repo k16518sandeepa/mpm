@@ -1,5 +1,15 @@
 [
     {
+    "id": "sorry_we_are_closed",
+    "platform": "epic",
+    "title": "Sorry We're Closed",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1796580/header.jpg?t=1788536861",
+    "description": "Sorry We're Closed is an eccentric story-driven survival horror game about demons, angels and what happens when both sides collide. A mix of classic fixed-camera exploration and arcade-style shooting where Michelle must use her Third Eye to see between worlds, uncover secrets and solve puzzles.",
+    "claimUrl": "https://store.epicgames.com/p/sorry-were-closed-724c86",
+    "startDate": "2026-10-29T20:30:00",
+    "endDate": "2026-11-05T20:30:00"
+  },
+  {
     "id": "sker_ritual",
     "platform": "epic",
     "title": "Sker Ritual",
