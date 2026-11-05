@@ -1,5 +1,25 @@
 [
     {
+    "id": "Knightica",
+    "platform": "epic",
+    "title": "Knightica",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3093400/header.jpg?t=1776320660",
+    "description": "Recruit powerful units, place them strategically and find the best synergies in this Roguelike Autobattler! Knightica lets you guide a warband through many challenges to free the Kingdoms. Discover optimal combinations, weave powerful enchants, face dangerous monsters and lead your army to victory!",
+    "claimUrl": "https://store.epicgames.com/p/knightica-3be45c",
+    "startDate": "2026-11-12T20:30:00",
+    "endDate": "2026-11-19T20:30:00"
+  },
+    {
+    "id": "Flotsam",
+    "platform": "epic",
+    "title": "Flotsam",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/821250/018fe10470e32dcafe517e002e271ece69508692/header.jpg?t=1782735785",
+    "description": "Sail, scavenge, and rescue survivors in a vibrant floating city-builder. Captain your drifters across the endless garbage sea to uncover soaked ruins, rusting factories, and stories from the old world.",
+    "claimUrl": "https://store.epicgames.com/p/flotsam-266287",
+    "startDate": "2026-11-05T20:30:00",
+    "endDate": "2026-11-12T20:30:00"
+  },
+   {
     "id": "sorry_we_are_closed",
     "platform": "epic",
     "title": "Sorry We're Closed",
