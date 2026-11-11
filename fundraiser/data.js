@@ -28,6 +28,13 @@ const FUNDRAISING_DATA = {
       "date": "2026-10-02",
       "note": "",
       "anonymous": false
+    },
+    {
+      "name": "Nadil",
+      "amount": 1000,
+      "date": "2026-11-11",
+      "note": "",
+      "anonymous": false
     }
   ],
   "expenses": [
@@ -36,6 +43,12 @@ const FUNDRAISING_DATA = {
       "amount": 3821.77,
       "date": "2026-09-01",
       "category": "Domain"
+    },
+    {
+      "title": "VPS",
+      "amount": 1700,
+      "date": "2026-07-05",
+      "category": "Server"
     }
   ]
 };
