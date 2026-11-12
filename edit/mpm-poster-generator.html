@@ -36,6 +36,12 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .item img,.item i{width:34px;height:50px;object-fit:cover;border-radius:3px;background:var(--line);flex:none}
 #bds img{width:calc(33.3% - 6px);max-width:170px;border-radius:6px;cursor:pointer;border:2px solid transparent}
 #bds img:hover,#bds img:focus-visible{border-color:var(--red);outline:none}
+.cap textarea{min-height:320px;line-height:1.5}
+.cap .meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin-top:6px}
+.cap .over{color:var(--red);font-weight:500}
+details{margin-top:14px}
+summary{cursor:pointer;font-size:13px;color:var(--mute)}
+details textarea{margin-top:8px;min-height:240px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
 </style>
 </head>
 <body>
@@ -55,6 +61,21 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <p class="hint" id="st"></p>
 </div>
 
+<div class="panel cap">
+<label>Telegram post text (edit freely)<textarea id="cap" class="nd" spellcheck="false"></textarea></label>
+<div class="meta"><span id="capst">Fills in from the fields below until you edit it by hand.</span><span id="cnt"></span></div>
+<div class="row">
+<button class="primary" id="cc" type="button">Copy text</button>
+<button id="ch" type="button">Copy as HTML (for bot)</button>
+<button id="cr" type="button">Reset to template</button>
+</div>
+<details><summary>Edit the template</summary>
+<textarea id="tpl" class="nd" spellcheck="false"></textarea>
+<p class="hint">Placeholders: {title} {type} {year} {genres} {language} {quality} {cert} {rating} {ratingLabel} {story}. Lines starting with &gt; become quotes in the HTML copy. Saved in this browser only. To change it for the whole team, edit DEFAULT_TEMPLATE at the top of the script.</p>
+<div class="row"><button id="tr" type="button">Restore default template</button></div>
+</details>
+</div>
+
 <div class="panel">
 <div class="grid">
 <label>Title (use | to force a line break)<input id="title" value="Sasaki and Peeps"></label>
@@ -69,11 +90,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <label>Episodes / runtime<input id="ep" value="12 Episodes"></label>
 <label>Rating<input id="rate" value="6.5"></label>
 <label>Rating source<input id="src" value="IMDb"></label>
+<label>Language<input id="lang" value="Tamil"></label>
+<label>Quality<input id="qual" value="720p" list="ql"><datalist id="ql"><option>480p</option><option>720p</option><option>1080p</option><option>2160p</option><option>HDRip</option><option>WEB-DL</option></datalist></label>
+<label>Age rating<input id="cert" value="NR"></label>
 <label>Accent colour<input id="accent" type="color" value="#2fe0c0"></label>
 <label class="wide">Tagline<input id="tag" value="An ordinary man. An extraordinary bird."></label>
 <label class="wide">Synopsis<textarea id="syn">An office worker buys a mysterious bird that gives him the power to cross between worlds, drawing him into magic, adventure, and unexpected encounters.</textarea></label>
 <label class="wide">Genres (comma separated)<input id="gen" value="Animation, Adventure, Comedy, Fantasy"></label>
-<label class="wide">Footer line<input id="foot" value="© 2026 Powered by MPM"></label>
+<label class="wide">Footer line<input id="foot" value="Anime brings people together"></label>
 <label class="wide">Artwork image<input id="img" type="file" accept="image/*"></label>
 <label>Zoom<input id="zoom" type="range" min="1" max="3" step="0.01" value="1"></label>
 <label>Move left / right<input id="px" type="range" min="-1" max="1" step="0.01" value="0"></label>
@@ -91,6 +115,24 @@ const W=1672,H=941,cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const $=id=>document.getElementById(id);
 let art=null;
 const RED='#e50914',GOLD='#f2b94b';
+const DEFAULT_TEMPLATE=`🎥𝗧𝗶𝘁𝗹𝗲 : {title}
+
+ꜱᴜᴘᴘᴏʀᴛ ᴜꜱ: https://motionpicturemafia.com/support-us
+ꜰᴜɴᴅʀᴀɪꜱᴇʀ:  https://motionpicturemafia.com/fundraiser
+
+> {type}
+
+📅𝗬𝗲𝗮𝗿 : {year}
+🎭𝗚𝗲𝗻𝗿𝗲𝘀 : {genres}
+📃𝗟𝗮𝗻𝗴𝘂𝗮𝗴𝗲 : {language}
+📂𝗤𝘂𝗮𝗹𝗶𝘁𝘆 : {quality}
+® 𝐑𝐚𝐭𝐢𝐧𝐠: {cert}
+📝{ratingLabel} : {rating}/10
+
+🔅sᴛᴏʀʏ ʟɪɴᴇ🔅
+> {story}
+
+> ©𝙼𝙿𝙼 𝚂𝚃𝚄𝙳𝙸𝙾`;
 // ---- Team config ----
 const TMDB_KEY='';            // optional: paste a TMDB key here so the team never has to
 const HOSTED_FONTS=[];        // optional: e.g. ['fonts/MyTitle.ttf','fonts/Other.otf'] (files uploaded next to this page)
@@ -219,7 +261,7 @@ function draw(){
   spaced(($('foot').value||'').toUpperCase(),sx+30,862,4);
 }
 
-document.querySelectorAll('input:not([type=file]),textarea,select').forEach(e=>e.addEventListener('input',draw));
+document.querySelectorAll('input:not([type=file]):not(.nd),textarea:not(.nd),select').forEach(e=>e.addEventListener('input',()=>{draw();capAuto()}));
 $('img').addEventListener('change',e=>{
   const f=e.target.files[0];if(!f)return;
   const im=new Image();im.onload=()=>{art=im;draw()};im.src=URL.createObjectURL(f);
@@ -277,7 +319,7 @@ function setArt(p){
 }
 async function pick(x){try{
   st('Loading details…');const t=x.media_type;
-  const d=await tm(`/${t}/${x.id}`,{append_to_response:'images',include_image_language:'en,null'});
+  const d=await tm(`/${t}/${x.id}`,{append_to_response:t=='tv'?'images,content_ratings':'images,release_dates',include_image_language:'en,null'});
   const g=(d.genres||[]).map(a=>a.name);
   const anime=g.includes('Animation')&&(d.original_language=='ja'||(d.origin_country||[]).includes('JP'));
   $('title').value=d.title||d.name;
@@ -287,15 +329,58 @@ async function pick(x){try{
   $('ep').value=t=='tv'?(d.number_of_episodes?d.number_of_episodes+' Episodes':''):(d.runtime?Math.floor(d.runtime/60)+'h '+d.runtime%60+'m':'');
   $('rate').value=(d.vote_average||0).toFixed(1);$('src').value='TMDB';
   $('tag').value=d.tagline||'';$('syn').value=d.overview||'';$('gen').value=g.join(', ');
-  $('foot').value=anime?'© 2026 Powered by MPM':t=='tv'?'© 2026 Powered by MPM':'© 2026 Powered by MPM';
+  $('foot').value=anime?'Anime brings people together':t=='tv'?'TV brings people together':'Movies bring people together';
+  try{$('lang').value=new Intl.DisplayNames(['en'],{type:'language'}).of(d.original_language)||''}catch(e){}
+  {const r=(t=='tv'?(d.content_ratings&&d.content_ratings.results||[]).map(a=>({c:a.iso_3166_1,v:a.rating})):(d.release_dates&&d.release_dates.results||[]).map(a=>({c:a.iso_3166_1,v:((a.release_dates||[]).find(z=>z.certification)||{}).certification}))).filter(a=>a.v);
+   $('cert').value=(r.find(a=>a.c=='US')||r[0]||{v:'NR'}).v}
   const bd=(d.images&&d.images.backdrops||[]).slice(0,12);
   if(d.backdrop_path)bd.unshift({file_path:d.backdrop_path});
   $('bds').innerHTML='';
   bd.forEach(b=>{const im=document.createElement('img');im.src=IM+'w300'+b.file_path;im.alt='Backdrop option';im.tabIndex=0;
     im.onclick=()=>setArt(b.file_path);im.onkeydown=e=>{if(e.key=='Enter')setArt(b.file_path)};$('bds').appendChild(im)});
-  draw();
+  draw();capDirty=false;capAuto();
   if(bd.length)setArt(bd[0].file_path);else st('No artwork on TMDB for this title. Upload your own below.');
 }catch(e){st(e.message)}}
+
+// ---- Telegram caption ----
+let capDirty=false;
+const BOLD=s=>[...s].map(c=>{const k=c.charCodeAt(0);
+  if(k>=65&&k<=90)return String.fromCodePoint(0x1D5D4+k-65);
+  if(k>=97&&k<=122)return String.fromCodePoint(0x1D5EE+k-97);
+  if(k>=48&&k<=57)return String.fromCodePoint(0x1D7EC+k-48);return c}).join('');
+function loadTpl(){let t='';try{t=localStorage.getItem('mpmtpl')||''}catch(e){}$('tpl').value=t||DEFAULT_TEMPLATE}
+function typeLine(){
+  const cat=$('cat').value,ep=$('ep').value.trim();
+  const base=cat=='Movie'?'Movie':cat;
+  return base+(ep?' | '+(/^\d+h/.test(ep)?'~':'')+ep:'');
+}
+function buildCap(){
+  const v={title:$('title').value.trim(),type:typeLine(),year:$('year').value.trim(),genres:$('gen').value.split(',').map(x=>x.trim()).filter(Boolean).join(', '),
+    language:$('lang').value.trim(),quality:$('qual').value.trim(),cert:$('cert').value.trim()||'NR',rating:$('rate').value.trim(),
+    ratingLabel:BOLD(($('src').value||'IMDb').toUpperCase()),story:$('syn').value.trim().replace(/\s*\n\s*/g,' ')};
+  return $('tpl').value.replace(/\{(\w+)\}/g,(m,k)=>k in v?v[k]:m);
+}
+function capCount(){const n=$('cap').value.length;$('cnt').textContent=n+' / 1024 characters';$('cnt').className=n>1024?'over':'';
+  $('cnt').title='Telegram allows 1024 characters when the text is sent as a photo caption.'}
+function capAuto(){if(!capDirty){$('cap').value=buildCap();$('capst').textContent='Fills in from the fields below until you edit it by hand.'}capCount()}
+const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function toHtml(t){
+  const out=[];let q=[];
+  const flush=()=>{if(q.length){out.push('<blockquote>'+q.join('\n')+'</blockquote>');q=[]}};
+  t.split('\n').forEach(l=>{if(/^>\s?/.test(l))q.push(esc(l.replace(/^>\s?/,'')));else{flush();out.push(esc(l))}});
+  flush();return out.join('\n');
+}
+async function copyText(t,msg){
+  try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(x){}a.remove()}
+  $('capst').textContent=msg;
+}
+$('cap').addEventListener('input',()=>{capDirty=true;$('capst').textContent='Edited by hand. Reset to template to fill it from the fields again.';capCount()});
+$('cc').onclick=()=>copyText($('cap').value,'Copied. Paste it into Telegram.');
+$('ch').onclick=()=>copyText(toHtml($('cap').value),'Copied as HTML. Use it with parse_mode=HTML in your bot.');
+$('cr').onclick=()=>{capDirty=false;capAuto()};
+$('tpl').addEventListener('input',()=>{try{localStorage.setItem('mpmtpl',$('tpl').value)}catch(e){}capAuto()});
+$('tr').onclick=()=>{try{localStorage.removeItem('mpmtpl')}catch(e){}$('tpl').value=DEFAULT_TEMPLATE;capAuto()};
+loadTpl();capAuto();
 
 // ---- start ----
 (async()=>{
