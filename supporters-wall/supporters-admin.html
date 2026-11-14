@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Supporters Admin · MPM</title>
+<link rel="stylesheet" href="supporters.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <h1>Supporters Wall · Admin</h1>
+    <div class="btns" style="margin:0">
+      <button class="btn ghost" id="loadPub">Load published</button>
+      <button class="btn ghost" id="openPrev">Open preview ↗</button>
+      <button class="btn" id="download">Download supporters.json</button>
+    </div>
+  </div>
+
+  <div class="adm">
+    <div>
+      <div class="box">
+        <h3 id="formTitle">Add supporter</h3>
+        <label>Name</label><input type="text" id="f-name" placeholder="Full name or nickname">
+        <div class="row">
+          <div><label>Amount (<span class="cur">LKR</span>)</label><input type="number" id="f-amount" min="0" step="100"></div>
+          <div><label>Paid on</label><input type="date" id="f-date"></div>
+        </div>
+        <div class="row">
+          <div><label>Active until</label><input type="date" id="f-exp"></div>
+        </div>
+        <div class="hint" id="expHint"></div>
+        <label class="check"><input type="checkbox" id="f-noexp"> Lifetime (never moves to Past)</label>
+        <label>Message (optional)</label><textarea id="f-msg" maxlength="200"></textarea>
+        <label class="check"><input type="checkbox" id="f-anon"> Show as Anonymous</label>
+        <label class="check"><input type="checkbox" id="f-showamt"> Show amount on the wall</label>
+        <label class="check"><input type="checkbox" id="f-feat"> Featured (larger card)</label>
+        <label class="check"><input type="checkbox" id="f-hidden"> Hidden (keep in records, don't show)</label>
+        <div class="btns">
+          <button class="btn" id="save">Add supporter</button>
+          <button class="btn ghost" id="cancel" style="display:none">Cancel edit</button>
+        </div>
+        <div class="status" id="status"></div>
+      </div>
+
+      <div class="box" style="margin-top:16px">
+        <h3>Page settings</h3>
+        <label>Title</label><input type="text" id="s-title">
+        <label>Subtitle</label><textarea id="s-sub"></textarea>
+        <div class="row">
+          <div><label>Currency</label><input type="text" id="s-cur"></div>
+          <div><label>Active period (days)</label><input type="number" id="s-days" min="1" step="1"></div>
+        </div>
+        <label>Donate link</label><input type="text" id="s-url" placeholder="https://…">
+        <label class="check"><input type="checkbox" id="s-total"> Show total raised</label>
+        <label>Tiers (JSON)</label><textarea id="s-tiers" style="min-height:110px;font-family:monospace;font-size:.8rem"></textarea>
+      </div>
+    </div>
+
+    <div class="box">
+      <h3>Supporters</h3>
+      <div class="sumline" id="sum"></div>
+      <input type="text" id="search" placeholder="Search…" style="margin-bottom:10px">
+      <div class="tbl"><table>
+        <thead><tr><th>Name</th><th>Total</th><th>Tier</th><th>Status</th><th>Flags</th><th></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table></div>
+      <div class="btns">
+        <label class="btn ghost" style="margin:0;cursor:pointer;text-transform:none;letter-spacing:0;font-size:1rem;color:var(--gold2)">Import JSON<input type="file" id="imp" accept="application/json" hidden></label>
+      </div>
+      <p class="status">Active supporters move to <b>Past Supporters</b> automatically when their "Active until" date passes, with no republishing needed. <b>Renew</b> brings them back. Changes autosave as a <b>draft</b> in this browser. Check <b>Open preview</b>, then <b>Download supporters.json</b> and replace the file on your site to publish.</p>
+    </div>
+  </div>
+</div>
+
+<script src="supporters.js"></script>
+<script>
+const KEY = "mpm_supporters_draft";
+const W = SupportersWall;
+const $ = id => document.getElementById(id);
+let data = null, editId = null;
+
+function blank() {
+  return { title: "Our Supporters", subtitle: "Thank you for keeping MPM alive.", currency: "LKR", donateUrl: "", showTotal: true,
+    durationDays: 30, updated: "", tiers: W.DEFAULT_TIERS, supporters: [] };
+}
+function status(msg, kind) { const s = $("status"); s.textContent = msg; s.className = "status " + (kind || ""); }
+function persist() {
+  data.updated = W.today();
+  try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) { status("Could not save draft (storage blocked).", "err"); }
+}
+function uid() { return "s" + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+async function init() {
+  try { data = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) {}
+  if (!data) {
+    try { data = await (await fetch("supporters.json?v=" + Date.now(), { cache: "no-store" })).json(); } catch (e) { data = blank(); }
+  }
+  data = Object.assign(blank(), data);
+  loadSettings(); draw(); updateHint();
+}
+
+function loadSettings() {
+  $("s-title").value = data.title; $("s-sub").value = data.subtitle; $("s-cur").value = data.currency;
+  $("s-days").value = data.durationDays; $("s-url").value = data.donateUrl || ""; $("s-total").checked = data.showTotal !== false;
+  $("s-tiers").value = JSON.stringify(data.tiers, null, 2);
+  document.querySelectorAll(".cur").forEach(e => e.textContent = data.currency);
+}
+["s-title","s-sub","s-cur","s-days","s-url","s-total"].forEach(id => $(id).addEventListener("input", () => {
+  data.title = $("s-title").value; data.subtitle = $("s-sub").value; data.currency = $("s-cur").value.trim() || "LKR";
+  data.durationDays = Math.max(1, parseInt($("s-days").value, 10) || 30);
+  data.donateUrl = $("s-url").value.trim(); data.showTotal = $("s-total").checked;
+  document.querySelectorAll(".cur").forEach(e => e.textContent = data.currency);
+  persist(); draw(); updateHint();
+}));
+$("s-tiers").addEventListener("change", () => {
+  try {
+    const t = JSON.parse($("s-tiers").value);
+    if (!Array.isArray(t) || !t.every(x => x.id && x.label && typeof x.min === "number" && x.color)) throw 0;
+    data.tiers = t; persist(); draw(); status("Tiers updated.", "ok");
+  } catch (e) { status("Tiers must be a JSON array of {id,label,min,color}.", "err"); }
+});
+
+/* ---- expiry helpers ---- */
+function updateHint() {
+  const paid = $("f-date").value || W.today();
+  $("f-exp").disabled = $("f-noexp").checked;
+  $("expHint").textContent = $("f-noexp").checked ? "Lifetime supporters stay in their tier permanently."
+    : "Leave blank to auto-set: " + W.addDays(paid, data.durationDays) + " (" + data.durationDays + " days after payment).";
+}
+["f-date","f-noexp"].forEach(id => $(id).addEventListener("input", updateHint));
+
+function statusOf(s) {
+  const e = W.expiryOf(s, data.durationDays);
+  if (e === null) return { html: '<span class="pill ok">Lifetime</span>', active: true, sort: "9999" };
+  const left = W.daysBetween(W.today(), e);
+  return left >= 0
+    ? { html: `<span class="pill ok">Active · ${left}d left</span>`, active: true, sort: e }
+    : { html: `<span class="pill past">Past · ${-left}d ago</span>`, active: false, sort: e };
+}
+
+function draw() {
+  const q = $("search").value.toLowerCase();
+  const vis = data.supporters.filter(s => !s.hidden);
+  const act = vis.filter(s => statusOf(s).active).length;
+  const total = vis.reduce((a, s) => a + (+s.amount || 0), 0);
+  $("sum").textContent = `${data.supporters.length} records · ${act} active · ${vis.length - act} past · ${W.fmt(total, data.currency)} all-time (visible)`;
+  const rows = data.supporters.filter(s => !q || ((s.name || "") + (s.message || "")).toLowerCase().includes(q))
+    .map(s => ({ s, st: statusOf(s) }))
+    .sort((a, b) => (b.st.active - a.st.active) || b.st.sort.localeCompare(a.st.sort))
+    .map(({ s, st }) => {
+      const t = W.tierFor(+s.amount || 0, data.tiers);
+      const flags = [s.anonymous && "anon", s.showAmount && "amt", s.featured && "★", s.hidden && "hidden"].filter(Boolean).map(f => `<span class="pill">${f}</span>`).join(" ");
+      return `<tr><td>${esc(s.name || "—")}</td><td>${(+s.amount || 0).toLocaleString()}</td>
+        <td style="color:${esc(t.color)}">${esc(t.label)}</td><td>${st.html}</td><td>${flags}</td>
+        <td style="white-space:nowrap"><button class="btn sm" data-r="${s.id}">Renew</button> <button class="btn ghost sm" data-e="${s.id}">Edit</button> <button class="btn danger sm" data-d="${s.id}">Delete</button></td></tr>`;
+    }).join("");
+  $("rows").innerHTML = rows || '<tr><td colspan="6" class="status">No supporters yet.</td></tr>';
+  $("rows").querySelectorAll("[data-e]").forEach(b => b.onclick = () => edit(b.dataset.e));
+  $("rows").querySelectorAll("[data-d]").forEach(b => b.onclick = () => del(b.dataset.d));
+  $("rows").querySelectorAll("[data-r]").forEach(b => b.onclick = () => renew(b.dataset.r));
+}
+$("search").addEventListener("input", draw);
+
+function renew(id) {
+  const s = data.supporters.find(x => x.id === id); if (!s) return;
+  const a = prompt(`Renew ${s.name || "supporter"}\nAmount to add (${data.currency}) — enter 0 to just extend:`, "0");
+  if (a === null) return;
+  const add = Math.max(0, +a || 0);
+  const cur = W.expiryOf(s, data.durationDays), t = W.today();
+  const base = (cur && cur >= t) ? cur : t;           // still active → extend from current end; past → from today
+  s.amount = (+s.amount || 0) + add;
+  s.date = t; s.expires = W.addDays(base, data.durationDays); s.noExpiry = false;
+  s.renewals = (s.renewals || 0) + 1;
+  persist(); draw(); status(`Renewed until ${s.expires}.`, "ok");
+}
+
+function readForm() {
+  const date = $("f-date").value || W.today();
+  const noExpiry = $("f-noexp").checked;
+  return { name: $("f-name").value.trim(), amount: Math.max(0, +$("f-amount").value || 0), date,
+    noExpiry, expires: noExpiry ? "" : ($("f-exp").value || W.addDays(date, data.durationDays)),
+    message: $("f-msg").value.trim(), anonymous: $("f-anon").checked, showAmount: $("f-showamt").checked, featured: $("f-feat").checked, hidden: $("f-hidden").checked };
+}
+function resetForm() {
+  editId = null; ["f-name","f-amount","f-date","f-exp","f-msg"].forEach(i => $(i).value = "");
+  ["f-noexp","f-anon","f-showamt","f-feat","f-hidden"].forEach(i => $(i).checked = false);
+  $("formTitle").textContent = "Add supporter"; $("save").textContent = "Add supporter"; $("cancel").style.display = "none"; updateHint();
+}
+function edit(id) {
+  const s = data.supporters.find(x => x.id === id); if (!s) return;
+  editId = id; $("f-name").value = s.name || ""; $("f-amount").value = s.amount || ""; $("f-date").value = s.date || "";
+  $("f-exp").value = s.expires || ""; $("f-noexp").checked = !!s.noExpiry; $("f-msg").value = s.message || "";
+  $("f-anon").checked = !!s.anonymous; $("f-showamt").checked = !!s.showAmount; $("f-feat").checked = !!s.featured; $("f-hidden").checked = !!s.hidden;
+  $("formTitle").textContent = "Edit supporter"; $("save").textContent = "Save changes"; $("cancel").style.display = ""; updateHint();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function del(id) {
+  const s = data.supporters.find(x => x.id === id);
+  if (!s || !confirm("Delete " + (s.name || "this supporter") + "?")) return;
+  data.supporters = data.supporters.filter(x => x.id !== id); persist(); draw(); status("Deleted.", "ok");
+}
+$("save").onclick = () => {
+  const v = readForm();
+  if (!v.name && !v.anonymous) return status("Enter a name, or tick Anonymous.", "err");
+  if (editId) { Object.assign(data.supporters.find(x => x.id === editId), v); status("Updated.", "ok"); }
+  else { data.supporters.push({ id: uid(), ...v }); status("Added.", "ok"); }
+  persist(); draw(); resetForm();
+};
+$("cancel").onclick = resetForm;
+
+$("openPrev").onclick = () => { persist(); window.open("supporters-preview.html", "mpm_preview"); };
+$("download").onclick = () => {
+  persist();
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "supporters.json"; a.click();
+  URL.revokeObjectURL(a.href); status("Downloaded. Replace supporters.json on your site to publish.", "ok");
+};
+$("loadPub").onclick = async () => {
+  if (!confirm("Replace your current draft with the published supporters.json?")) return;
+  try { data = Object.assign(blank(), await (await fetch("supporters.json?v=" + Date.now(), { cache: "no-store" })).json()); persist(); loadSettings(); draw(); updateHint(); status("Loaded published version.", "ok"); }
+  catch (e) { status("Could not load supporters.json.", "err"); }
+};
+$("imp").onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => { try { const d = JSON.parse(r.result); if (!Array.isArray(d.supporters)) throw 0; data = Object.assign(blank(), d); persist(); loadSettings(); draw(); updateHint(); status("Imported.", "ok"); } catch (x) { status("Invalid supporters JSON.", "err"); } };
+  r.readAsText(f); e.target.value = "";
+};
+init();
+</script>
+</body>
+</html>

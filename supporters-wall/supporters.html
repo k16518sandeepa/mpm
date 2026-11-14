@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Supporters · Motion Picture Mafia</title>
+<meta name="description" content="The people who keep Motion Picture Mafia running.">
+<link rel="stylesheet" href="supporters.css">
+<link rel="icon" type="image/png" href="Images/mpm logo.png">
+</head>
+<body>
+<div id="app"><div class="empty">Loading…</div></div>
+<script src="supporters.js"></script>
+<script>
+fetch("supporters.json?v=" + Date.now(), { cache: "no-store" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(d => SupportersWall.render(document.getElementById("app"), d))
+  .catch(() => { document.getElementById("app").innerHTML = '<div class="empty">Could not load supporters right now.</div>'; });
+</script>
+</body>
+</html>

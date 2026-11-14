@@ -1,0 +1,76 @@
+{
+  "title": "Our Supporters",
+  "subtitle": "Thank you for keeping MPM alive.",
+  "currency": "LKR",
+  "donateUrl": "https://motionpicturemafia.com/support-us",
+  "showTotal": true,
+  "durationDays": 30,
+  "updated": "2026-11-14",
+  "tiers": [
+    {
+      "id": "platinum",
+      "label": "Platinum",
+      "min": 10000,
+      "color": "#b9e6ff"
+    },
+    {
+      "id": "gold",
+      "label": "Gold",
+      "min": 5000,
+      "color": "#f5c542"
+    },
+    {
+      "id": "silver",
+      "label": "Silver",
+      "min": 2000,
+      "color": "#cfd3dc"
+    },
+    {
+      "id": "supporter",
+      "label": "Supporters",
+      "min": 0,
+      "color": "#8f8ea6"
+    }
+  ],
+  "supporters": [
+    {
+      "id": "smwfxrg5wbwp",
+      "name": "Dulminda",
+      "amount": 2000,
+      "date": "2026-08-12",
+      "noExpiry": false,
+      "expires": "2026-09-12",
+      "message": "",
+      "anonymous": false,
+      "showAmount": true,
+      "featured": true,
+      "hidden": false
+    },
+    {
+      "id": "smwfxsdlxyll",
+      "name": "Kavindya",
+      "amount": 500,
+      "date": "2026-10-02",
+      "noExpiry": false,
+      "expires": "2026-11-02",
+      "message": "",
+      "anonymous": false,
+      "showAmount": true,
+      "featured": false,
+      "hidden": false
+    },
+    {
+      "id": "smwfxt0gnhho",
+      "name": "Nadil",
+      "amount": 1000,
+      "date": "2026-11-11",
+      "noExpiry": false,
+      "expires": "2026-12-11",
+      "message": "",
+      "anonymous": false,
+      "showAmount": true,
+      "featured": true,
+      "hidden": false
+    }
+  ]
+}

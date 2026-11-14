@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Preview · Supporters Wall</title>
+<link rel="stylesheet" href="supporters.css">
+</head>
+<body>
+<div class="pv-banner">PREVIEW — unpublished draft from the admin page. <a href="supporters-admin.html">← Back to admin</a></div>
+<div id="app"></div>
+<script src="supporters.js"></script>
+<script>
+(function () {
+  const app = document.getElementById("app");
+  let draft = null;
+  try { draft = JSON.parse(localStorage.getItem("mpm_supporters_draft") || "null"); } catch (e) {}
+  if (draft) return SupportersWall.render(app, draft);
+  // No draft yet: fall back to the published file
+  fetch("supporters.json?v=" + Date.now(), { cache: "no-store" }).then(r => r.json())
+    .then(d => SupportersWall.render(app, d))
+    .catch(() => { app.innerHTML = '<div class="empty">No draft found. Open the admin page first.</div>'; });
+})();
+// live-refresh when the admin tab saves a new draft
+window.addEventListener("storage", e => { if (e.key === "mpm_supporters_draft") location.reload(); });
+</script>
+</body>
+</html>
