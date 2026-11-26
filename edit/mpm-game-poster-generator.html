@@ -183,8 +183,8 @@ const BOLD=s=>[...s].map(c=>{const k=c.charCodeAt(0);
   if(k>=97&&k<=122)return String.fromCodePoint(0x1D5EE+k-97);
   if(k>=48&&k<=57)return String.fromCodePoint(0x1D7EC+k-48);return c}).join('');
 // ---- Team config ----
-const RAWG_KEY='';            // optional: paste a RAWG key here so the team never has to
-const HOSTED_FONTS=[];        // optional: e.g. ['fonts/MyTitle.ttf'] (files uploaded next to this page)
+const RAWG_KEY='';            // optional
+const HOSTED_FONTS=[];        // ['fonts/MyTitle.ttf'] (
 const DEFAULT_TEMPLATE=`🎮${BOLD('Title')} : {title}
 
 ꜱᴜᴘᴘᴏʀᴛ ᴜꜱ: https://motionpicturemafia.com/support-us
@@ -211,7 +211,7 @@ const DEFAULT_TEMPLATE=`🎮${BOLD('Title')} : {title}
 🔅sᴛᴏʀʏ ʟɪɴᴇ🔅
 > {story}
 
-> ©𝙼𝙿𝙼 𝚂𝚃𝚄𝙳𝙸𝙾`;
+> ©𝙼𝙿𝙼 GAMING`;
 // ---------------------
 
 // ---- fonts ----
@@ -293,11 +293,7 @@ function draw(){
   for(let x=30;x<900;x+=28)for(let y=30;y<H;y+=28)ctx.fillRect(x,y,2,2);
   ctx.restore();
 
-  // glowing edge with ruler ticks
-  ctx.save();ctx.shadowColor=acc;ctx.shadowBlur=14;ctx.strokeStyle=acc;ctx.lineWidth=3;
-  ctx.beginPath();ctx.moveTo(930,0);ctx.lineTo(975,45);ctx.lineTo(975,H-45);ctx.lineTo(930,H);ctx.stroke();ctx.restore();
-  ctx.strokeStyle=rgba(acc,.55);ctx.lineWidth=2;
-  for(let y=45,n=0;y<=H-45;y+=24,n++){ctx.beginPath();ctx.moveTo(975,y);ctx.lineTo(n%5==0?955:965,y);ctx.stroke()}
+
 
   // scanlines
   ctx.fillStyle='rgba(0,0,0,.08)';for(let y=0;y<H;y+=4)ctx.fillRect(0,y,W,1);
@@ -306,11 +302,11 @@ function draw(){
   ctx.fillStyle=RED;ctx.font='900 52px Montserrat';ctx.fillText('MPM',84,100);
   const mw=ctx.measureText('MPM').width;
   ctx.fillStyle='#fff';ctx.font='600 44px Rajdhani';
-  const sx=84+mw+18,ex=spaced('STUDIO',sx,100,6);
+  const sx=84+mw+18,ex=spaced('GAMING',sx,100,6);
   ctx.font='700 18px Orbitron';LS(0);
-  const tw=spacedW('GAMES',3)+30,tx=ex+16;
+  const tw=spacedW('GAMES',3)+239,tx=ex+16;
   chamfer(tx,66,tw,36,9);ctx.fillStyle=acc;ctx.fill();
-  ctx.fillStyle='#03121a';spaced('GAMES',tx+15,91,3);
+  ctx.fillStyle='#03121a';spaced('Powered by MPM Studio',tx+15,91,3);
 
   // meta: type / year / platforms
   const yr=($('year').value.match(/\d{4}/)||[''])[0];
@@ -372,7 +368,7 @@ function draw(){
   // footer
   ctx.fillStyle=RED;ctx.font='900 28px Montserrat';ctx.fillText('MPM',84,884);
   const fw=ctx.measureText('MPM').width;
-  ctx.fillStyle='#fff';ctx.font='600 26px Rajdhani';const fe=spaced('STUDIO',84+fw+10,884,3);
+  ctx.fillStyle='#fff';ctx.font='600 26px Rajdhani';const fe=spaced('GAMING',84+fw+10,884,3);
   ctx.fillStyle='rgba(255,255,255,.5)';ctx.fillRect(fe+14,862,2,24);
   ctx.fillStyle='rgba(255,255,255,.8)';ctx.font='600 18px Rajdhani';
   spaced(($('foot').value||'').toUpperCase(),fe+34,883,4);
