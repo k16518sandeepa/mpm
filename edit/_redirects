@@ -1,0 +1,3 @@
+/steam-proxy/*   https://store.steampowered.com/:splat   200
+/steam-cdn/*     https://cdn.akamai.steamstatic.com/:splat   200
+/steam-shared/*  https://shared.akamai.steamstatic.com/:splat   200

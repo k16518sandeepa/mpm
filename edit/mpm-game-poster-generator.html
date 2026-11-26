@@ -87,7 +87,18 @@ details textarea{margin-top:8px;min-height:300px;font-family:ui-monospace,Menlo,
 <div id="res" class="res"></div>
 <div id="bds" class="res"></div>
 <p class="hint" id="st"></p>
+<div id="paste" hidden>
+<p class="hint">Steam could not be reached automatically. Open <a id="plink" href="#" target="_blank" rel="noopener">this Steam data page</a>, select all the text on it, copy it, and paste it below.</p>
+<textarea id="pdata" class="nd" spellcheck="false" placeholder="Paste the Steam data here"></textarea>
+<div class="row"><button class="primary" id="papply" type="button">Use pasted data</button></div>
+</div>
 <p class="hint" id="steamnote">Paste a Steam store link for new or upcoming games, since name search can miss them. Steam does not list PC requirements for every game, so check them before posting.</p>
+<details><summary>Steam setup for your site</summary>
+<p class="hint">Create a file named <b>_redirects</b> next to this page on Netlify with these three lines, then redeploy. This lets the page read Steam data and artwork from your own site, so it works every time.</p>
+<textarea class="nd" readonly rows="4" spellcheck="false">/steam-proxy/*   https://store.steampowered.com/:splat   200
+/steam-cdn/*     https://cdn.akamai.steamstatic.com/:splat   200
+/steam-shared/*  https://shared.akamai.steamstatic.com/:splat   200</textarea>
+</details>
 <p class="hint" id="rawgnote" hidden>Game data by <a href="https://rawg.io/" target="_blank" rel="noopener">RAWG</a>. Get a free key at <a href="https://rawg.io/apidocs" target="_blank" rel="noopener">rawg.io/apidocs</a>. A Steam link works in this box too.</p>
 </div>
 
@@ -515,15 +526,33 @@ $('tm').onclick=()=>tab(0);$('ta').onclick=()=>tab(1);
 function srcUi(){const r=$('src').value=='rawg';$('keyrow').hidden=!r;$('rawgnote').hidden=!r;$('steamnote').hidden=r}
 $('src').addEventListener('change',srcUi);srcUi();
 
-// Steam's store API blocks browsers (no CORS), so try a direct call, then the
-// Netlify function in netlify/functions/steam.js, then public relays.
-const RELAYS=[u=>u,u=>'/.netlify/functions/steam?u='+encodeURIComponent(u),u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://corsproxy.io/?url='+encodeURIComponent(u)];
+// Steam's store API blocks browsers (no CORS), so the page tries, in order:
+// 1. a same-site rewrite from the _redirects file (best, works with drag-and-drop Netlify deploys)
+// 2. the optional Netlify function in netlify/functions/steam.js
+// 3. a direct call, then free public relays (slower and less reliable)
+const RELAYS=[
+ {u:u=>u.replace(STEAM,'/steam-proxy')},
+ {u:u=>'/.netlify/functions/steam?u='+encodeURIComponent(u)},
+ {u:u=>u},
+ {u:u=>'https://api.allorigins.win/get?url='+encodeURIComponent(u),wrap:true},
+ {u:u=>'https://api.codetabs.com/v1/proxy/?quest='+encodeURIComponent(u)},
+ {u:u=>'https://corsproxy.io/?url='+encodeURIComponent(u)}
+];
+let relayOk=0;
+async function fetchT(url,ms){const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);try{return await fetch(url,{signal:c.signal})}finally{clearTimeout(t)}}
 async function steamJson(url){
-  for(const f of RELAYS){
-    try{const r=await fetch(f(url));if(!r.ok)continue;return JSON.parse(await r.text())}catch(e){}
+  const order=[relayOk,...RELAYS.map((_,i)=>i).filter(i=>i!=relayOk)];
+  for(const i of order){
+    const R=RELAYS[i];
+    try{
+      const r=await fetchT(R.u(url),i>=3?8000:4000);if(!r.ok)continue;
+      let j=JSON.parse(await r.text());if(R.wrap)j=JSON.parse(j.contents);
+      if(j&&typeof j=='object'){relayOk=i;return j}
+    }catch(e){}
   }
-  throw new Error('Could not reach Steam from this page. Try again in a minute, or fill the fields by hand.');
+  const err=new Error('Could not reach Steam from this page.');err.unreachable=true;throw err;
 }
+const IMGMAP=[['https://cdn.akamai.steamstatic.com/','/steam-cdn/'],['https://shared.akamai.steamstatic.com/','/steam-shared/']];
 function htmlText(h){
   const d=new DOMParser().parseFromString(String(h||'').replace(/<br\s*\/?>/gi,'\n').replace(/<\/li>/gi,'\n'),'text/html');
   return d.body.textContent||'';
@@ -558,12 +587,12 @@ $('go').onclick=async()=>{try{
     d.results.forEach(x=>addResult(x.background_image?thumb(x.background_image):'',`${x.name} (${(x.released||'').slice(0,4)||'n/a'})`,()=>pickRawg(x)));
     st(d.results.length?'Pick a game.':'No results.');
   }
-}catch(e){st(e.message)}};
+}catch(e){st(e.unreachable?'Name search needs a route to Steam, and none worked. Paste the game\'s Steam link instead.':e.message)}};
 $('q').addEventListener('keydown',e=>{if(e.key=='Enter')$('go').click()});
 
 function setArt(url){
   st('Loading artwork…');
-  const tries=[url,'https://wsrv.nl/?url='+encodeURIComponent(url.replace(/^https?:\/\//,''))+'&w=1920&output=jpg'];
+  const mp=IMGMAP.find(([a])=>url.startsWith(a)),tries=[...(mp?[url.replace(mp[0],mp[1])]:[]),url,'https://wsrv.nl/?url='+encodeURIComponent(url.replace(/^https?:\/\//,''))+'&w=1920&output=jpg'];
   (function next(i){
     if(i>=tries.length){st('Artwork could not be loaded. Try another one, or save the image and upload it.');return}
     const im=new Image();im.crossOrigin='anonymous';
@@ -608,10 +637,21 @@ function setReqs(mn,rc){
 }
 const PLAT=n=>n.replace(/^PlayStation (\d)/,'PS$1').replace('Xbox Series S/X','Xbox Series X|S');
 
+let pasteId=null;
+const detailUrl=id=>`${STEAM}/api/appdetails?appids=${id}&cc=us&l=english`;
 async function pickSteam(id){try{
-  st('Loading from Steam…');$('res').innerHTML='';
-  const j=await steamJson(`${STEAM}/api/appdetails?appids=${id}&cc=us&l=english`);
-  const e=j&&j[id];if(!e||!e.success)throw new Error('Steam has no store data for app '+id+'.');
+  st('Loading from Steam… (trying the available routes)');$('res').innerHTML='';$('paste').hidden=true;
+  await applySteam(id,await steamJson(detailUrl(id)),true);
+}catch(e){
+  if(e.unreachable){pasteId=id;$('plink').href=detailUrl(id);$('paste').hidden=false;st(e.message+' Use the paste box below, or see the setup note under the page.')}
+  else st(e.message);
+}}
+$('papply').onclick=async()=>{try{
+  const j=JSON.parse($('pdata').value.trim());
+  await applySteam(pasteId,j,false);$('paste').hidden=true;$('pdata').value='';
+}catch(e){st('That text is not valid Steam data. Copy everything on the page, from the first { to the last }.')}};
+async function applySteam(id,j,withReviews){try{
+  const e=(j&&j[id])||Object.values(j||{})[0];if(!e||!e.success)throw new Error('Steam has no store data for app '+id+'.');
   const d=e.data;
   $('title').value=d.name;$('type').value=d.type=='dlc'?'DLC':d.type=='demo'?'Demo':'Game';
   $('year').value=(d.release_date&&d.release_date.date)||'';
@@ -628,7 +668,7 @@ async function pickSteam(id){try{
   if(d.metacritic&&d.metacritic.score){$('score').value=d.metacritic.score;$('slab').value='Metacritic'}
   else{
     $('score').value='';$('slab').value='';
-    try{const rv=await steamJson(`${STEAM}/appreviews/${id}?json=1&language=all&purchase_type=all&num_per_page=0`);const q=rv.query_summary;
+    if(withReviews)try{const rv=await steamJson(`${STEAM}/appreviews/${id}?json=1&language=all&purchase_type=all&num_per_page=0`);const q=rv.query_summary;
       if(q&&q.total_reviews>=10){$('score').value=Math.round(100*q.total_positive/q.total_reviews);$('slab').value='Steam reviews'}}catch(x){}
   }
   const rq=Array.isArray(d.pc_requirements)?{}:(d.pc_requirements||{});
@@ -638,7 +678,7 @@ async function pickSteam(id){try{
   const base=`https://cdn.akamai.steamstatic.com/steam/apps/${id}/`;
   renderArt([{full:d.background_raw},...(d.screenshots||[]).map(s=>({full:s.path_full,thumb:s.path_thumbnail})),{full:base+'library_hero.jpg'},{full:d.header_image}]);
   if(!rq.minimum&&!rq.recommended)setTimeout(()=>{$('st').textContent+=' Steam lists no PC requirements for this game, so fill them in below.'},60);
-}catch(e){st(e.message)}}
+}catch(e){st(e.message);throw e}}
 
 async function pickRawg(x){try{
   st('Loading details…');$('res').innerHTML='';
