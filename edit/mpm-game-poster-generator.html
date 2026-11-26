@@ -94,7 +94,7 @@ details textarea{margin-top:8px;min-height:300px;font-family:ui-monospace,Menlo,
 </div>
 <p class="hint" id="steamnote">Paste a Steam store link for new or upcoming games, since name search can miss them. Steam does not list PC requirements for every game, so check them before posting.</p>
 <details><summary>Steam setup for your site</summary>
-<p class="hint">Create a file named <b>_redirects</b> next to this page on Netlify with these three lines, then redeploy. This lets the page read Steam data and artwork from your own site, so it works every time.</p>
+<p class="hint"><b>_redirects</b></p>
 <textarea class="nd" readonly rows="4" spellcheck="false">/steam-proxy/*   https://store.steampowered.com/:splat   200
 /steam-cdn/*     https://cdn.akamai.steamstatic.com/:splat   200
 /steam-shared/*  https://shared.akamai.steamstatic.com/:splat   200</textarea>
@@ -103,7 +103,7 @@ details textarea{margin-top:8px;min-height:300px;font-family:ui-monospace,Menlo,
 </div>
 
 <div class="panel cap">
-<label>Telegram post text (edit freely)<textarea id="cap" class="nd" spellcheck="false"></textarea></label>
+<label>Whatsapp post text (edit freely)<textarea id="cap" class="nd" spellcheck="false"></textarea></label>
 <div class="meta"><span id="capst">Fills in from the fields below until you edit it by hand.</span><span id="cnt"></span></div>
 <div class="row">
 <button class="primary" id="cc" type="button">Copy text</button>
